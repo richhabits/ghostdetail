@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Block admin pages
+Disallow: /admin.html
+Disallow: /ghost-war-room.html
+Disallow: /staff.html
+Disallow: /content.html
+Disallow: /zone.html
+
+# Sitemap
+Sitemap: https://ghostdetail.autos/sitemap.xml

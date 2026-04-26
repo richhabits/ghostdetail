@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GHOST Admin — Ghost Detail Autos</title>
+<meta name="robots" content="noindex,nofollow">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900&family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+
+
+<style>
+
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --charcoal:#0A0905;--vault:#161310;
+  --gold:#C5A059;--gold-b:#D4B06A;--banana:#F9F906;
+  --text:#F0EDE6;--muted:#5A5650;--muted2:#8A8680;--green:#10B981;--red:#EF4444;
+  --ease:cubic-bezier(.25,1,.5,1);
+  --max:960px;--wide:1200px;--pad:clamp(20px,5vw,64px)
+}
+html{scroll-behavior:smooth}
+body{background:var(--charcoal);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;font-size:16px;line-height:1.7;overflow-x:hidden}
+@media(pointer:fine){body{cursor:none}}
+#cur{position:fixed;width:6px;height:6px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cur-ring{position:fixed;width:28px;height:28px;border:1px solid rgba(197,160,89,.22);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+canvas#particles{position:absolute;inset:0;pointer-events:none;z-index:0}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");pointer-events:none;z-index:1;opacity:.03}
+
+/* ── LAYOUT CORE — everything centred ── */
+.centre{max-width:var(--max);margin:0 auto;padding:0 var(--pad);text-align:center}
+.centre-wide{max-width:var(--wide);margin:0 auto;padding:0 var(--pad);text-align:center}
+.centre-left{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+section{overflow:hidden}
+
+@keyframes breathe{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scrollR{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(500%)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(10,9,5,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(197,160,89,.08)}
+.nav-inner{max-width:var(--wide);margin:0 auto;height:100%;padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
+.hex{width:24px;height:24px;background:var(--gold);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);animation:breathe 3s ease-in-out infinite}
+.nav-brand{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;gap:0;list-style:none;align-items:center}
+.nav-links a{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);text-decoration:none;padding:5px 9px;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-pillar{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(197,160,89,.2);color:var(--gold) !important;text-decoration:none;margin-right:4px}
+.nav-cta{background:var(--gold);color:#0A0905 !important;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:7px 16px;text-decoration:none;margin-left:8px;flex-shrink:0}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}.ham span{width:22px;height:1px;background:var(--gold)}
+@media(max-width:880px){.nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:rgba(10,9,5,.98);flex-direction:column;align-items:stretch;border-bottom:1px solid rgba(197,160,89,.08)}.nav-links.open{display:flex}.nav-links a,.nav-pillar{padding:13px var(--pad);font-size:10px;display:block;border-bottom:1px solid rgba(197,160,89,.05);margin:0;border-left:none;border-right:none;border-top:none;border-radius:0}.ham{display:flex}.nav-cta{display:none}}
+
+/* ── HERO — fully centred ── */
+.hero{min-height:100svh;display:flex;align-items:center;justify-content:center;position:relative;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(197,160,89,.06) 0%,transparent 65%),var(--charcoal);text-align:center}
+.hero-lines{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(197,160,89,.02) 80px)}
+.hero-inner{position:relative;z-index:2;max-width:var(--max);margin:0 auto;padding:100px var(--pad) 60px;width:100%}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);margin-bottom:24px;animation:fadeUp .7s var(--ease) .05s both}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(48px,7vw,88px);font-weight:900;line-height:1.0;margin-bottom:22px;animation:fadeUp .7s var(--ease) .1s both;letter-spacing:-.02em}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:15px;color:var(--muted2);max-width:520px;line-height:1.75;margin:0 auto 36px;animation:fadeUp .7s var(--ease) .2s both}
+.hero-pillars{display:flex;gap:10px;justify-content:center;margin-bottom:48px;flex-wrap:wrap;animation:fadeUp .7s var(--ease) .25s both}
+.pillar-badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1px solid rgba(197,160,89,.2);color:var(--muted2);text-decoration:none;transition:all .25s}
+.pillar-badge:hover,.pillar-badge.studio{border-color:rgba(197,160,89,.4);color:var(--gold)}
+.hero-stats{display:flex;justify-content:center;gap:1px;background:rgba(197,160,89,.06);border:1px solid rgba(197,160,89,.06);max-width:520px;margin:0 auto 48px;animation:fadeUp .7s var(--ease) .3s both}
+.hstat{padding:14px 20px;flex:1}
+.hstat-n{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);font-weight:700}
+.hstat-l{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+
+/* ── JADE — centred card ── */
+.jade-wrap{animation:fadeUp .7s var(--ease) .35s both}
+.jade-card{background:rgba(0,0,0,.5);border:1px solid rgba(249,249,6,.15);padding:32px;max-width:560px;margin:0 auto;position:relative;overflow:hidden;text-align:left}
+.jade-card::before{content:'';position:absolute;left:0;top:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(249,249,6,.5),transparent)}
+.jade-scan{position:absolute;left:0;right:0;height:1px;background:rgba(249,249,6,.05);animation:scanline 3s linear infinite;pointer-events:none}
+.jade-header{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.jade-ico{width:30px;height:30px;background:rgba(249,249,6,.08);border:1px solid rgba(249,249,6,.18);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.jade-title{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--banana)}
+.jade-sub-txt{font-size:10px;color:var(--muted);margin-top:2px}
+.jade-progress{display:flex;gap:5px;margin-bottom:16px}
+.jade-prog-dot{width:6px;height:6px;border-radius:50%;background:rgba(249,249,6,.12);transition:background .3s}
+.jade-prog-dot.done{background:var(--banana)}
+.jade-step{display:none}.jade-step.active{display:block}
+.jade-q{font-family:'DM Mono',monospace;font-size:11px;color:var(--text);margin-bottom:12px;letter-spacing:.04em}
+.jade-options{display:flex;flex-direction:column;gap:6px}
+.jade-opt{background:transparent;border:1px solid rgba(249,249,6,.1);color:var(--muted2);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.05em;padding:10px 14px;cursor:pointer;text-align:left;transition:all .2s;width:100%}
+.jade-opt:hover{border-color:rgba(249,249,6,.4);color:var(--text);background:rgba(249,249,6,.04)}
+.jade-or{display:flex;align-items:center;gap:10px;margin:12px 0;font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.jade-or::before,.jade-or::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.06)}
+.jade-free{display:flex;gap:8px}
+.jade-free input{flex:1;background:rgba(249,249,6,.03);border:1px solid rgba(249,249,6,.1);color:var(--text);font-family:'DM Mono',monospace;font-size:11px;padding:10px 12px;outline:none}
+.jade-free input::placeholder{color:var(--muted)}
+.jade-free input:focus{border-color:rgba(249,249,6,.35)}
+.jade-free button{background:rgba(249,249,6,.1);border:1px solid rgba(249,249,6,.2);color:var(--banana);font-family:'DM Mono',monospace;font-size:10px;padding:0 16px;cursor:pointer;transition:background .2s}
+.jade-free button:hover{background:rgba(249,249,6,.18)}
+.jade-loading{display:none;align-items:center;gap:10px;padding:14px 0}
+.jade-dots span{width:4px;height:4px;background:var(--banana);border-radius:50%;display:inline-block;animation:blink 1.2s infinite}
+.jade-dots span:nth-child(2){animation-delay:.2s}.jade-dots span:nth-child(3){animation-delay:.4s}
+.jade-result{display:none;border-top:1px solid rgba(249,249,6,.1);padding-top:16px;margin-top:16px}
+.jade-verdict{font-size:13px;color:var(--text);line-height:1.75;margin-bottom:14px}
+.jade-ctas{display:flex;gap:8px;flex-wrap:wrap}
+.jade-book{background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:10px 20px;text-decoration:none}
+.jade-reset{background:none;border:none;color:var(--muted);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;cursor:pointer;padding:10px 8px}
+
+/* ── SECTIONS — all centred ── */
+.section{padding:80px 0}
+.section-vault{padding:80px 0;background:var(--vault)}
+.section-dark{padding:80px 0;background:linear-gradient(135deg,rgba(197,160,89,.03),transparent),var(--charcoal);border-top:1px solid rgba(197,160,89,.06);border-bottom:1px solid rgba(197,160,89,.06)}
+.eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);margin-bottom:10px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:900;line-height:1.08;margin-bottom:12px;letter-spacing:-.01em}
+.sec-title em{font-style:italic;color:var(--gold)}
+.sec-sub{font-size:14px;color:var(--muted2);max-width:480px;margin:0 auto 40px;line-height:1.75}
+
+/* ── PLATE LOOKUP — centred ── */
+.plate-ui{display:flex;flex-direction:column;align-items:center;gap:12px}
+.uk-plate{display:flex;align-items:stretch;background:#F9F906;border-radius:4px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.3)}
+.plate-gb{background:#003399;padding:8px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:36px}
+.plate-stars{font-size:3px;letter-spacing:1px;color:#FFCC00;display:block}
+.plate-gb-txt{font-size:9px;font-weight:700;color:#fff;letter-spacing:.08em;font-family:sans-serif}
+.plate-input-wrap{background:#F9F906;padding:4px 14px;display:flex;align-items:center}
+.plate-input-wrap input{background:transparent;border:none;outline:none;font-family:'DM Mono',monospace;font-size:clamp(22px,4vw,32px);font-weight:500;letter-spacing:.16em;color:#1A1410;width:clamp(140px,30vw,220px);text-transform:uppercase;text-align:center}
+.plate-btn{background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border:none;padding:12px 32px;cursor:pointer;transition:opacity .2s}
+.plate-btn:hover{opacity:.85}
+.plate-err{font-family:'DM Mono',monospace;font-size:11px;color:var(--red);display:none}
+.plate-err.show{display:block}
+.plate-result{display:none;background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.12);padding:28px;max-width:560px;margin:0 auto;text-align:left}
+.plate-result.show{display:block}
+/* Identity bar */
+.pr-identity{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(197,160,89,.08);flex-wrap:wrap;gap:8px}
+.pr-make{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--text);letter-spacing:-.01em}
+.pr-year{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);margin-top:3px}
+.pr-colour-swatch{width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,.1);flex-shrink:0}
+/* Status pills */
+.pr-status-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.pr-pill{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:2px;display:inline-flex;align-items:center;gap:5px;font-weight:500}
+.pr-pill.ok{background:rgba(16,185,129,.12);color:#10B981;border:1px solid rgba(16,185,129,.2)}
+.pr-pill.warn{background:rgba(245,158,11,.12);color:#F59E0B;border:1px solid rgba(245,158,11,.2)}
+.pr-pill.bad{background:rgba(239,68,68,.12);color:#EF4444;border:1px solid rgba(239,68,68,.2)}
+.pr-pill.muted{background:rgba(90,86,80,.12);color:var(--muted2);border:1px solid rgba(90,86,80,.2)}
+/* Data grid */
+.pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(197,160,89,.05);border:1px solid rgba(197,160,89,.07);margin-bottom:14px}
+.pr-cell{background:var(--charcoal);padding:12px 10px;text-align:center}
+.pr-label{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.pr-val{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--text)}
+/* Recommendations */
+.pr-recs{margin-bottom:16px}
+.pr-rec{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.pr-rec::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:1px}
+.pr-source{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);margin-bottom:14px;text-align:center}
+.pr-ctas{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.pr-cta{display:inline-block;background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:11px 24px;text-decoration:none}
+.pr-cta-2{display:inline-block;border:1px solid rgba(197,160,89,.22);color:var(--muted2);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:11px 20px;text-decoration:none;transition:all .2s}
+.pr-cta-2:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── DUAL PILLAR SPLIT — centred cards ── */
+.pillar-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(197,160,89,.04);max-width:var(--wide);margin:0 auto}
+.pillar-card{background:var(--charcoal);padding:clamp(28px,4vw,56px);text-align:center;position:relative;overflow:hidden;transition:background .3s;cursor:pointer;text-decoration:none;display:block}
+.pillar-card:hover{background:#0E0D0A}
+.pillar-card::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:2px;transition:width .4s var(--ease)}
+.pillar-card.studio::after{background:var(--gold)}
+.pillar-card.concierge::after{background:var(--green)}
+.pillar-card:hover::after{width:100%}
+.pc-num{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;color:var(--muted);margin-bottom:20px}
+.pc-icon{font-size:32px;margin-bottom:16px;display:block}
+.pc-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,40px);font-weight:900;line-height:1.05;margin-bottom:12px}
+.pc-title em{font-style:italic}
+.pillar-card.studio .pc-title em{color:var(--gold)}
+.pillar-card.concierge .pc-title em{color:var(--green)}
+.pc-sub{font-size:13px;color:var(--muted2);line-height:1.7;margin-bottom:24px;max-width:340px;margin-left:auto;margin-right:auto}
+.pc-list{list-style:none;margin-bottom:28px;text-align:left;max-width:280px;margin-left:auto;margin-right:auto}
+.pc-list li{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--muted2);padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:8px}
+.pc-list li::before{content:'—';opacity:.4;flex-shrink:0}
+.pillar-card.studio .pc-list li::before{color:var(--gold)}
+.pillar-card.concierge .pc-list li::before{color:var(--green)}
+.pc-btn{display:inline-block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:10px 22px;border:1px solid;transition:all .2s;margin-top:8px}
+.pillar-card.studio .pc-btn{border-color:rgba(197,160,89,.3);color:var(--gold)}
+.pillar-card.studio:hover .pc-btn{background:var(--gold);color:#0A0905}
+.pillar-card.concierge .pc-btn{border-color:rgba(16,185,129,.3);color:var(--green)}
+.pillar-card.concierge:hover .pc-btn{background:var(--green);color:#0A0905}
+@media(max-width:640px){.pillar-grid{grid-template-columns:1fr}}
+
+/* ── REVIEWS ── */
+.rev-track-wrap{overflow:hidden;position:relative;margin-top:40px}
+.rev-track-wrap::before,.rev-track-wrap::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2}
+.rev-track-wrap::before{left:0;background:linear-gradient(to right,var(--charcoal),transparent)}
+.rev-track-wrap::after{right:0;background:linear-gradient(to left,var(--charcoal),transparent)}
+.rev-track{display:flex;gap:16px;animation:scrollR 38s linear infinite;width:max-content}
+.rev-card{background:rgba(197,160,89,.03);border:1px solid rgba(197,160,89,.08);padding:24px 28px;width:320px;flex-shrink:0;text-align:center}
+.rev-stars{color:var(--gold);font-size:10px;margin-bottom:12px;letter-spacing:3px}
+.rev-text{font-size:13px;color:var(--muted2);line-height:1.7;margin-bottom:16px;font-style:italic}
+.rev-author{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:var(--text);margin-bottom:3px}
+.rev-car{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)}
+
+/* ── GHOST GARAGE PROMO — centred ── */
+.garage-badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15);padding:4px 12px;display:inline-block;margin-bottom:16px}
+.garage-features{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 32px;margin:28px 0}
+.gf{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--muted2)}
+.gf::before{content:'✓';color:var(--green);font-size:11px}
+.garage-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-gold{display:inline-block;background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:12px 26px;text-decoration:none;transition:opacity .2s}
+.btn-gold:hover{opacity:.85}
+.btn-outline{display:inline-block;border:1px solid rgba(197,160,89,.22);color:var(--muted2);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:12px 26px;text-decoration:none;transition:all .2s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── FOOTER ── */
+footer{background:var(--vault);border-top:1px solid rgba(197,160,89,.06);padding:56px var(--pad) 32px}
+.foot-inner{max-width:var(--wide);margin:0 auto}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.foot-logo{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.fhex{width:20px;height:20px;background:var(--gold);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);opacity:.7}
+.fbrand{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.12em;color:var(--gold);text-transform:uppercase}
+.ftag{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;max-width:240px}
+.foot-wa{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:10px;color:#25D366;text-decoration:none;padding:8px 12px;border:1px solid rgba(37,211,102,.15);width:fit-content;transition:all .2s}
+.foot-wa:hover{background:rgba(37,211,102,.06)}
+.foot-col h4{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.foot-col ul{list-style:none}
+.foot-col li{margin-bottom:8px}
+.foot-col a{font-size:12px;color:var(--muted2);text-decoration:none;transition:color .2s}
+.foot-col a:hover{color:var(--text)}
+.foot-bottom{border-top:1px solid rgba(197,160,89,.06);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.foot-legal{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)}
+.foot-legal a{color:inherit;text-decoration:none}
+.foot-phone{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);text-decoration:none}
+.foot-phone:hover{color:var(--gold)}
+@media(max-width:768px){.foot-grid{grid-template-columns:1fr 1fr;gap:32px}}
+@media(max-width:480px){.foot-grid{grid-template-columns:1fr}.foot-bottom{flex-direction:column;text-align:center}}
+
+
+</style></head>
+<body>
+<div id="cur"></div>
+<div class="toast" id="toast"></div>
+
+<!-- AUTH GATE -->
+<div id="auth-gate">
+  <div class="auth-box">
+    <div class="auth-hex"></div>
+    <div class="a-title">GHOST Admin</div>
+    <div class="a-sub">Ghost Detail Autos · Authorised Only</div>
+
+    <div id="v-pin">
+      <input class="a-inp" type="password" id="pin-inp" placeholder="PIN" maxlength="20" onkeydown="if(event.key==='Enter')doAuth()">
+      <button class="a-btn a-btn-gold" onclick="doAuth()" id="auth-btn">Authenticate →</button>
+      <div class="a-err" id="auth-err"></div>
+      <div class="a-hint">First visit: enter any PIN to set it.<br><span class="a-link" onclick="showV('recovery')">Forgot PIN? Use recovery code →</span></div>
+    </div>
+
+    <div id="v-recovery" style="display:none">
+      <div style="font-size:9px;color:var(--amber);margin-bottom:14px;line-height:1.8">Enter your recovery code to clear the PIN.</div>
+      <input class="a-inp-sm" type="text" id="rec-inp" placeholder="GHOST-ROMEO-2026" onkeydown="if(event.key==='Enter')doRecovery()">
+      <button class="a-btn a-btn-amber" onclick="doRecovery()">Use Recovery Code →</button>
+      <div class="a-err" id="rec-err"></div>
+      <div class="a-hint"><span class="a-link" onclick="showV('pin')">← Back to PIN</span></div>
+    </div>
+
+    <div id="v-newpin" style="display:none">
+      <div style="font-size:9px;color:var(--green);margin-bottom:14px;line-height:1.8">✓ Recovery successful. Set your new PIN.</div>
+      <input class="a-inp" type="password" id="newpin-inp" placeholder="New PIN" maxlength="20" onkeydown="if(event.key==='Enter')doSetPin()">
+      <button class="a-btn a-btn-green" onclick="doSetPin()">Set New PIN →</button>
+      <div class="a-err" id="newpin-err"></div>
+    </div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <div class="topbar">
+    <div class="tb-hex"></div>
+    <div class="tb-brand">GHOST Admin — Ghost Detail Autos</div>
+    <div class="tb-right">
+      <div class="tb-live">All Systems Operational</div>
+      <div id="tb-clock"></div>
+      <a href="/" class="tb-site">← Site</a>
+      <button class="tb-signout" onclick="doSignout()">Sign out</button>
+    </div>
+  </div>
+
+  <div class="body-wrap">
+    <div class="side">
+      <div class="side-sect">
+        <div class="side-lbl">Operations</div>
+        <div class="nav-item on" data-pane="dashboard" onclick="nav('dashboard')"><span class="nav-ico">📊</span>Dashboard</div>
+        <div class="nav-item" data-pane="bookings" onclick="nav('bookings')"><span class="nav-ico">📅</span>Bookings<span class="nav-badge" id="nb-bookings">0</span></div>
+        <div class="nav-item" data-pane="crm" onclick="nav('crm')"><span class="nav-ico">👥</span>Customers</div>
+        <div class="nav-item" data-pane="enquiries" onclick="nav('enquiries')"><span class="nav-ico">💬</span>Enquiries</div>
+      </div>
+      <div class="side-sect">
+        <div class="side-lbl">Revenue</div>
+        <div class="nav-item" data-pane="invoices" onclick="nav('invoices')"><span class="nav-ico">🧾</span>Invoices</div>
+        <div class="nav-item" data-pane="stock" onclick="nav('stock')"><span class="nav-ico">📦</span>Stock</div>
+        <div class="nav-item" data-pane="referrals" onclick="nav('referrals')"><span class="nav-ico">🎁</span>Referrals</div>
+      </div>
+      <div class="side-sect">
+        <div class="side-lbl">Intelligence</div>
+        <div class="nav-item" data-pane="ghost-ai" onclick="nav('ghost-ai')"><span class="nav-ico">🤖</span>GHOST AI</div>
+        <div class="nav-item" data-pane="analytics" onclick="nav('analytics')"><span class="nav-ico">📈</span>Analytics</div>
+        <div class="nav-item" data-pane="opportunities" onclick="nav('opportunities')"><span class="nav-ico">💰</span>Opportunities</div>
+        <div class="nav-item" data-pane="reviews" onclick="nav('reviews')"><span class="nav-ico">⭐</span>Reviews</div>
+        <div class="nav-item" data-pane="leads" onclick="nav('leads')"><span class="nav-ico">🎯</span>Leads Pipeline</div>
+        <div class="nav-item" data-pane="seo" onclick="nav('seo')"><span class="nav-ico">🔍</span>SEO</div>
+      </div>
+      <div class="side-sect">
+        <div class="side-lbl">System</div>
+        <div class="nav-item" data-pane="api-keys" onclick="nav('api-keys')"><span class="nav-ico">🔑</span>API Keys</div>
+        <div class="nav-item" data-pane="briefing" onclick="nav('briefing')"><span class="nav-ico">☀️</span>Daily Briefing</div>
+        <div class="nav-item" data-pane="memory" onclick="nav('memory')"><span class="nav-ico">🧠</span>GHOST Memory</div>
+        <div class="nav-item" data-pane="security" onclick="nav('security')"><span class="nav-ico">🔒</span>Security Log</div>
+        <div class="nav-item" data-pane="settings" onclick="nav('settings')"><span class="nav-ico">⚙️</span>Settings</div>
+        <div class="nav-item" style="color:var(--banana);border-left:2px solid var(--banana)" onclick="location='/ghost-war-room.html'"><span class="nav-ico">🕯️</span>GHOST War Room</div>
+      </div>
+    </div>
+
+    <div class="main">
+
+      <!-- DASHBOARD -->
+      <div class="pane on" id="pane-dashboard">
+        <div class="kpi-strip">
+          <div class="kpi"><div class="kpi-lbl">New Bookings</div><div class="kpi-val" id="k-bookings">—</div><div class="kpi-sub">this month</div></div>
+          <div class="kpi"><div class="kpi-lbl">Revenue</div><div class="kpi-val" id="k-revenue">—</div><div class="kpi-sub">total confirmed</div></div>
+          <div class="kpi"><div class="kpi-lbl">Customers</div><div class="kpi-val" id="k-customers">—</div><div class="kpi-sub">registered</div></div>
+          <div class="kpi"><div class="kpi-lbl">Referrals</div><div class="kpi-val" id="k-referrals">—</div><div class="kpi-sub">active</div></div>
+          <div class="kpi"><div class="kpi-lbl">Stock Items</div><div class="kpi-val" id="k-stock">—</div><div class="kpi-sub">tracked</div></div>
+        </div>
+        <div class="sec-hdr"><div class="sec-title">Recent Bookings</div><button class="btn btn-ghost" onclick="nav('bookings')">View all →</button></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Time</th><th>Customer</th><th>Service</th><th>Vehicle</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="dash-bookings"></tbody>
+        </table></div>
+        <div class="sec-hdr" style="margin-top:24px"><div class="sec-title">AI Activity</div></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Time</th><th>Agent</th><th>Action</th><th>Status</th></tr></thead>
+          <tbody id="dash-ai-log"></tbody>
+        </table></div>
+      </div>
+
+      <!-- BOOKINGS -->
+      <div class="pane" id="pane-bookings">
+        <div class="sec-hdr">
+          <div class="sec-title">All Bookings</div>
+          <input type="text" class="search-inp" placeholder="Search name, reg, service..." oninput="searchBookings(this.value)">
+        </div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Date</th><th>Customer</th><th>Phone</th><th>Service</th><th>Vehicle</th><th>Total</th><th>Deposit</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="bookings-tbl"></tbody>
+        </table></div>
+      </div>
+
+      <!-- CRM -->
+      <div class="pane" id="pane-crm">
+        <div class="sec-hdr">
+          <div class="sec-title">Customer Database</div>
+          <input type="text" class="search-inp" placeholder="Search customers..." oninput="searchCRM(this.value)">
+        </div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Vehicle</th><th>Bookings</th><th>Total Spend</th><th>Actions</th></tr></thead>
+          <tbody id="crm-tbl"></tbody>
+        </table></div>
+      </div>
+
+      <!-- ENQUIRIES -->
+      <div class="pane" id="pane-enquiries">
+        <div class="sec-hdr"><div class="sec-title">Enquiries</div></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Date</th><th>Name</th><th>Email</th><th>Phone</th><th>Message</th><th>Source</th><th>Actions</th></tr></thead>
+          <tbody id="enquiries-tbl"></tbody>
+        </table></div>
+      </div>
+
+      <!-- INVOICES -->
+      <div class="pane" id="pane-invoices">
+        <div class="sec-hdr">
+          <div class="sec-title">Invoices</div>
+          <button class="btn btn-gold btn-lg" onclick="showNewInvoice()">+ New Invoice</button>
+        </div>
+        <div id="invoice-builder" style="display:none;margin-bottom:24px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:800px">
+            <div>
+              <div class="fi"><label class="fl">Customer Name</label><input class="finp" id="inv-name" placeholder="Romeo Cruz"></div>
+              <div class="fi"><label class="fl">Email</label><input class="finp" id="inv-email" type="email" placeholder="client@email.com"></div>
+              <div class="fi"><label class="fl">Vehicle / Reg</label><input class="finp" id="inv-vehicle" placeholder="BX19 MBT — BMW 3 Series"></div>
+              <div class="fi"><label class="fl">Service</label><input class="finp" id="inv-service" placeholder="Depth Refinement"></div>
+              <div class="fi"><label class="fl">Amount (£)</label><input class="finp" id="inv-amount" type="number" placeholder="449"></div>
+              <div class="fi"><label class="fl">Notes</label><textarea class="finp" id="inv-notes" placeholder="Any additional notes..."></textarea></div>
+              <button class="btn btn-gold btn-lg" onclick="generateInvoice()" style="margin-right:8px">Generate Invoice</button>
+              <button class="btn btn-ghost" onclick="document.getElementById('invoice-builder').style.display='none'">Cancel</button>
+            </div>
+            <div class="invoice-preview" id="inv-preview" style="display:none">
+              <div class="inv-header">
+                <div><div class="inv-logo-mark"></div><div class="inv-brand">Ghost Detail Autos</div><div style="font-size:8px;color:var(--muted);margin-top:4px">Sandown Road, Watford WD18</div></div>
+                <div class="inv-number"><div style="color:var(--gold);font-size:11px;font-weight:500" id="inv-num">GDL-001</div><div>Date: <span id="inv-date"></span></div><div style="margin-top:4px">Due: <span id="inv-due"></span></div></div>
+              </div>
+              <div style="margin-bottom:20px"><div style="font-size:8px;color:var(--muted);margin-bottom:4px">BILL TO</div><div id="inv-bill-name" style="font-size:11px"></div><div id="inv-bill-email" style="font-size:9px;color:var(--muted)"></div></div>
+              <div id="inv-lines"></div>
+              <div class="inv-total"><span>Total</span><span id="inv-total-val"></span></div>
+              <div style="margin-top:20px;font-size:8px;color:var(--muted);line-height:1.8">Payment: Bank transfer or card link provided separately.<br>Deposit (30%): £<span id="inv-deposit-val"></span> required to confirm booking.</div>
+              <div style="margin-top:16px;display:flex;gap:8px">
+                <button class="btn btn-wa btn-lg" onclick="sendInvoiceWA()">Send via WhatsApp</button>
+                <button class="btn btn-ghost" onclick="window.print()">Print / PDF</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Invoice #</th><th>Customer</th><th>Service</th><th>Amount</th><th>Deposit</th><th>Status</th><th>Date</th></tr></thead>
+          <tbody id="invoices-tbl"></tbody>
+        </table></div>
+      </div>
+
+      <!-- STOCK -->
+      <div class="pane" id="pane-stock">
+        <div class="sec-hdr"><div class="sec-title">Stock & Products</div></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Product</th><th>SKU</th><th>Category</th><th>Qty</th><th>Min Level</th><th>Unit Cost</th><th>Status</th></tr></thead>
+          <tbody id="stock-tbl"></tbody>
+        </table></div>
+      </div>
+
+      <!-- REFERRALS -->
+      <div class="pane" id="pane-referrals">
+        <div class="sec-hdr"><div class="sec-title">Referral Programme</div></div>
+        <div class="kpi-strip" style="grid-template-columns:repeat(3,1fr);max-width:600px">
+          <div class="kpi"><div class="kpi-lbl">Total Referrals</div><div class="kpi-val" id="ref-total">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Converted</div><div class="kpi-val" id="ref-conv">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Credits Issued</div><div class="kpi-val" id="ref-credits">—</div></div>
+        </div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Code</th><th>Referred Email</th><th>Status</th><th>Discount Given</th><th>Credit Earned</th><th>Date</th></tr></thead>
+          <tbody id="referrals-tbl"></tbody>
+        </table></div>
+      </div>
+
+      <!-- GHOST AI -->
+      <div class="pane" id="pane-ghost-ai">
+        <div class="sec-hdr"><div class="sec-title">GHOST Intelligence</div></div>
+        <div class="chat-wrap">
+          <div class="chat-msgs" id="chat-msgs">
+            <div class="msg msg-ghost"><div class="msg-role">GHOST</div>Online. Full DB access active. Ask me anything about the business, request drafts, or ask for analysis.</div>
+          </div>
+          <div class="chat-input-row">
+            <input type="text" class="chat-inp" id="chat-inp" placeholder="Ask GHOST anything..." onkeydown="if(event.key==='Enter')ghostSend()">
+            <button class="btn btn-gold btn-lg" onclick="ghostSend()">Send →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANALYTICS -->
+      <div class="pane" id="pane-analytics">
+        <div class="sec-hdr"><div class="sec-title">Analytics</div></div>
+        <div class="kpi-strip">
+          <div class="kpi"><div class="kpi-lbl">Total Bookings</div><div class="kpi-val" id="an-total">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Upsell Rate</div><div class="kpi-val" id="an-upsell">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Avg Order</div><div class="kpi-val" id="an-avg">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Abandoned</div><div class="kpi-val" id="an-abandoned">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Referral Conv.</div><div class="kpi-val" id="an-refconv">—</div></div>
+        </div>
+        <div class="sec-hdr" style="margin-top:8px"><div class="sec-title">Abandoned Bookings — Recovery Queue</div><button class="btn btn-gold" onclick="recoverAbandoned()">Send Recovery Emails</button></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Email</th><th>Service</th><th>Vehicle Reg</th><th>Step Reached</th><th>Date</th><th>Recovered</th><th>Actions</th></tr></thead>
+          <tbody id="abandoned-tbl"></tbody>
+        </table></div>
+      </div>
+
+      <!-- SEO -->
+      <div class="pane" id="pane-seo">
+        <div class="sec-hdr"><div class="sec-title">SEO & Location Pages</div></div>
+        <div class="kpi-strip" style="grid-template-columns:repeat(4,1fr);max-width:700px">
+          <div class="kpi"><div class="kpi-lbl">Total Pages</div><div class="kpi-val">50</div></div>
+          <div class="kpi"><div class="kpi-lbl">Location Pages</div><div class="kpi-val">20</div></div>
+          <div class="kpi"><div class="kpi-lbl">Blog Articles</div><div class="kpi-val">5</div></div>
+          <div class="kpi"><div class="kpi-lbl">Sitemap URLs</div><div class="kpi-val">40</div></div>
+        </div>
+        <div class="sec-hdr" style="margin-top:8px"><div class="sec-title">Location Coverage</div></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Town</th><th>County</th><th>Distance</th><th>Zone</th><th>Page</th></tr></thead>
+          <tbody id="seo-tbl"></tbody>
+        </table></div>
+      </div>
+
+      <!-- API KEYS -->
+      <div class="pane" id="pane-api-keys">
+        <div class="sec-hdr">
+          <div class="sec-title">🔑 API Keys & Integrations</div>
+          <div style="font-size:8px;color:var(--muted)">All keys stored securely and encrypted.</div>
+        </div>
+        <!-- Stripe webhook setup guide -->
+        <!-- R2 Photo Storage -->
+        <div style="background:rgba(16,185,129,.03);border:1px solid rgba(16,185,129,.1);padding:16px;margin-bottom:12px">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;font-weight:500;color:var(--green);letter-spacing:.1em;margin-bottom:8px">📸 R2 PHOTO STORAGE — Cloudflare R2 bucket: ghost-detail-media ✅ Created</div>
+          <div style="font-size:11px;color:var(--muted2);line-height:1.7">To enable photo uploads: Go to <strong style="color:var(--text)">Cloudflare Dashboard → R2 → ghost-detail-media → Manage R2 API tokens</strong> → Create token with "Object Read & Write" → Add <strong style="color:var(--text)">R2_ACCESS_KEY_ID</strong> and <strong style="color:var(--text)">R2_SECRET_ACCESS_KEY</strong> below. Also enable Public Access on the bucket and CNAME <code>media.ghostdetail.autos</code> to the public URL.</div>
+        </div>
+        <!-- Google Calendar -->
+        <div style="background:rgba(197,160,89,.03);border:1px solid rgba(197,160,89,.1);padding:16px;margin-bottom:12px">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;font-weight:500;color:var(--gold);letter-spacing:.1em;margin-bottom:8px">📅 GOOGLE CALENDAR — Auto-sync bookings</div>
+          <div style="font-size:11px;color:var(--muted2);line-height:1.7">Get a token: <a href="https://developers.google.com/oauthplayground" target="_blank" style="color:var(--gold)">OAuth Playground</a> → Select Calendar API v3 → Authorize → Exchange for token → Add as <strong style="color:var(--text)">GOOGLE_CALENDAR_TOKEN</strong>. Bookings auto-create in your calendar on confirmation.</div>
+        </div>
+        <!-- WhatsApp -->
+        <div style="background:rgba(37,211,102,.03);border:1px solid rgba(37,211,102,.1);padding:16px;margin-bottom:20px">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;font-weight:500;color:#25D366;letter-spacing:.1em;margin-bottom:8px">💬 WHATSAPP BUSINESS API — ghost-whatsapp function ✅ Deployed</div>
+          <div style="font-size:11px;color:var(--muted2);line-height:1.7">Add <strong style="color:var(--text)">WHATSAPP_TOKEN</strong> (Meta Business → WhatsApp → API Token) and <strong style="color:var(--text)">WHATSAPP_PHONE_ID</strong> (your business phone number ID). Enables: booking confirmations, deposit chases, review requests, MOT reminders, ceramic anniversaries. All fire automatically from followup_queue.</div>
+        </div>
+                <div style="background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.12);padding:16px;margin-bottom:20px">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;font-weight:500;color:var(--gold);letter-spacing:.1em;margin-bottom:8px">⚡ STRIPE WEBHOOK — ADD THIS URL</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text);background:rgba(0,0,0,.3);padding:8px 12px;margin-bottom:8px;user-select:all;cursor:copy" onclick="navigator.clipboard.writeText(this.textContent).then(()=>{this.style.color='var(--green)';setTimeout(()=>this.style.color='var(--text)',1500)})">https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/stripe-webhook</div>
+          <div style="font-size:11px;color:var(--muted2);line-height:1.7">Go to <strong style="color:var(--text)">Stripe Dashboard → Developers → Webhooks → Add endpoint</strong>. Paste the URL above. Select these events: <code style="color:var(--gold)">checkout.session.completed, customer.subscription.created, customer.subscription.deleted, payment_intent.payment_failed</code>. Then paste the webhook secret as <strong style="color:var(--text)">STRIPE_WEBHOOK_SECRET</strong> below.</div>
+        </div>
+        <div id="api-keys-list"></div>
+      </div>
+
+      <!-- BRIEFING -->
+      <div class="pane" id="pane-briefing">
+        <div class="sec-hdr">
+          <div class="sec-title">☀️ Daily Briefing</div>
+          <button class="btn btn-gold btn-lg" onclick="generateBriefing()">Generate Now</button>
+        </div>
+        <div id="briefing-text" style="background:var(--vault);border:1px solid rgba(197,160,89,.1);padding:20px;font-size:11px;line-height:2;min-height:80px;color:var(--text);margin-bottom:20px">
+          <span style="color:var(--muted)">Click Generate Now for your AI morning briefing...</span>
+        </div>
+        <div class="sec-hdr"><div class="sec-title">Briefing History</div></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Date</th><th>Summary</th><th>Bookings</th><th>Revenue</th></tr></thead>
+          <tbody id="briefing-hist"></tbody>
+        </table></div>
+      </div>
+
+      <!-- MEMORY -->
+      <div class="pane" id="pane-memory">
+        <div class="sec-hdr">
+          <div class="sec-title">🧠 GHOST Memory</div>
+          <div style="font-size:8px;color:var(--muted)">GHOST learns from every interaction. Add facts here to train it.</div>
+        </div>
+        <div style="background:var(--vault);border:1px solid rgba(197,160,89,.1);padding:16px;margin-bottom:16px">
+          <div style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">Add Memory</div>
+          <div style="display:grid;grid-template-columns:1fr 2fr auto;gap:10px;align-items:end">
+            <div><label class="fl">Subject</label><input class="finp" id="mem-subj" placeholder="e.g. peak_hours"></div>
+            <div><label class="fl">Content</label><input class="finp" id="mem-cont" placeholder="e.g. Saturday 9am-1pm is always busiest" onkeydown="if(event.key==='Enter')addMemory()"></div>
+            <button class="btn btn-gold" style="height:36px" onclick="addMemory()">+ Save</button>
+          </div>
+        </div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Type</th><th>Subject</th><th>Content</th><th>Used</th><th>Source</th><th>Action</th></tr></thead>
+          <tbody id="memory-tbl"></tbody>
+        </table></div>
+        <div class="sec-hdr" style="margin-top:20px"><div class="sec-title">Learned Patterns</div></div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Pattern</th><th>Description</th><th>Count</th><th>Insight</th></tr></thead>
+          <tbody id="patterns-tbl"></tbody>
+        </table></div>
+      </div>
+
+      <!-- SECURITY -->
+      <div class="pane" id="pane-security">
+        <div class="sec-hdr">
+          <div class="sec-title">🔒 Security Log</div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-ghost" onclick="loadSecurity()">Refresh</button>
+            <button class="btn btn-red" onclick="resetPin()">Reset PIN</button>
+          </div>
+        </div>
+        <div class="kpi-strip" style="grid-template-columns:repeat(4,1fr);max-width:700px">
+          <div class="kpi"><div class="kpi-lbl">Logins</div><div class="kpi-val" id="sec-logins">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Failed Auths</div><div class="kpi-val" id="sec-fails" style="color:var(--amber)">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Rate Limited</div><div class="kpi-val" id="sec-rate">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Critical</div><div class="kpi-val" id="sec-crit" style="color:var(--red)">—</div></div>
+        </div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Time</th><th>Event</th><th>IP Address</th><th>Severity</th><th>Details</th></tr></thead>
+          <tbody id="security-tbl"></tbody>
+        </table></div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="pane" id="pane-settings">
+        <div class="sec-hdr"><div class="sec-title">Business Settings</div></div>
+        <div style="display:grid;gap:8px;max-width:560px">
+          <div class="api-card"><div class="api-info"><div class="api-name">Business</div><div class="api-desc">Ghost Detail Autos — Romeo Cruz</div></div></div>
+          <div class="api-card"><div class="api-info"><div class="api-name">Studio</div><div class="api-desc">Sandown Road, Watford WD18 · By appointment only</div></div></div>
+          <div class="api-card"><div class="api-info"><div class="api-name">Domain</div><div class="api-desc">ghostdetail.autos · Live</div></div></div>
+          <div class="api-card"><div class="api-info"><div class="api-name">Database</div><div class="api-desc">Database · London</div></div></div>
+          <div class="api-card"><div class="api-info"><div class="api-name">Google Analytics</div><div class="api-desc">G-B7WMNSNPT4 · Active on all pages</div></div></div>
+          <div class="api-card"><div class="api-info"><div class="api-name">Stripe</div><div class="api-desc">6 products · Ghost Pass from £99/mo · Annual cards from £950</div></div></div>
+          <div class="api-card"><div class="api-info"><div class="api-name">Email</div><div class="api-desc">7 addresses @ghostdetail.autos → ghostdetaillondon@gmail.com</div></div></div>
+          <div class="api-card"><div class="api-info"><div class="api-name">AI Stack</div><div class="api-desc">AI · Active</div></div></div>
+          <div style="margin-top:8px"><button class="btn btn-red btn-lg" onclick="resetPin()">Change Admin PIN</button></div>
+        </div>
+      </div>
+
+      <!-- OPPORTUNITIES -->
+      <div class="pane" id="pane-opportunities">
+        <div class="sec-hdr">
+          <div class="sec-title">💰 Revenue Opportunities</div>
+          <button class="btn btn-gold btn-lg" onclick="loadOpportunities()">Analyse Now →</button>
+        </div>
+        <div id="opp-ghost-says" style="background:rgba(197,160,89,.06);border:1px solid rgba(197,160,89,.2);padding:16px;margin-bottom:16px;display:none">
+          <div style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">GHOST SAYS</div>
+          <div id="opp-top" style="font-size:13px;line-height:1.7"></div>
+        </div>
+        <div id="opp-cards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div>
+            <div class="sec-title" style="margin-bottom:10px">Waitlist Notification</div>
+            <div style="background:var(--vault);border:1px solid rgba(197,160,89,.1);padding:14px">
+              <div class="fi"><label class="fl">Date Available</label><input class="finp" id="wl-date" type="date"></div>
+              <div class="fi"><label class="fl">Service Type</label><input class="finp" id="wl-service" placeholder="Depth Refinement"></div>
+              <button class="btn btn-gold" onclick="notifyWaitlist()">Notify Waitlist</button>
+            </div>
+          </div>
+          <div>
+            <div class="sec-title" style="margin-bottom:10px">Review Request Generator</div>
+            <div style="background:var(--vault);border:1px solid rgba(197,160,89,.1);padding:14px">
+              <div class="fi"><label class="fl">Customer Name</label><input class="finp" id="rr-name" placeholder="Romeo Cruz"></div>
+              <div class="fi"><label class="fl">Vehicle</label><input class="finp" id="rr-veh" placeholder="Rolls-Royce Ghost"></div>
+              <div class="fi"><label class="fl">Service</label><input class="finp" id="rr-svc" placeholder="Total Refinement"></div>
+              <div class="fi"><label class="fl">Phone</label><input class="finp" id="rr-phone" placeholder="+447927576142"></div>
+              <button class="btn btn-wa" onclick="generateReviewRequest()">Generate WA Message</button>
+              <div id="rr-result" style="display:none;margin-top:10px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REVIEWS -->
+      <div class="pane" id="pane-reviews">
+        <div class="sec-hdr"><div class="sec-title">⭐ Reviews & Testimonials</div></div>
+        <div class="kpi-strip" style="grid-template-columns:repeat(4,1fr);max-width:700px">
+          <div class="kpi"><div class="kpi-lbl">Total</div><div class="kpi-val" id="rev-total">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Average</div><div class="kpi-val" id="rev-avg" style="color:var(--amber)">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Pending</div><div class="kpi-val" id="rev-pend">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Featured</div><div class="kpi-val" id="rev-feat">—</div></div>
+        </div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Date</th><th>Customer</th><th>Vehicle</th><th>Service</th><th>Rating</th><th>Review</th><th>Actions</th></tr></thead>
+          <tbody id="reviews-tbl"></tbody>
+        </table></div>
+      </div>
+
+      <!-- LEADS -->
+      <div class="pane" id="pane-leads">
+        <div class="sec-hdr"><div class="sec-title">🎯 Lead Pipeline</div></div>
+        <div class="kpi-strip">
+          <div class="kpi"><div class="kpi-lbl">New</div><div class="kpi-val" id="ld-new">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Contacted</div><div class="kpi-val" id="ld-cont">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Quoted</div><div class="kpi-val" id="ld-quot">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Hot Leads</div><div class="kpi-val" id="ld-hot" style="color:var(--red)">—</div></div>
+          <div class="kpi"><div class="kpi-lbl">Avg Score</div><div class="kpi-val" id="ld-score" style="color:var(--gold)">—</div></div>
+        </div>
+        <div class="tbl-wrap"><table>
+          <thead><tr><th>Name</th><th>Vehicle</th><th>Service</th><th>Source</th><th>Score</th><th>Stage</th><th>Actions</th></tr></thead>
+          <tbody id="leads-tbl"></tbody>
+        </table></div>
+      </div>
+    </div><!-- /main -->
+  </div><!-- /body-wrap -->
+</div><!-- /app -->
+
+<script>
+// ── CURSOR ─────────────────────────────────────────
+document.addEventListener('mousemove',e=>{document.getElementById('cur').style.cssText=`left:${e.clientX}px;top:${e.clientY}px`});
+setInterval(()=>{document.getElementById('tb-clock').textContent=new Date().toLocaleTimeString('en-GB')},1000);
+
+// ── CONSTANTS ──────────────────────────────────────
+const SB_URL='https://slzawehsiotvkjzaehqw.supabase.co';
+const SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
+const AUTH_URL='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/admin-auth';
+const AI_URL='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-ai-router';
+const ADMIN_API='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/admin-api';
+
+// Admin API helper — uses service role via edge function, bypasses RLS
+async function adminCall(action, params={}) {
+  const token = localStorage.getItem(TK) || _token || '';
+  const r = await fetch(ADMIN_API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action, token, ...params })
+  });
+  const d = await r.json();
+  if (d.error) throw new Error(d.error);
+  return d;
+}
+const TK='ghost_admin_token';
+const {createClient}=supabase;
+const SB=createClient(SB_URL,SB_ANON);
+let _token=null;
+
+// ── TOAST ──────────────────────────────────────────
+function toast(m,d=3000){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),d)}
+
+// ── AUTH ───────────────────────────────────────────
+function showV(v){['pin','recovery','newpin'].forEach(x=>document.getElementById('v-'+x).style.display='none');document.getElementById('v-'+v).style.display='block';}
+function err(id,msg){const el=document.getElementById(id);el.textContent=msg;el.classList.add('on')}
+function clearErr(id){const el=document.getElementById(id);if(el){el.textContent='';el.classList.remove('on')}}
+
+  let pinAttempts = parseInt(sessionStorage.getItem('pin_attempts') || '0');
+  let pinLockout = parseInt(sessionStorage.getItem('pin_lockout') || '0');
+
+  async function doAuth(){
+  const pin=document.getElementById('pin-inp').value.trim();
+  if(!pin)return;
+  clearErr('auth-err');
+  const btn=document.getElementById('auth-btn');
+  btn.textContent='Verifying...';btn.disabled=true;
+  try{
+    const r=await fetch(AUTH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({pin})});
+    const d=await r.json();
+    if(d.success){_token=d.token;localStorage.setItem(TK,d.token);if(d.first_login)toast('✓ PIN set — welcome to GHOST Admin');unlockAdmin();}
+    else{err('auth-err',d.error||'Authentication failed');document.getElementById('pin-inp').value='';document.getElementById('pin-inp').focus();}
+  }catch(e){err('auth-err','Connection error: '+e.message)}
+  btn.textContent='Authenticate →';btn.disabled=false;
+}
+
+async function doRecovery(){
+  const code=document.getElementById('rec-inp').value.trim();
+  if(!code)return;
+  clearErr('rec-err');
+  try{
+    const r=await fetch(AUTH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'reset_pin',recovery_code:code,new_pin:'TEMP_RESET_FLAG'})});
+    const d=await r.json();
+    if(d.success){showV('newpin');}
+    else err('rec-err',d.error||'Invalid recovery code');
+  }catch(e){err('rec-err','Error: '+e.message)}
+}
+
+async function doSetPin(){
+  const np=document.getElementById('newpin-inp').value.trim();
+  if(!np||np.length<4){err('newpin-err','Must be 4+ characters');return}
+  try{
+    const r=await fetch(AUTH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'reset_pin',recovery_code:'GHOST-ROMEO-2026',new_pin:np})});
+    const d=await r.json();
+    if(d.success){toast('✓ New PIN set');unlockAdmin();}
+    else err('newpin-err',d.error||'Failed');
+  }catch(e){err('newpin-err','Error: '+e.message)}
+}
+
+function resetPin(){
+  if(confirm('Reset your admin PIN? You will need to use the recovery code to set a new one.')){
+    doSignout();setTimeout(()=>showV('recovery'),500);
+  }
+}
+
+function doSignout(){localStorage.removeItem(TK);_token=null;document.getElementById('app').classList.remove('on');document.getElementById('auth-gate').classList.remove('gone');showV('pin');document.getElementById('pin-inp').value='';}
+
+function unlockAdmin(){document.getElementById('auth-gate').classList.add('gone');document.getElementById('app').classList.add('on');setTimeout(()=>loadDashboard(),600);}
+
+// ── SESSION CHECK ──────────────────────────────────
+(async()=>{
+  const tok=localStorage.getItem(TK);
+  if(tok){
+    try{
+      const r=await fetch(AUTH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:tok})});
+      const d=await r.json();
+      if(d.valid){_token=tok;unlockAdmin();return;}
+    }catch(e){}
+    localStorage.removeItem(TK);
+  }
+  document.getElementById('auth-gate').style.display='flex';
+  setTimeout(()=>document.getElementById('pin-inp')?.focus(),100);
+})();
+
+// ── NAVIGATION ─────────────────────────────────────
+const LOADERS={
+  dashboard:loadDashboard,bookings:loadBookings,crm:loadCRM,
+  enquiries:loadEnquiries,invoices:loadInvoices,stock:loadStock,
+  referrals:loadReferrals,analytics:loadAnalytics,seo:loadSEO,
+  'api-keys':loadApiKeys,briefing:loadBriefingHistory,
+  memory:loadMemory,security:loadSecurity,
+  opportunities:loadOpportunities,reviews:loadReviews,leads:loadLeads,
+  'ghost-ai':loadGhostAI,'comms':loadComms,'settings':loadSettings
+};
+
+function nav(id){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('on'));
+  document.getElementById('pane-'+id)?.classList.add('on');
+  document.querySelector(`.nav-item[data-pane="${id}"]`)?.classList.add('on');
+  if(LOADERS[id]) LOADERS[id]();
+}
+
+// ── DB HELPERS ─────────────────────────────────────
+async function dbGet(table,select='*',opts={}){
+  let q=SB.from(table).select(select);
+  if(opts.order) q=q.order(opts.order,{ascending:opts.asc??false});
+  if(opts.limit) q=q.limit(opts.limit);
+  if(opts.eq) for(const[k,v] of Object.entries(opts.eq)) q=q.eq(k,v);
+  const{data,error}=await q;
+  if(error) console.error(table,error);
+  return data||[];
+}
+async function dbCount(table){const{count}=await SB.from(table).select('*',{count:'exact',head:true});return count||0;}
+
+function fmt(date){return date?new Date(date).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'—'}
+function fmtDate(date){return date?new Date(date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'2-digit'}):'—'}
+function money(n){return n!=null?'£'+Number(n).toFixed(0):'—'}
+function statusBadge(s){const m={new:'b-new',confirmed:'b-confirmed',completed:'b-done',cancelled:'b-cancelled'};return`<span class="badge ${m[s]||'b-info'}">${s||'—'}</span>`}
+function empty(cols){return`<tr><td colspan="${cols}" class="empty-row">Nothing here yet</td></tr>`}
+
+// ── DASHBOARD ──────────────────────────────────────
+async function loadDashboard(){
+  // Use adminCall to bypass RLS for bookings and ai_activity_log
+  let bookings=[], aiLog=[], bCount=0, rev=0;
+  try{
+    const d=await adminCall('get_bookings');
+    bookings=d.bookings||[];
+    bCount=bookings.length;
+    rev=bookings.filter(b=>b.status==='confirmed').reduce((s,b)=>s+(b.total_price||0),0);
+  }catch(e){console.error('dashboard bookings:',e);}
+  try{
+    const d=await adminCall('get_dashboard');
+    aiLog=d.ai_log||[];
+  }catch(e){}
+  // These tables have open RLS policies
+  const[cCount,rCount,sCount]=await Promise.all([
+    dbCount('user_profiles'),
+    dbCount('referrals'),
+    dbCount('stock'),
+  ]);
+  document.getElementById('k-bookings').textContent=bCount;
+  document.getElementById('k-revenue').textContent=money(rev);
+  document.getElementById('k-customers').textContent=cCount;
+  document.getElementById('k-referrals').textContent=rCount;
+  document.getElementById('k-stock').textContent=sCount;
+  const nb=document.getElementById('nb-bookings');
+  const newCount=(bookings||[]).filter(b=>b.status==='new').length;
+  nb.textContent=newCount;nb.classList.toggle('on',newCount>0);
+
+  const bt=document.getElementById('dash-bookings');
+  bt.innerHTML=!bookings?.length?empty(7):bookings.map(b=>`<tr>
+    <td>${fmt(b.created_at)}</td>
+    <td><strong>${b.customer_name||'—'}</strong><br><span style="color:var(--muted);font-size:8px">${b.customer_email||''}</span></td>
+    <td>${(b.service||b.service_type||'—')}${b.add_ceramic?' 🍌':''}${b.add_ppf?' 🛡':''}${b.add_mobile?' 🚐':''}</td>
+    <td>${[b.make||b.vehicle_make,b.model||b.vehicle_model].filter(Boolean).join(' ')||'—'}<br><span style="color:var(--gold);font-size:8px">${b.reg||b.registration||''}</span></td>
+    <td style="color:var(--gold)">${money(b.total_price||b.price)}</td>
+    <td>${statusBadge(b.status)}</td>
+    <td style="display:flex;gap:5px;flex-wrap:wrap">
+      ${b.status==='new'?`<button class="btn btn-green" onclick="confirmBooking('${b.id}')">✓ Confirm</button>`:''}
+      <a href="https://wa.me/${(b.customer_phone||'').replace(/\D/g,'')}" class="btn btn-wa" target="_blank">WA</a>
+    </td>
+  </tr>`).join('');
+
+  const at=document.getElementById('dash-ai-log');
+  at.innerHTML=!aiLog?.length?empty(4):aiLog.map(l=>`<tr>
+    <td>${fmt(l.created_at)}</td>
+    <td style="color:var(--gold)">${l.agent||'GHOST'}</td>
+    <td>${(l.action||'—')} — ${(l.details||'').slice(0,60)}</td>
+    <td><span class="badge ${l.status==='success'?'b-confirmed':'b-new'}">${l.status||'—'}</span></td>
+  </tr>`).join('');
+}
+
+async function confirmBooking(id){
+  try{
+    await adminCall('update_booking',{id,status:'confirmed'});
+    toast('✓ Booking confirmed');loadDashboard();
+  }catch(e){
+    await SB.from('bookings').update({status:'confirmed'}).eq('id',id);
+    toast('✓ Booking confirmed');loadDashboard();
+  }
+}
+
+// ── BOOKINGS ───────────────────────────────────────
+let _allBookings=[];
+async function loadBookings(){
+  try{
+    const d=await adminCall('get_bookings');
+    _allBookings=d.bookings||[];
+  }catch(e){
+    // fallback to anon key (only gets public bookings)
+    _allBookings=await dbGet('bookings','*',{order:'created_at',limit:100});
+  }
+  renderBookings(_allBookings);
+}
+function renderBookings(data){
+  const t=document.getElementById('bookings-tbl');
+  t.innerHTML=!data.length?empty(9):data.map(b=>`<tr>
+    <td>${fmtDate(b.created_at)}</td>
+    <td><strong>${b.customer_name||'—'}</strong><br><span style="font-size:8px;color:var(--muted)">${b.customer_email||''}</span></td>
+    <td>${b.customer_phone||'—'}</td>
+    <td>${b.service||b.service_type||'—'}${b.add_ceramic?' 🍌':''}${b.add_ppf?' 🛡':''}${b.add_mobile?' 🚐':''}</td>
+    <td>${[b.vehicle_year||b.year,b.vehicle_make||b.make,b.vehicle_model||b.model].filter(Boolean).join(' ')||'—'}<br><span style="color:var(--gold);font-size:8px">${b.reg||b.registration||''}</span></td>
+    <td style="color:var(--gold)">${money(b.total_price||b.price)}</td>
+    <td>${money(b.deposit_amount||b.deposit)}</td>
+    <td>${statusBadge(b.status)}</td>
+    <td style="display:flex;gap:5px;flex-wrap:wrap">
+      ${b.status==='new'?`<button class="btn btn-green" onclick="confirmBooking('${b.id}')">✓</button>`:''}
+      <a href="https://wa.me/${(b.customer_phone||'').replace(/\D/g,'')}" class="btn btn-wa" target="_blank">WA</a>
+      <button class="btn btn-ghost" onclick="deleteBooking('${b.id}')">✕</button>
+    </td>
+  </tr>`).join('');
+}
+function searchBookings(q){renderBookings(_allBookings.filter(b=>JSON.stringify(b).toLowerCase().includes(q.toLowerCase())))}
+async function deleteBooking(id){if(!confirm('Cancel this booking?'))return;try{await adminCall('update_booking',{id,status:'cancelled'});}catch(e){await SB.from('bookings').update({status:'cancelled'}).eq('id',id);}toast('Booking cancelled');loadBookings();}
+
+// ── CRM ────────────────────────────────────────────
+let _allCustomers=[];
+async function loadCRM(){
+  let profiles=[];
+  try{ const d=await adminCall('get_customers'); profiles=d.customers||[]; }
+  catch(e){ profiles=await dbGet('user_profiles','*',{order:'created_at',limit:200}); }
+  const bookings=await dbGet('bookings','customer_email,total_price,status');
+  _allCustomers=profiles.map(p=>{
+    const bks=bookings.filter(b=>b.customer_email===p.email);
+    return{...p,_bookings:bks.length,_spend:bks.reduce((s,b)=>s+(b.total_price||0),0)};
+  });
+  renderCRM(_allCustomers);
+}
+function renderCRM(data){
+  const t=document.getElementById('crm-tbl');
+  t.innerHTML=!data.length?empty(7):data.map(p=>`<tr>
+    <td><strong>${p.full_name||'—'}</strong></td>
+    <td>${p.email||'—'}</td>
+    <td>${p.phone||'—'}</td>
+    <td style="color:var(--gold);font-size:9px">${p.membership_tier||'free'}</td>
+    <td>${p._bookings}</td>
+    <td style="color:var(--gold)">${money(p._spend)}</td>
+    <td style="display:flex;gap:5px">
+      ${p.phone?`<a href="https://wa.me/${p.phone.replace(/\D/g,'')}" class="btn btn-wa" target="_blank">WA</a>`:''}
+      ${p.email?`<a href="mailto:${p.email}" class="btn btn-ghost">Email</a>`:''}
+    </td>
+  </tr>`).join('');
+}
+function searchCRM(q){renderCRM(_allCustomers.filter(p=>JSON.stringify(p).toLowerCase().includes(q.toLowerCase())))}
+
+// ── ENQUIRIES ──────────────────────────────────────
+async function loadEnquiries(){
+  let data=[];
+  try{const d=await adminCall('get_enquiries');data=d.enquiries||[];}
+  catch(e){data=await dbGet('enquiries','*',{order:'created_at',limit:100});}
+  const t=document.getElementById('enquiries-tbl');
+  t.innerHTML=!data.length?empty(7):data.map(e=>`<tr>
+    <td>${fmtDate(e.created_at)}</td>
+    <td>${e.name||e.customer_name||'—'}</td>
+    <td>${e.email||'—'}</td>
+    <td>${e.phone||'—'}</td>
+    <td style="max-width:200px;font-size:9px;color:var(--muted)">${(e.message||e.notes||'—').slice(0,80)}</td>
+    <td><span class="badge b-info">${e.source||'web'}</span></td>
+    <td style="display:flex;gap:5px">
+      ${e.phone?`<a href="https://wa.me/${e.phone.replace(/\D/g,'')}" class="btn btn-wa" target="_blank">WA</a>`:''}
+    </td>
+  </tr>`).join('');
+}
+
+// ── INVOICES ───────────────────────────────────────
+async function loadInvoices(){
+  const data=await dbGet('invoices','*',{order:'created_at',limit:50});
+  const t=document.getElementById('invoices-tbl');
+  t.innerHTML=!data.length?empty(7):data.map(i=>`<tr>
+    <td style="color:var(--gold)">${i.invoice_number||i.invoice_ref||'GDA-'+String(i.id).slice(0,6).toUpperCase()}</td>
+    <td>${i.customer_name||'—'}</td>
+    <td>${i.invoice_type||i.service||'—'}</td>
+    <td style="color:var(--gold)">${money(i.total)}</td>
+    <td>${i.stripe_payment_intent?'<span style="color:var(--green);font-size:9px">✓ Stripe</span>':'<span style="color:var(--muted);font-size:9px">manual</span>'}</td>
+    <td>${statusBadge(i.status||'paid')}</td>
+    <td>${fmtDate(i.paid_at||i.created_at)}</td>
+  </tr>`).join('');
+}
+
+function showNewInvoice(){document.getElementById('invoice-builder').style.display='block';document.getElementById('inv-date').textContent=new Date().toLocaleDateString('en-GB');document.getElementById('inv-due').textContent=new Date(Date.now()+7*86400000).toLocaleDateString('en-GB');document.getElementById('inv-num').textContent='GDL-'+Date.now().toString().slice(-6);}
+
+function generateInvoice(){
+  const name=document.getElementById('inv-name').value;
+  const email=document.getElementById('inv-email').value;
+  const service=document.getElementById('inv-service').value;
+  const amount=parseFloat(document.getElementById('inv-amount').value)||0;
+  const vehicle=document.getElementById('inv-vehicle').value;
+  const notes=document.getElementById('inv-notes').value;
+  if(!name||!amount){toast('Enter customer name and amount');return;}
+  document.getElementById('inv-bill-name').textContent=name;
+  document.getElementById('inv-bill-email').textContent=email;
+  const deposit=Math.round(amount*0.3);
+  document.getElementById('inv-lines').innerHTML=`
+    <div class="inv-line"><span>${service||'Detailing Service'}${vehicle?' — '+vehicle:''}</span><span>${money(amount)}</span></div>
+    ${notes?`<div class="inv-line"><span style="color:var(--muted);font-size:9px">${notes}</span><span></span></div>`:''}
+    <div class="inv-line"><span>30% Deposit Due</span><span>${money(deposit)}</span></div>`;
+  document.getElementById('inv-total-val').textContent=money(amount);
+  document.getElementById('inv-deposit-val').textContent=deposit;
+  document.getElementById('inv-preview').style.display='block';
+  adminCall('save_invoice',{customer_name:name,email,service,amount,deposit,vehicle,notes}).then(()=>loadInvoices()).catch(e=>toast('Invoice save error: '+e.message));
+}
+
+function sendInvoiceWA(){
+  const name=document.getElementById('inv-name').value;
+  const amount=document.getElementById('inv-amount').value;
+  const service=document.getElementById('inv-service').value;
+  const invNum=document.getElementById('inv-num').textContent;
+  const phone=prompt('Customer WhatsApp number (e.g. 447927576142):');
+  if(!phone)return;
+  const msg=`Hi ${name}, your Ghost Detail invoice is ready.\n\nInvoice: ${invNum}\nService: ${service}\nTotal: £${amount}\nDeposit (30%): £${Math.round(amount*0.3)}\n\nPlease transfer the deposit to secure your booking.\n\nGhost Detail Autos\nghostdetail.autos`;
+  window.open(`https://wa.me/${phone.replace(/\D/g,'')}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+// ── STOCK ──────────────────────────────────────────
+async function loadStock(){
+  const data=await dbGet('stock','*',{order:'name'});
+  const t=document.getElementById('stock-tbl');
+  t.innerHTML=!data.length?empty(7):data.map(s=>{
+    const low=s.quantity<=s.min_stock_level;
+    return`<tr>
+      <td><strong>${s.name||'—'}</strong></td>
+      <td style="color:var(--muted);font-size:9px">${s.sku||'—'}</td>
+      <td><span class="badge b-info">${s.category||'—'}</span></td>
+      <td style="color:${low?'var(--red)':'var(--text)'};font-weight:${low?'500':'400'}">${s.quantity}</td>
+      <td style="color:var(--muted)">${s.min_stock_level||0}</td>
+      <td>${money(s.unit_cost)}</td>
+      <td><span class="badge ${low?'b-cancelled':'b-confirmed'}">${low?'Low Stock':'OK'}</span></td>
+    </tr>`}).join('');
+}
+
+// ── REFERRALS ──────────────────────────────────────
+async function loadReferrals(){
+  let data=[];
+  try{const d=await adminCall('get_referrals');data=d.referrals||[];}
+  catch(e){data=await dbGet('referrals','*',{order:'created_at',limit:100});}
+  document.getElementById('ref-total').textContent=data.length;
+  document.getElementById('ref-conv').textContent=data.filter(r=>r.status==='converted').length;
+  document.getElementById('ref-credits').textContent='£'+(data.reduce((s,r)=>s+(r.referrer_credit||0),0));
+  const t=document.getElementById('referrals-tbl');
+  t.innerHTML=!data.length?empty(6):data.map(r=>`<tr>
+    <td style="color:var(--gold);font-weight:500">${r.referral_code||'—'}</td>
+    <td>${r.referred_email||'—'}</td>
+    <td><span class="badge ${r.status==='converted'?'b-confirmed':'b-new'}">${r.status||'pending'}</span></td>
+    <td style="color:var(--green)">−£${r.referred_discount||20}</td>
+    <td style="color:var(--gold)">+£${r.referrer_credit||20}</td>
+    <td>${fmtDate(r.created_at)}</td>
+  </tr>`).join('');
+}
+
+// ── ANALYTICS ─────────────────────────────────────
+async function loadAnalytics(){
+  const[bks,upsells]=await Promise.all([
+    dbGet('bookings','total_price,status'),
+    dbGet('upsell_events','upsell_accepted')
+  ]);
+  let aband=[];
+  try{ const d=await adminCall('get_abandoned'); aband=d.abandoned||[]; }
+  catch(e){ aband=await dbGet('abandoned_bookings','*',{order:'created_at',limit:50}); }
+  document.getElementById('an-total').textContent=bks.length;
+  const ur=upsells.length?Math.round((upsells.filter(u=>u.upsell_accepted).length/upsells.length)*100)+'%':'—';
+  document.getElementById('an-upsell').textContent=ur;
+  const avg=bks.length?money(bks.reduce((s,b)=>s+(b.total_price||0),0)/bks.length):'—';
+  document.getElementById('an-avg').textContent=avg;
+  document.getElementById('an-abandoned').textContent=aband.length;
+  document.getElementById('an-refconv').textContent='—';
+  const t=document.getElementById('abandoned-tbl');
+  t.innerHTML=!aband.length?empty(7):aband.map(a=>`<tr>
+    <td>${a.email}</td>
+    <td>${a.service_type||'—'}</td>
+    <td style="color:var(--gold)">${a.vehicle_reg||'—'}</td>
+    <td>Step ${a.step_reached||1}</td>
+    <td>${fmtDate(a.created_at)}</td>
+    <td><span class="badge ${a.recovered?'b-confirmed':'b-new'}">${a.recovered?'Recovered':'Open'}</span></td>
+    <td><a href="https://wa.me/?text=${encodeURIComponent(`Hi! You started booking a ${a.service_type||'service'} with Ghost Detail Autos but didn't finish. Your quote is still saved: ghostdetail.autos/booking.html`)}" class="btn btn-wa" target="_blank">Recover</a></td>
+  </tr>`).join('');
+}
+
+async function recoverAbandoned(){
+  const count=(await dbGet('abandoned_bookings','*',{order:'created_at'})).filter(a=>!a.recovered).length;
+  toast(`${count} open abandoned bookings — use WA buttons to recover individually`);
+}
+
+// ── SEO ────────────────────────────────────────────
+async function loadSEO(){
+  const data=await dbGet('seo_locations','*',{order:'distance_miles'});
+  const t=document.getElementById('seo-tbl');
+  t.innerHTML=!data.length?empty(5):data.map(l=>`<tr>
+    <td><strong>${l.town}</strong></td>
+    <td>${l.county}</td>
+    <td>${l.distance_miles} mi</td>
+    <td>Zone ${l.zone}</td>
+    <td><a href="/locations/car-detailing-${l.slug?.replace('car-detailing-','')}.html" class="btn btn-ghost" target="_blank">View →</a></td>
+  </tr>`).join('');
+}
+async function loadApiKeys(){
+  const el=document.getElementById('api-keys-list');
+  el.innerHTML='<div style="color:var(--muted);font-size:9px;padding:12px">Loading API keys...</div>';
+  try {
+    const d = await adminCall('list_api_keys');
+    const keys = d.keys || [];
+    if(!keys.length){ el.innerHTML='<div style="color:var(--muted);font-size:9px;padding:12px">No API keys found</div>'; return; }
+    el.innerHTML=keys.map(k=>`
+      <div class="api-card">
+        <div class="api-info">
+          <div class="api-name">${k.key_name}</div>
+          <div class="api-desc">${k.key_description||''}</div>
+        </div>
+        <div class="api-controls">
+          <span class="api-status ${k.is_set?'api-set':'api-empty'}" id="ks-${k.key_name}">${k.is_set?'✓ Set':'Not set'}</span>
+          <input type="password" class="api-inp" id="ki-${k.key_name}" placeholder="${k.is_set?'••••••••••••••••':'Paste key here...'}">
+          <button onclick="toggleKey('${k.key_name}')" class="btn btn-ghost" title="Show/hide">👁</button>
+          <button onclick="saveKey('${k.key_name}','${k.id}')" class="btn btn-gold">Save</button>
+        </div>
+      </div>`).join('');
+  } catch(e) {
+    el.innerHTML='<div style="color:var(--red);font-size:9px;padding:12px">Error loading keys: '+e.message+'</div>';
+  }
+}
+
+function toggleKey(name){const i=document.getElementById('ki-'+name);i.type=i.type==='password'?'text':'password';}
+
+async function saveKey(name,id){
+  const val=document.getElementById('ki-'+name).value.trim();
+  if(!val){toast('Paste a key value first');return;}
+  try{
+    await adminCall('save_api_key',{id,key_value:val,key_name:name});
+    document.getElementById('ks-'+name).textContent='✓ Set';
+    document.getElementById('ks-'+name).className='api-status api-set';
+    document.getElementById('ki-'+name).value='';
+    document.getElementById('ki-'+name).placeholder='••••••••••••••••';
+    toast('✓ '+name+' saved securely');
+  }catch(e){toast('Error: '+e.message);}
+}
+
+// ── BRIEFING ───────────────────────────────────────
+async function generateBriefing(){
+  document.getElementById('briefing-text').innerHTML='<span style="color:var(--muted)">GHOST is generating your briefing...</span>';
+  try{
+    const r=await fetch(AI_URL+'/briefing',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({})});
+    const d=await r.json();
+    document.getElementById('briefing-text').textContent=d.briefing||d.error||'Failed to generate';
+    loadBriefingHistory();
+  }catch(e){document.getElementById('briefing-text').textContent='Error: '+e.message;}
+}
+
+async function loadBriefingHistory(){
+  const data=await dbGet('ghost_briefings','*',{order:'created_at',limit:10});
+  const t=document.getElementById('briefing-hist');
+  t.innerHTML=!data.length?empty(4):data.map(b=>`<tr>
+    <td>${fmtDate(b.created_at)}</td>
+    <td style="font-size:9px;max-width:400px;color:var(--muted)">${(b.briefing_text||'').slice(0,100)}...</td>
+    <td>${b.new_bookings||0}</td>
+    <td style="color:var(--gold)">${money(b.revenue_today)}</td>
+  </tr>`).join('');
+}
+
+// ── MEMORY ─────────────────────────────────────────
+async function loadMemory(){
+  let mems=[], patterns=[];
+  try{ const d=await adminCall('get_memory'); mems=d.memories||[]; }catch(e){toast('Memory error: '+e.message);}
+  try{ const d=await adminCall('get_patterns'); patterns=d.patterns||[]; }catch(e){}
+  {
+  const mt=document.getElementById('memory-tbl');
+  mt.innerHTML=!mems.length?empty(6):mems.map(m=>`<tr>
+    <td><span class="badge b-info">${m.memory_type}</span></td>
+    <td style="color:var(--gold);font-size:9px;max-width:100px">${m.subject}</td>
+    <td style="font-size:9px;max-width:250px">${m.content}</td>
+    <td>${m.times_referenced||1}×</td>
+    <td style="color:var(--muted)">${m.source||'—'}</td>
+    <td><button class="btn btn-red" onclick="deleteMemory('${m.id}')">✕</button></td>
+  </tr>`).join('');
+  const pt=document.getElementById('patterns-tbl');
+  pt.innerHTML=!patterns.length?`<tr><td colspan="4" class="empty-row">No patterns yet — GHOST is learning</td></tr>`:patterns.map(p=>`<tr>
+    <td><span class="badge b-new">${p.pattern_type}</span></td>
+    <td style="font-size:9px">${p.description}</td>
+    <td style="color:var(--gold)">${p.occurrences}</td>
+    <td style="font-size:9px;color:var(--muted)">${p.actionable_insight||'—'}</td>
+  </tr>`).join('');
+}
+
+}
+async function addMemory(){
+  const subj=document.getElementById('mem-subj').value.trim();
+  const cont=document.getElementById('mem-cont').value.trim();
+  if(!subj||!cont){toast('Fill in subject and content');return;}
+  try{
+    await adminCall('save_memory',{subject:subj,content:cont});
+    toast('✓ Memory saved — GHOST will remember this');
+    document.getElementById('mem-subj').value='';document.getElementById('mem-cont').value='';loadMemory();
+  }catch(e){toast('Error: '+e.message);}
+}
+
+async function deleteMemory(id){
+  try{ await adminCall('delete_memory',{id}); toast('Memory removed'); loadMemory(); }
+  catch(e){ toast('Error: '+e.message); }
+}
+
+// ── SECURITY ───────────────────────────────────────
+async function loadSecurity(){
+  if(!_token)return;
+  try{
+    const d=await adminCall('get_security_log');
+    const events=d.events||[];
+    document.getElementById('sec-logins').textContent=events.filter(e=>e.event_type==='admin_login').length;
+    document.getElementById('sec-fails').textContent=events.filter(e=>e.event_type==='admin_failed').length;
+    document.getElementById('sec-rate').textContent=events.filter(e=>e.event_type==='rate_limit').length;
+    document.getElementById('sec-crit').textContent=events.filter(e=>e.severity==='critical').length;
+    const t=document.getElementById('security-tbl');
+    t.innerHTML=!events.length?empty(5):events.map(e=>`<tr>
+      <td>${fmt(e.created_at)}</td>
+      <td style="color:var(--gold)">${e.event_type}</td>
+      <td style="font-size:9px">${e.ip_address||'—'}</td>
+      <td><span class="badge b-${e.severity}">${e.severity}</span></td>
+      <td style="font-size:8px;color:var(--muted)">${JSON.stringify(e.details||{}).slice(0,60)}</td>
+    </tr>`).join('');
+  }catch(e){toast('Error loading security log: '+e.message)}
+}
+
+// ── GHOST AI CHAT ──────────────────────────────────
+async function ghostSend(){
+  const inp=document.getElementById('chat-inp');
+  const msg=inp.value.trim();
+  if(!msg)return;
+  inp.value='';
+  addChatMsg('user',msg);
+  const t=addChatMsg('ghost','Thinking...');
+  try{
+    const r=await fetch(AI_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt:msg,context:'admin',session_id:'admin-'+Date.now()})});
+    const d=await r.json();
+    t.innerHTML=`<div class="msg-role">GHOST <span style="color:var(--muted);font-size:7px">(${d.model||'?'})</span></div>${d.text||d.error||'No response'}`;
+  }catch(e){t.innerHTML='<div class="msg-role">GHOST</div>Error: '+e.message;}
+}
+function addChatMsg(role,text){
+  const msgs=document.getElementById('chat-msgs');
+  const d=document.createElement('div');
+  d.className='msg msg-'+role;
+  const roleDiv=document.createElement('div');
+  roleDiv.className='msg-role';
+  roleDiv.textContent=role==='ghost'?'GHOST':'ROMEO';
+  const bodyDiv=document.createElement('div');
+  bodyDiv.textContent=text; // textContent prevents XSS
+  d.appendChild(roleDiv);d.appendChild(bodyDiv);
+  msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+  return d;
+}
+const GHOST_INTEL = 'https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-ai-router';
+
+async function loadOpportunities(){
+  document.getElementById('opp-cards').innerHTML='<div style="color:var(--muted);font-size:9px;padding:20px;grid-column:1/-1">GHOST analysing business data...</div>';
+  try{
+    const d=await fetch(GHOST_INTEL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'revenue_opportunities'})}).then(r=>r.json());
+    document.getElementById('opp-ghost-says').style.display='block';
+    document.getElementById('opp-top').textContent=d.top_opportunity||'No insights yet';
+    const opps=d.opportunities||[];
+    document.getElementById('opp-cards').innerHTML=opps.length?opps.map(o=>`
+      <div class="kpi" style="border-color:rgba(197,160,89,.2)">
+        <div class="kpi-lbl">${o.urgency?.toUpperCase()||'NORMAL'}</div>
+        <div style="font-size:13px;color:var(--text);margin:6px 0">${o.title}</div>
+        <div style="font-family:'DM Mono',monospace;font-size:16px;color:var(--gold)">${o.value||''}</div>
+        <div style="font-size:9px;color:var(--muted);margin-top:6px">${o.action}</div>
+      </div>`).join(''):'<div style="color:var(--muted);font-size:9px;padding:20px;grid-column:1/-1">No opportunities detected right now.</div>';
+    if(d.conversion_tip)toast('💡 '+d.conversion_tip,6000);
+  }catch(e){toast('Error: '+e.message);}
+}
+
+async function notifyWaitlist(){
+  const date=document.getElementById('wl-date').value;
+  const service=document.getElementById('wl-service').value;
+  const d=await fetch(GHOST_INTEL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'notify_waitlist',date_available:date,service_type:service})}).then(r=>r.json());
+  if(d.waitlist_count===0){toast('No unnotified waitlist entries');return;}
+  const msgs=d.messages||[];
+  if(msgs[0]?.wa_link)window.open(msgs[0].wa_link,'_blank');
+  toast(`Opening WhatsApp for first of ${d.waitlist_count} waitlist entries`);
+}
+
+async function generateReviewRequest(){
+  const name=document.getElementById('rr-name').value;
+  const veh=document.getElementById('rr-veh').value;
+  const svc=document.getElementById('rr-svc').value;
+  const phone=document.getElementById('rr-phone').value;
+  if(!name){toast('Enter customer name');return;}
+  const d=await fetch(GHOST_INTEL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'review_request',customer_name:name,vehicle:veh,service_type:svc,phone})}).then(r=>r.json());
+  const res=document.getElementById('rr-result');
+  res.style.display='block';
+  res.innerHTML='<div style="background:#030303;border:1px solid rgba(197,160,89,.1);padding:12px;font-size:10px;line-height:1.8;white-space:pre-wrap;color:var(--muted)">'+d.message+'</div><a href="'+d.wa_link+'" target="_blank" class="btn btn-wa" style="display:inline-block;margin-top:8px">Open in WhatsApp →</a>';
+}
+
+async function loadReviews(){
+  const{data:reviews}=await SB.from('reviews').select('*').order('created_at',{ascending:false}).limit(50);
+  document.getElementById('rev-total').textContent=reviews?.length||0;
+  const ratings=reviews?.map(r=>r.rating).filter(Boolean)||[];
+  document.getElementById('rev-avg').textContent=ratings.length?(ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1)+'★':'—';
+  document.getElementById('rev-pend').textContent=reviews?.filter(r=>!r.is_approved).length||0;
+  document.getElementById('rev-feat').textContent=reviews?.filter(r=>r.is_featured).length||0;
+  const t=document.getElementById('reviews-tbl');
+  if(!reviews?.length){t.innerHTML='<tr><td colspan="7" class="empty-row">No reviews yet</td></tr>';return;}
+  t.innerHTML=reviews.map(r=>{
+    const stars='★'.repeat(r.rating||0)+'☆'.repeat(5-(r.rating||0));
+    const txt=(r.review_text||'—').slice(0,80);
+    return `<tr>
+      <td>${fmtDate(r.created_at)}</td>
+      <td>${r.customer_name||'—'}</td>
+      <td>${r.vehicle||'—'}</td>
+      <td>${r.service_type||'—'}</td>
+      <td style="color:var(--amber)">${stars}</td>
+      <td style="font-size:9px;max-width:200px;color:var(--muted)">${txt}</td>
+      <td style="display:flex;gap:5px">
+        ${!r.is_approved?`<button class="btn btn-green" onclick="approveReview('${r.id}')">Approve</button>`:'<span style="color:var(--green);font-size:9px">✓ Live</span>'}
+        <button class="btn btn-ghost" onclick="featureReview('${r.id}')">${r.is_featured?'Unfeature':'Feature'}</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+async function approveReview(id){await SB.from('reviews').update({is_approved:true}).eq('id',id);toast('✓ Review live');loadReviews();}
+async function featureReview(id){const{data}=await SB.from('reviews').select('is_featured').eq('id',id).single();await SB.from('reviews').update({is_featured:!data?.is_featured}).eq('id',id);toast('Updated');loadReviews();}
+
+async function loadLeads(){
+  let leads=[];
+  try{const d=await adminCall('get_leads');leads=d.leads||[];}
+  catch(e){const r=await SB.from('leads').select('*').order('score',{ascending:false}).limit(100);leads=r.data||[];}
+  let newC=0,contC=0,quotC=0,hot=0,totalScore=0;
+  (leads||[]).forEach(l=>{
+    if(l.stage==='new')newC++;else if(l.stage==='contacted')contC++;else if(l.stage==='quoted')quotC++;
+    if((l.score||0)>=80)hot++;totalScore+=(l.score||0);
+  });
+  document.getElementById('ld-new').textContent=newC;
+  document.getElementById('ld-cont').textContent=contC;
+  document.getElementById('ld-quot').textContent=quotC;
+  document.getElementById('ld-hot').textContent=hot;
+  document.getElementById('ld-score').textContent=leads?.length?Math.round(totalScore/leads.length):'—';
+  const t=document.getElementById('leads-tbl');
+  if(!leads?.length){t.innerHTML='<tr><td colspan="7" class="empty-row">No leads yet</td></tr>';return;}
+  t.innerHTML=leads.map(l=>{
+    const scoreCol=l.score>=80?'var(--red)':l.score>=60?'var(--amber)':'var(--muted)';
+    const stageBadge=l.stage==='booked'?'b-confirmed':l.stage==='new'?'b-new':'b-done';
+    return `<tr>
+      <td><strong>${l.name||'—'}</strong></td>
+      <td style="color:var(--gold)">${l.vehicle_make||'—'} ${l.vehicle_reg?'('+l.vehicle_reg+')':''}</td>
+      <td>${l.service_interest||'—'}</td>
+      <td><span class="badge b-info">${l.source||'—'}</span></td>
+      <td><span style="color:${scoreCol};font-weight:500">${l.score||0}</span></td>
+      <td><span class="badge ${stageBadge}">${l.stage||'new'}</span></td>
+      <td style="display:flex;gap:5px">
+        ${l.phone?`<a href="https://wa.me/${l.phone.replace(/\D/g,'')}" class="btn btn-wa" target="_blank">WA</a>`:''}
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+LOADERS['opportunities'] = loadOpportunities;
+LOADERS['reviews'] = loadReviews;
+LOADERS['leads'] = loadLeads;
+
+</script>
+</body>
+</html>

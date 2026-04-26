@@ -1,0 +1,1908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="description" content="Staff portal — Ghost Detail Autos internal system.">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>Ghost Detail — Staff Portal</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#000000">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+
+
+<style>
+
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --charcoal:#0A0905;--vault:#161310;
+  --gold:#C5A059;--gold-b:#D4B06A;--banana:#F9F906;
+  --text:#F0EDE6;--muted:#5A5650;--muted2:#8A8680;--green:#10B981;--red:#EF4444;
+  --ease:cubic-bezier(.25,1,.5,1);
+  --max:960px;--wide:1200px;--pad:clamp(20px,5vw,64px)
+}
+html{scroll-behavior:smooth}
+body{background:var(--charcoal);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;font-size:16px;line-height:1.7;overflow-x:hidden}
+@media(pointer:fine){body{cursor:none}}
+#cur{position:fixed;width:6px;height:6px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cur-ring{position:fixed;width:28px;height:28px;border:1px solid rgba(197,160,89,.22);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+canvas#particles{position:absolute;inset:0;pointer-events:none;z-index:0}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");pointer-events:none;z-index:1;opacity:.03}
+
+/* ── LAYOUT CORE — everything centred ── */
+.centre{max-width:var(--max);margin:0 auto;padding:0 var(--pad);text-align:center}
+.centre-wide{max-width:var(--wide);margin:0 auto;padding:0 var(--pad);text-align:center}
+.centre-left{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+section{overflow:hidden}
+
+@keyframes breathe{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scrollR{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(500%)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(10,9,5,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(197,160,89,.08)}
+.nav-inner{max-width:var(--wide);margin:0 auto;height:100%;padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
+.hex{width:24px;height:24px;background:var(--gold);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);animation:breathe 3s ease-in-out infinite}
+.nav-brand{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;gap:0;list-style:none;align-items:center}
+.nav-links a{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);text-decoration:none;padding:5px 9px;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-pillar{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(197,160,89,.2);color:var(--gold) !important;text-decoration:none;margin-right:4px}
+.nav-cta{background:var(--gold);color:#0A0905 !important;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:7px 16px;text-decoration:none;margin-left:8px;flex-shrink:0}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}.ham span{width:22px;height:1px;background:var(--gold)}
+@media(max-width:880px){.nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:rgba(10,9,5,.98);flex-direction:column;align-items:stretch;border-bottom:1px solid rgba(197,160,89,.08)}.nav-links.open{display:flex}.nav-links a,.nav-pillar{padding:13px var(--pad);font-size:10px;display:block;border-bottom:1px solid rgba(197,160,89,.05);margin:0;border-left:none;border-right:none;border-top:none;border-radius:0}.ham{display:flex}.nav-cta{display:none}}
+
+/* ── HERO — fully centred ── */
+.hero{min-height:100svh;display:flex;align-items:center;justify-content:center;position:relative;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(197,160,89,.06) 0%,transparent 65%),var(--charcoal);text-align:center}
+.hero-lines{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(197,160,89,.02) 80px)}
+.hero-inner{position:relative;z-index:2;max-width:var(--max);margin:0 auto;padding:100px var(--pad) 60px;width:100%}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);margin-bottom:24px;animation:fadeUp .7s var(--ease) .05s both}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(48px,7vw,88px);font-weight:900;line-height:1.0;margin-bottom:22px;animation:fadeUp .7s var(--ease) .1s both;letter-spacing:-.02em}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:15px;color:var(--muted2);max-width:520px;line-height:1.75;margin:0 auto 36px;animation:fadeUp .7s var(--ease) .2s both}
+.hero-pillars{display:flex;gap:10px;justify-content:center;margin-bottom:48px;flex-wrap:wrap;animation:fadeUp .7s var(--ease) .25s both}
+.pillar-badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1px solid rgba(197,160,89,.2);color:var(--muted2);text-decoration:none;transition:all .25s}
+.pillar-badge:hover,.pillar-badge.studio{border-color:rgba(197,160,89,.4);color:var(--gold)}
+.hero-stats{display:flex;justify-content:center;gap:1px;background:rgba(197,160,89,.06);border:1px solid rgba(197,160,89,.06);max-width:520px;margin:0 auto 48px;animation:fadeUp .7s var(--ease) .3s both}
+.hstat{padding:14px 20px;flex:1}
+.hstat-n{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);font-weight:700}
+.hstat-l{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+
+/* ── JADE — centred card ── */
+.jade-wrap{animation:fadeUp .7s var(--ease) .35s both}
+.jade-card{background:rgba(0,0,0,.5);border:1px solid rgba(249,249,6,.15);padding:32px;max-width:560px;margin:0 auto;position:relative;overflow:hidden;text-align:left}
+.jade-card::before{content:'';position:absolute;left:0;top:0;width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(249,249,6,.5),transparent)}
+.jade-scan{position:absolute;left:0;right:0;height:1px;background:rgba(249,249,6,.05);animation:scanline 3s linear infinite;pointer-events:none}
+.jade-header{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.jade-ico{width:30px;height:30px;background:rgba(249,249,6,.08);border:1px solid rgba(249,249,6,.18);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.jade-title{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--banana)}
+.jade-sub-txt{font-size:10px;color:var(--muted);margin-top:2px}
+.jade-progress{display:flex;gap:5px;margin-bottom:16px}
+.jade-prog-dot{width:6px;height:6px;border-radius:50%;background:rgba(249,249,6,.12);transition:background .3s}
+.jade-prog-dot.done{background:var(--banana)}
+.jade-step{display:none}.jade-step.active{display:block}
+.jade-q{font-family:'DM Mono',monospace;font-size:11px;color:var(--text);margin-bottom:12px;letter-spacing:.04em}
+.jade-options{display:flex;flex-direction:column;gap:6px}
+.jade-opt{background:transparent;border:1px solid rgba(249,249,6,.1);color:var(--muted2);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.05em;padding:10px 14px;cursor:pointer;text-align:left;transition:all .2s;width:100%}
+.jade-opt:hover{border-color:rgba(249,249,6,.4);color:var(--text);background:rgba(249,249,6,.04)}
+.jade-or{display:flex;align-items:center;gap:10px;margin:12px 0;font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.jade-or::before,.jade-or::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.06)}
+.jade-free{display:flex;gap:8px}
+.jade-free input{flex:1;background:rgba(249,249,6,.03);border:1px solid rgba(249,249,6,.1);color:var(--text);font-family:'DM Mono',monospace;font-size:11px;padding:10px 12px;outline:none}
+.jade-free input::placeholder{color:var(--muted)}
+.jade-free input:focus{border-color:rgba(249,249,6,.35)}
+.jade-free button{background:rgba(249,249,6,.1);border:1px solid rgba(249,249,6,.2);color:var(--banana);font-family:'DM Mono',monospace;font-size:10px;padding:0 16px;cursor:pointer;transition:background .2s}
+.jade-free button:hover{background:rgba(249,249,6,.18)}
+.jade-loading{display:none;align-items:center;gap:10px;padding:14px 0}
+.jade-dots span{width:4px;height:4px;background:var(--banana);border-radius:50%;display:inline-block;animation:blink 1.2s infinite}
+.jade-dots span:nth-child(2){animation-delay:.2s}.jade-dots span:nth-child(3){animation-delay:.4s}
+.jade-result{display:none;border-top:1px solid rgba(249,249,6,.1);padding-top:16px;margin-top:16px}
+.jade-verdict{font-size:13px;color:var(--text);line-height:1.75;margin-bottom:14px}
+.jade-ctas{display:flex;gap:8px;flex-wrap:wrap}
+.jade-book{background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:10px 20px;text-decoration:none}
+.jade-reset{background:none;border:none;color:var(--muted);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;cursor:pointer;padding:10px 8px}
+
+/* ── SECTIONS — all centred ── */
+.section{padding:80px 0}
+.section-vault{padding:80px 0;background:var(--vault)}
+.section-dark{padding:80px 0;background:linear-gradient(135deg,rgba(197,160,89,.03),transparent),var(--charcoal);border-top:1px solid rgba(197,160,89,.06);border-bottom:1px solid rgba(197,160,89,.06)}
+.eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);margin-bottom:10px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:900;line-height:1.08;margin-bottom:12px;letter-spacing:-.01em}
+.sec-title em{font-style:italic;color:var(--gold)}
+.sec-sub{font-size:14px;color:var(--muted2);max-width:480px;margin:0 auto 40px;line-height:1.75}
+
+/* ── PLATE LOOKUP — centred ── */
+.plate-ui{display:flex;flex-direction:column;align-items:center;gap:12px}
+.uk-plate{display:flex;align-items:stretch;background:#F9F906;border-radius:4px;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.3)}
+.plate-gb{background:#003399;padding:8px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:36px}
+.plate-stars{font-size:3px;letter-spacing:1px;color:#FFCC00;display:block}
+.plate-gb-txt{font-size:9px;font-weight:700;color:#fff;letter-spacing:.08em;font-family:sans-serif}
+.plate-input-wrap{background:#F9F906;padding:4px 14px;display:flex;align-items:center}
+.plate-input-wrap input{background:transparent;border:none;outline:none;font-family:'DM Mono',monospace;font-size:clamp(22px,4vw,32px);font-weight:500;letter-spacing:.16em;color:#1A1410;width:clamp(140px,30vw,220px);text-transform:uppercase;text-align:center}
+.plate-btn{background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border:none;padding:12px 32px;cursor:pointer;transition:opacity .2s}
+.plate-btn:hover{opacity:.85}
+.plate-err{font-family:'DM Mono',monospace;font-size:11px;color:var(--red);display:none}
+.plate-err.show{display:block}
+.plate-result{display:none;background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.12);padding:28px;max-width:560px;margin:0 auto;text-align:left}
+.plate-result.show{display:block}
+/* Identity bar */
+.pr-identity{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(197,160,89,.08);flex-wrap:wrap;gap:8px}
+.pr-make{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--text);letter-spacing:-.01em}
+.pr-year{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);margin-top:3px}
+.pr-colour-swatch{width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,.1);flex-shrink:0}
+/* Status pills */
+.pr-status-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.pr-pill{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:2px;display:inline-flex;align-items:center;gap:5px;font-weight:500}
+.pr-pill.ok{background:rgba(16,185,129,.12);color:#10B981;border:1px solid rgba(16,185,129,.2)}
+.pr-pill.warn{background:rgba(245,158,11,.12);color:#F59E0B;border:1px solid rgba(245,158,11,.2)}
+.pr-pill.bad{background:rgba(239,68,68,.12);color:#EF4444;border:1px solid rgba(239,68,68,.2)}
+.pr-pill.muted{background:rgba(90,86,80,.12);color:var(--muted2);border:1px solid rgba(90,86,80,.2)}
+/* Data grid */
+.pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(197,160,89,.05);border:1px solid rgba(197,160,89,.07);margin-bottom:14px}
+.pr-cell{background:var(--charcoal);padding:12px 10px;text-align:center}
+.pr-label{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.pr-val{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--text)}
+/* Recommendations */
+.pr-recs{margin-bottom:16px}
+.pr-rec{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.pr-rec::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:1px}
+.pr-source{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);margin-bottom:14px;text-align:center}
+.pr-ctas{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.pr-cta{display:inline-block;background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:11px 24px;text-decoration:none}
+.pr-cta-2{display:inline-block;border:1px solid rgba(197,160,89,.22);color:var(--muted2);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:11px 20px;text-decoration:none;transition:all .2s}
+.pr-cta-2:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── DUAL PILLAR SPLIT — centred cards ── */
+.pillar-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(197,160,89,.04);max-width:var(--wide);margin:0 auto}
+.pillar-card{background:var(--charcoal);padding:clamp(28px,4vw,56px);text-align:center;position:relative;overflow:hidden;transition:background .3s;cursor:pointer;text-decoration:none;display:block}
+.pillar-card:hover{background:#0E0D0A}
+.pillar-card::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:2px;transition:width .4s var(--ease)}
+.pillar-card.studio::after{background:var(--gold)}
+.pillar-card.concierge::after{background:var(--green)}
+.pillar-card:hover::after{width:100%}
+.pc-num{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;color:var(--muted);margin-bottom:20px}
+.pc-icon{font-size:32px;margin-bottom:16px;display:block}
+.pc-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,40px);font-weight:900;line-height:1.05;margin-bottom:12px}
+.pc-title em{font-style:italic}
+.pillar-card.studio .pc-title em{color:var(--gold)}
+.pillar-card.concierge .pc-title em{color:var(--green)}
+.pc-sub{font-size:13px;color:var(--muted2);line-height:1.7;margin-bottom:24px;max-width:340px;margin-left:auto;margin-right:auto}
+.pc-list{list-style:none;margin-bottom:28px;text-align:left;max-width:280px;margin-left:auto;margin-right:auto}
+.pc-list li{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--muted2);padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:8px}
+.pc-list li::before{content:'—';opacity:.4;flex-shrink:0}
+.pillar-card.studio .pc-list li::before{color:var(--gold)}
+.pillar-card.concierge .pc-list li::before{color:var(--green)}
+.pc-btn{display:inline-block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:10px 22px;border:1px solid;transition:all .2s;margin-top:8px}
+.pillar-card.studio .pc-btn{border-color:rgba(197,160,89,.3);color:var(--gold)}
+.pillar-card.studio:hover .pc-btn{background:var(--gold);color:#0A0905}
+.pillar-card.concierge .pc-btn{border-color:rgba(16,185,129,.3);color:var(--green)}
+.pillar-card.concierge:hover .pc-btn{background:var(--green);color:#0A0905}
+@media(max-width:640px){.pillar-grid{grid-template-columns:1fr}}
+
+/* ── REVIEWS ── */
+.rev-track-wrap{overflow:hidden;position:relative;margin-top:40px}
+.rev-track-wrap::before,.rev-track-wrap::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2}
+.rev-track-wrap::before{left:0;background:linear-gradient(to right,var(--charcoal),transparent)}
+.rev-track-wrap::after{right:0;background:linear-gradient(to left,var(--charcoal),transparent)}
+.rev-track{display:flex;gap:16px;animation:scrollR 38s linear infinite;width:max-content}
+.rev-card{background:rgba(197,160,89,.03);border:1px solid rgba(197,160,89,.08);padding:24px 28px;width:320px;flex-shrink:0;text-align:center}
+.rev-stars{color:var(--gold);font-size:10px;margin-bottom:12px;letter-spacing:3px}
+.rev-text{font-size:13px;color:var(--muted2);line-height:1.7;margin-bottom:16px;font-style:italic}
+.rev-author{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:var(--text);margin-bottom:3px}
+.rev-car{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)}
+
+/* ── GHOST GARAGE PROMO — centred ── */
+.garage-badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15);padding:4px 12px;display:inline-block;margin-bottom:16px}
+.garage-features{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 32px;margin:28px 0}
+.gf{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--muted2)}
+.gf::before{content:'✓';color:var(--green);font-size:11px}
+.garage-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-gold{display:inline-block;background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:12px 26px;text-decoration:none;transition:opacity .2s}
+.btn-gold:hover{opacity:.85}
+.btn-outline{display:inline-block;border:1px solid rgba(197,160,89,.22);color:var(--muted2);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:12px 26px;text-decoration:none;transition:all .2s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── FOOTER ── */
+footer{background:var(--vault);border-top:1px solid rgba(197,160,89,.06);padding:56px var(--pad) 32px}
+.foot-inner{max-width:var(--wide);margin:0 auto}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.foot-logo{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.fhex{width:20px;height:20px;background:var(--gold);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);opacity:.7}
+.fbrand{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.12em;color:var(--gold);text-transform:uppercase}
+.ftag{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;max-width:240px}
+.foot-wa{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:10px;color:#25D366;text-decoration:none;padding:8px 12px;border:1px solid rgba(37,211,102,.15);width:fit-content;transition:all .2s}
+.foot-wa:hover{background:rgba(37,211,102,.06)}
+.foot-col h4{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.foot-col ul{list-style:none}
+.foot-col li{margin-bottom:8px}
+.foot-col a{font-size:12px;color:var(--muted2);text-decoration:none;transition:color .2s}
+.foot-col a:hover{color:var(--text)}
+.foot-bottom{border-top:1px solid rgba(197,160,89,.06);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.foot-legal{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)}
+.foot-legal a{color:inherit;text-decoration:none}
+.foot-phone{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);text-decoration:none}
+.foot-phone:hover{color:var(--gold)}
+@media(max-width:768px){.foot-grid{grid-template-columns:1fr 1fr;gap:32px}}
+@media(max-width:480px){.foot-grid{grid-template-columns:1fr}.foot-bottom{flex-direction:column;text-align:center}}
+
+
+
+/* ── GHOST NAV OVERRIDE ── */
+nav#gnav, nav.nav-links, nav.nav-inner { position:static !important; }
+header[style*="sticky"] { position:sticky !important; }
+</style></head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════
+     SCREEN 1: ENTRY — biometric or continue to email
+     ════════════════════════════════════════════════════════ -->
+<div class="screen" id="screen-entry">
+  <div class="screen-box">
+    <div class="screen-logo"><div class="hex"></div><span class="brand">Ghost Detail</span></div>
+    <div class="screen-title">Staff <em>Portal</em></div>
+    <div class="screen-sub" id="entry-sub">Sign in to continue</div>
+
+    <div id="bio-section">
+      <button class="bio-btn" id="bio-face" style="display:none" onclick="biometricLogin()">
+        <span class="bio-icon">🔐</span><span id="bio-face-label">Sign in with Face ID</span>
+      </button>
+      <button class="bio-btn" id="bio-touch" style="display:none" onclick="biometricLogin()">
+        <span class="bio-icon">👆</span><span>Sign in with Touch ID</span>
+      </button>
+      <button class="bio-btn" id="bio-fp" style="display:none" onclick="biometricLogin()">
+        <span class="bio-icon">✋</span><span>Sign in with Fingerprint</span>
+      </button>
+      <div id="bio-status" class="error-msg"></div>
+    </div>
+
+    <div class="divider" id="entry-divider">continue with email</div>
+    <input class="input-field" id="entry-email" type="email" placeholder="your@email.com" autocomplete="email" inputmode="email">
+    <button class="btn-primary" onclick="continueWithEmail()">Continue</button>
+    <button class="btn-secondary" onclick="showRegister()">New here? Register with invite code</button>
+    <div class="error-msg" id="entry-error"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     SCREEN 2: PIN — enter PIN after email
+     ════════════════════════════════════════════════════════ -->
+<div class="screen hidden" id="screen-pin">
+  <div class="screen-box">
+    <div class="screen-logo"><div class="hex"></div><span class="brand">Ghost Detail</span></div>
+    <div class="screen-title" id="pin-greeting">Enter <em>PIN</em></div>
+    <div class="screen-sub" id="pin-sub">Enter your 4-6 digit PIN</div>
+    <div class="pin-dots">
+      <div class="pin-dot" id="d0"></div><div class="pin-dot" id="d1"></div>
+      <div class="pin-dot" id="d2"></div><div class="pin-dot" id="d3"></div>
+      <div class="pin-dot" id="d4"></div><div class="pin-dot" id="d5"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-key" onclick="pk('1')">1</button>
+      <button class="pin-key" onclick="pk('2')">2</button>
+      <button class="pin-key" onclick="pk('3')">3</button>
+      <button class="pin-key" onclick="pk('4')">4</button>
+      <button class="pin-key" onclick="pk('5')">5</button>
+      <button class="pin-key" onclick="pk('6')">6</button>
+      <button class="pin-key" onclick="pk('7')">7</button>
+      <button class="pin-key" onclick="pk('8')">8</button>
+      <button class="pin-key" onclick="pk('9')">9</button>
+      <button class="pin-key small" onclick="pinClear()">CLR</button>
+      <button class="pin-key" onclick="pk('0')">0</button>
+      <button class="pin-key small" onclick="pinDel()">⌫</button>
+    </div>
+    <div class="error-msg" id="pin-error"></div>
+    <button class="btn-secondary" style="margin-top:16px;max-width:260px;display:block;margin-left:auto;margin-right:auto" onclick="goBack()">← Back</button>
+    <button class="btn-secondary" style="margin-top:8px;max-width:260px;display:block;margin-left:auto;margin-right:auto;border-color:transparent;color:var(--muted)" onclick="showForgot()">Forgot PIN?</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     SCREEN 3: REGISTER — new staff, enter invite code
+     ════════════════════════════════════════════════════════ -->
+<div class="screen hidden" id="screen-register">
+  <div class="screen-box">
+    <div class="screen-logo"><div class="hex"></div><span class="brand">Ghost Detail</span></div>
+    <div class="screen-title">Create <em>Account</em></div>
+    <div class="screen-sub">Enter your email and the invite code Romeo sent you</div>
+    <input class="input-field" id="reg-email" type="email" placeholder="your@email.com" autocomplete="email" inputmode="email">
+    <input class="input-field code-input" id="reg-code" type="tel" placeholder="_ _ _ _ _ _" maxlength="6" inputmode="numeric">
+    <button class="btn-primary" onclick="verifyInvite()">Verify Code</button>
+    <div class="error-msg" id="reg-error"></div>
+    <button class="btn-secondary" style="margin-top:8px" onclick="showEntry()">← Back to sign in</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     SCREEN 5: FORGOT PIN — enter email
+     ════════════════════════════════════════════════════════ -->
+<div class="screen hidden" id="screen-forgot">
+  <div class="screen-box">
+    <div class="screen-logo"><div class="hex"></div><span class="brand">Ghost Detail</span></div>
+    <div class="screen-title">Forgot <em>PIN?</em></div>
+    <div class="screen-sub">Enter your email. We'll send a reset code.</div>
+    <input class="input-field" id="forgot-email" type="email" placeholder="your@email.com" autocomplete="email" inputmode="email">
+    <button class="btn-primary" onclick="sendResetCode()">Send Reset Code</button>
+    <div class="error-msg" id="forgot-error"></div>
+    <div class="success-msg" id="forgot-success" style="display:none"></div>
+    <button class="btn-secondary" style="margin-top:8px" onclick="showEntry()">← Back to sign in</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     SCREEN 6: RESET PIN — enter code then new PIN
+     ════════════════════════════════════════════════════════ -->
+<div class="screen hidden" id="screen-reset">
+  <div class="screen-box">
+    <div class="screen-logo"><div class="hex"></div><span class="brand">Ghost Detail</span></div>
+    <div class="screen-title">Reset <em>PIN</em></div>
+    <div class="screen-sub" id="reset-sub">Enter the 6-digit code from your email</div>
+    <!-- Step 1: enter code -->
+    <div id="reset-step-code">
+      <input class="input-field code-input" id="reset-code-input" type="tel" placeholder="_ _ _ _ _ _" maxlength="6" inputmode="numeric">
+      <button class="btn-primary" onclick="verifyResetCode()">Verify Code</button>
+      <div class="error-msg" id="reset-code-error"></div>
+      <button class="btn-secondary" style="margin-top:8px" onclick="showForgot()">Resend code</button>
+    </div>
+    <!-- Step 2: set new PIN -->
+    <div id="reset-step-pin" style="display:none">
+      <div class="pin-dots">
+        <div class="pin-dot" id="rd0"></div><div class="pin-dot" id="rd1"></div>
+        <div class="pin-dot" id="rd2"></div><div class="pin-dot" id="rd3"></div>
+        <div class="pin-dot" id="rd4"></div><div class="pin-dot" id="rd5"></div>
+      </div>
+      <div class="pin-pad">
+        <button class="pin-key" onclick="rpk('1')">1</button>
+        <button class="pin-key" onclick="rpk('2')">2</button>
+        <button class="pin-key" onclick="rpk('3')">3</button>
+        <button class="pin-key" onclick="rpk('4')">4</button>
+        <button class="pin-key" onclick="rpk('5')">5</button>
+        <button class="pin-key" onclick="rpk('6')">6</button>
+        <button class="pin-key" onclick="rpk('7')">7</button>
+        <button class="pin-key" onclick="rpk('8')">8</button>
+        <button class="pin-key" onclick="rpk('9')">9</button>
+        <button class="pin-key small" onclick="rClear()">CLR</button>
+        <button class="pin-key" onclick="rpk('0')">0</button>
+        <button class="pin-key small" onclick="rDel()">⌫</button>
+      </div>
+      <div id="reset-pin-stage" style="font-family:'DM Mono',monospace;font-size:9px;text-align:center;color:var(--muted);margin-top:12px">Step 1 of 2 — enter your new PIN</div>
+      <div class="error-msg" id="reset-pin-error"></div>
+    </div>
+  </div>
+</div>
+<!-- ════════════════════════════════════════════════════════
+     SCREEN 4: SET PIN — after invite verified
+     ════════════════════════════════════════════════════════ -->
+<div class="screen hidden" id="screen-set-pin">
+  <div class="screen-box">
+    <div class="screen-logo"><div class="hex"></div><span class="brand">Ghost Detail</span></div>
+    <div class="screen-title">Set Your <em>PIN</em></div>
+    <div class="screen-sub" id="set-pin-sub">Welcome. Choose a 4-6 digit PIN. You'll use this to sign in.</div>
+    <div class="pin-dots">
+      <div class="pin-dot" id="sd0"></div><div class="pin-dot" id="sd1"></div>
+      <div class="pin-dot" id="sd2"></div><div class="pin-dot" id="sd3"></div>
+      <div class="pin-dot" id="sd4"></div><div class="pin-dot" id="sd5"></div>
+    </div>
+    <div class="pin-pad">
+      <button class="pin-key" onclick="spk('1')">1</button>
+      <button class="pin-key" onclick="spk('2')">2</button>
+      <button class="pin-key" onclick="spk('3')">3</button>
+      <button class="pin-key" onclick="spk('4')">4</button>
+      <button class="pin-key" onclick="spk('5')">5</button>
+      <button class="pin-key" onclick="spk('6')">6</button>
+      <button class="pin-key" onclick="spk('7')">7</button>
+      <button class="pin-key" onclick="spk('8')">8</button>
+      <button class="pin-key" onclick="spk('9')">9</button>
+      <button class="pin-key small" onclick="spClear()">CLR</button>
+      <button class="pin-key" onclick="spk('0')">0</button>
+      <button class="pin-key small" onclick="spDel()">⌫</button>
+    </div>
+    <div id="set-pin-stage" style="font-family:'DM Mono',monospace;font-size:9px;text-align:center;color:var(--muted);margin-top:12px">Step 1 of 2 — enter your PIN</div>
+    <div class="error-msg" id="set-pin-error"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     MAIN APP
+     ════════════════════════════════════════════════════════ -->
+<div id="app">
+  <header class="app-header">
+    <div class="app-header-brand">Ghost Detail</div>
+    <span class="role-badge" id="role-badge">—</span>
+    <button class="btn-logout" onclick="logout()">Out</button>
+  </header>
+
+  <nav class="tab-bar">
+    <button class="tab-btn on" id="t-today" onclick="tab('today')">Today</button>
+    <button class="tab-btn" id="t-guide" onclick="tab('guide')">Job Guide</button>
+    <button class="tab-btn" id="t-media" onclick="tab('media')">Media</button>
+    <button class="tab-btn" id="t-comms" onclick="tab('comms')">Comms</button>
+    <button class="tab-btn" id="t-legal" onclick="tab('legal')">Legal</button>
+    <button class="tab-btn" id="t-track" onclick="tab('track')">Tracker</button>
+    <button class="tab-btn" id="t-team" style="display:none" onclick="tab('team')">Team</button>
+    <button class="tab-btn" id="t-sop" onclick="tab('sop')">SOP Vault</button>
+    <button class="tab-btn" id="t-certs" onclick="tab('certs')">Certs</button>
+  </nav>
+
+  <div class="content">
+
+    <!-- TODAY -->
+    <div class="pane on" id="pane-today">
+      <div class="section-title">Good morning, <em id="name-greeting">—</em></div>
+      <div class="section-sub" id="today-date">Loading...</div>
+      <div class="stat-row">
+        <div class="stat"><div class="stat-v" id="s-today">—</div><div class="stat-l">Today</div></div>
+        <div class="stat"><div class="stat-v" id="s-members" style="color:var(--green)">—</div><div class="stat-l">Members</div></div>
+        <div class="stat"><div class="stat-v" id="s-leads" style="color:var(--red)">—</div><div class="stat-l">Leads</div></div>
+        <div class="stat"><div class="stat-v" id="s-tomorrow">—</div><div class="stat-l">Tomorrow</div></div>
+      </div>
+      <div class="card">
+        <div class="card-label">GHOST Morning Brief</div>
+        <div id="brief-text" style="font-size:13px;color:var(--text);line-height:1.9;min-height:50px">Loading...</div>
+      </div>
+      <div class="card">
+        <div class="card-label">Bay Schedule</div>
+        <div id="bay-list">Loading...</div>
+      </div>
+      <div class="card" id="ferrel-card" style="display:none">
+        <div class="card-label" style="color:var(--banana)">Ferrel — Today's Focus</div>
+        <div id="ferrel-focus" style="font-size:13px;color:var(--muted);line-height:1.8"></div>
+      </div>
+      <!-- Biometric offer after login -->
+      <div class="card" id="bio-offer-card" style="display:none">
+        <div class="card-label">Enable Quick Sign-In</div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:12px">Set up Face ID, Touch ID or fingerprint so you never need to type your PIN again.</p>
+        <button class="act-btn" onclick="registerBiometric()" id="bio-offer-btn">Enable Biometric Sign-In</button>
+        <button class="btn-secondary" style="margin-top:8px" onclick="document.getElementById('bio-offer-card').style.display='none'">Not now</button>
+        <div id="bio-offer-status" class="success-msg"></div>
+      </div>
+    </div>
+
+    <!-- JOB GUIDE -->
+    <div class="pane" id="pane-guide">
+      <div class="section-title">Job <em>Guide</em></div>
+      <div class="section-sub">Enter the registration. JADE pulls the full technical guide for that car — paint type, products, step-by-step process.</div>
+      <div class="card">
+        <div class="card-label">Generate Guide</div>
+        <div class="g2">
+          <div class="field"><label>Registration</label><input class="finp" id="g-reg" placeholder="AB12 CDE" style="text-transform:uppercase;font-family:'DM Mono',monospace;font-size:16px;letter-spacing:.1em" autocomplete="off"></div>
+          <div class="field"><label>Service</label>
+            <select class="finp" id="g-svc">
+              <option value="Spark Wash">Spark Wash £79</option>
+              <option value="Quick Refinement">Quick Refinement £249</option>
+              <option value="Depth Refinement" selected>Depth Refinement £449</option>
+              <option value="Total Refinement">Total Refinement £799</option>
+            </select>
+          </div>
+          <div class="field"><label>Make</label><input class="finp" id="g-make" placeholder="Porsche"></div>
+          <div class="field"><label>Model</label><input class="finp" id="g-model" placeholder="911"></div>
+          <div class="field"><label>Year</label><input class="finp" id="g-year" type="number" placeholder="2021"></div>
+        </div>
+        <button class="act-btn" onclick="genGuide()">Generate Technical Guide →</button>
+        <div id="g-loading" style="display:none;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-top:8px">JADE analysing this vehicle...</div>
+      </div>
+      <div id="g-output" style="display:none">
+        <div class="card">
+          <div class="card-label">Paint Assessment</div>
+          <div id="g-paint" style="font-size:12px;color:var(--text);line-height:1.8;margin-bottom:10px"></div>
+          <div style="display:flex;gap:16px;flex-wrap:wrap">
+            <div><div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted)">Hardness</div><div id="g-hard" style="color:var(--banana);font-size:13px">—</div></div>
+            <div><div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted)">Microns</div><div id="g-mic" style="color:var(--banana);font-size:13px">—</div></div>
+            <div><div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted)">Leather</div><div id="g-leath" style="color:var(--banana);font-size:13px">—</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-label">Machine Settings</div>
+          <div id="g-machine" style="font-size:12px;color:var(--muted);line-height:1.8"></div>
+        </div>
+        <div class="card">
+          <div class="card-label">Products — Use</div>
+          <div id="g-use"></div>
+          <div class="card-label" style="margin-top:14px">Products — Do NOT Use</div>
+          <div id="g-avoid"></div>
+        </div>
+        <div class="card" id="g-warn-card">
+          <div class="card-label" style="color:var(--amber)">⚠ Manufacturer Warnings</div>
+          <div id="g-warn" style="font-size:12px;color:var(--amber);line-height:1.8"></div>
+        </div>
+        <div class="card">
+          <div class="card-label">Common Defects on this Model</div>
+          <div id="g-defects" style="font-size:12px;color:var(--muted);line-height:1.8"></div>
+        </div>
+        <div class="card">
+          <div class="card-label">Step-by-Step Process</div>
+          <div id="g-steps"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEDIA -->
+    <div class="pane" id="pane-media">
+      <div class="section-title">Job <em>Media</em></div>
+      <div class="section-sub">Before, during, after. Every angle logged. AALIYA generates captions from after photos.</div>
+      <div class="card">
+        <div class="g2">
+          <div class="field"><label>Registration</label><input class="finp" id="m-reg" placeholder="AB12 CDE" style="text-transform:uppercase;font-family:'DM Mono',monospace"></div>
+          <div class="field"><label>Stage</label>
+            <select class="finp" id="m-stage">
+              <option value="before">Before</option>
+              <option value="during">During</option>
+              <option value="after">After</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Exterior</div>
+        <div class="upload-grid">
+          <div class="slot" onclick="uploadSlot('front')" id="sl-front"><div class="slot-icon">📸</div><div class="slot-label">Front</div></div>
+          <div class="slot" onclick="uploadSlot('rear')" id="sl-rear"><div class="slot-icon">📸</div><div class="slot-label">Rear</div></div>
+          <div class="slot" onclick="uploadSlot('driver_side')" id="sl-driver_side"><div class="slot-icon">📸</div><div class="slot-label">Driver</div></div>
+          <div class="slot" onclick="uploadSlot('passenger_side')" id="sl-passenger_side"><div class="slot-icon">📸</div><div class="slot-label">Pass.</div></div>
+          <div class="slot" onclick="uploadSlot('roof')" id="sl-roof"><div class="slot-icon">📸</div><div class="slot-label">Roof</div></div>
+          <div class="slot" onclick="uploadSlot('engine_bay')" id="sl-engine_bay"><div class="slot-icon">🔧</div><div class="slot-label">Engine</div></div>
+        </div>
+        <div class="card-label">Wheels</div>
+        <div class="upload-grid">
+          <div class="slot" onclick="uploadSlot('wheel_fl')" id="sl-wheel_fl"><div class="slot-icon">⭕</div><div class="slot-label">FL</div></div>
+          <div class="slot" onclick="uploadSlot('wheel_fr')" id="sl-wheel_fr"><div class="slot-icon">⭕</div><div class="slot-label">FR</div></div>
+          <div class="slot" onclick="uploadSlot('wheel_rl')" id="sl-wheel_rl"><div class="slot-icon">⭕</div><div class="slot-label">RL</div></div>
+          <div class="slot" onclick="uploadSlot('wheel_rr')" id="sl-wheel_rr"><div class="slot-icon">⭕</div><div class="slot-label">RR</div></div>
+        </div>
+        <div class="card-label">Interior</div>
+        <div class="upload-grid">
+          <div class="slot" onclick="uploadSlot('interior_front')" id="sl-interior_front"><div class="slot-icon">🪑</div><div class="slot-label">Front</div></div>
+          <div class="slot" onclick="uploadSlot('interior_rear')" id="sl-interior_rear"><div class="slot-icon">🪑</div><div class="slot-label">Rear</div></div>
+          <div class="slot" onclick="uploadSlot('boot')" id="sl-boot"><div class="slot-icon">📦</div><div class="slot-label">Boot</div></div>
+        </div>
+        <input type="file" id="m-file" accept="image/*,video/*" capture="environment" style="display:none" onchange="handleUpload(this)">
+        <div id="m-status" style="display:none;margin-top:10px;font-family:'DM Mono',monospace;font-size:9px;color:var(--green)"></div>
+        <div id="m-caption" style="display:none;background:rgba(249,249,6,.04);border:1px solid rgba(249,249,6,.08);padding:10px;margin-top:8px;font-size:11px;color:var(--banana);font-style:italic"></div>
+      </div>
+      <div class="card">
+        <div class="card-label">View Job Media</div>
+        <div style="display:flex;gap:8px">
+          <input class="finp" id="m-view-reg" placeholder="AB12 CDE" style="text-transform:uppercase;font-family:'DM Mono',monospace;flex:1">
+          <button class="act-btn" onclick="loadMedia()">Load</button>
+        </div>
+        <div id="m-list" style="margin-top:10px"></div>
+      </div>
+    </div>
+
+    <!-- COMMS -->
+    <div class="pane" id="pane-comms">
+      <div class="section-title">Comms <em>+ GHOST</em></div>
+      <div class="section-sub">GHOST filters every message. Urgent flagged to Romeo. Routine handled automatically.</div>
+      <div class="card">
+        <div class="card-label" style="color:var(--red)">Urgent — Needs Your Attention</div>
+        <div id="urgent-list"></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Messages</div>
+        <div id="msg-list" style="max-height:360px;overflow-y:auto;margin-bottom:10px"></div>
+        <div style="display:flex;gap:8px">
+          <input class="finp" id="msg-in" placeholder="Message..." style="flex:1" onkeydown="if(event.key==='Enter')sendMsg()">
+          <button class="act-btn" onclick="sendMsg()">Send</button>
+        </div>
+        <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+          <button class="ghost-btn" style="font-size:7px;padding:6px 10px" onclick="sendCallReq()">📞 Call</button>
+          <button class="ghost-btn" style="font-size:7px;padding:6px 10px" onclick="sendJobNote()">📋 Job Note</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEGAL -->
+    <div class="pane" id="pane-legal">
+      <div class="section-title">Legal <em>Docs</em></div>
+      <div class="section-sub">Insurance, ICO, certificates. GHOST flags anything expiring within 30 days.</div>
+      <div id="expiry-bar" style="display:none;background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.2);padding:10px 14px;margin-bottom:12px;font-family:'DM Mono',monospace;font-size:9px;color:var(--amber)"></div>
+      <div class="card">
+        <div class="card-label">Required Documents</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div style="background:var(--surface);border:1px solid rgba(197,160,89,.08);padding:10px"><div style="font-size:10px;color:var(--text);margin-bottom:4px">Motor Trade Insurance</div><div style="font-size:8px;color:var(--red);margin-bottom:6px">⚠ Legal requirement</div><a href="https://www.ais-insurance.co.uk" target="_blank" style="font-family:'DM Mono',monospace;font-size:7px;color:var(--gold);text-decoration:none">Get quote →</a></div>
+          <div style="background:var(--surface);border:1px solid rgba(197,160,89,.08);padding:10px"><div style="font-size:10px;color:var(--text);margin-bottom:4px">ICO Registration</div><div style="font-size:8px;color:var(--red);margin-bottom:6px">⚠ Required — £40</div><a href="https://ico.org.uk/registration" target="_blank" style="font-family:'DM Mono',monospace;font-size:7px;color:var(--gold);text-decoration:none">Register →</a></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-label">Add Document</div>
+        <div class="g2">
+          <div class="field"><label>Type</label><select class="finp" id="d-type"><option value="insurance">Motor Trade Insurance</option><option value="ico_registration">ICO Registration</option><option value="trade_certificate">Trade Certificate</option><option value="client_terms">Client Terms</option><option value="privacy_policy">Privacy Policy</option><option value="sop">SOP</option><option value="employee_contract">Staff Contract</option><option value="trade_partner_agreement">Trade Partner Agreement</option><option value="other">Other</option></select></div>
+          <div class="field"><label>Name</label><input class="finp" id="d-name" placeholder="Motor Trade Insurance 2026"></div>
+          <div class="field"><label>Google Drive URL</label><input class="finp" id="d-url" placeholder="https://drive.google.com/..."></div>
+          <div class="field"><label>Expiry Date</label><input class="finp" id="d-expiry" type="date"></div>
+        </div>
+        <button class="act-btn" onclick="addDoc()">Add Document</button>
+      </div>
+      <div id="docs-list"></div>
+    </div>
+
+    <!-- TRACKING -->
+    <div class="pane" id="pane-track">
+      <div class="section-title">Job <em>Tracker</em></div>
+      <div class="section-sub">Start a job — creates the live tracking link to send the client. Tap each stage as you complete it. Client sees it update in real time.</div>
+
+      <!-- START JOB -->
+      <div class="card" style="border-color:rgba(249,249,6,.15)">
+        <div class="card-label" style="color:var(--banana)">Start Job / Create Tracking Link</div>
+        <div class="g2">
+          <div class="field"><label>Registration</label><input class="finp" id="tr-reg" placeholder="AB12 CDE" style="text-transform:uppercase;font-family:'DM Mono',monospace;font-size:16px" autocomplete="off"></div>
+          <div class="field"><label>Service</label>
+            <select class="finp" id="tr-svc">
+              <option value="Spark Wash">Spark Wash £79</option>
+              <option value="Quick Refinement">Quick Refinement £249</option>
+              <option value="Depth Refinement" selected>Depth Refinement £449</option>
+              <option value="Total Refinement">Total Refinement £799</option>
+            </select>
+          </div>
+          <div class="field"><label>Customer Name</label><input class="finp" id="tr-name" placeholder="John Smith"></div>
+          <div class="field"><label>Customer Phone (for WhatsApp)</label><input class="finp" id="tr-phone" placeholder="+441923959839" style="color:inherit;text-decoration:none">01923 959839</a> · <a href="https://wa.me/447927576142" type="tel"></div>
+          <div class="field"><label>Vehicle Make</label><input class="finp" id="tr-make" placeholder="Porsche"></div>
+          <div class="field"><label>Job Type</label>
+            <select class="finp" id="tr-type">
+              <option value="drop_off">Drop Off (client brings car)</option>
+              <option value="mobile">Mobile (we go to client)</option>
+              <option value="collection">Collection (we collect car)</option>
+            </select>
+          </div>
+        </div>
+        <button class="act-btn" onclick="startJob()">Check In Car + Create Tracking Link →</button>
+        <div id="tr-result" style="display:none;margin-top:12px"></div>
+      </div>
+
+      <!-- ACTIVE JOB — LIVE BROADCAST PANEL -->
+      <div class="card" id="active-job-card" style="display:none;border-color:rgba(249,249,6,.15)">
+        <div class="card-label" style="color:var(--banana)">🔴 Live — Broadcasting to Client</div>
+        <div id="active-job-info" style="font-size:11px;color:var(--muted);margin-bottom:14px"></div>
+
+        <!-- ONE-TAP STAGE BUTTONS — each posts to the live feed instantly -->
+        <div class="card-label" style="margin-bottom:8px">Tap to update stage</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:16px" id="stage-buttons">
+          <button class="ghost-btn" style="padding:12px 6px;font-size:8px;text-align:center" onclick="tapStage('prewash','🫧','Pre-Wash')">🫧<br>Pre-Wash</button>
+          <button class="ghost-btn" style="padding:12px 6px;font-size:8px;text-align:center" onclick="tapStage('wash','🚿','Hand Wash')">🚿<br>Hand Wash</button>
+          <button class="ghost-btn" style="padding:12px 6px;font-size:8px;text-align:center" onclick="tapStage('decon','⚗️','Decontamination')">⚗️<br>Decon</button>
+          <button class="ghost-btn" style="padding:12px 6px;font-size:8px;text-align:center" onclick="tapStage('correction','🔬','Paint Correction')">🔬<br>Correction</button>
+          <button class="ghost-btn" style="padding:12px 6px;font-size:8px;text-align:center" onclick="tapStage('protection','🛡️','Paint Protection')">🛡️<br>Protection</button>
+          <button class="ghost-btn" style="padding:12px 6px;font-size:8px;text-align:center" onclick="tapStage('interior','🪑','Interior Detail')">🪑<br>Interior</button>
+          <button class="ghost-btn" style="padding:12px 6px;font-size:8px;text-align:center" onclick="tapStage('final_check','🔍','Final Check')">🔍<br>Final Check</button>
+          <button style="padding:12px 6px;font-size:8px;text-align:center;background:var(--green);color:#000;border:none;cursor:pointer;font-family:'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase" onclick="tapStage('complete','✅','Complete')">✅<br>Complete</button>
+        </div>
+
+        <!-- POST A CUSTOM UPDATE -->
+        <div class="card-label" style="margin-bottom:8px">Post a custom update</div>
+        <div class="field"><textarea class="finp" id="post-message" rows="2" placeholder="e.g. deep scratch on driver door treated with Stage 1 compound. looking great."></textarea></div>
+        <input type="file" id="post-photo" accept="image/*" capture="environment" style="display:none" onchange="handlePostPhoto(this)">
+        <div style="display:flex;gap:6px;margin-bottom:6px">
+          <button class="ghost-btn" style="font-size:7px;padding:7px 12px" onclick="document.getElementById('post-photo').click()">📸 Add Photo</button>
+          <button class="act-btn" style="font-size:7px;padding:7px 14px" onclick="postUpdate()">Post Update →</button>
+        </div>
+        <div id="post-preview" style="display:none;margin-bottom:8px">
+          <img id="post-img-preview" style="max-height:80px;border:1px solid rgba(197,160,89,.15)" alt="preview">
+          <button onclick="clearPostPhoto()" style="font-family:'DM Mono',monospace;font-size:7px;color:var(--red);background:none;border:none;cursor:pointer;display:block;margin-top:3px">✕ Remove photo</button>
+        </div>
+        <div id="post-status" style="font-family:'DM Mono',monospace;font-size:8px;color:var(--green);display:none"></div>
+
+        <!-- TRACKING LINK -->
+        <div style="border-top:1px solid rgba(197,160,89,.08);margin-top:12px;padding-top:12px">
+          <div class="card-label" style="margin-bottom:8px">Tracking Link</div>
+          <div id="tracking-link-row" style="font-size:10px;color:var(--muted);word-break:break-all;margin-bottom:8px"></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button class="ghost-btn" style="font-size:7px;padding:6px 10px" onclick="copyTrackLink()">Copy Link</button>
+            <button class="ghost-btn" style="font-size:7px;padding:6px 10px;color:#25D366;border-color:rgba(37,211,102,.2)" onclick="waTrackLink()">WhatsApp</button>
+            <a id="preview-link" href="#" target="_blank" style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border:1px solid rgba(197,160,89,.1);color:var(--muted);text-decoration:none">Preview →</a>
+          </div>
+        </div>
+
+        <!-- LOCATION -->
+        <div style="border-top:1px solid rgba(197,160,89,.08);margin-top:12px;padding-top:12px">
+          <div class="card-label" style="margin-bottom:8px">📍 Share My Location with Client</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="act-btn" id="loc-start-btn" onclick="startStaffLocation()" style="font-size:7px;padding:8px 14px">Share Location</button>
+            <button id="loc-stop-btn" onclick="stopStaffLocation()" style="display:none;font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.1em;text-transform:uppercase;padding:8px 14px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.3);color:var(--red);cursor:pointer">Stop Sharing</button>
+          </div>
+          <div id="staff-loc-status" style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);margin-top:6px"></div>
+        </div>
+      </div>
+
+      <!-- LOAD EXISTING JOB -->
+      <div class="card">
+        <div class="card-label">Load Active Job</div>
+        <div style="display:flex;gap:8px">
+          <input class="finp" id="tr-load-token" placeholder="tracking token or registration" style="flex:1">
+          <button class="act-btn" onclick="loadActiveJob()">Load</button>
+        </div>
+      </div>
+
+      <!-- RECENT JOBS -->
+      <div class="card">
+        <div class="card-label">Recent Jobs</div>
+        <div id="recent-jobs-list"></div>
+        <button class="ghost-btn" style="margin-top:8px" onclick="loadRecentJobs()">Refresh</button>
+      </div>
+    </div>
+    <!-- TEAM (owner only) -->
+    <div class="pane" id="pane-team">
+      <div class="section-title">Team <em>Management</em></div>
+      <div class="section-sub">Invite staff, trade partners, and future team members. They get a one-time code to register.</div>
+      <div class="card" style="border-color:rgba(249,249,6,.15)">
+        <div class="card-label" style="color:var(--banana)">Invite Someone</div>
+        <div class="g2">
+          <div class="field"><label>Full Name</label><input class="finp" id="inv-name" placeholder="John Smith"></div>
+          <div class="field"><label>Email</label><input class="finp" id="inv-email" placeholder="john@email.com" type="email"></div>
+          <div class="field"><label>Role</label><select class="finp" id="inv-role"><option value="technician">Technician</option><option value="apprentice">Apprentice</option><option value="trade_partner">Trade Partner</option><option value="admin">Admin</option></select></div>
+        </div>
+        <button class="act-btn" onclick="inviteStaff()">Send Invite →</button>
+        <div id="inv-result" style="display:none;margin-top:10px"></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Pending Invites</div>
+        <div id="invites-list"></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Active Staff</div>
+        <div id="staff-list-team"></div>
+      </div>
+    </div>
+
+    <!-- ── SOP VIDEO VAULT ── -->
+    <div class="pane hidden" id="pane-sop">
+      <div class="section-title">SOP <em>Video Vault</em></div>
+      <div class="section-sub">Training procedures, chemical handling guides, and technique walkthroughs. Watch before attempting a new procedure.</div>
+
+      <!-- Category filter -->
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px" id="sop-filters">
+        <button class="sop-filter active" onclick="filterSOP('all')">All</button>
+        <button class="sop-filter" onclick="filterSOP('chemical_handling')">Chemical Handling</button>
+        <button class="sop-filter" onclick="filterSOP('exterior')">Exterior</button>
+        <button class="sop-filter" onclick="filterSOP('interior')">Interior</button>
+        <button class="sop-filter" onclick="filterSOP('health_safety')">Health & Safety</button>
+        <button class="sop-filter" onclick="filterSOP('paint_prep')">Paint Prep</button>
+      </div>
+
+      <div id="sop-loading" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:20px 0">Loading SOPs...</div>
+      <div id="sop-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px"></div>
+    </div>
+
+    <!-- ── CERTIFICATIONS TRACKER ── -->
+    <div class="pane hidden" id="pane-certs">
+      <div class="section-title">Certifications <em>Tracker</em></div>
+      <div class="section-sub">Training progress, compliance certifications, and upcoming expiry dates. Tick off completions as they happen.</div>
+
+      <div id="certs-loading" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:20px 0">Loading certifications...</div>
+      <div id="certs-container"></div>
+
+      <!-- Quick add cert (owner only) -->
+      <div id="add-cert-section" style="display:none;margin-top:24px">
+        <div class="card" style="border-color:rgba(197,160,89,.1)">
+          <div class="card-label">Add Certification</div>
+          <input class="inp" type="text" id="cert-name" placeholder="e.g. COSHH Awareness" style="margin-bottom:8px">
+          <select class="inp" id="cert-category" style="background:var(--surface);color:var(--text);margin-bottom:8px">
+            <option value="health_safety">Health & Safety</option>
+            <option value="chemical">Chemical Handling</option>
+            <option value="equipment">Equipment Operation</option>
+            <option value="detailing">Detailing Technique</option>
+            <option value="concierge">Concierge Operations</option>
+          </select>
+          <select class="inp" id="cert-staff" style="background:var(--surface);color:var(--text);margin-bottom:12px">
+            <option value="">Select staff member...</option>
+            <option value="romeo">Romeo Cruz</option>
+            <option value="ferrel">Ferrel Cruz</option>
+          </select>
+          <button class="btn-g" onclick="addCertification()">Add Certification →</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /app -->
+
+<script>
+const STAFF_URL='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-staff';
+const BRAIN_URL='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain';
+const SB_URL='https://slzawehsiotvkjzaehqw.supabase.co';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
+const ADMIN_SECRET='GHOST-ROMEO-2026';
+
+let currentStaff=null;
+let currentPin='';
+let currentSetPin='';
+let setPinStage=1; // 1=enter, 2=confirm
+let setPinFirst='';
+let currentInviteId=null;
+let currentUploadAngle='';
+let loginEmail='';
+
+// ── SCREEN NAVIGATION ──────────────────────────────────────
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>{
+    s.classList.toggle('hidden',s.id!==id);
+  });
+}
+function showEntry(){showScreen('screen-entry');}
+function showRegister(){showScreen('screen-register');}
+function goBack(){showScreen('screen-entry');}
+
+// ── ENTRY SCREEN ───────────────────────────────────────────
+function continueWithEmail(){
+  const email=document.getElementById('entry-email').value.trim().toLowerCase();
+  const err=document.getElementById('entry-error');
+  if(!email||!email.includes('@')){err.textContent='Enter a valid email';return;}
+  loginEmail=email;
+  document.getElementById('pin-greeting').innerHTML='Enter <em>PIN</em>';
+  document.getElementById('pin-sub').textContent=email;
+  showScreen('screen-pin');
+}
+
+// ── PIN LOGIN ──────────────────────────────────────────────
+function pk(k){
+  if(currentPin.length>=6)return;
+  currentPin+=k;updateDots();
+  if(currentPin.length>=4){
+    // Submit after 4+ digits with a tiny delay
+    clearTimeout(window._pinTimer);
+    window._pinTimer=setTimeout(()=>{if(currentPin.length>=4)submitLogin();},600);
+  }
+}
+function pinDel(){currentPin=currentPin.slice(0,-1);updateDots();clearTimeout(window._pinTimer);}
+function pinClear(){currentPin='';updateDots();clearTimeout(window._pinTimer);}
+function updateDots(){
+  for(let i=0;i<6;i++){
+    const d=document.getElementById('d'+i);
+    if(d)d.className='pin-dot'+(i<currentPin.length?' filled':'');
+  }
+}
+async function submitLogin(){
+  const err=document.getElementById('pin-error');
+  err.textContent='';
+  try{
+    const r=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'staff_login',email:loginEmail,pin:currentPin,device_info:navigator.userAgent.substring(0,80)})});
+    const d=await r.json();
+    if(d.success){
+      saveSession(d.token,d.staff);
+      showApp(d.staff);
+    }else{
+      err.textContent=d.message||'PIN incorrect';
+      currentPin='';updateDots();
+    }
+  }catch(e){
+    err.textContent='Connection error. Try again.';
+    currentPin='';updateDots();
+  }
+}
+
+// ── REGISTER FLOW ─────────────────────────────────────────
+async function verifyInvite(){
+  const email=document.getElementById('reg-email').value.trim().toLowerCase();
+  const code=document.getElementById('reg-code').value.trim();
+  const err=document.getElementById('reg-error');
+  if(!email||!code||code.length<6){err.textContent='Enter your email and the 6-digit code';return;}
+  err.textContent='';
+  try{
+    const r=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'verify_invite',email,code})});
+    const d=await r.json();
+    if(d.valid){
+      currentInviteId=d.invite_id;
+      document.getElementById('set-pin-sub').textContent='Welcome, '+d.full_name+'. Choose a 4-6 digit PIN.';
+      setPinStage=1;setPinFirst='';currentSetPin='';updateSetDots();
+      showScreen('screen-set-pin');
+    }else{
+      err.textContent=d.error||'Invalid or expired code';
+    }
+  }catch{err.textContent='Connection error';}
+}
+
+// ── SET PIN (registration) ─────────────────────────────────
+function spk(k){
+  if(currentSetPin.length>=6)return;
+  currentSetPin+=k;updateSetDots();
+  if(currentSetPin.length>=4){
+    clearTimeout(window._spTimer);
+    window._spTimer=setTimeout(()=>{if(currentSetPin.length>=4)nextSetPinStage();},600);
+  }
+}
+function spDel(){currentSetPin=currentSetPin.slice(0,-1);updateSetDots();clearTimeout(window._spTimer);}
+function spClear(){currentSetPin='';updateSetDots();clearTimeout(window._spTimer);}
+function updateSetDots(){
+  for(let i=0;i<6;i++){
+    const d=document.getElementById('sd'+i);
+    if(d)d.className='pin-dot'+(i<currentSetPin.length?' filled':'');
+  }
+}
+async function nextSetPinStage(){
+  const err=document.getElementById('set-pin-error');
+  const stage=document.getElementById('set-pin-stage');
+  if(setPinStage===1){
+    setPinFirst=currentSetPin;currentSetPin='';updateSetDots();
+    setPinStage=2;
+    stage.textContent='Step 2 of 2 — confirm your PIN';
+    err.textContent='';
+  }else{
+    if(currentSetPin!==setPinFirst){
+      err.textContent='PINs do not match. Start again.';
+      setPinStage=1;setPinFirst='';currentSetPin='';updateSetDots();
+      stage.textContent='Step 1 of 2 — enter your PIN';
+      return;
+    }
+    // PINs match — complete registration
+    err.textContent='';
+    stage.textContent='Setting up your account...';
+    try{
+      const r=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({action:'complete_registration',invite_id:currentInviteId,pin:currentSetPin,device_info:navigator.userAgent.substring(0,80)})});
+      const d=await r.json();
+      if(d.success){
+        saveSession(d.token,d.staff);
+        showApp(d.staff);
+      }else{
+        err.textContent=d.error||'Registration failed';
+        stage.textContent='Step 1 of 2 — enter your PIN';
+        setPinStage=1;setPinFirst='';currentSetPin='';updateSetDots();
+      }
+    }catch{err.textContent='Connection error';}
+  }
+}
+
+// ── SESSION MANAGEMENT ─────────────────────────────────────
+function saveSession(token,staff){
+  localStorage.setItem('ghost_staff_token',token);
+  localStorage.setItem('ghost_staff',JSON.stringify(staff));
+}
+function logout(){
+  localStorage.removeItem('ghost_staff_token');
+  localStorage.removeItem('ghost_staff');
+  currentStaff=null;currentPin='';updateDots();
+  document.getElementById('app').style.display='none';
+  showEntry();
+}
+async function checkSession(){
+  const token=localStorage.getItem('ghost_staff_token');
+  if(!token){showEntry();checkBiometrics();return;}
+  try{
+    const r=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'verify_session',token})});
+    const d=await r.json();
+    if(d.valid){currentStaff=d.staff;showApp(d.staff);}
+    else{localStorage.removeItem('ghost_staff_token');showEntry();checkBiometrics();}
+  }catch{showEntry();checkBiometrics();}
+}
+
+// ── APP INIT ───────────────────────────────────────────────
+
+function toast(msg, type='info', duration=3000){
+  const container=document.getElementById('toast-container');
+  if(!container)return;
+  const t=document.createElement('div');
+  t.className='toast toast-'+type;
+  t.textContent=msg;
+  container.appendChild(t);
+  setTimeout(()=>t.remove(), duration);
+}
+
+function showApp(staff){
+  currentStaff=staff;
+  document.querySelectorAll('.screen').forEach(s=>s.classList.add('hidden'));
+  const app=document.getElementById('app');
+  app.style.display='flex';
+  document.getElementById('role-badge').textContent=staff.role;
+  document.getElementById('name-greeting').textContent=staff.display_name||staff.full_name.split(' ')[0];
+  document.getElementById('today-date').textContent=new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});
+  if(staff.can_manage_staff)document.getElementById('t-team').style.display='block';
+  if(!staff.can_view_legal_docs)document.getElementById('t-legal').style.display='none';
+  // Offer biometrics if not set up
+  if(window.PublicKeyCredential&&!localStorage.getItem('ghost_bio_cred_id')){
+    document.getElementById('bio-offer-card').style.display='block';
+    const isIOS=/iPhone|iPad/.test(navigator.userAgent);
+    const isMac=navigator.platform.includes('Mac');
+    document.getElementById('bio-offer-btn').textContent=isIOS?'Enable Face ID':isMac?'Enable Touch ID':'Enable Fingerprint';
+  }
+  loadToday();
+}
+
+// ── TABS ───────────────────────────────────────────────────
+function tab(t){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pane-'+t)?.classList.add('on');
+  document.getElementById('t-'+t)?.classList.add('on');
+  if(t==='comms')loadMessages();
+  if(t==='legal')loadDocs();
+  if(t==='team'){loadInvites();loadStaffList();}
+  if(t==='track')loadRecentJobs();
+  if(t==='today')loadToday();
+  if(t==='sop')loadSOPs('all');
+  if(t==='certs')loadCertifications();
+  if(t==='sop')loadSOPs();
+  if(t==='certs'){loadCertifications();if(currentUser?.role==='owner')document.getElementById('add-cert-section').style.display='block';}
+}
+
+// ── TODAY ──────────────────────────────────────────────────
+async function loadToday(){
+  try{
+    const d=await fetch(BRAIN_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'morning_brief'})}).then(r=>r.json());
+    document.getElementById('brief-text').textContent=d.brief||'bay is clear. no alerts.';
+    if(d.stats){
+      document.getElementById('s-today').textContent=d.stats.jobs_today||0;
+      document.getElementById('s-members').textContent=d.stats.active_members||0;
+      document.getElementById('s-leads').textContent=d.stats.priority_leads_48h||0;
+      document.getElementById('s-tomorrow').textContent=d.stats.jobs_tomorrow||0;
+    }
+  }catch{document.getElementById('brief-text').textContent='tap to refresh';}
+  // Bay schedule
+  const today=new Date().toISOString().split('T')[0];
+  try{
+    const jobs=await fetch(`${SB_URL}/rest/v1/bay_schedule?schedule_date=eq.${today}&select=*`,{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}}).then(r=>r.json());
+    const bl=document.getElementById('bay-list');
+    if(!Array.isArray(jobs)||!jobs.length){bl.innerHTML='<div style="color:var(--muted);font-size:12px;padding:6px 0">nothing booked today</div>';return;}
+    bl.innerHTML=jobs.map(j=>`<div style="background:var(--surface);border:1px solid rgba(197,160,89,.08);padding:10px 12px;margin-bottom:6px;display:flex;align-items:center;gap:10px"><div style="flex:1"><div style="font-size:12px">${j.customer_name||'—'} — ${j.vehicle_make||'—'}${j.vehicle_reg?' ('+j.vehicle_reg+')':''}</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--gold)">${j.service_type||'—'}</div></div><button onclick="quickGuide('${j.vehicle_reg||''}','${j.vehicle_make||''}','${j.service_type||''}')" style="font-family:'DM Mono',monospace;font-size:7px;color:var(--banana);background:none;border:1px solid rgba(249,249,6,.2);padding:4px 8px;cursor:pointer;white-space:nowrap">Guide</button></div>`).join('');
+  }catch{}
+  if(currentStaff?.role==='apprentice'){
+    document.getElementById('ferrel-card').style.display='block';
+    document.getElementById('ferrel-focus').textContent="focus on pre-wash dwell time. let the iron remover work before any contact. romeo checks the correction before moving to polishing.";
+  }
+}
+function quickGuide(reg,make,svc){
+  tab('guide');
+  if(reg)document.getElementById('g-reg').value=reg;
+  if(make)document.getElementById('g-make').value=make;
+}
+
+// ── JOB GUIDE ─────────────────────────────────────────────
+async function genGuide(){
+  const reg=document.getElementById('g-reg').value.trim().toUpperCase().replace(/\s/g,'');
+  const make=document.getElementById('g-make').value.trim();
+  if(!reg&&!make){toast('Enter registration or make','info');return;}
+  document.getElementById('g-loading').style.display='block';
+  document.getElementById('g-output').style.display='none';
+  const d=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'generate_job_guide',registration:reg,vehicle_make:make,vehicle_model:document.getElementById('g-model').value.trim(),vehicle_year:parseInt(document.getElementById('g-year').value)||null,service_type:document.getElementById('g-svc').value,assigned_to:currentStaff?.id})}).then(r=>r.json());
+  document.getElementById('g-loading').style.display='none';
+  if(d.error){toast(d.error||'Something went wrong','error');return;}
+  const g=d.raw_guide||{};
+  const pd=d.paint_data||{};
+  document.getElementById('g-paint').textContent=g.paint_summary||'standard assessment';
+  document.getElementById('g-hard').textContent=pd.hardness||'—';
+  document.getElementById('g-mic').textContent=(pd.microns||'—')+'μm';
+  document.getElementById('g-leath').textContent=(d.guide?.leather_type||'unknown').replace(/_/g,' ');
+  document.getElementById('g-machine').textContent=g.machine_settings||'standard DA settings';
+  document.getElementById('g-use').innerHTML=(g.products_use||[]).map(p=>`<div style="background:rgba(16,185,129,.04);border:1px solid rgba(16,185,129,.1);padding:8px 10px;margin-bottom:4px"><div style="font-size:11px;color:var(--green);font-weight:500">${p.product||p}</div>${p.purpose?`<div style="font-size:10px;color:var(--muted);margin-top:1px">${p.purpose}${p.dilution?' — '+p.dilution:''}${p.dwell_time?' — dwell: '+p.dwell_time:''}</div>`:''}</div>`).join('');
+  document.getElementById('g-avoid').innerHTML=(g.products_avoid||[]).map(p=>`<div style="background:rgba(239,68,68,.04);border:1px solid rgba(239,68,68,.1);padding:8px 10px;margin-bottom:4px"><div style="font-size:11px;color:var(--red);font-weight:500">${p.product||p}</div>${p.reason?`<div style="font-size:10px;color:var(--muted);margin-top:1px">${p.reason}</div>`:''}</div>`).join('');
+  const wc=document.getElementById('g-warn-card');
+  if(g.manufacturer_warnings){document.getElementById('g-warn').textContent=g.manufacturer_warnings;wc.style.display='block';}else wc.style.display='none';
+  document.getElementById('g-defects').textContent=g.common_defects||'no specific defects documented';
+  document.getElementById('g-steps').innerHTML=(g.process_steps||[]).map(s=>`<div class="guide-step"><div class="gs-n">Step ${s.step} ${s.time_estimate?'· '+s.time_estimate:''}</div><div class="gs-t">${s.title||'—'}</div><div class="gs-d">${s.detail||'—'}</div>${s.ferrel_tip?`<div class="gs-f">${s.ferrel_tip}</div>`:''}</div>`).join('');
+  document.getElementById('g-output').style.display='block';
+}
+
+// ── MEDIA ──────────────────────────────────────────────────
+function uploadSlot(angle){currentUploadAngle=angle;document.getElementById('m-file').click();}
+async function handleUpload(input){
+  const file=input.files[0];if(!file)return;
+  const reg=document.getElementById('m-reg').value.trim().toUpperCase().replace(/\s/g,'');
+  const stage=document.getElementById('m-stage').value;
+  const status=document.getElementById('m-status');
+  status.style.display='block';status.textContent='uploading...';
+  const reader=new FileReader();
+  reader.onload=async function(e){
+    const slot=document.getElementById('sl-'+currentUploadAngle);
+    if(slot){const img=document.createElement('img');img.src=e.target.result;slot.innerHTML='';slot.appendChild(img);slot.classList.add('ok');}
+    const d=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'log_media',registration:reg,uploaded_by:currentStaff?.id,media_type:file.type.startsWith('video')?'video':'photo',stage,angle:currentUploadAngle,filename:file.name,file_size_kb:Math.round(file.size/1024),supabase_url:'[uploaded]'})}).then(r=>r.json());
+    status.textContent='✓ '+currentUploadAngle+' saved';
+    if(d.auto_caption){const cap=document.getElementById('m-caption');cap.style.display='block';cap.textContent='AALIYA: '+d.auto_caption;}
+  };
+  reader.readAsDataURL(file);
+}
+async function loadMedia(){
+  const reg=document.getElementById('m-view-reg').value.trim().toUpperCase().replace(/\s/g,'');
+  if(!reg)return;
+  const d=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_job_media',registration:reg})}).then(r=>r.json());
+  const el=document.getElementById('m-list');
+  const m=d.media||[];
+  if(!m.length){el.innerHTML='<div style="color:var(--muted);font-size:12px">No media for '+reg+'</div>';return;}
+  const g=d.grouped||{};
+  el.innerHTML=['before','during','after'].map(stage=>{
+    const items=g[stage]||[];
+    if(!items.length)return '';
+    return `<div style="margin-bottom:10px"><div class="card-label" style="margin-bottom:6px">${stage}</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px">${items.map(i=>`<div style="background:var(--surface);border:1px solid rgba(197,160,89,.08);padding:8px;text-align:center"><div style="font-size:16px">📸</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);margin-top:3px">${i.angle||'—'}</div></div>`).join('')}</div></div>`;
+  }).join('');
+}
+
+// ── COMMS ──────────────────────────────────────────────────
+async function loadMessages(){
+  if(!currentStaff)return;
+  const d=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_messages',staff_id:currentStaff.id,limit:30})}).then(r=>r.json());
+  const msgs=d.messages||[];
+  const urgent=msgs.filter(m=>m.ghost_priority==='urgent'&&!m.read_at);
+  document.getElementById('urgent-list').innerHTML=urgent.length?urgent.map(m=>`<div class="msg msg-ghost"><div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--red);margin-bottom:4px">URGENT</div>${m.content}${m.ghost_response?`<div style="color:var(--muted);font-size:10px;margin-top:3px;font-style:italic">GHOST: "${m.ghost_response}"</div>`:''}</div>`).join(''):'<div style="color:var(--muted);font-size:12px;padding:6px 0">no urgent messages</div>';
+  const ml=document.getElementById('msg-list');
+  ml.innerHTML=msgs.map(m=>{const isMe=m.from_staff_id===currentStaff.id;const isGhost=!m.from_staff_id||m.message_type==='ghost_alert';return `<div class="msg ${isGhost?'msg-ghost':isMe?'msg-me':'msg-other'}"><div>${m.content}</div><div class="msg-meta">${isGhost?'GHOST':isMe?'You':'Staff'} · ${new Date(m.created_at).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}</div></div>`;}).join('');
+  ml.scrollTop=ml.scrollHeight;
+}
+async function sendMsg(){
+  const input=document.getElementById('msg-in');
+  const content=input.value.trim();if(!content)return;
+  input.value='';
+  await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'send_message',from_staff_id:currentStaff.id,content})});
+  setTimeout(loadMessages,400);
+}
+async function sendCallReq(){await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'send_message',from_staff_id:currentStaff.id,content:currentStaff.display_name+' is requesting a call.',message_type:'text',is_call_request:true})});setTimeout(loadMessages,400);}
+function sendJobNote(){const c=prompt('Job note:');if(c)fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'send_message',from_staff_id:currentStaff.id,content:c,message_type:'job_note'})}).then(()=>setTimeout(loadMessages,400));}
+
+// ── LEGAL ──────────────────────────────────────────────────
+async function loadDocs(){
+  const d=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_legal_docs'})}).then(r=>r.json());
+  if(d.expiring_soon?.length){const el=document.getElementById('expiry-bar');el.style.display='block';el.textContent='⚠ Expiring: '+d.expiring_soon.map(e=>e.doc_name).join(', ');}
+  const icons={insurance:'📋',ico_registration:'🔒',trade_certificate:'🏆',client_terms:'📝',privacy_policy:'🔏',sop:'📖',employee_contract:'👤',trade_partner_agreement:'🤝',other:'📄'};
+  const dl=document.getElementById('docs-list');
+  if(!d.docs?.length){dl.innerHTML='<div style="color:var(--muted);font-size:12px;padding:10px 0">No documents added yet.</div>';return;}
+  dl.innerHTML=d.docs.map(doc=>{
+    const exp=doc.expiry_date?new Date(doc.expiry_date):null;
+    const days=exp?Math.round((exp-new Date())/(86400000)):null;
+    const sc=!exp?'st-active':days<0?'st-expired':days<30?'st-expiring':'st-active';
+    const st=!exp?'active':days<0?'expired':days<30?days+'d left':'active';
+    return `<div class="doc-row"><div style="font-size:20px;flex-shrink:0">${icons[doc.doc_type]||'📄'}</div><div style="flex:1"><div style="font-size:11px;font-weight:500">${doc.doc_name}</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted)">${doc.doc_type.replace(/_/g,' ')}${doc.expiry_date?' · '+new Date(doc.expiry_date).toLocaleDateString('en-GB'):''}</div>${doc.drive_url?`<a href="${doc.drive_url}" target="_blank" style="font-family:'DM Mono',monospace;font-size:7px;color:var(--gold);text-decoration:none">Open Drive →</a>`:''}</div><div class="doc-status ${sc}">${st}</div></div>`;
+  }).join('');
+}
+async function addDoc(){
+  const name=document.getElementById('d-name').value.trim();if(!name){toast('Enter a name','info');return;}
+  await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'add_legal_doc',doc_type:document.getElementById('d-type').value,doc_name:name,drive_url:document.getElementById('d-url').value.trim(),expiry_date:document.getElementById('d-expiry').value||null,uploaded_by:currentStaff?.id})});
+  loadDocs();
+}
+
+// ── TEAM ───────────────────────────────────────────────────
+async function inviteStaff(){
+  const name=document.getElementById('inv-name').value.trim();
+  const email=document.getElementById('inv-email').value.trim();
+  if(!name||!email){toast('Enter name and email','info');return;}
+  const res=document.getElementById('inv-result');
+  res.style.display='block';res.textContent='Sending invite...';
+  const d=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'invite_staff',full_name:name,email,role:document.getElementById('inv-role').value,invited_by:currentStaff?.id,admin_secret:ADMIN_SECRET})}).then(r=>r.json());
+  if(d.success){
+    res.innerHTML=`<div style="color:var(--green);margin-bottom:6px">✓ Invite sent to ${email}</div>${d.note?`<div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--amber)">${d.note}</div>`:''}`;
+    loadInvites();
+  }else{res.innerHTML=`<div style="color:var(--red)">${d.error||'Error sending invite'}</div>`;}
+}
+async function loadInvites(){
+  const d=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_invites'})}).then(r=>r.json());
+  const el=document.getElementById('invites-list');
+  const invites=(d.invites||[]).filter(i=>!i.used_at);
+  if(!invites.length){el.innerHTML='<div style="color:var(--muted);font-size:12px">No pending invites</div>';return;}
+  el.innerHTML=invites.map(i=>`<div style="background:var(--surface);border:1px solid rgba(197,160,89,.08);padding:10px 12px;margin-bottom:5px;display:flex;align-items:center;gap:10px"><div style="flex:1"><div style="font-size:11px">${i.full_name} — ${i.email}</div><div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--gold)">${i.role} · code: ${i.invite_code}</div></div><button onclick="resendInvite('${i.id}')" style="font-family:'DM Mono',monospace;font-size:7px;color:var(--banana);background:none;border:1px solid rgba(249,249,6,.2);padding:4px 8px;cursor:pointer">Resend</button></div>`).join('');
+}
+async function resendInvite(id){
+  const d=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'resend_invite',invite_id:id,admin_secret:ADMIN_SECRET})}).then(r=>r.json());
+  toast(d.note||d.error||'Done','success');
+  loadInvites();
+}
+async function loadStaffList(){
+  const d=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_staff'})}).then(r=>r.json());
+  const el=document.getElementById('staff-list-team');
+  el.innerHTML=(d.staff||[]).map(s=>`<div style="background:var(--surface);border:1px solid rgba(197,160,89,.08);padding:10px 12px;margin-bottom:5px;display:flex;align-items:center;gap:10px"><div style="width:32px;height:32px;background:rgba(197,160,89,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0">${(s.display_name||s.full_name)[0]}</div><div style="flex:1"><div style="font-size:11px">${s.full_name}</div><div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--gold)">${s.role}${s.email?' · '+s.email:''}</div></div><div style="font-family:'DM Mono',monospace;font-size:7px;color:rgba(16,185,129,.7)">${s.email_verified?'✓ verified':''}</div></div>`).join('');
+}
+
+// ── BIOMETRICS ─────────────────────────────────────────────
+function checkBiometrics(){
+  if(!window.PublicKeyCredential)return;
+  PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().then(available=>{
+    if(!available)return;
+    const isIOS=/iPhone|iPad/.test(navigator.userAgent);
+    const isMac=navigator.platform?.includes('Mac');
+    const isAndroid=/Android/.test(navigator.userAgent);
+    if(isIOS){document.getElementById('bio-face').style.display='flex';document.getElementById('bio-face-label').textContent='Sign in with Face ID';}
+    else if(isMac){document.getElementById('bio-face').style.display='flex';document.getElementById('bio-face-label').textContent='Sign in with Touch ID';}
+    else if(isAndroid){document.getElementById('bio-fp').style.display='flex';}
+    else{document.getElementById('bio-touch').style.display='flex';}
+    const hasCred=localStorage.getItem('ghost_bio_cred_id');
+    if(hasCred)setTimeout(()=>biometricLogin(true),800);
+  }).catch(()=>{});
+}
+
+async function biometricLogin(silent=false){
+  const status=document.getElementById('bio-status');
+  if(!silent)status.textContent='waiting...';
+  const credId=localStorage.getItem('ghost_bio_cred_id');
+  const staffId=localStorage.getItem('ghost_bio_staff_id');
+  if(!credId||!staffId){if(!silent){status.textContent='sign in with email first';status.style.color='var(--amber)';}return;}
+  try{
+    const challenge=new Uint8Array(32);crypto.getRandomValues(challenge);
+    const assertion=await navigator.credentials.get({publicKey:{challenge,rpId:window.location.hostname==='ghostdetail.autos'?'ghostdetail.autos':'ghostdetail.autos',allowCredentials:[{id:b64ToBuffer(credId),type:'public-key'}],userVerification:'required',timeout:60000}});
+    if(assertion){
+      const d=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'biometric_login',staff_id:staffId,device_verified:true})}).then(r=>r.json());
+      if(d.success){saveSession(d.token,d.staff);showApp(d.staff);}
+      else{status.textContent='session error — sign in with email';status.style.color='var(--red)';}
+    }
+  }catch(e){if(!silent){status.textContent=e.name==='NotAllowedError'?'cancelled':'sign in with email';status.style.color='var(--muted)';}}
+}
+
+async function registerBiometric(){
+  const status=document.getElementById('bio-offer-status');
+  status.textContent='waiting for biometric...';
+  try{
+    const challenge=new Uint8Array(32);crypto.getRandomValues(challenge);
+    const uid=new TextEncoder().encode(currentStaff?.id||'ghost');
+    const cred=await navigator.credentials.create({publicKey:{challenge,rp:{id:window.location.hostname==='ghostdetail.autos'?'ghostdetail.autos':'ghostdetail.autos',name:'Ghost Detail Autos'},user:{id:uid,name:currentStaff?.email||currentStaff?.full_name||'staff',displayName:currentStaff?.display_name||'Staff'},pubKeyCredParams:[{alg:-7,type:'public-key'},{alg:-257,type:'public-key'}],authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required'},timeout:60000}});
+    if(cred){
+      localStorage.setItem('ghost_bio_cred_id',bufferToB64(cred.rawId));
+      localStorage.setItem('ghost_bio_staff_id',currentStaff?.id||'');
+      status.textContent='✓ done — next time you can sign in with one tap';
+      document.getElementById('bio-offer-card').style.display='none';
+    }
+  }catch(e){status.textContent=e.name==='NotAllowedError'?'cancelled':'not supported on this device';}
+}
+
+function bufferToB64(buf){return btoa(String.fromCharCode(...new Uint8Array(buf)));}
+function b64ToBuffer(b64){const b=atob(b64);const a=new Uint8Array(b.length);for(let i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a.buffer;}
+
+// ── FORGOT / RESET PIN ──────────────────────────────────────────
+function showForgot(){
+  const e=document.getElementById('forgot-email');
+  if(loginEmail&&e)e.value=loginEmail;
+  document.getElementById('forgot-error').textContent='';
+  document.getElementById('forgot-success').style.display='none';
+  showScreen('screen-forgot');
+}
+function showReset(){showScreen('screen-reset');}
+
+async function sendResetCode(){
+  const email=document.getElementById('forgot-email').value.trim().toLowerCase();
+  const err=document.getElementById('forgot-error');
+  const ok=document.getElementById('forgot-success');
+  if(!email||!email.includes('@')){err.textContent='Enter your email';return;}
+  err.textContent='';ok.style.display='none';
+  const btn=document.querySelector('#screen-forgot .btn-primary');
+  if(btn){btn.textContent='Sending...';btn.disabled=true;}
+  const d=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'forgot_pin',email})}).then(r=>r.json());
+  if(btn){btn.textContent='Send Reset Code';btn.disabled=false;}
+  ok.style.display='block';
+  ok.textContent=d.message||'If that email is registered, a reset code is on its way.';
+  currentResetEmail=email;
+  // Move to reset screen after 1.5s
+  setTimeout(()=>{
+    document.getElementById('reset-sub').textContent='Enter the code sent to '+email;
+    document.getElementById('reset-step-code').style.display='block';
+    document.getElementById('reset-step-pin').style.display='none';
+    resetPinStage=1;resetPinFirst='';currentResetPin='';updateResetDots();
+    currentResetId=null;
+    showScreen('screen-reset');
+  },1500);
+}
+
+let currentResetEmail='';
+let currentResetId=null;
+let currentResetPin='';
+let resetPinStage=1;
+let resetPinFirst='';
+
+async function verifyResetCode(){
+  const code=document.getElementById('reset-code-input').value.trim();
+  const err=document.getElementById('reset-code-error');
+  if(!code||code.length<6){err.textContent='Enter the 6-digit code';return;}
+  err.textContent='';
+  const d=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'verify_reset',email:currentResetEmail,code})}).then(r=>r.json());
+  if(d.valid){
+    currentResetId=d.reset_id;
+    document.getElementById('reset-step-code').style.display='none';
+    document.getElementById('reset-step-pin').style.display='block';
+    document.getElementById('reset-sub').textContent='Choose a new PIN';
+    resetPinStage=1;resetPinFirst='';currentResetPin='';updateResetDots();
+  }else{
+    err.textContent=d.error||'Invalid or expired code';
+  }
+}
+
+// Auto-verify from URL reset_token
+const urlResetToken=urlParams.get('reset_token');
+if(urlResetToken){
+  fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'verify_reset',token:urlResetToken})}).then(r=>r.json()).then(d=>{
+    if(d.valid){
+      currentResetId=d.reset_id;currentResetEmail=d.email||'';
+      document.getElementById('reset-step-code').style.display='none';
+      document.getElementById('reset-step-pin').style.display='block';
+      document.getElementById('reset-sub').textContent='Choose a new PIN';
+      resetPinStage=1;currentResetPin='';updateResetDots();
+      showScreen('screen-reset');
+    }
+  }).catch(()=>{});
+}
+
+function rpk(k){if(currentResetPin.length>=6)return;currentResetPin+=k;updateResetDots();clearTimeout(window._rpTimer);window._rpTimer=setTimeout(()=>{if(currentResetPin.length>=4)nextResetPinStage();},600);}
+function rDel(){currentResetPin=currentResetPin.slice(0,-1);updateResetDots();clearTimeout(window._rpTimer);}
+function rClear(){currentResetPin='';updateResetDots();clearTimeout(window._rpTimer);}
+function updateResetDots(){for(let i=0;i<6;i++){const d=document.getElementById('rd'+i);if(d)d.className='pin-dot'+(i<currentResetPin.length?' filled':'');}}
+
+async function nextResetPinStage(){
+  const err=document.getElementById('reset-pin-error');
+  const stage=document.getElementById('reset-pin-stage');
+  if(resetPinStage===1){
+    resetPinFirst=currentResetPin;currentResetPin='';updateResetDots();
+    resetPinStage=2;stage.textContent='Step 2 of 2 — confirm your new PIN';err.textContent='';
+  }else{
+    if(currentResetPin!==resetPinFirst){
+      err.textContent='PINs do not match. Try again.';
+      resetPinStage=1;resetPinFirst='';currentResetPin='';updateResetDots();
+      stage.textContent='Step 1 of 2 — enter your new PIN';return;
+    }
+    stage.textContent='Updating PIN...';
+    const d=await fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'complete_reset',reset_id:currentResetId,new_pin:currentResetPin})}).then(r=>r.json());
+    if(d.success){
+      saveSession(d.token,d.staff);
+      showApp(d.staff);
+    }else{
+      err.textContent=d.error||'Reset failed. Try again.';
+      resetPinStage=1;resetPinFirst='';currentResetPin='';updateResetDots();
+      stage.textContent='Step 1 of 2 — enter your new PIN';
+    }
+  }
+}
+
+// Auto-fill from URL token (email invite link)
+const urlParams=new URLSearchParams(window.location.search);
+const urlToken=urlParams.get('token');
+if(urlToken){
+  fetch(STAFF_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'verify_invite',token:urlToken})}).then(r=>r.json()).then(d=>{
+    if(d.valid){
+      currentInviteId=d.invite_id;
+      document.getElementById('set-pin-sub').textContent='Welcome, '+d.full_name+'. Choose your PIN.';
+      setPinStage=1;setPinFirst='';currentSetPin='';updateSetDots();
+      showScreen('screen-set-pin');
+    }else{checkSession();}
+  }).catch(()=>checkSession());
+}else{
+  checkSession();
+}
+
+// ── JOB TRACKER ─────────────────────────────────────────────────────
+const TRACKER_URL='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-tracker';
+let activeToken=null;
+let currentTrackToken=null;
+let currentCustomerPhone=null;
+let currentCustomerName=null;
+let postPhotoData=null;
+let staffLocWatcher=null;
+
+const STAGE_MSGS={
+  prewash:"Snow foam applied. Letting it dwell.",
+  wash:"Two-bucket hand wash in progress. Every panel.",
+  decon:"Iron fallout remover on. Clay bar next.",
+  correction:"Machine polisher out. Working through the paint.",
+  protection:"Sealant / ceramic going on now. Paint's protected.",
+  interior:"Interior deep clean. Vacuumed, wiped, conditioned.",
+  final_check:"Final inspection. Checking every panel.",
+  complete:"Done. Your car is ready to collect."
+};
+
+async function startJob(){
+  const reg=document.getElementById('tr-reg')?.value.trim().toUpperCase().replace(/\s/g,'')||'';
+  const name=document.getElementById('tr-name')?.value.trim()||'';
+  const phone=document.getElementById('tr-phone')?.value.trim()||'';
+  const make=document.getElementById('tr-make')?.value.trim()||'';
+  const svc=document.getElementById('tr-svc')?.value||'Depth Refinement';
+  const type=document.getElementById('tr-type')?.value||'drop_off';
+  if(!reg){toast('Enter registration','error');return;}
+  const res=document.getElementById('tr-result');
+  if(res){res.style.display='block';res.textContent='Checking in car...';}
+  try{
+    const d=await fetch(TRACKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'create_tracking',registration:reg,vehicle_make:make,customer_name:name,customer_phone:phone,service_type:svc,job_type:type,staff_name:currentStaff?.display_name||'Romeo',staff_id:currentStaff?.id})}).then(r=>r.json());
+    if(d.success){
+      activeToken=d.token;
+      currentTrackToken=d.token;
+      currentCustomerPhone=phone||null;
+      currentCustomerName=name||null;
+      const tlr=document.getElementById('tracking-link-row');
+      const pl=document.getElementById('preview-link');
+      if(tlr)tlr.textContent=d.tracking_url;
+      if(pl)pl.href=d.tracking_url;
+      const card=document.getElementById('active-job-card');
+      if(card)card.style.display='block';
+      const info=document.getElementById('active-job-info');
+      if(info)info.textContent=reg+(name?' · '+name:'')+' · '+svc;
+      const waUrl=phone?`https://wa.me/${phone.replace(/\D/g,'')}?text=${encodeURIComponent(`Hi ${name||'there'}, your ${make||reg} is checked in at Ghost Detail. Track your job live: ${d.tracking_url}`)}`:null;
+      if(res)res.innerHTML=`<div style="background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.2);padding:12px">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--green);margin-bottom:8px">✓ Job created — tracking link live</div>
+        <div style="font-size:10px;color:var(--text);margin-bottom:8px;word-break:break-all">${d.tracking_url}</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button onclick="navigator.clipboard.writeText('${d.tracking_url}')" style="font-family:'DM Mono',monospace;font-size:7px;color:var(--gold);background:none;border:1px solid rgba(197,160,89,.2);padding:5px 10px;cursor:pointer">Copy Link</button>
+          ${waUrl?`<a href="${waUrl}" target="_blank" style="font-family:'DM Mono',monospace;font-size:7px;color:#25D366;background:none;border:1px solid rgba(37,211,102,.2);padding:5px 10px;text-decoration:none">WhatsApp Client</a>`:''}
+          <a href="${d.tracking_url}" target="_blank" style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);background:none;border:1px solid rgba(197,160,89,.1);padding:5px 10px;text-decoration:none">Preview →</a>
+        </div>
+      </div>`;
+    }else{
+      if(res){res.textContent='Error: '+(d.error||'unknown');res.style.color='var(--red)';}
+    }
+  }catch(e){
+    if(res){res.textContent='Error: '+e.message;res.style.color='var(--red)';}
+  }
+}
+
+async function tapStage(stage,icon,label){
+  if(!activeToken){toast('Start a job first','error');return;}
+  const msg=STAGE_MSGS[stage]||label+' — in progress';
+  await fetch(TRACKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'advance_stage',token:activeToken,stage,staff_id:currentStaff?.id,staff_name:currentStaff?.display_name||'Romeo',note:msg})});
+  await fetch(SB_URL+'/rest/v1/job_feed',{
+    method:'POST',
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+    body:JSON.stringify({tracking_token:activeToken,post_type:stage==='complete'?'complete':'stage',stage,stage_label:label,stage_icon:icon,message:msg,posted_by:currentStaff?.display_name||'Romeo Cruz'})
+  });
+  document.querySelectorAll('#stage-buttons button').forEach(b=>{
+    if(b.textContent.includes(icon)){b.style.background='rgba(16,185,129,.15)';b.style.borderColor='var(--green)';b.style.color='var(--green)';}
+  });
+  const card=document.querySelector('#active-job-card');
+  if(card){card.style.borderColor='rgba(249,249,6,.6)';setTimeout(()=>card.style.borderColor='rgba(249,249,6,.15)',800);}
+  const status=document.getElementById('post-status');
+  if(status){status.style.display='block';status.textContent='✓ '+label+' — client notified';setTimeout(()=>status.style.display='none',2500);}
+}
+
+async function postUpdate(){
+  if(!activeToken){toast('Start a job first','error');return;}
+  const msg=document.getElementById('post-message')?.value.trim()||'';
+  if(!msg&&!postPhotoData){toast('Add a message or photo','error');return;}
+  await fetch(SB_URL+'/rest/v1/job_feed',{
+    method:'POST',
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+    body:JSON.stringify({tracking_token:activeToken,post_type:'note',message:msg,photo_url:postPhotoData||null,stage_icon:'💬',posted_by:currentStaff?.display_name||'Romeo Cruz'})
+  });
+  const msgEl=document.getElementById('post-message');
+  if(msgEl)msgEl.value='';
+  clearPostPhoto();
+  const status=document.getElementById('post-status');
+  if(status){status.style.display='block';status.textContent='✓ Update posted live';setTimeout(()=>status.style.display='none',2000);}
+}
+
+function handlePostPhoto(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    postPhotoData=e.target.result;
+    const prev=document.getElementById('post-preview');
+    const img=document.getElementById('post-img-preview');
+    if(prev)prev.style.display='block';
+    if(img)img.src=postPhotoData;
+  };
+  reader.readAsDataURL(file);
+}
+
+function clearPostPhoto(){
+  postPhotoData=null;
+  const prev=document.getElementById('post-preview');
+  const fi=document.getElementById('post-photo');
+  if(prev)prev.style.display='none';
+  if(fi)fi.value='';
+}
+
+function copyTrackLink(){
+  if(!activeToken)return;
+  navigator.clipboard.writeText(`https://ghostdetail.autos/track/${activeToken}`);
+  const s=document.getElementById('post-status');
+  if(s){s.style.display='block';s.textContent='✓ Link copied';setTimeout(()=>s.style.display='none',2000);}
+}
+
+function waTrackLink(){
+  if(!activeToken)return;
+  const url=`https://ghostdetail.autos/track/${activeToken}`;
+  const name=currentCustomerName||'there';
+  const msg=`Hi ${name}, your car is in the bay at Ghost Detail. Track every stage live: ${url}`;
+  if(currentCustomerPhone){
+    window.open(`https://wa.me/${currentCustomerPhone.replace(/\D/g,'')}?text=${encodeURIComponent(msg)}`,'_blank');
+  }else{
+    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`,'_blank');
+  }
+}
+
+async function loadActiveJob(){
+  const input=document.getElementById('tr-load-token')?.value.trim();
+  if(!input)return;
+  try{
+    const d=await fetch(TRACKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({action:'get_job',token:input})}).then(r=>r.json());
+    if(d.job){
+      activeToken=d.job.tracking_token;
+      currentTrackToken=d.job.tracking_token;
+      const card=document.getElementById('active-job-card');
+      if(card)card.style.display='block';
+      const info=document.getElementById('active-job-info');
+      if(info)info.textContent=d.job.registration+' · '+(d.job.service_type||'—')+' · Stage: '+d.job.current_stage;
+      const tlr=document.getElementById('tracking-link-row');
+      const pl=document.getElementById('preview-link');
+      const trackUrl=`https://ghostdetail.autos/track/${d.job.tracking_token}`;
+      if(tlr)tlr.textContent=trackUrl;
+      if(pl)pl.href=trackUrl;
+    }else{toast('Job not found','error');}
+  }catch(e){toast('Error: '+e.message,'error');}
+}
+
+async function loadRecentJobs(){
+  const el=document.getElementById('recent-jobs-list');
+  if(!el)return;
+  try{
+    const d=await fetch(TRACKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'get_job_history',limit:10})}).then(r=>r.json());
+    if(!d.jobs?.length){el.innerHTML='<div style="color:var(--muted);font-size:12px;padding:8px 0">No jobs yet</div>';return;}
+    el.innerHTML=d.jobs.map(j=>`<div style="background:var(--surface);border:1px solid rgba(197,160,89,.08);padding:10px 12px;margin-bottom:5px;display:flex;align-items:center;gap:10px;cursor:pointer" onclick="document.getElementById('tr-load-token').value='${j.tracking_token}';loadActiveJob()">
+      <div style="flex:1"><div style="font-size:11px;color:var(--text)">${j.registration}${j.vehicle_make?' · '+j.vehicle_make:''}</div>
+      <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--gold)">${j.service_type||'—'} · ${j.current_stage}</div></div>
+      <div style="font-family:'DM Mono',monospace;font-size:7px;color:${j.status==='complete'?'var(--green)':'var(--amber)'}">${j.status}</div>
+      <a href="https://ghostdetail.autos/track/${j.tracking_token}" target="_blank" style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);text-decoration:none;border:1px solid rgba(197,160,89,.1);padding:3px 8px">View →</a>
+    </div>`).join('');
+  }catch(e){if(el)el.innerHTML='<div style="color:var(--muted);font-size:12px">Could not load</div>';}
+}
+
+// Staff location sharing
+async function startStaffLocation(){
+  if(!activeToken){toast('Start a job first','error');return;}
+  if(!navigator.geolocation){toast('Location not available on this device','error');return;}
+  const status=document.getElementById('staff-loc-status');
+  if(status)status.textContent='Getting location...';
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    const{latitude:lat,longitude:lng,accuracy}=pos.coords;
+    await sendStaffLoc(lat,lng,accuracy);
+    if(status)status.textContent='✓ Location shared with client';
+    const startBtn=document.getElementById('loc-start-btn');
+    const stopBtn=document.getElementById('loc-stop-btn');
+    if(startBtn)startBtn.style.display='none';
+    if(stopBtn)stopBtn.style.display='block';
+    staffLocWatcher=navigator.geolocation.watchPosition(async p=>{
+      await sendStaffLoc(p.coords.latitude,p.coords.longitude,p.coords.accuracy);
+    },null,{enableHighAccuracy:true,maximumAge:5000});
+  },err=>{if(status)status.textContent='Error: '+err.message;},{enableHighAccuracy:true,timeout:10000});
+}
+
+async function stopStaffLocation(){
+  if(staffLocWatcher)navigator.geolocation.clearWatch(staffLocWatcher);
+  if(activeToken)await fetch(TRACKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'stop_location',token:activeToken,actor:'staff'})});
+  const startBtn=document.getElementById('loc-start-btn');
+  const stopBtn=document.getElementById('loc-stop-btn');
+  const status=document.getElementById('staff-loc-status');
+  if(startBtn)startBtn.style.display='block';
+  if(stopBtn)stopBtn.style.display='none';
+  if(status)status.textContent='Location sharing stopped';
+}
+
+async function sendStaffLoc(lat,lng,accuracy){
+  if(!activeToken)return;
+  await fetch(TRACKER_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'update_location',token:activeToken,actor:'staff',actor_name:currentStaff?.display_name||'Romeo',lat,lng,accuracy:Math.round(accuracy||0)})});
+}
+
+// ── SOP VIDEO VAULT ──────────────────────────────────────────────────────────
+let allSOPs = [];
+async function loadSOPs() {
+  const grid = document.getElementById('sop-grid');
+  const loading = document.getElementById('sop-loading');
+  try {
+    const r = await fetch(SB_URL + '/rest/v1/sop_videos?is_active=eq.true&order=sort_order', {
+      headers: { 'apikey': SB_ANON, 'Authorization': 'Bearer ' + SB_ANON }
+    });
+    const data = await r.json();
+    allSOPs = data || [];
+    loading.style.display = 'none';
+    renderSOPs(allSOPs);
+  } catch(e) {
+    loading.textContent = 'Failed to load SOPs.';
+  }
+}
+
+function renderSOPs(videos) {
+  const grid = document.getElementById('sop-grid');
+  if (!videos.length) {
+    grid.innerHTML = '<div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:20px">No SOPs in this category yet. Romeo can add video links from the War Room.</div>';
+    return;
+  }
+  grid.innerHTML = videos.map(v => `
+    <div style="background:rgba(197,160,89,.03);border:1px solid rgba(197,160,89,.08);padding:20px;cursor:pointer" onclick="openSOP('${v.video_url}','${v.title}')">
+      <div style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">${v.category.replace(/_/g,' ')} · ${v.skill_level}</div>
+      <div style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--text);margin-bottom:6px">${v.title}</div>
+      <div style="font-size:11px;color:var(--muted2);line-height:1.5;margin-bottom:12px">${v.description||''}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted)">${v.duration_mins?v.duration_mins+'min':''}</span>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--gold);letter-spacing:.08em">▶ Watch</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterSOP(category) {
+  document.querySelectorAll('.sop-filter').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  const filtered = category === 'all' ? allSOPs : allSOPs.filter(v => v.category === category);
+  renderSOPs(filtered);
+}
+
+function openSOP(url, title) {
+  // Open in new tab for YouTube/Vimeo
+  if (url.includes('youtube.com') || url.includes('vimeo.com')) {
+    window.open(url, '_blank');
+    return;
+  }
+  window.open(url, '_blank');
+}
+
+// ── CERTIFICATIONS ────────────────────────────────────────────────────────────
+async function loadCertifications() {
+  const container = document.getElementById('certs-container');
+  const loading = document.getElementById('certs-loading');
+  try {
+    const r = await fetch(SB_URL + '/rest/v1/staff_certifications?order=status,category', {
+      headers: { 'apikey': SB_ANON, 'Authorization': 'Bearer ' + SB_ANON }
+    });
+    const data = await r.json();
+    loading.style.display = 'none';
+
+    if (!data || !data.length) {
+      container.innerHTML = '<div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:20px">No certifications set up yet.</div>';
+      return;
+    }
+
+    // Group by category
+    const groups = {};
+    data.forEach(c => {
+      if (!groups[c.category]) groups[c.category] = [];
+      groups[c.category].push(c);
+    });
+
+    container.innerHTML = Object.entries(groups).map(([cat, certs]) => `
+      <div style="margin-bottom:24px">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">${cat.replace(/_/g,' ')}</div>
+        ${certs.map(c => {
+          const statusColor = c.status === 'completed' ? 'var(--green)' : c.status === 'in_progress' ? 'var(--amber,#F59E0B)' : 'var(--muted)';
+          const statusIcon = c.status === 'completed' ? '✓' : c.status === 'in_progress' ? '◐' : '○';
+          return `<div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04)">
+            <button onclick="toggleCert('${c.id}','${c.status}')" style="width:20px;height:20px;border-radius:50%;border:1px solid ${statusColor};background:${c.status==='completed'?statusColor:'transparent'};color:${c.status==='completed'?'#0A0905':statusColor};cursor:pointer;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">${statusIcon}</button>
+            <div style="flex:1">
+              <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text)">${c.certification_name}</div>
+              <div style="font-size:10px;color:var(--muted)">${c.staff_name}${c.expiry_date?' · expires '+new Date(c.expiry_date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):''}</div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:8px;color:${statusColor}">${c.status.replace(/_/g,' ')}</span>
+          </div>`;
+        }).join('')}
+      </div>
+    `).join('');
+  } catch(e) {
+    loading.textContent = 'Failed to load certifications.';
+  }
+}
+
+async function toggleCert(id, currentStatus) {
+  const newStatus = currentStatus === 'completed' ? 'pending' : 'completed';
+  const completedAt = newStatus === 'completed' ? new Date().toISOString() : null;
+  await fetch(SB_URL + '/rest/v1/staff_certifications?id=eq.' + id, {
+    method: 'PATCH',
+    headers: { 'apikey': SB_ANON, 'Authorization': 'Bearer ' + SB_ANON, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ status: newStatus, completed_at: completedAt })
+  });
+  loadCertifications();
+}
+
+async function addCertification() {
+  const name = document.getElementById('cert-name').value.trim();
+  const category = document.getElementById('cert-category').value;
+  const staffEl = document.getElementById('cert-staff');
+  const staffName = staffEl.options[staffEl.selectedIndex].text;
+  if (!name || !staffName || staffEl.value === '') return;
+  await fetch(SB_URL + '/rest/v1/staff_certifications', {
+    method: 'POST',
+    headers: { 'apikey': SB_ANON, 'Authorization': 'Bearer ' + SB_ANON, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ certification_name: name, category, staff_name: staffName, status: 'pending' })
+  });
+  document.getElementById('cert-name').value = '';
+  loadCertifications();
+}
+
+// Add SOP filter styles
+const sopStyle = document.createElement('style');
+sopStyle.textContent = '.sop-filter{background:transparent;border:1px solid rgba(197,160,89,.1);color:var(--muted2);font-family:"DM Mono",monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;cursor:pointer;transition:all .2s}.sop-filter.active{border-color:var(--gold);color:var(--gold);background:rgba(197,160,89,.06)}.sop-filter:hover{border-color:rgba(197,160,89,.3);color:var(--text)}';
+document.head.appendChild(sopStyle);
+
+// ── SOP VAULT ──────────────────────────────────────────────────────────
+let allSOPs = [];
+const SB_URL_GARAGE = 'https://slzawehsiotvkjzaehqw.supabase.co';
+const SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
+
+async function loadSOPs(category='all'){
+  const grid=document.getElementById('sop-grid');
+  const loading=document.getElementById('sop-loading');
+  if(!grid)return;
+  loading.style.display='block';
+  grid.innerHTML='';
+  try{
+    let url=SB_URL_GARAGE+'/rest/v1/sop_videos?select=*&is_active=eq.true&order=sort_order.asc';
+    if(category!=='all') url+='&category=eq.'+category;
+    const r=await fetch(url,{headers:{'apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON}});
+    const data=await r.json();
+    allSOPs=data||[];
+    loading.style.display='none';
+    if(!allSOPs.length){
+      grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)">No SOPs found for this category. Admin can add them via the Supabase dashboard.</div>';
+      return;
+    }
+    grid.innerHTML=allSOPs.map(sop=>sopCard(sop)).join('');
+    // Track view count
+    allSOPs.forEach(sop=>{
+      const card=document.getElementById('sop-'+sop.id);
+      if(card) card.addEventListener('click',()=>incrementSOPView(sop.id));
+    });
+  }catch(e){
+    loading.style.display='none';
+    grid.innerHTML='<div style="color:var(--red);font-size:12px;padding:20px">Failed to load SOPs.</div>';
+  }
+}
+
+function sopCard(sop){
+  const catColors={'chemical_handling':'rgba(239,68,68,.15)','exterior':'rgba(197,160,89,.1)','interior':'rgba(16,185,129,.1)','health_safety':'rgba(245,158,11,.1)','paint_prep':'rgba(139,92,246,.1)'};
+  const catLabels={'chemical_handling':'Chemical Handling','exterior':'Exterior','interior':'Interior','health_safety':'Health & Safety','paint_prep':'Paint Prep'};
+  const bg=catColors[sop.category]||'rgba(197,160,89,.05)';
+  const level=sop.skill_level==='apprentice'?'🟡 Apprentice':sop.skill_level==='technician'?'🔴 Technician':'🟢 All Staff';
+  const duration=sop.duration_mins?sop.duration_mins+'min':'';
+  // Extract YouTube/Vimeo ID for embed
+  const ytMatch=sop.video_url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  const vmMatch=sop.video_url.match(/vimeo\.com\/(\d+)/);
+  const hasValidUrl=ytMatch||vmMatch||(!sop.video_url.includes('PLACEHOLDER'));
+  return \`<div id="sop-\${sop.id}" style="background:\${bg};border:1px solid rgba(197,160,89,.08);padding:0;overflow:hidden;cursor:pointer" onclick="openSOP('\${sop.id}','\${encodeURIComponent(sop.video_url)}')">
+    <div style="padding:16px 18px 0">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <span style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)">\${catLabels[sop.category]||sop.category}</span>
+        <span style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted)">\${duration}</span>
+      </div>
+      <div style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--text);margin-bottom:6px">\${sop.title}</div>
+      <div style="font-size:11px;color:var(--muted2);line-height:1.5;margin-bottom:12px">\${sop.description||''}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:14px">
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted2)">\${level}</span>
+        <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--gold)">\${hasValidUrl?'▶ Watch':'🔗 Add URL'}</span>
+      </div>
+    </div>
+    <div style="background:rgba(0,0,0,.3);height:2px;width:\${sop.view_count?Math.min(100,sop.view_count*10):0}%;background:var(--gold);opacity:.4"></div>
+  </div>\`;
+}
+
+function filterSOP(cat){
+  document.querySelectorAll('.sop-filter').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  loadSOPs(cat);
+}
+
+function openSOP(id, encodedUrl){
+  const url=decodeURIComponent(encodedUrl);
+  const ytMatch=url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  const vmMatch=url.match(/vimeo\.com\/(\d+)/);
+  if(ytMatch){
+    window.open('https://www.youtube.com/watch?v='+ytMatch[1],'_blank');
+  }else if(vmMatch){
+    window.open('https://vimeo.com/'+vmMatch[1],'_blank');
+  }else if(!url.includes('PLACEHOLDER')){
+    window.open(url,'_blank');
+  }else{
+    alert('No video URL set for this SOP. Admin: update the video_url in the sop_videos table.');
+  }
+  incrementSOPView(id);
+}
+
+async function incrementSOPView(id){
+  try{
+    await fetch(SB_URL_GARAGE+'/rest/v1/sop_videos?id=eq.'+id,{
+      method:'PATCH',
+      headers:{'apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({view_count:undefined})
+    });
+    // Use RPC for increment
+    await fetch(SB_URL_GARAGE+'/rest/v1/rpc/increment_sop_view',{
+      method:'POST',
+      headers:{'apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json'},
+      body:JSON.stringify({sop_id:id})
+    });
+  }catch(e){}
+}
+
+// ── CERTIFICATIONS ──────────────────────────────────────────────────────
+let allCerts = [];
+
+async function loadCertifications(){
+  const container=document.getElementById('certs-container');
+  const loading=document.getElementById('certs-loading');
+  if(!container)return;
+  loading.style.display='block';
+  container.innerHTML='';
+  try{
+    const r=await fetch(SB_URL_GARAGE+'/rest/v1/staff_certifications?select=*&order=status.asc,certification_name.asc',{
+      headers:{'apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON}
+    });
+    allCerts=await r.json()||[];
+    loading.style.display='none';
+
+    // Show add cert section for owners
+    const isOwner=window._ghostUser&&(window._ghostUser.role==='owner'||window._ghostUser.email==='romeo@ghostdetail.autos');
+    const addSection=document.getElementById('add-cert-section');
+    if(addSection&&isOwner) addSection.style.display='block';
+
+    if(!allCerts.length){
+      container.innerHTML='<div style="text-align:center;padding:40px;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2)">No certifications tracked yet. Add them above.</div>';
+      return;
+    }
+
+    // Group by staff member
+    const byStaff={};
+    allCerts.forEach(c=>{
+      if(!byStaff[c.staff_name]) byStaff[c.staff_name]=[];
+      byStaff[c.staff_name].push(c);
+    });
+
+    container.innerHTML=Object.entries(byStaff).map(([name,certs])=>{
+      const completed=certs.filter(c=>c.status==='completed').length;
+      const total=certs.length;
+      const pct=total?Math.round(completed/total*100):0;
+      return \`<div style="margin-bottom:24px;background:rgba(197,160,89,.02);border:1px solid rgba(197,160,89,.08);padding:20px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="font-family:'DM Mono',monospace;font-size:11px;font-weight:500;color:var(--text)">\${name}</div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2)">\${completed}/\${total} complete · \${pct}%</div>
+        </div>
+        <div style="background:rgba(197,160,89,.06);height:3px;margin-bottom:16px">
+          <div style="background:var(--gold);height:3px;width:\${pct}%;transition:width .5s"></div>
+        </div>
+        \${certs.map(c=>certRow(c)).join('')}
+      </div>\`;
+    }).join('');
+  }catch(e){
+    loading.style.display='none';
+    container.innerHTML='<div style="color:var(--red);font-size:12px;padding:20px">Failed to load certifications.</div>';
+  }
+}
+
+function certRow(c){
+  const statusColor={pending:'var(--muted)',in_progress:'var(--orange)',completed:'var(--green)',expired:'var(--red)'};
+  const statusLabel={pending:'Pending',in_progress:'In Progress',completed:'Completed ✓',expired:'Expired ⚠'};
+  const color=statusColor[c.status]||'var(--muted)';
+  const label=statusLabel[c.status]||c.status;
+  const expiry=c.expiry_date?new Date(c.expiry_date).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'';
+  return \`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04)">
+    <div style="flex:1">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--text);margin-bottom:2px">\${c.certification_name}</div>
+      <div style="font-size:11px;color:var(--muted)">\${c.category.replace('_',' ')}  \${expiry?'· Expires '+expiry:''}</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <span style="font-family:'DM Mono',monospace;font-size:8px;color:\${color}">\${label}</span>
+      \${c.status!=='completed'?\`<button onclick="markCertComplete('\${c.id}')" style="font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.08em;text-transform:uppercase;background:transparent;border:1px solid rgba(16,185,129,.2);color:var(--green);padding:4px 8px;cursor:pointer">Mark Done</button>`:''}
+    </div>
+  </div>\`;
+}
+
+async function markCertComplete(id){
+  try{
+    await fetch(SB_URL_GARAGE+'/rest/v1/staff_certifications?id=eq.'+id,{
+      method:'PATCH',
+      headers:{'apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({status:'completed',completed_at:new Date().toISOString()})
+    });
+    loadCertifications();
+  }catch(e){alert('Failed to update.');}
+}
+
+async function addCertification(){
+  const name=document.getElementById('cert-name').value.trim();
+  const category=document.getElementById('cert-category').value;
+  const staffName=document.getElementById('cert-staff').value;
+  if(!name||!staffName){alert('Fill in all fields.');return;}
+  try{
+    const r=await fetch(SB_URL_GARAGE+'/rest/v1/staff_certifications',{
+      method:'POST',
+      headers:{'apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({certification_name:name,category,staff_name:staffName==='romeo'?'Romeo Cruz':'Ferrel Cruz',status:'pending'})
+    });
+    if(r.ok){
+      document.getElementById('cert-name').value='';
+      loadCertifications();
+    }
+  }catch(e){alert('Failed to add.');}
+}
+
+</script>
+</body>
+</html>

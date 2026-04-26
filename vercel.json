@@ -1,0 +1,391 @@
+{
+  "version": 2,
+  "name": "ghost-detail-autos",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(self), geolocation=(self), payment=(self), usb=(), bluetooth=()"
+        },
+        {
+          "key": "X-Permitted-Cross-Domain-Policies",
+          "value": "none"
+        },
+        {
+          "key": "Cross-Origin-Opener-Policy",
+          "value": "same-origin-allow-popups"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self' https://slzawehsiotvkjzaehqw.supabase.co https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://js.stripe.com https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; img-src 'self' data: blob: https:; connect-src 'self' https://slzawehsiotvkjzaehqw.supabase.co https://api.anthropic.com https://generativelanguage.googleapis.com https://api.stripe.com https://api.resend.com wss://slzawehsiotvkjzaehqw.supabase.co; frame-src https://buy.stripe.com https://js.stripe.com; frame-ancestors 'none'; upgrade-insecure-requests"
+        }
+      ]
+    },
+    {
+      "source": "/ghost-war-room",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate, private"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
+    },
+    {
+      "source": "/admin",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate, private"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
+    },
+    {
+      "source": "/staff",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate, private"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
+    },
+    {
+      "source": "/content",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate, private"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
+    },
+    {
+      "source": "/zone",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate, private"
+        },
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
+    },
+    {
+      "source": "/(sitemap.xml|robots.txt)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600"
+        },
+        {
+          "key": "Content-Type",
+          "value": "text/xml; charset=utf-8"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/garage/:path",
+      "destination": "/garage.html"
+    },
+    {
+      "source": "/garage",
+      "destination": "/garage.html"
+    },
+    {
+      "source": "/concierge",
+      "destination": "/concierge.html"
+    },
+    {
+      "source": "/studio",
+      "destination": "/studio.html"
+    },
+    {
+      "source": "/services",
+      "destination": "/services.html"
+    },
+    {
+      "source": "/booking",
+      "destination": "/booking.html"
+    },
+    {
+      "source": "/zone",
+      "destination": "/zone.html"
+    },
+    {
+      "source": "/membership",
+      "destination": "/membership.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/faq",
+      "destination": "/faq.html"
+    },
+    {
+      "source": "/legal",
+      "destination": "/legal.html"
+    },
+    {
+      "source": "/admin",
+      "destination": "/admin.html"
+    },
+    {
+      "source": "/account",
+      "destination": "/account.html"
+    },
+    {
+      "source": "/thankyou",
+      "destination": "/thankyou.html"
+    },
+    {
+      "source": "/gift-vouchers",
+      "destination": "/gift-vouchers.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/shop",
+      "destination": "/shop.html"
+    },
+    {
+      "source": "/locations/radlett",
+      "destination": "/locations/car-detailing-radlett.html"
+    },
+    {
+      "source": "/locations/harpenden",
+      "destination": "/locations/car-detailing-harpenden.html"
+    },
+    {
+      "source": "/locations/bushey",
+      "destination": "/locations/car-detailing-bushey.html"
+    },
+    {
+      "source": "/locations/rickmansworth",
+      "destination": "/locations/car-detailing-rickmansworth.html"
+    },
+    {
+      "source": "/locations/potters-bar",
+      "destination": "/locations/car-detailing-potters-bar.html"
+    },
+    {
+      "source": "/paint-check",
+      "destination": "/paint-check.html"
+    },
+    {
+      "source": "/ghost-pass",
+      "destination": "/membership.html"
+    },
+    {
+      "source": "/staff",
+      "destination": "/staff.html"
+    },
+    {
+      "source": "/bay",
+      "destination": "/staff.html"
+    },
+    {
+      "source": "/portal",
+      "destination": "/staff.html"
+    },
+    {
+      "source": "/track/:token",
+      "destination": "/track.html"
+    },
+    {
+      "source": "/track",
+      "destination": "/track.html"
+    },
+    {
+      "source": "/locations/ascot",
+      "destination": "/locations/car-detailing-ascot.html"
+    },
+    {
+      "source": "/locations/barnet",
+      "destination": "/locations/car-detailing-barnet.html"
+    },
+    {
+      "source": "/locations/borehamwood",
+      "destination": "/locations/car-detailing-borehamwood.html"
+    },
+    {
+      "source": "/locations/dunstable",
+      "destination": "/locations/car-detailing-dunstable.html"
+    },
+    {
+      "source": "/locations/enfield",
+      "destination": "/locations/car-detailing-enfield.html"
+    },
+    {
+      "source": "/locations/gerrards-cross",
+      "destination": "/locations/car-detailing-gerrards-cross.html"
+    },
+    {
+      "source": "/locations/harrow",
+      "destination": "/locations/car-detailing-harrow.html"
+    },
+    {
+      "source": "/locations/hemel-hempstead",
+      "destination": "/locations/car-detailing-hemel-hempstead.html"
+    },
+    {
+      "source": "/locations/hertford",
+      "destination": "/locations/car-detailing-hertford.html"
+    },
+    {
+      "source": "/locations/luton",
+      "destination": "/locations/car-detailing-luton.html"
+    },
+    {
+      "source": "/locations/milton-keynes",
+      "destination": "/locations/car-detailing-milton-keynes.html"
+    },
+    {
+      "source": "/locations/northwood",
+      "destination": "/locations/car-detailing-northwood.html"
+    },
+    {
+      "source": "/locations/slough",
+      "destination": "/locations/car-detailing-slough.html"
+    },
+    {
+      "source": "/locations/st-albans",
+      "destination": "/locations/car-detailing-st-albans.html"
+    },
+    {
+      "source": "/locations/stevenage",
+      "destination": "/locations/car-detailing-stevenage.html"
+    },
+    {
+      "source": "/locations/wembley",
+      "destination": "/locations/car-detailing-wembley.html"
+    },
+    {
+      "source": "/locations/weybridge",
+      "destination": "/locations/car-detailing-weybridge.html"
+    },
+    {
+      "source": "/locations/windsor",
+      "destination": "/locations/car-detailing-windsor.html"
+    },
+    {
+      "source": "/car-detailing-watford",
+      "destination": "/car-detailing-watford.html"
+    },
+    {
+      "source": "/ceramic-coating-watford",
+      "destination": "/ceramic-coating-watford.html"
+    },
+    {
+      "source": "/mobile-car-detailing-hertfordshire",
+      "destination": "/mobile-car-detailing-hertfordshire.html"
+    },
+    {
+      "source": "/paint-correction-watford",
+      "destination": "/paint-correction-watford.html"
+    },
+    {
+      "source": "/ppf-watford",
+      "destination": "/ppf-watford.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/404",
+      "destination": "/404.html"
+    },
+    {
+      "source": "/blog/car-detailing-watford-guide",
+      "destination": "/blog/car-detailing-watford-guide.html"
+    },
+    {
+      "source": "/blog/ceramic-coating-vs-wax",
+      "destination": "/blog/ceramic-coating-vs-wax.html"
+    },
+    {
+      "source": "/blog/how-often-detail-car",
+      "destination": "/blog/how-often-detail-car.html"
+    },
+    {
+      "source": "/blog/ppf-vs-ceramic-coating",
+      "destination": "/blog/ppf-vs-ceramic-coating.html"
+    },
+    {
+      "source": "/blog/what-is-paint-correction",
+      "destination": "/blog/what-is-paint-correction.html"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
+  "cleanUrls": true
+}
