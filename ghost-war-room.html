@@ -3420,9 +3420,9 @@ async function openTeamChat(teamId, teamName){
 }
 
 async function runTeamTask(teamId, teamName){
-  const prompt=window.prompt('Assign a task to the '+teamName+' team:
+  const prompt=window.prompt('Assign a task to the '+teamName+' team. What do you want them to work on?')
 
-What do you want them to work on?')
+
   if(!prompt) return
   const el=document.getElementById('team-briefing-result')
   const txt=document.getElementById('team-briefing-text')
