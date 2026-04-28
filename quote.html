@@ -1014,5 +1014,52 @@ Ghost Pass members save 15% on all of these.');
   }
 })();
 </script>
+<script id="ghost-ai-engine">
+// ── GHOST DETAIL · AI ENGINE ─────────────────────────────────────────
+// Free: Pollinations → Gemini fallback → smart keyword fallback
+// Premium: Claude Haiku if Romeo sets API key in War Room settings
+window.ghostAI = async function(systemPrompt, userMessage, historyArr) {
+  var history = historyArr || [];
+  var msgs = history.slice(-10).concat([{role:'user', content:userMessage}]);
+  
+  // Premium (Claude Haiku) if key set
+  var key = window._ghostApiKey || localStorage.getItem('ghost_api_key') || '';
+  if(key && key.startsWith('sk-ant')) {
+    try {
+      var r = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},
+        body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,system:systemPrompt,messages:msgs})
+      });
+      if(r.ok){ var d=await r.json(); var t=d.content?.[0]?.text; if(t) return {text:t,model:'claude-haiku'}; }
+    } catch(e){}
+  }
+  
+  // Free: Pollinations (no key, works from browser)
+  try {
+    var allMsgs = [{role:'system',content:systemPrompt}].concat(msgs);
+    var r = await fetch('https://text.pollinations.ai/openai', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Origin':'https://ghostdetail.autos','Referer':'https://ghostdetail.autos/'},
+      body:JSON.stringify({model:'openai',messages:allMsgs,private:true,seed:Math.floor(Math.random()*9999)})
+    });
+    if(r.ok){ var d=await r.json(); var t=d.choices?.[0]?.message?.content; if(t) return {text:t,model:'pollinations'}; }
+  } catch(e){}
+  
+  // Fallback: ghost-brain (Gemini via Supabase)
+  try {
+    var r = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
+      body:JSON.stringify({prompt:systemPrompt+'\n\nUser: '+userMessage})
+    });
+    var d=await r.json();
+    if(d.text) return {text:d.text, model:d.model||'gemini'};
+  } catch(e){}
+  
+  return null;
+};
+
+</script>
 </body>
 </html>

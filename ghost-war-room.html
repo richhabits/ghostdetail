@@ -3317,75 +3317,107 @@ async function sendMsg() {
   const msg = inp?.value?.trim();
   if (!msg) return;
   inp.value = '';
-
   addMsg('user', msg);
-  chatHistory.push({role:'user', content: msg});
-  if(chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
 
-  const thinking = addMsg('ghost', '', true);
   const m = BRAIN_META[activeBrain] || BRAIN_META.ghost;
+  const thinking = addMsg('ghost', '', true);
   const micBtn = document.getElementById('mic-btn');
-  if (micBtn) { micBtn.textContent = '⏳'; micBtn.classList.add('processing'); }
+  if(micBtn){ micBtn.textContent='⏳'; micBtn.classList.add('processing'); }
 
-  const system = AGENT_SYSTEMS[activeBrain] || AGENT_SYSTEMS.ghost;
-  
-  const msgs = [
-    {role:'system', content: system},
-    ...chatHistory.filter(h=>h.role!=='system').slice(-8),
-  ];
+  // Per-agent conversation history
+  if(!window._agentHistory) window._agentHistory = {};
+  if(!window._agentHistory[activeBrain]) window._agentHistory[activeBrain] = [];
+  window._agentHistory[activeBrain].push({role:'user',content:msg});
 
-  try {
-    // Pollinations AI — GPT-OSS 20B — FREE, no API key, browser-direct
-    const r = await fetch('https://text.pollinations.ai/', {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        messages: msgs,
-        model: 'openai-fast',
-        seed: Math.floor(Math.random()*9999),
-        private: true,
-        nofeed: true
-      })
-    });
-    
-    let responseText = '';
-    let modelUsed = 'gpt-oss-20b';
-    
-    if (r.ok) {
-      responseText = await r.text();
-      if (!responseText || responseText.length < 3) throw new Error('Empty response');
-    } else {
-      throw new Error('Pollinations error: ' + r.status);
-    }
-    
-    chatHistory.push({role:'assistant', content: responseText});
-    
-    thinking.innerHTML = `<div class="msg-role">${m.n}</div><div class="msg-text" id="last-response"></div><div class="msg-meta"><span>GPT-OSS 20B · Free</span><span style="cursor:pointer;color:var(--muted);user-select:none;margin-left:8px" onclick="speakLast()">🔊</span></div>`;
-    thinking.querySelector('#last-response').textContent = responseText;
-    speak(responseText);
+  const AGENT_PROMPTS = {"ghost": "You are GHOST \u2014 the AI brain of Ghost Detail Autos, Watford WD18, run by Romeo Cruz and son Ferrel Cruz. Luxury car detailing studio. Services: Spark Wash \u00a379, Quick Refinement \u00a3249, Depth Refinement \u00a3149, Total Refinement \u00a3349, Nano Banana Ceramic \u00a3279, PPF (POA). Ghost Pass: Spark \u00a399/mo, Shield \u00a3199/mo, Legend \u00a3299/mo. Be sharp, direct, business-minded.", "aria": "You are ARIA, Ghost Detail receptionist AI. Handle customer enquiries, draft WhatsApp follow-ups, manage leads. Warm but professional. Always push towards booking.", "jade": "You are JADE, Ghost Detail lead conversion AI. Turn cold leads hot. Write persuasive follow-ups. Close bookings.", "marcus": "You are MARCUS, Ghost Detail market intelligence. Track competitor pricing in Hertfordshire/North London. Spot detailing trends.", "aaliya": "You are AALIYA, Ghost Detail content creator. Turn results into Instagram captions and TikTok hooks. Gen Z appeal. Dark luxury brand.", "priya": "You are PRIYA, Ghost Detail operations AI. Manage bay scheduling, stock, job tracking, workflow.", "dev": "You are DEV, Ghost Detail finance AI. Track revenue, analyse deposits, forecast monthly income. Precise with numbers.", "romeo_ai": "You are ROMEO AI, Ghost Detail brand and strategy AI. Help Romeo Cruz with brand decisions, positioning, scaling, long-term strategy."};
+  const system = AGENT_PROMPTS[activeBrain] || AGENT_PROMPTS.ghost;
+  const history = window._agentHistory[activeBrain].slice(-10);
 
-  } catch(e) {
-    // Fallback: Supabase ghost-brain (Gemini)
+  let reply = '';
+  let modelUsed = 'offline';
+
+  // Try ghostAI engine (Pollinations free → Gemini → Claude Haiku)
+  if(window.ghostAI) {
     try {
-      const r2 = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain', {
-        method:'POST',
-        headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
-        body:JSON.stringify({prompt: system + '\n\nUser: ' + msg})
-      });
-      const d2 = await r2.json();
-      const fallbackText = d2.text || 'Ghost offline. Try again.';
-      chatHistory.push({role:'assistant', content: fallbackText});
-      thinking.innerHTML = `<div class="msg-role">${m.n}</div><div class="msg-text" id="last-response"></div><div class="msg-meta"><span>Gemini Fallback</span></div>`;
-      thinking.querySelector('#last-response').textContent = fallbackText;
-      speak(fallbackText);
-    } catch(e2) {
-      thinking.innerHTML = `<div class="msg-role">${m.n}</div><div class="msg-text" style="color:#ef4444">Ghost temporarily offline. Check internet connection.</div>`;
-    }
-  } finally {
-    if (micBtn) { micBtn.textContent = '🎤'; micBtn.classList.remove('processing'); }
-    document.getElementById('chat-msgs').scrollTop = 9999;
+      const result = await window.ghostAI(system, msg, history);
+      if(result?.text){ reply = result.text; modelUsed = result.model; }
+    } catch(e) {}
   }
+
+  // Smart keyword fallback
+  if(!reply) {
+    const kw = msg.toLowerCase();
+    if(activeBrain==='ghost'){
+      if(kw.includes('book')) reply = 'Check /admin → Bookings for live booking data.';
+      else if(kw.includes('revenue')||kw.includes('money')) reply = 'Set Stripe keys in Vercel to pull live revenue data.';
+      else if(kw.includes('lead')) reply = 'Check aria_leads table in Supabase — all chat captures are there.';
+      else reply = 'Ghost Detail Autos, Watford WD18. Romeo & Ferrel Cruz. What do you need?';
+    } else if(activeBrain==='aaliya') {
+      reply = 'Give me a before/after result to work with and I will write you the caption and hook.';
+    } else if(activeBrain==='aria') {
+      reply = 'Ready to draft customer messages. What do you need written?';
+    } else {
+      reply = activeBrain.toUpperCase()+' online. What do you need?';
+    }
+  }
+
+  window._agentHistory[activeBrain].push({role:'assistant',content:reply});
+  if(window._agentHistory[activeBrain].length > 20) window._agentHistory[activeBrain] = window._agentHistory[activeBrain].slice(-20);
+
+  thinking.innerHTML = '<div class="msg-role">'+m.n+'</div><div class="msg-text" id="last-response"></div><div class="msg-meta"><span>'+modelUsed+'</span><span style="cursor:pointer;color:var(--muted);user-select:none" onclick="speakLast()">🔊</span></div>';
+  thinking.querySelector('#last-response').textContent = reply;
+  speak(reply);
+
+  if(micBtn){ micBtn.textContent='🎤'; micBtn.classList.remove('processing'); }
+  document.getElementById('chat-msgs').scrollTop = 9999;
 }
+</script>
+<script id="ghost-ai-engine">
+// ── GHOST DETAIL · AI ENGINE ─────────────────────────────────────────
+// Free: Pollinations → Gemini fallback → smart keyword fallback
+// Premium: Claude Haiku if Romeo sets API key in War Room settings
+window.ghostAI = async function(systemPrompt, userMessage, historyArr) {
+  var history = historyArr || [];
+  var msgs = history.slice(-10).concat([{role:'user', content:userMessage}]);
+  
+  // Premium (Claude Haiku) if key set
+  var key = window._ghostApiKey || localStorage.getItem('ghost_api_key') || '';
+  if(key && key.startsWith('sk-ant')) {
+    try {
+      var r = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},
+        body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,system:systemPrompt,messages:msgs})
+      });
+      if(r.ok){ var d=await r.json(); var t=d.content?.[0]?.text; if(t) return {text:t,model:'claude-haiku'}; }
+    } catch(e){}
+  }
+  
+  // Free: Pollinations (no key, works from browser)
+  try {
+    var allMsgs = [{role:'system',content:systemPrompt}].concat(msgs);
+    var r = await fetch('https://text.pollinations.ai/openai', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Origin':'https://ghostdetail.autos','Referer':'https://ghostdetail.autos/'},
+      body:JSON.stringify({model:'openai',messages:allMsgs,private:true,seed:Math.floor(Math.random()*9999)})
+    });
+    if(r.ok){ var d=await r.json(); var t=d.choices?.[0]?.message?.content; if(t) return {text:t,model:'pollinations'}; }
+  } catch(e){}
+  
+  // Fallback: ghost-brain (Gemini via Supabase)
+  try {
+    var r = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
+      body:JSON.stringify({prompt:systemPrompt+'\n\nUser: '+userMessage})
+    });
+    var d=await r.json();
+    if(d.text) return {text:d.text, model:d.model||'gemini'};
+  } catch(e){}
+  
+  return null;
+};
+
 </script>
 </body>
 </html>

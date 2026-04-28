@@ -1060,6 +1060,39 @@ ${vehicleCtx}
 
 Rules: Short answers (max 3 sentences). Always push towards booking, Ghost Vision, or account creation. Use facts from DVLA data when available. Never make up prices. If asked about a competitor, pivot to Ghost Detail quality. If they want to buy, send them to the right page.`;
 
+    
+    // Use ghostAI engine (Pollinations free → fallback chain)
+    if(window.ghostAI){
+      var vehicleCtx = ariaVehicle?'Vehicle: '+ariaVehicle.make+' '+(ariaVehicle.year||'')+' '+ariaVehicle.colour+' '+ariaVehicle.vehicle_age_years+'yr MOT:'+ariaVehicle.mot_days_left+'d ULEZ:'+(ariaVehicle.is_ulez_compliant?'OK':'NO'):'No vehicle yet.';
+      var ariaSystem='You are ARIA, customer assistant for Ghost Detail Autos Watford WD18 run by Romeo and Ferrel Cruz. Services: Spark Wash £79, Depth Refinement £149, Ceramic £279, PPF POA, Ghost Pass from £99/mo. '+vehicleCtx+' Keep answers under 3 sentences. Always end with a clear action.';
+      try{
+        var aiRes = await window.ghostAI(ariaSystem, msg, ariaHistory.slice(-8));
+        if(aiRes&&aiRes.text){
+          t.remove();
+          ariaHistory.push({role:'assistant',content:aiRes.text});
+          ariaAddMsg('ghost',aiRes.text);
+          var kw=aiRes.text.toLowerCase();
+          if(kw.includes('book')) ariaShowQuick(['📅 Book Now','🔍 Check my car']);
+          else if(kw.includes('ceramic')||kw.includes('vision')) ariaShowQuick(['🔍 Ghost Vision','📅 Book Now']);
+          else ariaShowQuick(['📅 Book a service','🔍 Check my car','⭐ Ghost Pass']);
+          return;
+        }
+      }catch(e2){}
+    }
+    
+    // Try ghostAI engine first (Pollinations free)
+    if(window.ghostAI){
+      try{
+        var aiRes2 = await window.ghostAI(system, msg, companionHistory.slice(-8));
+        if(aiRes2&&aiRes2.text){
+          t.remove();
+          var reply2=aiRes2.text;
+          companionHistory.push({role:'assistant',content:reply2});
+          companionAddMsg('ghost',reply2);
+          return;
+        }
+      }catch(e2){}
+    }
     try{
       const r = await fetch('https://api.anthropic.com/v1/messages',{
         method:'POST',
@@ -1365,6 +1398,53 @@ Be personal, direct, and specific to their vehicle. Keep answers under 3 sentenc
     }, 800);
   };
 })();
+</script>
+<script id="ghost-ai-engine">
+// ── GHOST DETAIL · AI ENGINE ─────────────────────────────────────────
+// Free: Pollinations → Gemini fallback → smart keyword fallback
+// Premium: Claude Haiku if Romeo sets API key in War Room settings
+window.ghostAI = async function(systemPrompt, userMessage, historyArr) {
+  var history = historyArr || [];
+  var msgs = history.slice(-10).concat([{role:'user', content:userMessage}]);
+  
+  // Premium (Claude Haiku) if key set
+  var key = window._ghostApiKey || localStorage.getItem('ghost_api_key') || '';
+  if(key && key.startsWith('sk-ant')) {
+    try {
+      var r = await fetch('https://api.anthropic.com/v1/messages', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},
+        body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,system:systemPrompt,messages:msgs})
+      });
+      if(r.ok){ var d=await r.json(); var t=d.content?.[0]?.text; if(t) return {text:t,model:'claude-haiku'}; }
+    } catch(e){}
+  }
+  
+  // Free: Pollinations (no key, works from browser)
+  try {
+    var allMsgs = [{role:'system',content:systemPrompt}].concat(msgs);
+    var r = await fetch('https://text.pollinations.ai/openai', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Origin':'https://ghostdetail.autos','Referer':'https://ghostdetail.autos/'},
+      body:JSON.stringify({model:'openai',messages:allMsgs,private:true,seed:Math.floor(Math.random()*9999)})
+    });
+    if(r.ok){ var d=await r.json(); var t=d.choices?.[0]?.message?.content; if(t) return {text:t,model:'pollinations'}; }
+  } catch(e){}
+  
+  // Fallback: ghost-brain (Gemini via Supabase)
+  try {
+    var r = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
+      body:JSON.stringify({prompt:systemPrompt+'\n\nUser: '+userMessage})
+    });
+    var d=await r.json();
+    if(d.text) return {text:d.text, model:d.model||'gemini'};
+  } catch(e){}
+  
+  return null;
+};
+
 </script>
 </body>
 </html>
