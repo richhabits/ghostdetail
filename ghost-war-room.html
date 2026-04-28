@@ -2177,7 +2177,7 @@ table{max-width:100%;overflow-x:auto;display:block;border-collapse:collapse}
             style="background:none;border:none;color:var(--banana);font-size:14px;cursor:pointer;padding:4px;opacity:.7">🔊</button>
         </div>
         <div class="chat-msgs" id="chat-msgs">
-          <div class="msg-g"><div class="msg-role">GHOST</div><div class="msg-text">All 8 brains online. I'm GHOST — your Jarvis. I know every page, every lead, every call ARIA has taken. Ask me anything about the business, tell me to run a site audit, or just tell me what's on your mind. I'll give you a straight answer.</div></div>
+          <div class="msg-g"><div class="msg-role">GHOST</div><div class="msg-text">All 8 brains online. I'm GHOST — your Jarvis. I know every page, every lead, every call ARIA has taken. Ask me anything about the business, tell me to run a site audit, or just tell me what is on your mind. I will give you a straight answer.</div></div>
         </div>
         <div class="chat-in" style="flex-direction:column;gap:8px">
           <div style="display:flex;gap:8px;align-items:center">
@@ -2576,7 +2576,7 @@ function setupRecognition() {
     const status = document.getElementById('voice-status')
     if (btn) { btn.textContent = '🎤'; btn.classList.remove('listening') }
     if (status) status.style.display = 'none'
-    // Auto-send if there's something in the input
+    // Auto-send if there is something in the input
     const inp = document.getElementById('chat-inp')
     if (inp && inp.value.trim()) {
       setTimeout(sendMsg, 200)
@@ -3565,56 +3565,7 @@ setTimeout(() => {
   ghostAutoSpeak()
 }, 800)
 
-</script>
-<script type="module" id="ghost-motion-module">
-import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm";
-const EXPO=[0.16,1,0.3,1];
-const nav=document.querySelector('header');
-if(nav) animate(nav,{opacity:[0,1],y:[-16,0]},{duration:0.5,ease:EXPO});
-const ht=document.querySelector('.hero-title');
-if(ht) animate(ht,{opacity:[0,1],y:[48,0]},{duration:0.9,ease:EXPO,delay:0.1});
-const hs=document.querySelector('.hero-sub');
-if(hs) animate(hs,{opacity:[0,1],y:[24,0]},{duration:0.7,ease:EXPO,delay:0.3});
-const rw=document.querySelector('.hero-reg-wrap');
-if(rw) animate(rw,{opacity:[0,1],y:[20,0]},{duration:0.6,ease:EXPO,delay:0.5});
-document.querySelectorAll('h1:not(.hero-title),h2,h3').forEach(el=>{
-  inView(el,()=>{animate(el,{opacity:[0,1],y:[28,0]},{duration:0.6,ease:EXPO});},{margin:'-8% 0px'});
-});
-document.querySelectorAll('[style*="grid-template-columns"]').forEach(grid=>{
-  const kids=Array.from(grid.children).filter(c=>c.textContent.trim().length>0&&!c.querySelector('input'));
-  if(kids.length<2||kids.length>16) return;
-  inView(grid,()=>{
-    animate(kids,{opacity:[0,1],y:[20,0],scale:[0.97,1]},{duration:0.5,delay:stagger(0.07),ease:EXPO});
-  },{margin:'-5% 0px'});
-});
-document.querySelectorAll('.hstat-n,.stat-n').forEach(el=>{
-  const text=el.textContent.trim();
-  const num=parseInt(text.replace(/[^0-9]/g,''));
-  if(!num||num<5) return;
-  const suffix=text.replace(/[0-9]/g,'');
-  inView(el,()=>{
-    const s=performance.now(),d=1500;
-    const tick=()=>{const p=Math.min((performance.now()-s)/d,1);el.textContent=Math.round((1-Math.pow(1-p,3))*num)+suffix;if(p<1)requestAnimationFrame(tick);};
-    requestAnimationFrame(tick);
-  },{margin:'-10% 0px'});
-});
-new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
-  if(n.id&&['hero-vehicle-result','booking-vehicle-banner','dvla-preview','concierge-vehicle-result'].includes(n.id))
-    animate(n,{opacity:[0,1],y:[12,0],scale:[0.97,1]},{duration:0.4,ease:EXPO});
-}))).observe(document.body,{childList:true,subtree:true});
 
-let chatHistory = [];
-
-const AGENT_SYSTEMS = {
-  ghost: "You are GHOST — AI brain of Ghost Detail Autos, Watford WD18. Romeo Cruz and Ferrel run this luxury detailing studio. Services: Spark Wash £79, Quick Refinement £249, Depth Refinement £149, Total Refinement £349, Nano Banana Ceramic £279, PPF. Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. Be direct, sharp, business-focused. Max 150 words.",
-  aria: "You are ARIA — receptionist AI for Ghost Detail Autos Watford. Handle enquiries professionally, draft WhatsApp messages. Max 100 words.",
-  jade: "You are JADE — lead nurturing AI for Ghost Detail Autos Watford. Write compelling follow-up WhatsApp messages, turn cold leads into bookings. Max 100 words.",
-  marcus: "You are MARCUS — market intelligence AI for Ghost Detail. Analyse competitors and detailing trends in Hertfordshire. Max 100 words.",
-  aaliya: "You are AALIYA — social content AI for Ghost Detail. Write Instagram captions and TikTok scripts for car transformations. Energetic, aspirational. Max 100 words.",
-  priya: "You are PRIYA — operations AI for Ghost Detail. Bay scheduling, stock, workflow. Practical. Max 100 words.",
-  dev: "You are DEV — financial AI for Ghost Detail. Revenue, forecasts, deposits. Precise with numbers. Max 100 words.",
-  romeo_ai: "You are ROMEO AI — brand strategy AI for Ghost Detail. Vision, positioning, identity. Max 100 words."
-};
 
 async function sendMsg() {
   const inp = document.getElementById('chat-inp');
@@ -3675,6 +3626,56 @@ async function sendMsg() {
   if(micBtn){ micBtn.textContent='🎤'; micBtn.classList.remove('processing'); }
   document.getElementById('chat-msgs').scrollTop = 9999;
 }
+</script>
+<script type="module" id="ghost-motion-module">
+import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm";
+const EXPO=[0.16,1,0.3,1];
+const nav=document.querySelector('header');
+if(nav) animate(nav,{opacity:[0,1],y:[-16,0]},{duration:0.5,ease:EXPO});
+const ht=document.querySelector('.hero-title');
+if(ht) animate(ht,{opacity:[0,1],y:[48,0]},{duration:0.9,ease:EXPO,delay:0.1});
+const hs=document.querySelector('.hero-sub');
+if(hs) animate(hs,{opacity:[0,1],y:[24,0]},{duration:0.7,ease:EXPO,delay:0.3});
+const rw=document.querySelector('.hero-reg-wrap');
+if(rw) animate(rw,{opacity:[0,1],y:[20,0]},{duration:0.6,ease:EXPO,delay:0.5});
+document.querySelectorAll('h1:not(.hero-title),h2,h3').forEach(el=>{
+  inView(el,()=>{animate(el,{opacity:[0,1],y:[28,0]},{duration:0.6,ease:EXPO});},{margin:'-8% 0px'});
+});
+document.querySelectorAll('[style*="grid-template-columns"]').forEach(grid=>{
+  const kids=Array.from(grid.children).filter(c=>c.textContent.trim().length>0&&!c.querySelector('input'));
+  if(kids.length<2||kids.length>16) return;
+  inView(grid,()=>{
+    animate(kids,{opacity:[0,1],y:[20,0],scale:[0.97,1]},{duration:0.5,delay:stagger(0.07),ease:EXPO});
+  },{margin:'-5% 0px'});
+});
+document.querySelectorAll('.hstat-n,.stat-n').forEach(el=>{
+  const text=el.textContent.trim();
+  const num=parseInt(text.replace(/[^0-9]/g,''));
+  if(!num||num<5) return;
+  const suffix=text.replace(/[0-9]/g,'');
+  inView(el,()=>{
+    const s=performance.now(),d=1500;
+    const tick=()=>{const p=Math.min((performance.now()-s)/d,1);el.textContent=Math.round((1-Math.pow(1-p,3))*num)+suffix;if(p<1)requestAnimationFrame(tick);};
+    requestAnimationFrame(tick);
+  },{margin:'-10% 0px'});
+});
+new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
+  if(n.id&&['hero-vehicle-result','booking-vehicle-banner','dvla-preview','concierge-vehicle-result'].includes(n.id))
+    animate(n,{opacity:[0,1],y:[12,0],scale:[0.97,1]},{duration:0.4,ease:EXPO});
+}))).observe(document.body,{childList:true,subtree:true});
+
+let chatHistory = [];
+
+const AGENT_SYSTEMS = {
+  ghost: "You are GHOST — AI brain of Ghost Detail Autos, Watford WD18. Romeo Cruz and Ferrel run this luxury detailing studio. Services: Spark Wash £79, Quick Refinement £249, Depth Refinement £149, Total Refinement £349, Nano Banana Ceramic £279, PPF. Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. Be direct, sharp, business-focused. Max 150 words.",
+  aria: "You are ARIA — receptionist AI for Ghost Detail Autos Watford. Handle enquiries professionally, draft WhatsApp messages. Max 100 words.",
+  jade: "You are JADE — lead nurturing AI for Ghost Detail Autos Watford. Write compelling follow-up WhatsApp messages, turn cold leads into bookings. Max 100 words.",
+  marcus: "You are MARCUS — market intelligence AI for Ghost Detail. Analyse competitors and detailing trends in Hertfordshire. Max 100 words.",
+  aaliya: "You are AALIYA — social content AI for Ghost Detail. Write Instagram captions and TikTok scripts for car transformations. Energetic, aspirational. Max 100 words.",
+  priya: "You are PRIYA — operations AI for Ghost Detail. Bay scheduling, stock, workflow. Practical. Max 100 words.",
+  dev: "You are DEV — financial AI for Ghost Detail. Revenue, forecasts, deposits. Precise with numbers. Max 100 words.",
+  romeo_ai: "You are ROMEO AI — brand strategy AI for Ghost Detail. Vision, positioning, identity. Max 100 words."
+};
 </script>
 </body>
 </html>

@@ -703,13 +703,13 @@ table{max-width:100%;overflow-x:auto;display:block;border-collapse:collapse}
     var h=new Date().getHours();
     var greet=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
     var openers={
-      'studio':'Checking out our services? Give me your reg — I'll tell you exactly what your car needs.',
+      'studio':'Checking out our services? Give me your reg and I will tell you exactly what your car needs.',
       'paint-check':'Ghost Vision uses DVLA data for a full AI paint assessment. Enter your reg to start.',
       'booking':'Ready to book? Tell me your reg and preferred service.',
       'membership':'Ghost Pass members save 15% on every service. Want help picking the right plan?',
       'concierge':'Concierge handles MOT, repairs, and servicing end to end. What does your car need?'
     };
-    var opener=openers[page]||(greet+'. I'm ARIA — Ghost Detail's AI. What's your car?');
+    var opener=openers[page]||(greet+". I am ARIA — Ghost Detail AI. What can I help with?");
     ariaAddMsg('g',opener);
     ariaShowQuick(['Check my car','See prices','Book a service','Ghost Pass']);
     setTimeout(function(){if(!ariaOpen)document.getElementById('aria-notif').classList.add('show');},5000);
@@ -773,7 +773,7 @@ table{max-width:100%;overflow-x:auto;display:block;border-collapse:collapse}
       var d=await r.json();
       t.remove();
       if(d.error){
-        ariaAddMsg('g','Couldn't find '+reg+' in DVLA. Tell me the make and model and I'll still help.');
+        ariaAddMsg('g','Could not find '+reg+' in DVLA. Tell me the make and model and I will still help.');
         ariaShowQuick(['BMW','Mercedes','Audi','Other']);return;
       }
       ariaVehicle=d;ariaUserData.vehicle=d;ariaUserData.reg=reg;
@@ -1121,13 +1121,13 @@ document.addEventListener('DOMContentLoaded',function(){
     var h=new Date().getHours();
     var greet=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
     var openers={
-      'studio':'Checking out our services? Give me your reg — I'll tell you exactly what your car needs.',
+      'studio':'Checking out our services? Give me your reg and I will tell you exactly what your car needs.',
       'paint-check':'Ghost Vision uses DVLA data for a full AI paint assessment. Enter your reg to start.',
       'booking':'Ready to book? Tell me your reg and preferred service.',
       'membership':'Ghost Pass members save 15% on every service. Want help picking the right plan?',
       'concierge':'Concierge handles MOT, repairs, and servicing end to end. What does your car need?'
     };
-    var opener=openers[page]||(greet+'. I'm ARIA — Ghost Detail's AI. What's your car?');
+    var opener=openers[page]||(greet+". I am ARIA — Ghost Detail AI. What can I help with?");
     ariaAddMsg('g',opener);
     ariaShowQuick(['Check my car','See prices','Book a service','Ghost Pass']);
     setTimeout(function(){if(!ariaOpen)document.getElementById('aria-notif').classList.add('show');},5000);
@@ -1191,7 +1191,7 @@ document.addEventListener('DOMContentLoaded',function(){
       var d=await r.json();
       t.remove();
       if(d.error){
-        ariaAddMsg('g','Couldn't find '+reg+' in DVLA. Tell me the make and model and I'll still help.');
+        ariaAddMsg('g','Could not find '+reg+' in DVLA. Tell me the make and model and I will still help.');
         ariaShowQuick(['BMW','Mercedes','Audi','Other']);return;
       }
       ariaVehicle=d;ariaUserData.vehicle=d;ariaUserData.reg=reg;

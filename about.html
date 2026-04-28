@@ -809,15 +809,15 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
     
     // Context-aware opener
     const openers = {
-      'studio': "I can see you're checking out our services. Got a reg plate? I'll tell you exactly what your car needs. 🔍",
+      'studio': "I can see you are checking out our services. Got a reg plate? I will tell you exactly what your car needs. 🔍",
       'paint-check': "Ghost Vision uses DVLA data to assess your paintwork. Want to run a quick check? Just give me your reg.",
-      'booking': "Ready to book? Tell me your reg and I'll match you to the right service and check availability.",
+      'booking': "Ready to book? Tell me your reg and I will match you to the right service and check availability.",
       'membership': "Ghost Pass members save 15% on every service. Want me to help you pick the right plan?",
-      'concierge': "Concierge handles your MOT, service, repairs — everything. What's your car and what needs doing?",
+      'concierge': "Concierge handles your MOT, service, repairs — everything. What is your car and what needs doing?",
     };
     
     const opener = openers[page.replace('.html','')] || 
-      `${greet}. I'm ARIA — I'll help you get the most from Ghost Detail. What's your car?`;
+      `${greet}. I'm ARIA — I will help you get the most from Ghost Detail. What can I help with?`;
     
     ariaAddMsg('ghost', opener);
     
@@ -904,7 +904,7 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
       t.remove();
       
       if(d.error){
-        ariaAddMsg('ghost', `I couldn't find ${reg} in DVLA records. No worries — tell me the make and model and I'll still help you.`);
+        ariaAddMsg('ghost', `I could not find ${reg} in DVLA records. No worries — tell me the make and model and I will still help you.`);
         ariaShowQuick(['BMW', 'Mercedes', 'Audi', 'VW', 'Other']);
         return;
       }
@@ -924,7 +924,7 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
       
       // Leverage ALL the DVLA data
       if(mot !== undefined && mot < 0){
-        response += `⚠️ Your MOT has expired. You can't legally drive it. Our Concierge service handles everything — book, drop keys, we sort it.\n\n`;
+        response += `⚠️ Your MOT has expired. You cannot legally drive it. Our Concierge service handles everything — book, drop keys, we sort it.\n\n`;
         ariaUserData.urgent = 'mot_expired';
       } else if(mot !== undefined && mot < 90){
         response += `Your MOT is due in ${mot} days — we can manage that for you.\n\n`;
@@ -968,7 +968,7 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
       
     }catch(e){
       t.remove();
-      ariaAddMsg('ghost', `Couldn't reach DVLA right now. Go to ghostdetail.autos/paint-check and try there — it'll give you the full AI assessment.`);
+      ariaAddMsg('ghost', `Could not reach DVLA right now. Go to ghostdetail.autos/paint-check and try there — it'll give you the full AI assessment.`);
     }
   };
 
@@ -982,7 +982,7 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
     }
     if(opt.includes('Book')){
       const url = ariaReg ? `/booking?reg=${ariaReg}` : '/booking';
-      ariaAddMsg('ghost', `Let's get you booked in. ${ariaVehicle ? 'I\'ve pre-filled your '+((ariaVehicle.make||'').charAt(0)+(ariaVehicle.make||'').slice(1).toLowerCase())+' details.' : 'Takes 2 minutes.'}`, false);
+      ariaAddMsg('ghost', `Let us get you booked in. ${ariaVehicle ? 'I\'ve pre-filled your '+((ariaVehicle.make||'').charAt(0)+(ariaVehicle.make||'').slice(1).toLowerCase())+' details.' : 'Takes 2 minutes.'}`, false);
       setTimeout(()=>{ window.location.href = url; }, 1500);
       return;
     }
@@ -1027,7 +1027,7 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
     // Named vehicle types
     if(['BMW','Mercedes','Audi','VW','Other'].includes(opt)){
       ariaUserData.make_hint = opt;
-      ariaAddMsg('ghost', `${opt} — great. What's the year? And what's brought you here today?`);
+      ariaAddMsg('ghost', `${opt} — great. What is the year? And what is brought you here today?`);
       ariaShowQuick(['Paint correction', 'Ceramic coating', 'Full valet', 'Just browsing']);
       return;
     }
