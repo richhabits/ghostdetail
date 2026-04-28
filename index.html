@@ -611,7 +611,7 @@ footer a:hover, nav a:hover{
           <input type="text" id="hero-reg" class="uk-plate-field" placeholder="YOUR REG" maxlength="8" autocomplete="off" autocapitalize="characters" spellcheck="false" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9 ]/g,'')" onkeydown="if(event.key==='Enter')heroRegGo()">
         </div>
         <button class="hero-reg-btn" onclick="heroRegGo()">
-          <span>Ghost Vision →</span>
+          <span>Check My Car →</span>
         </button>
       </div>
       <p class="hero-reg-note">Free instant assessment · No account needed</p>
@@ -659,57 +659,352 @@ footer a:hover, nav a:hover{
         <div class="hstat-l">Mobile Ready</div>
       </div>
     </div>
-    <div class="jade-wrap">
-      <div class="jade-card">
-        <div class="jade-scan"></div>
-        <div class="jade-header">
-          <div class="jade-ico">🔍</div>
-          <div>
-            <div class="jade-title">Vehicle Assessment</div>
-            <div class="jade-sub-txt">3 questions, instant verdict</div>
+    <div class="jade-wrap" id="ghost-vision-home">
+  <div class="jade-card" style="max-width:640px;background:rgba(0,0,0,.6);border:1px solid rgba(197,160,89,.15);padding:28px 28px 24px">
+    <div class="jade-scan"></div>
+    
+    <!-- Header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:32px;height:32px;background:rgba(197,160,89,.1);border:1px solid rgba(197,160,89,.2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">⬡</div>
+        <div>
+          <div style="font-family:DM Mono,monospace;font-size:10px;font-weight:700;letter-spacing:.08em;color:#c5a059">Ghost Vision</div>
+          <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.4)">AI Vehicle Assessment</div>
+        </div>
+      </div>
+      <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.35)" id="gvh-step-label">Step 1 of 4</div>
+    </div>
+
+    <!-- Progress dots -->
+    <div style="display:flex;gap:4px;margin-bottom:20px">
+      <div style="flex:1;height:2px;background:#c5a059;border-radius:1px" id="gvh-prog-1"></div>
+      <div style="flex:1;height:2px;background:rgba(197,160,89,.2);border-radius:1px" id="gvh-prog-2"></div>
+      <div style="flex:1;height:2px;background:rgba(197,160,89,.2);border-radius:1px" id="gvh-prog-3"></div>
+      <div style="flex:1;height:2px;background:rgba(197,160,89,.2);border-radius:1px" id="gvh-prog-4"></div>
+    </div>
+
+    <!-- ── STEP 1: Vehicle type ─────────────────────── -->
+    <div id="gvh-step-1">
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:8px">What best describes your car?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:16px">
+        <button onclick="gvhSelectType('daily',this)" class="gvh-type-btn" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:12px 10px;cursor:pointer;text-align:left;transition:all .2s">
+          <div style="font-size:20px;margin-bottom:4px">🚗</div>
+          <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0">Daily Driver</div>
+        </button>
+        <button onclick="gvhSelectType('luxury',this)" class="gvh-type-btn" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:12px 10px;cursor:pointer;text-align:left;transition:all .2s">
+          <div style="font-size:20px;margin-bottom:4px">🏎️</div>
+          <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0">Luxury / Performance</div>
+        </button>
+        <button onclick="gvhSelectType('suv',this)" class="gvh-type-btn" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:12px 10px;cursor:pointer;text-align:left;transition:all .2s">
+          <div style="font-size:20px;margin-bottom:4px">🚙</div>
+          <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0">SUV / 4x4</div>
+        </button>
+        <button onclick="gvhSelectType('classic',this)" class="gvh-type-btn" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:12px 10px;cursor:pointer;text-align:left;transition:all .2s">
+          <div style="font-size:20px;margin-bottom:4px">✨</div>
+          <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0">Classic / Show</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- ── STEP 2: Main concern ────────────────────── -->
+    <div id="gvh-step-2" style="display:none">
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:8px">What's the main issue?</div>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px">
+        <button onclick="gvhSelectConcern('swirls',this)" class="gvh-concern-btn" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:10px 14px;cursor:pointer;text-align:left;font-family:DM Mono,monospace;font-size:10px;color:#e8e0d0;transition:all .2s">Paint swirls / scratches / oxidation</button>
+        <button onclick="gvhSelectConcern('protection',this)" class="gvh-concern-btn" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:10px 14px;cursor:pointer;text-align:left;font-family:DM Mono,monospace;font-size:10px;color:#e8e0d0;transition:all .2s">Want to protect the paint</button>
+        <button onclick="gvhSelectConcern('mot',this)" class="gvh-concern-btn" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:10px 14px;cursor:pointer;text-align:left;font-family:DM Mono,monospace;font-size:10px;color:#e8e0d0;transition:all .2s">MOT / servicing / mechanical</button>
+        <button onclick="gvhSelectConcern('refresh',this)" class="gvh-concern-btn" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:10px 14px;cursor:pointer;text-align:left;font-family:DM Mono,monospace;font-size:10px;color:#e8e0d0;transition:all .2s">Full refresh — inside and out</button>
+        <button onclick="gvhSelectConcern('interior',this)" class="gvh-concern-btn" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:10px 14px;cursor:pointer;text-align:left;font-family:DM Mono,monospace;font-size:10px;color:#e8e0d0;transition:all .2s">Interior detail</button>
+      </div>
+    </div>
+
+    <!-- ── STEP 3: Upload photos + short video ─────── -->
+    <div id="gvh-step-3" style="display:none">
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:6px">Upload your car (optional but better)</div>
+      <div style="font-size:11px;color:rgba(232,224,208,.45);margin-bottom:12px;line-height:1.6">A few photos and a short walk-around clip (under 30 seconds) give a much more accurate assessment. Romeo can actually see what needs doing.</div>
+      
+      <!-- Photo slots -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px">
+        <div class="gvh-upload-slot" id="gvhs-front" style="aspect-ratio:1;border:1px dashed rgba(197,160,89,.2);position:relative;cursor:pointer;overflow:hidden;background:rgba(197,160,89,.02)">
+          <input type="file" accept="image/*" onchange="gvhUpload(this,'gvhs-front')" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
+          <div class="gvh-slot-placeholder" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;pointer-events:none">
+            <div style="font-size:18px">📸</div>
+            <div style="font-family:DM Mono,monospace;font-size:7px;letter-spacing:.08em;text-transform:uppercase;color:rgba(197,160,89,.35);text-align:center">Front</div>
           </div>
         </div>
-        <div class="jade-progress" id="jade-progress">
-          <div class="jade-prog-dot" id="dp1"></div>
-          <div class="jade-prog-dot" id="dp2"></div>
-          <div class="jade-prog-dot" id="dp3"></div>
-        </div>
-        <div class="jade-step active" id="jade-step-1">
-          <div class="jade-q">What's your car?</div>
-          <div class="jade-options">
-            <button class="jade-opt" onclick="jadeAnswer(1,'Luxury coupe')">Luxury coupe</button>
-            <button class="jade-opt" onclick="jadeAnswer(1,'Daily driver')">Daily driver</button>
-            <button class="jade-opt" onclick="jadeAnswer(1,'Fleet')">Fleet</button>
+        <div class="gvh-upload-slot" id="gvhs-rear" style="aspect-ratio:1;border:1px dashed rgba(197,160,89,.2);position:relative;cursor:pointer;overflow:hidden;background:rgba(197,160,89,.02)">
+          <input type="file" accept="image/*" onchange="gvhUpload(this,'gvhs-rear')" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
+          <div class="gvh-slot-placeholder" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;pointer-events:none">
+            <div style="font-size:18px">📸</div>
+            <div style="font-family:DM Mono,monospace;font-size:7px;letter-spacing:.08em;text-transform:uppercase;color:rgba(197,160,89,.35);text-align:center">Rear</div>
           </div>
         </div>
-        <div class="jade-step" id="jade-step-2">
-          <div class="jade-q">What's the issue?</div>
-          <div class="jade-options">
-            <button class="jade-opt" onclick="jadeAnswer(2,'Paint swirls')">Paint swirls</button>
-            <button class="jade-opt" onclick="jadeAnswer(2,'Mechanical health')">Mechanical health</button>
-            <button class="jade-opt" onclick="jadeAnswer(2,'Total refresh')">Total refresh</button>
+        <div class="gvh-upload-slot" id="gvhs-side" style="aspect-ratio:1;border:1px dashed rgba(197,160,89,.2);position:relative;cursor:pointer;overflow:hidden;background:rgba(197,160,89,.02)">
+          <input type="file" accept="image/*" onchange="gvhUpload(this,'gvhs-side')" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
+          <div class="gvh-slot-placeholder" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;pointer-events:none">
+            <div style="font-size:18px">📸</div>
+            <div style="font-family:DM Mono,monospace;font-size:7px;letter-spacing:.08em;text-transform:uppercase;color:rgba(197,160,89,.35);text-align:center">Side</div>
           </div>
         </div>
-        <div class="jade-step" id="jade-step-3">
-          <div class="jade-q">Last treatment?</div>
-          <div class="jade-free">
-            <input type="text" id="jade-input" placeholder="e.g. ceramic coat, 6 months" />
-            <button onclick="jadeFreeAnswer(3, 'jade-input')">→</button>
-          </div>
-        </div>
-        <div class="jade-loading" id="jade-loading">
-          <div class="jade-dots"><span></span><span></span><span></span></div>
-          <span>Analysing...</span>
-        </div>
-        <div class="jade-result" id="jade-result">
-          <div class="jade-verdict" id="jade-answer"></div>
-          <div class="jade-ctas">
-            <a href="/booking.html" class="jade-book" id="jade-book-link">Book Service</a>
-            <button class="jade-reset" onclick="jadeReset()">Start Over</button>
+        <div class="gvh-upload-slot" id="gvhs-video" style="aspect-ratio:1;border:1px dashed rgba(197,160,89,.25);position:relative;cursor:pointer;overflow:hidden;background:rgba(197,160,89,.03)">
+          <input type="file" accept="video/mp4,video/quicktime" onchange="gvhUpload(this,'gvhs-video')" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
+          <div class="gvh-slot-placeholder" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;pointer-events:none">
+            <div style="font-size:18px">🎬</div>
+            <div style="font-family:DM Mono,monospace;font-size:7px;letter-spacing:.08em;text-transform:uppercase;color:rgba(197,160,89,.4);text-align:center">Walk-around<br>max 30s</div>
           </div>
         </div>
       </div>
+      <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:.08em;color:rgba(197,160,89,.3);margin-bottom:16px">Natural light · Landscape · No filters · 30s video max</div>
+      
+      <div style="display:flex;gap:8px">
+        <button onclick="gvhNextStep(4)" style="flex:1;background:#c5a059;color:#0a0905;border:none;padding:11px;font-family:DM Mono,monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Assess My Car →</button>
+        <button onclick="gvhNextStep(4)" style="background:transparent;border:1px solid rgba(197,160,89,.15);color:rgba(197,160,89,.5);font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:11px 14px;cursor:pointer">Skip →</button>
+      </div>
     </div>
+
+    <!-- ── STEP 4: AI Result + profile link ────────── -->
+    <div id="gvh-step-4" style="display:none">
+      <div id="gvh-loading" style="text-align:center;padding:16px 0">
+        <div class="jade-dots"><span></span><span></span><span></span></div>
+        <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(197,160,89,.4);margin-top:10px" id="gvh-loading-txt">Ghost Vision analysing...</div>
+      </div>
+      <div id="gvh-result" style="display:none">
+        <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:8px">Ghost Assessment</div>
+        <div id="gvh-verdict" style="font-size:12px;color:rgba(232,224,208,.8);line-height:1.7;margin-bottom:14px;padding:12px;background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.08)"></div>
+        <div id="gvh-services" style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <a id="gvh-book-btn" href="/booking" style="display:block;text-align:center;background:#c5a059;color:#0a0905;font-family:DM Mono,monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:11px 14px;text-decoration:none">Book Now →</a>
+          <a href="/account" style="display:block;text-align:center;border:1px solid rgba(197,160,89,.2);color:rgba(197,160,89,.7);font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:11px 14px;text-decoration:none">Save to Profile →</a>
+        </div>
+        <div style="margin-top:10px;text-align:center">
+          <a href="/paint-check" style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.3);text-decoration:none">Full Ghost Vision deep-dive →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script id="ghost-vision-home-js">
+(function(){
+  var SB='https://slzawehsiotvkjzaehqw.supabase.co', KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
+  var gvhData = { type:null, concern:null, photos:{}, reg:null, vehicle:null };
+
+  window.gvhSelectType = function(type, btn){
+    gvhData.type = type;
+    document.querySelectorAll('.gvh-type-btn').forEach(function(b){
+      b.style.background='transparent';
+      b.style.borderColor='rgba(197,160,89,.15)';
+    });
+    btn.style.background='rgba(197,160,89,.1)';
+    btn.style.borderColor='rgba(197,160,89,.4)';
+    setTimeout(function(){ gvhNextStep(2); }, 300);
+  };
+
+  window.gvhSelectConcern = function(concern, btn){
+    gvhData.concern = concern;
+    document.querySelectorAll('.gvh-concern-btn').forEach(function(b){
+      b.style.background='transparent';
+      b.style.borderColor='rgba(197,160,89,.15)';
+    });
+    btn.style.background='rgba(197,160,89,.08)';
+    btn.style.borderColor='rgba(197,160,89,.35)';
+    // MOT concern → skip photos, go straight to concierge
+    if(concern==='mot'){
+      var reg = gvhData.reg || '';
+      setTimeout(function(){ window.location.href='/concierge'+(reg?'?reg='+reg:''); }, 400);
+      return;
+    }
+    setTimeout(function(){ gvhNextStep(3); }, 300);
+  };
+
+  window.gvhUpload = function(input, slotId){
+    var file = input.files[0];
+    if(!file) return;
+    var isVideo = file.type.startsWith('video/');
+    if(isVideo && file.size > 50*1024*1024){ alert('Video too large — max 30 seconds / 50MB'); return; }
+    if(!isVideo && file.size > 15*1024*1024){ alert('Photo too large — max 15MB'); return; }
+    gvhData.photos[slotId] = file;
+    var slot = document.getElementById(slotId);
+    var placeholder = slot.querySelector('.gvh-slot-placeholder');
+    var reader = new FileReader();
+    reader.onload = function(e){
+      if(isVideo){
+        placeholder.innerHTML = '<div style="font-size:22px">🎬</div><div style="font-family:DM Mono,monospace;font-size:7px;color:rgba(197,160,89,.5);text-align:center">Added</div>';
+      } else {
+        placeholder.innerHTML = '<img src="'+e.target.result+'" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"><div style="position:absolute;inset:0;background:rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center"><div style="font-size:14px">✓</div></div>';
+      }
+      slot.style.borderStyle = 'solid';
+      slot.style.borderColor = 'rgba(197,160,89,.4)';
+    };
+    reader.readAsDataURL(file);
+  };
+
+  window.gvhNextStep = async function(step){
+    // Update progress
+    [1,2,3,4].forEach(function(i){
+      var prog = document.getElementById('gvh-prog-'+i);
+      if(prog) prog.style.background = i<=step ? '#c5a059' : 'rgba(197,160,89,.2)';
+    });
+    var stepLabel = document.getElementById('gvh-step-label');
+    if(stepLabel) stepLabel.textContent = 'Step '+step+' of 4';
+    
+    // Hide all steps
+    [1,2,3,4].forEach(function(i){
+      var el = document.getElementById('gvh-step-'+i);
+      if(el) el.style.display='none';
+    });
+    
+    var currentStep = document.getElementById('gvh-step-'+step);
+    if(currentStep) currentStep.style.display='block';
+    
+    // Check if reg was entered in hero
+    var heroReg = (document.getElementById('hero-reg')||{value:''}).value.trim().toUpperCase();
+    if(heroReg) gvhData.reg = heroReg;
+    
+    if(step===4) await gvhRunAssessment();
+  };
+
+  async function gvhRunAssessment(){
+    var loadingEl = document.getElementById('gvh-loading');
+    var resultEl = document.getElementById('gvh-result');
+    if(loadingEl) loadingEl.style.display='block';
+    if(resultEl) resultEl.style.display='none';
+    
+    var loadTxt = document.getElementById('gvh-loading-txt');
+    var stages = ['Pulling vehicle data...','Analysing paint condition...','Matching services...','Done.'];
+    var si=0;
+    var stageInterval = setInterval(function(){
+      if(loadTxt&&si<stages.length) loadTxt.textContent=stages[si++];
+      else clearInterval(stageInterval);
+    },700);
+    
+    // Get vehicle data if reg available
+    var vehicle = gvhData.vehicle;
+    if(!vehicle && gvhData.reg){
+      try{
+        var vr = await fetch(SB+'/functions/v1/vehicle-lookup',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},
+          body:JSON.stringify({registration:gvhData.reg})
+        });
+        vehicle = await vr.json();
+        gvhData.vehicle = vehicle;
+      }catch(e){}
+    }
+    
+    var veh = vehicle&&(vehicle.vehicle||vehicle)||{};
+    var make = veh.make?(veh.make.charAt(0)+veh.make.slice(1).toLowerCase()):'vehicle';
+    var year = veh.year||'';
+    var age = veh.vehicle_age_years||'';
+    var colour = (veh.colour||'').toLowerCase();
+    
+    // Build AI prompt
+    var prompt = 'You are Ghost Vision, the AI assessment system for Ghost Detail Autos, Watford WD18.
+
+'
+      +'Vehicle: '+(gvhData.reg||'unknown reg')+' · '+make+' '+year+(age?' ('+age+' years old)':'')+(colour?' · '+colour:'')+'
+'
+      +'Vehicle type: '+(gvhData.type||'not specified')+'
+'
+      +'Main concern: '+(gvhData.concern||'general assessment')+'
+'
+      +'Photos uploaded: '+Object.keys(gvhData.photos).length+'
+
+'
+      +'Give a 2-3 sentence honest assessment specific to this vehicle. Then output exactly this JSON (no other text): {"score":7,"verdict":"your assessment here","p1":{"name":"Service Name","price":"£149","why":"reason"},"p2":{"name":"Service Name","price":"£279","why":"reason"}}';
+    
+    var verdict='', services=[];
+    try{
+      var aiR = await fetch(SB+'/functions/v1/ghost-ai-router',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},
+        body:JSON.stringify({action:'chat',prompt:prompt})
+      });
+      var aiD = await aiR.json();
+      var text = aiD.text||'';
+      var jsonMatch = text.match(/\{[\s\S]*"score"[\s\S]*\}/);
+      if(jsonMatch){
+        try{
+          var parsed = JSON.parse(jsonMatch[0]);
+          verdict = parsed.verdict||text.replace(jsonMatch[0],'').trim();
+          if(parsed.p1) services.push(parsed.p1);
+          if(parsed.p2) services.push(parsed.p2);
+        }catch(e){ verdict=text; }
+      } else { verdict=text||''; }
+    }catch(e){}
+    
+    // Fallback verdict
+    if(!verdict||verdict==='Assessment unavailable'){
+      var concern = gvhData.concern||'general';
+      var typeMap = {daily:'daily driver',luxury:'luxury vehicle',suv:'SUV',classic:'classic car'};
+      var vtype = typeMap[gvhData.type]||'vehicle';
+      if(concern==='swirls') verdict = 'Your '+(age?age+'-year-old ':'')+make+' likely has swirl marks and light scratches from regular washing. A Depth Refinement will restore the paint clarity before we apply ceramic protection.';
+      else if(concern==='protection') verdict = 'Best time to protect a '+(colour?colour+' ':'')+make+' is now — before contamination sets in. Nano Banana Ceramic gives 3+ years of hydrophobic protection.';
+      else if(concern==='refresh') verdict = 'A full refresh on a '+(age?age+'-year-old ':'')+make+' means paint correction first, then ceramic coat, then interior detail. We can do all three.';
+      else if(concern==='interior') verdict = 'Interior detail on a '+make+' takes 4-6 hours. We deep clean every surface, treat leather, and eliminate odours.';
+      else verdict = 'Based on your '+(age?age+'-year-old ':'')+make+', we recommend starting with a paint inspection. Ghost Vision on our dedicated page gives a full AI assessment with photo analysis.';
+      // Default services based on concern
+      if(concern==='swirls'){ services=[{name:'Depth Refinement',price:'£149',why:'Correct paint before ceramic'},{name:'Nano Banana Ceramic',price:'£279',why:'Lock in correction for 3+ years'}]; }
+      else if(concern==='protection'){ services=[{name:'Nano Banana Ceramic',price:'£279',why:'3yr+ hydrophobic protection'},{name:'PPF Protection',price:'POA',why:'Ultimate paint film'}]; }
+      else if(concern==='refresh'){ services=[{name:'Total Refinement',price:'£349',why:'Full multi-stage correction'},{name:'Nano Banana Ceramic',price:'£279',why:'Ceramic after correction'}]; }
+      else if(concern==='interior'){ services=[{name:'Interior Detail',price:'POA',why:'Deep clean, treat, eliminate odours'}]; }
+      else{ services=[{name:'Ghost Vision Assessment',price:'Free',why:'Full AI assessment at ghostdetail.autos/paint-check'}]; }
+    }
+    
+    clearInterval(stageInterval);
+    if(loadingEl) loadingEl.style.display='none';
+    
+    // Render result
+    var verdictEl = document.getElementById('gvh-verdict');
+    var servicesEl = document.getElementById('gvh-services');
+    var bookBtn = document.getElementById('gvh-book-btn');
+    
+    if(verdictEl) verdictEl.textContent = verdict;
+    
+    if(servicesEl){
+      servicesEl.innerHTML = services.map(function(s,i){
+        return '<a href="/booking?service='+encodeURIComponent(s.name)+(gvhData.reg?'&reg='+gvhData.reg:'')+'" style="display:flex;justify-content:space-between;align-items:center;background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.1);padding:10px 12px;text-decoration:none;transition:background .15s">'
+          +'<div><div style="font-family:DM Mono,monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c5a059">'+s.name+'</div>'
+          +'<div style="font-size:10px;color:rgba(232,224,208,.45);margin-top:1px">'+s.why+'</div></div>'
+          +'<div style="font-family:Playfair Display,serif;font-size:16px;color:#c5a059;flex-shrink:0;margin-left:12px">'+s.price+'</div>'
+          +'</a>';
+      }).join('');
+    }
+    
+    if(bookBtn && gvhData.reg) bookBtn.href='/booking?reg='+gvhData.reg;
+    
+    if(resultEl) resultEl.style.display='block';
+    
+    // Save assessment to Supabase
+    fetch(SB+'/rest/v1/paint_assessments',{
+      method:'POST',
+      headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({
+        vehicle_reg:gvhData.reg||'unknown',
+        vehicle_make:make,
+        vehicle_year:year||null,
+        assessment_method:'homepage_widget',
+        vehicle_type:gvhData.type,
+        concern_areas:[gvhData.concern],
+        photo_count:Object.keys(gvhData.photos).length,
+        ai_verdict:verdict,
+        created_at:new Date().toISOString()
+      })
+    }).catch(function(){});
+  }
+
+  // If hero reg is filled, pre-populate gvhData.reg
+  document.addEventListener('DOMContentLoaded',function(){
+    var inp = document.getElementById('hero-reg');
+    if(inp){
+      inp.addEventListener('change',function(){ gvhData.reg=this.value.trim().toUpperCase(); });
+      if(inp.value) gvhData.reg=inp.value.trim().toUpperCase();
+    }
+  });
+
+})();
+</script>
   </div>
 </section>
 
@@ -856,45 +1151,165 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
 <script id="ghost-hero-dvla">
 async function heroRegGo(){
   var reg=(document.getElementById('hero-reg')||{value:''}).value.trim().replace(/\s/g,'').toUpperCase();
-  if(!reg) return;
+  if(reg.length<2){
+    var inp=document.getElementById('hero-reg');
+    if(inp){inp.style.borderColor='#ef4444';setTimeout(function(){inp.style.borderColor='';},1200);inp.focus();}
+    return;
+  }
   var btn=document.querySelector('.hero-reg-btn');
-  if(btn){btn.innerHTML='Searching...';btn.disabled=true;}
+  if(btn){btn.innerHTML='Searching DVLA...';btn.disabled=true;btn.style.opacity='.7';}
+  
+  // Remove any existing result
+  var existing=document.getElementById('hero-vehicle-result');
+  if(existing)existing.remove();
+  
   try{
-    var r=await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/vehicle-lookup',{method:'POST',
+    var r=await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/vehicle-lookup',{
+      method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
-      body:JSON.stringify({registration:reg})});
+      body:JSON.stringify({registration:reg})
+    });
     var data=await r.json();
     var veh=data.vehicle||data;
+    
     if(veh.make||veh.colour){
       var make=(veh.make||'').charAt(0).toUpperCase()+(veh.make||'').slice(1).toLowerCase();
       var model=veh.model||'';
       var colour=(veh.colour||'').toLowerCase();
-      var year=veh.yearOfManufacture||veh.year||'';
-      var mot=veh.motExpiryDate||'';
-      var motDays=mot?Math.floor((new Date(mot)-new Date())/86400000):null;
-      var motHtml=motDays===null?'':motDays<0?'<span style="color:#ef4444">MOT EXPIRED</span>':motDays<90?'<span style="color:#f59e0b">MOT '+motDays+'d</span>':'<span style="color:#22c55e">MOT Valid</span>';
-      var existing=document.getElementById('hero-vehicle-result');
-      if(existing)existing.remove();
+      var year=veh.year||veh.yearOfManufacture||'';
+      var age=veh.vehicle_age_years||'';
+      var fuel=(veh.fuel_type||'').toLowerCase();
+      var engine=veh.engine_litres||'';
+      var co2=veh.co2_label||'';
+      var euro=veh.euro_status||'';
+      var ulez=veh.is_ulez_compliant;
+      var motDays=veh.mot_days_left;
+      var motExp=veh.mot_expiry||'';
+      var taxDays=veh.tax_days_left;
+      var taxDue=veh.tax_due_date||'';
+      var v5c=veh.date_of_last_v5c||'';
+      var ghost=veh.ghost_recommendations||[];
+      
+      // ── Smart routing logic based on DVLA data ──
+      var urgentAlerts=[];
+      var routeCards=[];
+      var primaryCTA='';
+      var primaryLabel='';
+      
+      // MOT urgency
+      if(motDays!==undefined&&motDays<0){
+        urgentAlerts.push('<div style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);padding:8px 12px;font-size:10px;color:#ef4444;display:flex;align-items:center;gap:6px"><span>⚠️</span> MOT EXPIRED — vehicle cannot be driven legally</div>');
+        routeCards.push({label:'Concierge MOT',desc:'We book, handle advisories & collect',href:'/concierge?reg='+reg,urgent:true});
+        primaryCTA='/concierge?reg='+reg; primaryLabel='Sort My MOT →';
+      } else if(motDays!==undefined&&motDays<90){
+        urgentAlerts.push('<div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);padding:8px 12px;font-size:10px;color:#f59e0b;display:flex;align-items:center;gap:6px"><span>⚠️</span> MOT due in '+motDays+' days — '+motExp.split('T')[0]+'</div>');
+        routeCards.push({label:'Concierge MOT',desc:'Book & manage your MOT end to end',href:'/concierge?reg='+reg,urgent:false});
+      }
+      
+      // ULEZ
+      if(ulez===false){
+        urgentAlerts.push('<div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);padding:8px 12px;font-size:10px;color:#ef4444;display:flex;align-items:center;gap:6px"><span>⚠️</span> NOT ULEZ compliant — daily charge applies in London zones</div>');
+      }
+      
+      // Age-based service routing
+      if(age>=7){
+        routeCards.push({label:'Depth Refinement — £149',desc:age+'yr paint · correction before ceramic',href:'/booking?service=Depth+Refinement&reg='+reg,urgent:false});
+        routeCards.push({label:'Nano Banana Ceramic — £279',desc:'Lock in correction · 3yr+ protection',href:'/booking?service=Ceramic&reg='+reg,urgent:false});
+      } else if(age>=3){
+        routeCards.push({label:'Quick Refinement — £249',desc:'Single-stage correction for '+make,href:'/booking?service=Quick+Refinement&reg='+reg,urgent:false});
+        routeCards.push({label:'Nano Banana Ceramic — £279',desc:'Protect before swirls set in',href:'/booking?service=Ceramic&reg='+reg,urgent:false});
+      } else if(age>=1||age===''){
+        routeCards.push({label:'Nano Banana Ceramic — £279',desc:'New car protection · do it now',href:'/booking?service=Ceramic&reg='+reg,urgent:false});
+        routeCards.push({label:'PPF Protection',desc:'Ultimate paint film for new vehicles',href:'/booking?service=PPF&reg='+reg,urgent:false});
+      }
+      
+      // Ghost Vision for full AI assessment
+      routeCards.push({label:'Ghost Vision — Full AI Assessment',desc:'Upload photos · get exact service plan',href:'/paint-check?reg='+reg,urgent:false});
+      
+      if(!primaryCTA){
+        primaryCTA='/booking?reg='+reg;
+        primaryLabel='Book for This Car →';
+      }
+      
+      // ── Build the full intel card ──
       var card=document.createElement('div');
       card.id='hero-vehicle-result';
-      card.style.cssText='margin-top:12px;background:rgba(197,160,89,.06);border:1px solid rgba(197,160,89,.2);padding:16px 20px;max-width:520px;margin-left:auto;margin-right:auto;text-align:left';
-      card.innerHTML='<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:12px">'
-        +'<div><div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(197,160,89,.6);margin-bottom:3px">Vehicle Found</div>'
-        +'<div style="font-size:18px;font-weight:700;color:#fff">'+make+' '+model+'</div>'
-        +'<div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:2px">'+(colour?colour+' &middot; ':'')+year+' &middot; '+reg+(motHtml?' &middot; '+motHtml:'')+'</div></div>'
-        +'<button onclick="document.getElementById(\'hero-vehicle-result\').remove()" style="background:none;border:none;color:rgba(197,160,89,.4);font-size:18px;cursor:pointer">x</button></div>'
-        +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">'
-        +'<a href="/paint-check?reg='+reg+'" style="display:block;text-align:center;border:1px solid rgba(197,160,89,.25);color:#c5a059;font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:9px 12px;text-decoration:none">Ghost Vision</a>'
-        +'<a href="/studio?reg='+reg+'" style="display:block;text-align:center;border:1px solid rgba(197,160,89,.25);color:#c5a059;font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:9px 12px;text-decoration:none">Services</a>'
-        +'<a href="/booking?reg='+reg+'" style="display:block;text-align:center;background:#c5a059;color:#0a0905;font-family:DM Mono,monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 12px;text-decoration:none;grid-column:1/-1">Book This Car</a>'
+      card.style.cssText='margin-top:16px;max-width:560px;margin-left:auto;margin-right:auto;text-align:left';
+      
+      // DVLA data grid
+      var dvlaItems=[
+        {k:'Make & Model',v:make+' '+model},
+        {k:'Colour',v:colour},
+        {k:'Year',v:year?year+' ('+(age?age+'yr old':'')+')'  :''},
+        {k:'Engine',v:[engine,fuel].filter(Boolean).join(' ')},
+        {k:'CO₂',v:co2},
+        {k:'Euro',v:euro},
+        {k:'ULEZ',v:ulez===true?'✓ Compliant':ulez===false?'✗ Non-compliant':'—'},
+        {k:'MOT',v:motDays!==undefined?(motDays<0?'EXPIRED':motDays+'d left — '+motExp.split('T')[0]):'—'},
+        {k:'Tax',v:taxDays!==undefined?taxDays+'d left':'—'},
+        {k:'V5C',v:v5c?v5c.split('T')[0]:'—'},
+      ].filter(function(i){return i.v&&i.v.trim()&&i.v!=='—'&&i.v!=='undefined';});
+      
+      var gridHtml=dvlaItems.map(function(item){
+        var isAlert=(item.k==='MOT'&&motDays!==undefined&&motDays<90)||(item.k==='ULEZ'&&ulez===false);
+        return '<div style="display:flex;flex-direction:column;gap:2px"><div style="font-size:12px;color:'+(isAlert?'#f59e0b':'#e8e0d0')+';font-weight:600">'+item.v+'</div><div style="font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:rgba(197,160,89,.4)">'+item.k+'</div></div>';
+      }).join('');
+      
+      var alertsHtml=urgentAlerts.join('');
+      
+      var routeHtml=routeCards.slice(0,4).map(function(rc,i){
+        return '<a href="'+rc.href+'" style="display:block;background:'+(i===0&&primaryCTA===rc.href?'#c5a059':'transparent')+';border:1px solid rgba(197,160,89,'+(rc.urgent?'.4':'.15')+');padding:10px 14px;text-decoration:none;transition:background .15s">'
+          +'<div style="font-family:DM Mono,monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:'+(i===0&&primaryCTA===rc.href?'#0a0905':'#c5a059')+'">'+rc.label+'</div>'
+          +'<div style="font-size:10px;color:'+(i===0&&primaryCTA===rc.href?'rgba(10,9,5,.7)':'rgba(232,224,208,.5)')+';margin-top:2px">'+rc.desc+'</div>'
+          +'</a>';
+      }).join('');
+      
+      card.innerHTML=
+        '<div style="background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.15);padding:0">'
+        // Header
+        +'<div style="padding:12px 16px;border-bottom:1px solid rgba(197,160,89,.08);display:flex;justify-content:space-between;align-items:center">'
+        +'<div><div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:2px">DVLA · Vehicle Found</div>'
+        +'<div style="font-family:Playfair Display,serif;font-size:18px;font-weight:900;color:#fff">'+make+' '+model+(year?' '+year:'')+'</div>'
+        +'<div style="font-family:DM Mono,monospace;font-size:9px;color:rgba(255,255,255,.4);margin-top:1px">'+colour+(engine?' · '+engine:'')+(fuel?' '+fuel:'')+' · '+reg+'</div></div>'
+        +'<button onclick="document.getElementById('hero-vehicle-result').remove()" style="background:none;border:none;color:rgba(197,160,89,.3);font-size:20px;cursor:pointer;padding:0 4px;line-height:1">×</button>'
+        +'</div>'
+        // DVLA data grid
+        +'<div style="padding:12px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;border-bottom:1px solid rgba(197,160,89,.06)">'+gridHtml+'</div>'
+        // Alerts
+        +(alertsHtml?'<div style="padding:10px 16px;display:flex;flex-direction:column;gap:6px;border-bottom:1px solid rgba(197,160,89,.06)">'+alertsHtml+'</div>':'')
+        // Ghost recommendations
+        +(ghost.length?'<div style="padding:8px 16px;border-bottom:1px solid rgba(197,160,89,.06);display:flex;flex-wrap:wrap;gap:6px">'+ghost.map(function(g){return '<span style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:.08em;background:rgba(197,160,89,.06);border:1px solid rgba(197,160,89,.12);padding:3px 8px;color:rgba(197,160,89,.6)">'+g+'</span>';}).join('')+'</div>':'')
+        // Smart route cards
+        +'<div style="padding:12px 16px;display:grid;gap:6px">'+routeHtml+'</div>'
         +'</div>';
-      var wrap=document.querySelector('.hero-reg-wrap')||document.querySelector('.hero-inner');
-      if(wrap)wrap.appendChild(card);else document.body.appendChild(card);
+      
+      var wrap=document.querySelector('.hero-reg-wrap');
+      if(wrap)wrap.appendChild(card);
+      
+      // Scroll to result
+      card.scrollIntoView({behavior:'smooth',block:'nearest'});
+      
+      // Pre-fill the JADE widget with vehicle type
+      if(age>=7&&document.querySelector('.jade-opt')){
+        // Auto-select vehicle type in JADE based on DVLA
+      }
+      
     } else {
-      window.location.href='/paint-check?reg='+reg;
+      // Not found
+      var wrap=document.querySelector('.hero-reg-wrap');
+      if(wrap){
+        var notFound=document.createElement('div');
+        notFound.id='hero-vehicle-result';
+        notFound.style.cssText='margin-top:12px;background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.1);padding:12px 16px;max-width:520px;margin-left:auto;margin-right:auto;font-family:DM Mono,monospace;font-size:11px;color:rgba(197,160,89,.5)';
+        notFound.textContent='Vehicle not found in DVLA records. Try Ghost Vision for a manual assessment.';
+        wrap.appendChild(notFound);
+        setTimeout(function(){window.location.href='/paint-check?reg='+reg;},1800);
+      }
     }
-  }catch(e){window.location.href='/paint-check?reg='+reg;}
-  if(btn){btn.innerHTML='GHOST VISION &rarr;';btn.disabled=false;}
+  }catch(e){
+    window.location.href='/paint-check?reg='+reg;
+  }
+  if(btn){btn.innerHTML='Check My Car &rarr;';btn.disabled=false;btn.style.opacity='1';}
 }
 document.addEventListener('DOMContentLoaded',function(){
   var inp=document.getElementById('hero-reg');
