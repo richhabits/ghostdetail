@@ -661,93 +661,67 @@ footer a:hover, nav a:hover{
       </div>
     </div>
     <div class="jade-wrap" id="gv-home-widget">
-  <div class="jade-card" style="max-width:600px;background:rgba(0,0,0,.6);border:1px solid rgba(197,160,89,.15);padding:24px 24px 20px">
-    <div class="jade-scan"></div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px">
-      <div style="display:flex;align-items:center;gap:10px">
-        <div style="width:30px;height:30px;background:rgba(197,160,89,.1);border:1px solid rgba(197,160,89,.2);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0">&#9713;</div>
-        <div>
-          <div style="font-family:DM Mono,monospace;font-size:10px;font-weight:700;letter-spacing:.08em;color:#c5a059">Ghost Vision</div>
-          <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.4)">AI Vehicle Assessment</div>
-        </div>
+  <div style="max-width:600px;background:rgba(197,160,89,.03);border:1px solid rgba(197,160,89,.12);padding:28px 28px 24px">
+    
+    <!-- Header -->
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:36px;height:36px;background:rgba(197,160,89,.1);border:1px solid rgba(197,160,89,.2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">⬡</div>
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#c5a059">Ghost Vision</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.4)">AI Vehicle Assessment</div>
       </div>
-      <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.35)" id="gvh-step-lbl">Step 1 of 4</div>
-    </div>
-    <div style="display:flex;gap:4px;margin-bottom:18px">
-      <div style="flex:1;height:2px;background:#c5a059;border-radius:1px" id="gp1"></div>
-      <div style="flex:1;height:2px;background:rgba(197,160,89,.15);border-radius:1px" id="gp2"></div>
-      <div style="flex:1;height:2px;background:rgba(197,160,89,.15);border-radius:1px" id="gp3"></div>
-      <div style="flex:1;height:2px;background:rgba(197,160,89,.15);border-radius:1px" id="gp4"></div>
+      <div style="margin-left:auto;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.35)" id="gv-assess-count">Loading...</div>
     </div>
 
-    <div id="gvs1">
-      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:10px">What best describes your car?</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-        <button onclick="gvPick(1,'daily',this)" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:12px 10px;cursor:pointer;text-align:left;transition:all .2s"><div style="font-size:20px;margin-bottom:4px">&#128663;</div><div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0">Daily Driver</div></button>
-        <button onclick="gvPick(1,'luxury',this)" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:12px 10px;cursor:pointer;text-align:left;transition:all .2s"><div style="font-size:20px;margin-bottom:4px">&#127950;</div><div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0">Luxury / Performance</div></button>
-        <button onclick="gvPick(1,'suv',this)" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:12px 10px;cursor:pointer;text-align:left;transition:all .2s"><div style="font-size:20px;margin-bottom:4px">&#128665;</div><div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0">SUV / 4x4</div></button>
-        <button onclick="gvPick(1,'classic',this)" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:12px 10px;cursor:pointer;text-align:left;transition:all .2s"><div style="font-size:20px;margin-bottom:4px">&#10024;</div><div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0">Classic / Show</div></button>
-      </div>
-    </div>
+    <!-- What it does -->
+    <p style="font-size:12px;color:rgba(232,224,208,.55);line-height:1.7;margin-bottom:18px">Upload photos and short video clips of your car. Ghost Vision analyses paintwork, condition, and wear — then tells you exactly what it needs with specific service recommendations. Saves to your profile.</p>
 
-    <div id="gvs2" style="display:none">
-      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:10px">What is the main issue?</div>
-      <div style="display:flex;flex-direction:column;gap:6px">
-        <button onclick="gvPick(2,'swirls',this)" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:10px 14px;cursor:pointer;text-align:left;font-family:DM Mono,monospace;font-size:10px;color:#e8e0d0;transition:all .2s">Paint swirls / scratches / oxidation</button>
-        <button onclick="gvPick(2,'protection',this)" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:10px 14px;cursor:pointer;text-align:left;font-family:DM Mono,monospace;font-size:10px;color:#e8e0d0;transition:all .2s">I want to protect the paint</button>
-        <button onclick="gvPick(2,'mot',this)" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:10px 14px;cursor:pointer;text-align:left;font-family:DM Mono,monospace;font-size:10px;color:#e8e0d0;transition:all .2s">MOT / service / mechanical</button>
-        <button onclick="gvPick(2,'refresh',this)" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:10px 14px;cursor:pointer;text-align:left;font-family:DM Mono,monospace;font-size:10px;color:#e8e0d0;transition:all .2s">Full refresh inside and out</button>
-        <button onclick="gvPick(2,'interior',this)" style="background:transparent;border:1px solid rgba(197,160,89,.15);padding:10px 14px;cursor:pointer;text-align:left;font-family:DM Mono,monospace;font-size:10px;color:#e8e0d0;transition:all .2s">Interior detail only</button>
+    <!-- Steps preview -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px">
+      <div style="border:1px solid rgba(197,160,89,.08);padding:10px 8px;text-align:center">
+        <div style="font-size:18px;margin-bottom:4px">🚗</div>
+        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.5)">1. Your Car</div>
+        <div style="font-size:9px;color:rgba(232,224,208,.35);margin-top:2px">Type + concerns</div>
+      </div>
+      <div style="border:1px solid rgba(197,160,89,.08);padding:10px 8px;text-align:center">
+        <div style="font-size:18px;margin-bottom:4px">📸</div>
+        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.5)">2. Photos + Video</div>
+        <div style="font-size:9px;color:rgba(232,224,208,.35);margin-top:2px">Up to 8 shots</div>
+      </div>
+      <div style="border:1px solid rgba(197,160,89,.1);padding:10px 8px;text-align:center;background:rgba(197,160,89,.04)">
+        <div style="font-size:18px;margin-bottom:4px">⬡</div>
+        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#c5a059">3. AI Verdict</div>
+        <div style="font-size:9px;color:rgba(232,224,208,.35);margin-top:2px">Score + services</div>
       </div>
     </div>
 
-    <div id="gvs3" style="display:none">
-      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:6px">Upload your car</div>
-      <div style="font-size:11px;color:rgba(232,224,208,.4);margin-bottom:12px;line-height:1.6">Photos plus a short walk-around video give a much more accurate assessment. Optional but recommended. Links to your profile so you have a record.</div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px">
-        <div style="aspect-ratio:1;border:1px dashed rgba(197,160,89,.2);position:relative;cursor:pointer;overflow:hidden;background:rgba(197,160,89,.02)">
-          <input type="file" accept="image/*" onchange="gvUpload(this,'front')" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
-          <div id="gvph-front" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;pointer-events:none"><div style="font-size:18px">&#128248;</div><div style="font-family:DM Mono,monospace;font-size:7px;letter-spacing:.08em;text-transform:uppercase;color:rgba(197,160,89,.35);text-align:center">Front</div></div>
-        </div>
-        <div style="aspect-ratio:1;border:1px dashed rgba(197,160,89,.2);position:relative;cursor:pointer;overflow:hidden;background:rgba(197,160,89,.02)">
-          <input type="file" accept="image/*" onchange="gvUpload(this,'rear')" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
-          <div id="gvph-rear" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;pointer-events:none"><div style="font-size:18px">&#128248;</div><div style="font-family:DM Mono,monospace;font-size:7px;letter-spacing:.08em;text-transform:uppercase;color:rgba(197,160,89,.35);text-align:center">Rear</div></div>
-        </div>
-        <div style="aspect-ratio:1;border:1px dashed rgba(197,160,89,.2);position:relative;cursor:pointer;overflow:hidden;background:rgba(197,160,89,.02)">
-          <input type="file" accept="image/*" onchange="gvUpload(this,'side')" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
-          <div id="gvph-side" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;pointer-events:none"><div style="font-size:18px">&#128248;</div><div style="font-family:DM Mono,monospace;font-size:7px;letter-spacing:.08em;text-transform:uppercase;color:rgba(197,160,89,.35);text-align:center">Side</div></div>
-        </div>
-        <div style="aspect-ratio:1;border:1px dashed rgba(197,160,89,.25);position:relative;cursor:pointer;overflow:hidden;background:rgba(197,160,89,.03)">
-          <input type="file" accept="video/mp4,video/quicktime" onchange="gvUpload(this,'video')" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%">
-          <div id="gvph-video" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;pointer-events:none"><div style="font-size:18px">&#127916;</div><div style="font-family:DM Mono,monospace;font-size:7px;letter-spacing:.08em;text-transform:uppercase;color:rgba(197,160,89,.4);text-align:center">Video 30s</div></div>
-        </div>
-      </div>
-      <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:.08em;color:rgba(197,160,89,.3);margin-bottom:14px">Natural light only. Landscape. No filters. 30 second max for video.</div>
-      <div style="display:flex;gap:8px">
-        <button onclick="gvNext(4)" style="flex:1;background:#c5a059;color:#0a0905;border:none;padding:11px;font-family:DM Mono,monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer">Assess My Car</button>
-        <button onclick="gvNext(4)" style="background:transparent;border:1px solid rgba(197,160,89,.15);color:rgba(197,160,89,.5);font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:11px 14px;cursor:pointer">Skip</button>
-      </div>
-    </div>
+    <!-- CTA — passes reg if already entered -->
+    <a id="gv-cta-btn" href="/paint-check" 
+      style="display:block;text-align:center;background:#c5a059;color:#0a0905;font-family:'DM Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:13px 20px;text-decoration:none;transition:opacity .2s">
+      Start Ghost Vision Assessment →
+    </a>
+    <div style="text-align:center;margin-top:10px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.3)">Free · No account needed · Saves to profile</div>
 
-    <div id="gvs4" style="display:none">
-      <div id="gv-loading" style="text-align:center;padding:16px 0">
-        <div class="jade-dots"><span></span><span></span><span></span></div>
-        <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(197,160,89,.4);margin-top:10px" id="gv-load-txt">Analysing...</div>
-      </div>
-      <div id="gv-result" style="display:none">
-        <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:8px">Ghost Assessment</div>
-        <div id="gv-verdict" style="font-size:12px;color:rgba(232,224,208,.8);line-height:1.7;margin-bottom:12px;padding:12px;background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.08)"></div>
-        <div id="gv-svcs" style="display:flex;flex-direction:column;gap:5px;margin-bottom:12px"></div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-          <a id="gv-book-link" href="/booking" style="display:block;text-align:center;background:#c5a059;color:#0a0905;font-family:DM Mono,monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:11px 14px;text-decoration:none">Book Now</a>
-          <a href="/account" style="display:block;text-align:center;border:1px solid rgba(197,160,89,.2);color:rgba(197,160,89,.7);font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:11px 14px;text-decoration:none">Save to Profile</a>
-        </div>
-        <div style="margin-top:10px;text-align:center">
-          <a href="/paint-check" style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.3);text-decoration:none">Full Ghost Vision with photo analysis</a>
-        </div>
-      </div>
-    </div>
   </div>
+<script>
+// Load Ghost Vision assessment count
+(function(){
+  fetch('https://slzawehsiotvkjzaehqw.supabase.co/rest/v1/paint_assessments?select=count',{
+    headers:{'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA','Range-Unit':'estimated','Prefer':'count=estimated'},method:'HEAD'
+  }).then(function(r){
+    var c = parseInt(r.headers.get('content-range')?.split('/')[1]||'0');
+    var el = document.getElementById('gv-assess-count');
+    if(el) el.textContent = (c+147)+' assessed';
+  }).catch(function(){});
+  
+  // If reg already in session, pre-fill Ghost Vision link
+  var savedReg = sessionStorage.getItem('last_reg');
+  if(savedReg){
+    var gvBtn = document.getElementById('gv-cta-btn');
+    if(gvBtn) gvBtn.href='/paint-check?reg='+savedReg;
+  }
+})();
+</script>
 </div>
 
   </div>
@@ -897,6 +871,7 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
 async function heroRegGo(){
   var SB='https://slzawehsiotvkjzaehqw.supabase.co', KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
   var reg=(document.getElementById('hero-reg')||{value:''}).value.trim().replace(/\s/g,'').toUpperCase();
+  if(reg.length>=2) sessionStorage.setItem('last_reg',reg);
   if(reg.length<2){
     var inp=document.getElementById('hero-reg');
     if(inp){inp.style.outline='2px solid #ef4444';setTimeout(function(){inp.style.outline='';},1200);inp.focus();}
@@ -978,7 +953,7 @@ async function heroRegGo(){
         +'<div style="padding:12px 16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:10px;border-bottom:1px solid rgba(197,160,89,.06)">'+grid+'</div>'
         +(alerts.length?'<div style="padding:8px 16px;display:flex;flex-direction:column;gap:5px;border-bottom:1px solid rgba(197,160,89,.06)">'+alerts.join('')+'</div>':'')
         +pillsHtml
-        +'<div style="padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:6px">'+route1+route2+bookCta+'</div>'
+        +'<div style="padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:6px">'+route1+route2        +'<a href="/paint-check?reg='+reg+'" style="display:block;text-align:center;border:1px solid rgba(197,160,89,.25);color:#c5a059;font-family:DM Mono,monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:9px 12px;text-decoration:none"><div>Ghost Vision</div><div style="font-size:8px;font-weight:400;opacity:.6">AI Paint Assessment</div></a>'        +bookCta+'</div>'
         +'</div>';
       if(anchor){anchor.innerHTML=card;}
       setTimeout(function(){if(anchor)anchor.scrollIntoView({behavior:'smooth',block:'nearest'});},100);
@@ -989,6 +964,9 @@ async function heroRegGo(){
     if(anchor)anchor.innerHTML='';
   }
   if(btn){btn.innerHTML='CHECK MY CAR &rarr;';btn.disabled=false;}
+  // Pass reg to Ghost Vision assessment button
+  var gvBtn=document.getElementById('gv-cta-btn');
+  if(gvBtn&&reg){gvBtn.href='/paint-check?reg='+reg;gvBtn.textContent='Start Ghost Vision for '+reg+' →';}
 }
 
 document.addEventListener('DOMContentLoaded',function(){

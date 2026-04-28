@@ -328,6 +328,18 @@ fetch(SB+'/rest/v1/paint_assessments?select=count',{
       <div style="margin-top:12px;padding:10px 14px;background:rgba(197,160,89,.03);border:1px solid rgba(197,160,89,.08)">
         <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.4);margin-bottom:4px">Photo tips for best results</div>
         <div style="font-size:10px;color:var(--muted2);line-height:1.6">Shoot in natural light · Capture front/rear/sides · Close-up of any damage · Interior if needed</div>
+      <div style="margin-top:8px;background:rgba(197,160,89,.03);border:1px solid rgba(197,160,89,.08);padding:10px 14px">
+        <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold,#c5a059);margin-bottom:6px">📹 Video Rules</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+          <div style="font-size:10px;color:var(--muted2,rgba(232,224,208,.5))">✓ Max 30 seconds</div>
+          <div style="font-size:10px;color:var(--muted2,rgba(232,224,208,.5))">✓ Walk-around only</div>
+          <div style="font-size:10px;color:var(--muted2,rgba(232,224,208,.5))">✓ Under 50MB</div>
+          <div style="font-size:10px;color:var(--muted2,rgba(232,224,208,.5))">✓ MP4 or MOV</div>
+          <div style="font-size:10px;color:#ef4444">✗ No long clips</div>
+          <div style="font-size:10px;color:#ef4444">✗ No music/audio</div>
+        </div>
+        <div style="font-size:9px;color:rgba(197,160,89,.3);margin-top:5px">Short walk-around clips give the best AI result. 30s around the car, slow and steady.</div>
+      </div>
       </div>
     </div>
 
@@ -593,9 +605,22 @@ function toggleArea(el, area){
 }
 
 // ── PHOTO HANDLING ────────────────────────────────
+
+function validateFile(file){
+  var isVideo = file.type.startsWith('video/');
+  if(isVideo){
+    if(file.size > 50*1024*1024){ alert('Video too large — keep it under 50MB (max 30 seconds).'); return false; }
+    var ok = ['mp4','mov','quicktime'].some(function(t){ return file.type.includes(t); });
+    if(!ok){ alert('Use MP4 or MOV format for videos.'); return false; }
+  }
+  if(!isVideo && file.size > 15*1024*1024){ alert('Image too large — keep photos under 15MB.'); return false; }
+  return true;
+}
+
 function handlePhotos(input){
   const files = Array.from(input.files||[]);
   files.slice(0, 8-uploadedPhotos.length).forEach(file=>{
+    if(!validateFile(file)) return;
     const reader = new FileReader();
     reader.onload = e=>{
       uploadedPhotos.push({file, dataUrl:e.target.result, area:'general'});
