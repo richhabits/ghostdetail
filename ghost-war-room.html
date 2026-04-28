@@ -440,6 +440,16 @@ footer{background:var(--vault);border-top:1px solid rgba(197,160,89,.06);padding
   .quick-actions{grid-template-columns:1fr 1fr}
   #pane-chat{padding:16px 16px 0}
 }
+
+/* ── BRAIN PILL CHILD CLICK FIX ── */
+.brain-pill .bp-name,.brain-pill .bp-role{pointer-events:none}
+.brain-pill{cursor:pointer}
+
+/* ── TIME DISPLAY FIX ── */
+.j-clock-block{font-family:'DM Mono',monospace;font-size:32px;color:var(--gold);letter-spacing:.06em;line-height:1}
+
+.brain-pill::after{pointer-events:none}
+.s-item::after{pointer-events:none}
 </style><style id="ghost-motion-css">
 /* Pre-animation states — prevent flash of unstyled content */
 .hero-title,.hero-sub,.hero-reg-wrap,.hero-stats,header{
