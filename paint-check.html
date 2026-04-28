@@ -318,14 +318,27 @@ fetch(SB+'/rest/v1/paint_assessments?select=count',{
       
       <div class="upload-grid" id="upload-grid">
         <div class="upload-add" id="upload-add-btn">
-          <input type="file" accept="image/*,video/*" multiple onchange="handlePhotos(this)">
+          <input type="file" accept="image/*,video/mp4,video/quicktime" multiple onchange="handlePhotos(this)">
           <div style="font-size:28px;margin-bottom:6px">📸</div>
           <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)">Add Photos</div>
           <div style="font-size:9px;color:rgba(197,160,89,.3);margin-top:3px">Or videos · Up to 8 files</div>
         </div>
       </div>
 
-      <div style="margin-top:12px;padding:10px 14px;background:rgba(197,160,89,.03);border:1px solid rgba(197,160,89,.08)">
+      
+      <div style="margin-top:8px;background:rgba(197,160,89,.03);border:1px solid rgba(197,160,89,.08);padding:10px 14px">
+        <div style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:6px">📹 Video Rules</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+          <div style="font-size:10px;color:var(--muted2)">✓ Max 30 seconds</div>
+          <div style="font-size:10px;color:var(--muted2)">✓ Walk-around only</div>
+          <div style="font-size:10px;color:var(--muted2)">✓ Under 50MB</div>
+          <div style="font-size:10px;color:var(--muted2)">✓ MP4 or MOV</div>
+          <div style="font-size:10px;color:#ef4444">✗ No long videos</div>
+          <div style="font-size:10px;color:#ef4444">✗ No music/audio</div>
+        </div>
+        <div style="font-size:9px;color:rgba(197,160,89,.35);margin-top:6px">Short walk-around videos give the best AI assessment. Long videos waste upload time.</div>
+      </div>
+      <div style="margin-top:8px;padding:10px 14px;background:rgba(197,160,89,.03);border:1px solid rgba(197,160,89,.08)">
         <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.4);margin-bottom:4px">Photo tips for best results</div>
         <div style="font-size:10px;color:var(--muted2);line-height:1.6">Shoot in natural light · Capture front/rear/sides · Close-up of any damage · Interior if needed</div>
       </div>
@@ -593,9 +606,33 @@ function toggleArea(el, area){
 }
 
 // ── PHOTO HANDLING ────────────────────────────────
+
+function validateFile(file){
+  // Video rules: max 30s enforced by file size (30s@1080p ≈ 50MB)
+  const isVideo = file.type.startsWith('video/');
+  if(isVideo){
+    if(file.size > 50 * 1024 * 1024){
+      alert('Video too large. Keep videos under 50MB (max 30 seconds). Use a short walk-around clip.');
+      return false;
+    }
+    const validTypes = ['video/mp4','video/quicktime','video/mov','video/x-msvideo'];
+    if(!validTypes.some(t=>file.type.includes(t.split('/')[1]))){
+      alert('Please use MP4 or MOV format for videos.');
+      return false;
+    }
+  }
+  // Images: max 10MB
+  if(!isVideo && file.size > 10 * 1024 * 1024){
+    alert('Image too large. Please use a photo under 10MB.');
+    return false;
+  }
+  return true;
+}
+
 function handlePhotos(input){
   const files = Array.from(input.files||[]);
   files.slice(0, 8-uploadedPhotos.length).forEach(file=>{
+    if(!validateFile(file)) return;
     const reader = new FileReader();
     reader.onload = e=>{
       uploadedPhotos.push({file, dataUrl:e.target.result, area:'general'});
@@ -626,7 +663,7 @@ function renderPhotos(){
     const add = document.createElement('div');
     add.className = 'upload-add';
     add.id = 'upload-add-btn';
-    add.innerHTML = `<input type="file" accept="image/*,video/*" multiple onchange="handlePhotos(this)">
+    add.innerHTML = `<input type="file" accept="image/*,video/mp4,video/quicktime" multiple onchange="handlePhotos(this)">
       <div style="font-size:24px">+</div>
       <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)">Add More</div>`;
     grid.appendChild(add);
@@ -900,7 +937,7 @@ function resetAssessment(){
   document.getElementById('reg-input').value = '';
   document.getElementById('dvla-card').classList.remove('show');
   document.getElementById('upload-grid').innerHTML = `<div class="upload-add" id="upload-add-btn">
-    <input type="file" accept="image/*,video/*" multiple onchange="handlePhotos(this)">
+    <input type="file" accept="image/*,video/mp4,video/quicktime" multiple onchange="handlePhotos(this)">
     <div style="font-size:28px;margin-bottom:6px">📸</div>
     <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)">Add Photos</div>
     <div style="font-size:9px;color:rgba(197,160,89,.3);margin-top:3px">Or videos · Up to 8 files</div>

@@ -565,6 +565,27 @@ if(typeof gtag !== 'undefined' && total) {
   gtag('event', 'booking_complete', { 'service': service, 'value': parseFloat(total) });
 }
 </script>
+<header style="position:sticky;top:0;z-index:1000;background:#0a0905;border-bottom:1px solid rgba(197,160,89,.1);height:60px;display:flex;align-items:center;padding:0 clamp(16px,4vw,48px)">
+  <div style="max-width:1400px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px">
+    <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0">
+      <span style="font-size:20px;color:#c5a059;font-weight:900;line-height:1">⬡</span>
+      <span style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#fff;font-weight:700;font-family:DM Mono,monospace">Ghost Detail</span>
+    </a>
+    <nav id="gnav" style="display:flex;gap:28px;flex:1;justify-content:center">
+      <a href="/studio.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Studio</a>
+      <a href="/concierge.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Concierge</a>
+      <a href="/paint-check.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Ghost Vision</a>
+      <a href="/results.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Before & After</a>
+      <a href="/membership.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Ghost Pass</a>
+      <a href="/shop.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Shop</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:12px;flex-shrink:0">
+      <button id="gham" onclick="var n=document.getElementById(\'gnav\');if(n){n.classList.toggle(\'open\');}" style="display:none;background:none;border:none;color:#c5a059;font-size:20px;cursor:pointer;padding:4px">☰</button>
+      <a href="/booking.html" style="background:#c5a059;color:#0a0905;padding:9px 18px;font-size:8px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;text-decoration:none;font-family:DM Mono,monospace;transition:opacity .2s;white-space:nowrap" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">Book Now</a>
+    </div>
+  </div>
+</header>
+
 
 <script>
 // Show vehicle intelligence on thank you page
@@ -629,5 +650,134 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
     animate(n,{opacity:[0,1],y:[12,0],scale:[0.97,1]},{duration:0.4,ease:EXPO});
 }))).observe(document.body,{childList:true,subtree:true});
 </script>
+<footer style="background:#0a0905;border-top:1px solid rgba(197,160,89,.08);margin-top:80px;padding:48px clamp(16px,4vw,48px) 28px">
+  <div style="max-width:1400px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:180px 1fr;gap:48px;padding-bottom:24px;border-bottom:1px solid rgba(197,160,89,.07);margin-bottom:20px">
+      <div>
+        <div style="font-size:22px;color:#c5a059;font-weight:900;margin-bottom:6px">⬡</div>
+        <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-weight:700;margin-bottom:2px;font-family:DM Mono,monospace">Ghost Detail Autos</div>
+        <div style="font-size:8px;letter-spacing:.1em;color:rgba(197,160,89,.45);margin-bottom:14px;font-family:DM Mono,monospace">Watford WD18</div>
+        <a href="tel:01923959839" style="display:block;font-size:11px;color:#e8e0d0;text-decoration:none;margin-bottom:4px;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">01923 959839</a>
+        <a href="https://wa.me/447927576142" style="display:block;font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">WhatsApp</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px 24px;align-content:start">
+        <a href="/studio.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Studio</a>
+        <a href="/concierge.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Concierge</a>
+        <a href="/paint-check.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Ghost Vision</a>
+        <a href="/results.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Before & After</a>
+        <a href="/membership.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Ghost Pass</a>
+        <a href="/shop.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Shop</a>
+        <a href="/gift-vouchers.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Gift Vouchers</a>
+        <a href="/garage.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">My Garage</a>
+        <a href="/live-tracker.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Live Track</a>
+        <a href="/quote.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Quote</a>
+        <a href="/contact.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Contact</a>
+        <a href="/login.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Staff Login</a>
+        <a href="/legal.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Privacy</a>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:8px;letter-spacing:.1em;color:rgba(197,160,89,.35);font-family:DM Mono,monospace">
+      <span>© 2026 Ghost Detail Autos · Watford WD18</span>
+      <span>Romeo & Ferrel Cruz</span>
+    </div>
+  </div>
+</footer>
+<style>
+@media(max-width:768px){
+  footer>div>div:first-child{grid-template-columns:1fr!important}
+  footer>div>div:first-child>nav{grid-template-columns:repeat(2,1fr)!important}
+}
+</style>
+
+<script type="module" id="ghost-motion-module">
+import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm";
+const EXPO=[0.16,1,0.3,1];
+const nav=document.querySelector('header');
+if(nav) animate(nav,{opacity:[0,1],y:[-16,0]},{duration:0.5,ease:EXPO});
+const ht=document.querySelector('.hero-title');
+if(ht) animate(ht,{opacity:[0,1],y:[48,0]},{duration:0.9,ease:EXPO,delay:0.1});
+const hs=document.querySelector('.hero-sub');
+if(hs) animate(hs,{opacity:[0,1],y:[24,0]},{duration:0.7,ease:EXPO,delay:0.3});
+const rw=document.querySelector('.hero-reg-wrap');
+if(rw) animate(rw,{opacity:[0,1],y:[20,0]},{duration:0.6,ease:EXPO,delay:0.5});
+document.querySelectorAll('h1:not(.hero-title),h2,h3').forEach(el=>{
+  inView(el,()=>{animate(el,{opacity:[0,1],y:[28,0]},{duration:0.6,ease:EXPO});},{margin:'-8% 0px'});
+});
+document.querySelectorAll('[style*="grid-template-columns"]').forEach(grid=>{
+  const kids=Array.from(grid.children).filter(c=>c.textContent.trim().length>0&&!c.querySelector('input'));
+  if(kids.length<2||kids.length>16) return;
+  inView(grid,()=>{
+    animate(kids,{opacity:[0,1],y:[20,0],scale:[0.97,1]},{duration:0.5,delay:stagger(0.07),ease:EXPO});
+  },{margin:'-5% 0px'});
+});
+document.querySelectorAll('.hstat-n,.stat-n').forEach(el=>{
+  const text=el.textContent.trim();
+  const num=parseInt(text.replace(/[^0-9]/g,''));
+  if(!num||num<5) return;
+  const suffix=text.replace(/[0-9]/g,'');
+  inView(el,()=>{
+    const s=performance.now(),d=1500;
+    const tick=()=>{const p=Math.min((performance.now()-s)/d,1);el.textContent=Math.round((1-Math.pow(1-p,3))*num)+suffix;if(p<1)requestAnimationFrame(tick);};
+    requestAnimationFrame(tick);
+  },{margin:'-10% 0px'});
+});
+new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
+  if(n.id&&['hero-vehicle-result','booking-vehicle-banner','dvla-preview','concierge-vehicle-result'].includes(n.id))
+    animate(n,{opacity:[0,1],y:[12,0],scale:[0.97,1]},{duration:0.4,ease:EXPO});
+}))).observe(document.body,{childList:true,subtree:true});
+</script>
+<script id="ghost-hero-dvla">
+async function heroRegGo(){
+  var reg=(document.getElementById('hero-reg')||{value:''}).value.trim().replace(/\s/g,'').toUpperCase();
+  if(!reg) return;
+  var btn=document.querySelector('.hero-reg-btn');
+  if(btn){btn.innerHTML='Searching...';btn.disabled=true;}
+  try{
+    var r=await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/vehicle-lookup',{method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
+      body:JSON.stringify({registration:reg})});
+    var data=await r.json();
+    var veh=data.vehicle||data;
+    if(veh.make||veh.colour){
+      var make=(veh.make||'').charAt(0).toUpperCase()+(veh.make||'').slice(1).toLowerCase();
+      var model=veh.model||'';
+      var colour=(veh.colour||'').toLowerCase();
+      var year=veh.yearOfManufacture||veh.year||'';
+      var mot=veh.motExpiryDate||'';
+      var motDays=mot?Math.floor((new Date(mot)-new Date())/86400000):null;
+      var motHtml=motDays===null?'':motDays<0?'<span style="color:#ef4444">MOT EXPIRED</span>':motDays<90?'<span style="color:#f59e0b">MOT '+motDays+'d</span>':'<span style="color:#22c55e">MOT Valid</span>';
+      var existing=document.getElementById('hero-vehicle-result');
+      if(existing)existing.remove();
+      var card=document.createElement('div');
+      card.id='hero-vehicle-result';
+      card.style.cssText='margin-top:12px;background:rgba(197,160,89,.06);border:1px solid rgba(197,160,89,.2);padding:16px 20px;max-width:520px;margin-left:auto;margin-right:auto;text-align:left';
+      card.innerHTML='<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:12px">'
+        +'<div><div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(197,160,89,.6);margin-bottom:3px">Vehicle Found</div>'
+        +'<div style="font-size:18px;font-weight:700;color:#fff">'+make+' '+model+'</div>'
+        +'<div style="font-size:11px;color:rgba(255,255,255,.5);margin-top:2px">'+(colour?colour+' &middot; ':'')+year+' &middot; '+reg+(motHtml?' &middot; '+motHtml:'')+'</div></div>'
+        +'<button onclick="document.getElementById(\'hero-vehicle-result\').remove()" style="background:none;border:none;color:rgba(197,160,89,.4);font-size:18px;cursor:pointer">x</button></div>'
+        +'<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">'
+        +'<a href="/paint-check?reg='+reg+'" style="display:block;text-align:center;border:1px solid rgba(197,160,89,.25);color:#c5a059;font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:9px 12px;text-decoration:none">Ghost Vision</a>'
+        +'<a href="/studio?reg='+reg+'" style="display:block;text-align:center;border:1px solid rgba(197,160,89,.25);color:#c5a059;font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:9px 12px;text-decoration:none">Services</a>'
+        +'<a href="/booking?reg='+reg+'" style="display:block;text-align:center;background:#c5a059;color:#0a0905;font-family:DM Mono,monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 12px;text-decoration:none;grid-column:1/-1">Book This Car</a>'
+        +'</div>';
+      var wrap=document.querySelector('.hero-reg-wrap')||document.querySelector('.hero-inner');
+      if(wrap)wrap.appendChild(card);else document.body.appendChild(card);
+    } else {
+      window.location.href='/paint-check?reg='+reg;
+    }
+  }catch(e){window.location.href='/paint-check?reg='+reg;}
+  if(btn){btn.innerHTML='GHOST VISION &rarr;';btn.disabled=false;}
+}
+document.addEventListener('DOMContentLoaded',function(){
+  var inp=document.getElementById('hero-reg');
+  if(inp) inp.addEventListener('keydown',function(e){if(e.key==='Enter')heroRegGo();});
+  var ham=document.getElementById('gham');
+  var nav=document.getElementById('gnav');
+  if(ham&&nav) ham.onclick=function(){nav.classList.toggle('open');};
+});
+</script>
+</body>
+
 </body>
 </html>

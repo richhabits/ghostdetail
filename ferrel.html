@@ -1,3 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ferrel's Portal — Ghost Detail Autos</title>
+<script>
+// PIN check - let through if already authenticated
+if(localStorage.getItem('ferrel_auth')==='ok'){
+  // Already authenticated - page loads normally
+} else {
+  // Show PIN gate
+  document.addEventListener('DOMContentLoaded',function(){
+    var gate = document.getElementById('ferrel-gate');
+    var content = document.getElementById('ferrel-content');
+    if(gate) gate.style.display='flex';
+    if(content) content.style.display='none';
+  });
+}
+function checkFerrelPin(){
+  var pin = document.getElementById('ferrel-pin').value;
+  if(pin==='ferrel2026'){
+    localStorage.setItem('ferrel_auth','ok');
+    document.getElementById('ferrel-gate').style.display='none';
+    document.getElementById('ferrel-content').style.display='block';
+  } else {
+    document.getElementById('ferrel-err').textContent='Wrong PIN. Try again.';
+    document.getElementById('ferrel-pin').value='';
+    document.getElementById('ferrel-pin').focus();
+  }
+}
+</script>
+<style>
+:root{--gold:#c5a059;--bg:#0a0905;--text:#e8e0d0}
+#ferrel-gate{display:none;position:fixed;inset:0;background:var(--bg);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:16px}
+#ferrel-gate .logo{font-size:32px;color:var(--gold)}
+#ferrel-gate h2{font-family:serif;font-size:24px;color:var(--text)}
+#ferrel-gate input{background:#111;border:1px solid rgba(197,160,89,.2);color:var(--text);font-family:monospace;font-size:20px;padding:12px 20px;outline:none;text-align:center;width:200px;letter-spacing:.2em}
+#ferrel-gate button{background:var(--gold);color:#0a0905;border:none;padding:12px 24px;font-family:monospace;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer}
+#ferrel-err{color:#ef4444;font-family:monospace;font-size:11px;min-height:16px}
+</style>
+</head>
+<body>
+<div id="ferrel-gate"><div class="logo">⬡</div><h2>Ferrel's Portal</h2><div id="ferrel-err"></div><input type="password" id="ferrel-pin" placeholder="PIN" maxlength="10" onkeydown="if(event.key==='Enter')checkFerrelPin()"><button onclick="checkFerrelPin()">Enter →</button></div>
+<div id="ferrel-content" style="display:none">
 <!DOCTYP
 <nav><div class="nav-inner"><a href="/" class="nav-logo"><div class="hex"></div><span class="nb">Ghost Detail</span></a><a href="/booking.html" class="nc">Book</a></div></nav>
 <div class="hero">
@@ -107,3 +149,5 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
 </script>
 </body>
 </html>
+
+</div></body></html>

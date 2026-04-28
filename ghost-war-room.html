@@ -291,6 +291,16 @@ a:hover ~ #ghost-cursor, button:hover ~ #ghost-cursor{
   });
 })();
 </script>
+<style id="ghost-mobile">
+@media(max-width:820px){
+  .j-sidebar{display:none!important}
+  #gnav{display:none!important}
+  button#gham{display:flex!important}
+}
+@media(min-width:821px){
+  button#gham{display:none!important}
+}
+</style>
 </head>
 <body>
 
@@ -2300,6 +2310,10 @@ function toggleMic() {
 }
 
 // Main send function
+const SYSTEM_PROMPTS = {"ghost": "You are GHOST — the AI brain of Ghost Detail Autos, Watford WD18. Romeo and Ferrel Cruz run the studio. Be direct, business-focused, and sharp. Know the services: Spark Wash £79, Quick Refinement £249, Depth Refinement £149, Total Refinement £349, Nano Banana Ceramic £279, PPF. Ghost Pass memberships: Spark £99/mo, Shield £199/mo, Legend £299/mo. Help Romeo run and grow the business.", "aria": "You are ARIA — Ghost Detail"s receptionist AI. Handle customer enquiries, follow up leads, draft WhatsApp messages, and manage bookings. Be professional and warm. You represent Ghost Detail Autos, Watford WD18.", "jade": "You are JADE — Ghost Detail"s lead nurturing AI. Turn cold leads hot. Write follow-up messages, spot opportunities in customer conversations, and help Romeo close bookings. Be persuasive and strategic.", "marcus": "You are MARCUS — Ghost Detail"s market intelligence AI. Track competitor pricing, spot detailing trends in Hertfordshire/North London, and give Romeo an edge. Be analytical and data-driven.", "aaliya": "You are AALIYA — Ghost Detail"s content AI. Turn before/after results into Instagram captions, TikTok scripts, and social content. Keep it Gen Z, aspirational, and brand-aligned.", "priya": "You are PRIYA — Ghost Detail"s operations AI. Manage bay scheduling, stock levels, job tracking, and workflow. Keep the studio running efficiently. Be practical and organised.", "dev": "You are DEV — Ghost Detail"s financial AI. Track revenue, analyse deposits, forecast monthly income, and flag any financial anomalies. Be precise with numbers.", "romeo_ai": "You are ROMEO AI — the brand and strategy AI for Ghost Detail. Help Romeo think through brand decisions, positioning, and long-term strategy. Be visionary and honest."};
+
+let chatHistory = [];
+
 async function sendMsg() {
   const inp = document.getElementById('chat-inp')
   const msg = inp?.value?.trim()
@@ -2307,36 +2321,59 @@ async function sendMsg() {
   inp.value = ''
 
   addMsg('user', msg)
+  chatHistory.push({role:'user', content: msg})
 
   const thinking = addMsg('ghost', '', true)
   const m = BRAIN_META[activeBrain] || BRAIN_META.ghost
-
-  // Show mic btn as processing
   const micBtn = document.getElementById('mic-btn')
   if (micBtn) { micBtn.textContent = '⏳'; micBtn.classList.add('processing') }
 
+  const systemPrompt = SYSTEM_PROMPTS[activeBrain] || SYSTEM_PROMPTS.ghost;
+  
   try {
-    const d = await fetch(BRAIN_URL, {
+    // Use Anthropic API directly — Claude Haiku (fastest, cheapest)
+    const r = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: {'Content-Type':'application/json'},
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': window._ghostApiKey || '',
+        'anthropic-version': '2023-06-01'
+      },
       body: JSON.stringify({
-        action: 'chat',
-        brain: activeBrain,
-        prompt: msg
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 800,
+        system: systemPrompt,
+        messages: chatHistory.slice(-10)
       })
-    }).then(r => r.json())
-
-    const responseText = d.text || d.error || 'No response'
-    const cacheNote = d.cached ? '<div class="cache-hit">⚡ cache hit</div>' : ''
-    thinking.innerHTML = `<div class="msg-role">${m.n}</div><div class="msg-text" id="last-response"></div><div class="msg-meta"><span>${d.model || 'gemini'}</span>${d.cached ? '<span>⚡ cache</span>' : ''}<span style="cursor:pointer;color:var(--muted);user-select:none" onclick="speakLast()">🔊</span></div>`
-    // Set text safely via textContent to avoid XSS
+    })
+    
+    let responseText = '';
+    let modelUsed = 'claude-haiku';
+    
+    if (r.ok) {
+      const d = await r.json()
+      responseText = d.content?.[0]?.text || 'No response'
+      modelUsed = 'claude-haiku'
+    } else {
+      // Fallback to ghost-brain (Gemini)
+      const d2 = await fetch(GHOST_BRAIN_URL, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({prompt: systemPrompt + '\n\nUser: ' + msg})
+      }).then(r=>r.json())
+      responseText = d2.text || 'Ghost is thinking... Try again.'
+      modelUsed = d2.model || 'gemini'
+    }
+    
+    chatHistory.push({role:'assistant', content: responseText})
+    if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20)
+    
+    thinking.innerHTML = `<div class="msg-role">${m.n}</div><div class="msg-text" id="last-response"></div><div class="msg-meta"><span>${modelUsed}</span><span style="cursor:pointer;color:var(--muted);user-select:none" onclick="speakLast()">🔊</span></div>`
     thinking.querySelector('#last-response').textContent = responseText
-
-    // Speak the response automatically
     speak(responseText)
 
   } catch(e) {
-    thinking.innerHTML = `<div class="msg-role">${m.n}</div><div class="msg-text" style="color:#ef4444">Error: ${e.message}</div>`
+    thinking.innerHTML = `<div class="msg-role">${m.n}</div><div class="msg-text" style="color:#ef4444">Connection error. Check your API key in settings.</div>`
   } finally {
     if (micBtn) { micBtn.textContent = '🎤'; micBtn.classList.remove('processing') }
     document.getElementById('chat-msgs').scrollTop = 9999
