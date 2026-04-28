@@ -1194,7 +1194,7 @@ async function loadAnalytics(){
     <td>Step ${a.step_reached||1}</td>
     <td>${fmtDate(a.created_at)}</td>
     <td><span class="badge ${a.recovered?'b-confirmed':'b-new'}">${a.recovered?'Recovered':'Open'}</span></td>
-    <td><a href="https://wa.me/?text=${encodeURIComponent(`Hi! You started booking a ${a.service_type||'service'} with Ghost Detail Autos but didn't finish. Your quote is still saved: ghostdetail.autos/booking.html`)}" class="btn btn-wa" target="_blank">Recover</a></td>
+    <td><a href="https://wa.me/?text=${encodeURIComponent(`Hi! You started booking a ${a.service_type||'service'} with Ghost Detail Autos but did not finish. Your quote is still saved: ghostdetail.autos/booking.html`)}" class="btn btn-wa" target="_blank">Recover</a></td>
   </tr>`).join('');
 }
 
