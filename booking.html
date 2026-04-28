@@ -552,7 +552,7 @@ footer a:hover, nav a:hover{
   <div class="success-wrap" id="success-wrap">
     <div class="success-ico">🖤</div>
     <h2 class="success-title">Booking <em>Received.</em></h2>
-    <p style="font-size:16px;color:var(--muted);margin-bottom:24px">Romeo will WhatsApp you within 2 hours with confirmation and deposit details.</p>
+    <p style="font-size:16px;color:var(--muted);margin-bottom:24px">Your slot is reserved. Redirecting you to pay the deposit now to confirm it.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px">
       <a href="https://wa.me/447927576142" style="font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:#25D366;text-decoration:none;padding:12px 20px">WhatsApp Romeo</a>
       <a href="/" style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;padding:12px 20px;border:1px solid rgba(197,160,89,.3)">Back to Home</a>
@@ -759,6 +759,23 @@ async function submitBooking(){
   document.querySelectorAll('.step').forEach(s=>s.style.display='none');
   document.getElementById('prog').style.width='100%';
   document.getElementById('success-wrap').classList.add('show');
+  
+  // Stripe deposit redirect - route to correct link based on service
+  (function(){
+    var svc = (state.service||'').toLowerCase();
+    var depUrl = null;
+    if(svc.includes('total')||svc.includes('full')) depUrl = 'https://buy.stripe.com/8x29AT1bZgjagov3sf8N20o';
+    else if(svc.includes('ceramic')) depUrl = 'https://buy.stripe.com/28EcN54obff6fkrgf18N20p';
+    else if(svc.includes('ppf')) depUrl = 'https://buy.stripe.com/00w14n4ob6IAfkr4wj8N20q';
+    else if(svc.includes('refinement')||svc.includes('detail')||svc.includes('concierge')||svc.includes('quick')) depUrl = 'https://buy.stripe.com/28E7sLcUH9UMc8f6Er8N20n';
+    if(!depUrl) return; // Spark Wash - no deposit needed
+    var bookId = data&&data.id ? data.id : Date.now();
+    var ref = 'booking_' + bookId;
+    var finalUrl = depUrl + (depUrl.includes('?')?'&':'?') + 'client_reference_id=' + encodeURIComponent(ref);
+    var el = document.querySelector('#success-wrap p');
+    if(el) el.innerHTML = 'Slot saved. <strong>Redirecting to deposit payment in 3 seconds...</strong><br><a href="'+finalUrl+'" style="color:#c5a059;font-size:12px">Click here if not redirected →</a>';
+    setTimeout(function(){window.location.href=finalUrl;},3000);
+  })();
   gtag('event','booking_submitted',{service:state.service,value:total,currency:'GBP'});
   window.scrollTo({top:0,behavior:'smooth'});
   // Redirect to thankyou
@@ -1094,8 +1111,9 @@ Ghost Pass members save 15% on all of these.');
 })();
 </script>
 <script id="ghost-ai-engine">
-// ── GHOST DETAIL · AI ENGINE ─────────────────────────────────────────
-// Free: Pollinations → Gemini fallback → smart keyword fallback
+// ── GHOST DETAIL · AI ENGINE v2 ─────────────────────────────────────
+// Primary: ghost-brain (Gemini 2.5 Flash via Supabase) — smart, context-aware
+// Secondary: Pollinations (free, no key) — browser fallback
 // Premium: Claude Haiku if Romeo sets API key in War Room settings
 window.ghostAI = async function(systemPrompt, userMessage, historyArr) {
   var history = historyArr || [];
@@ -1114,30 +1132,59 @@ window.ghostAI = async function(systemPrompt, userMessage, historyArr) {
     } catch(e){}
   }
   
-  // Free: Pollinations (no key, works from browser)
+  // Primary: ghost-brain (Gemini 2.5 Flash) — full context, smart
+  try {
+    var prompt = (systemPrompt ? '[CONTEXT] '+systemPrompt+'
+
+' : '') + userMessage;
+    if(history.length > 0) {
+      prompt = history.slice(-6).map(function(m){return (m.role==='user'?'User: ':'GHOST: ')+m.content;}).join('
+') + '
+User: ' + userMessage;
+    }
+    var r2 = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
+      body:JSON.stringify({action:'chat', prompt:prompt})
+    });
+    if(r2.ok){ var d2=await r2.json(); var t2=d2.text; if(t2) return {text:t2,model:'gemini-2.5-flash'}; }
+  } catch(e){}
+  
+  // Fallback: Pollinations (browser-side, free)
   try {
     var allMsgs = [{role:'system',content:systemPrompt}].concat(msgs);
-    var r = await fetch('https://text.pollinations.ai/openai', {
+    var r3 = await fetch('https://text.pollinations.ai/openai', {
       method:'POST',
       headers:{'Content-Type':'application/json','Origin':'https://ghostdetail.autos','Referer':'https://ghostdetail.autos/'},
       body:JSON.stringify({model:'openai',messages:allMsgs,private:true,seed:Math.floor(Math.random()*9999)})
     });
-    if(r.ok){ var d=await r.json(); var t=d.choices?.[0]?.message?.content; if(t) return {text:t,model:'pollinations'}; }
-  } catch(e){}
-  
-  // Fallback: ghost-brain (Gemini via Supabase)
-  try {
-    var r = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain', {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
-      body:JSON.stringify({prompt:systemPrompt+'\n\nUser: '+userMessage})
-    });
-    var d=await r.json();
-    if(d.text) return {text:d.text, model:d.model||'gemini'};
+    if(r3.ok){ var d3=await r3.json(); var t3=d3.choices?.[0]?.message?.content; if(t3) return {text:t3,model:'pollinations'}; }
   } catch(e){}
   
   return null;
 };
+
+
+// War Room direct ghost-brain calls
+window.ghostBrain = async function(action, params) {
+  try {
+    var r = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
+      body:JSON.stringify(Object.assign({action:action}, params||{}))
+    });
+    return await r.json();
+  } catch(e) { return {error:e.message}; }
+};
+
+// Pre-load morning brief in War Room
+window.addEventListener('load', function() {
+  if(!document.getElementById('morning-brief-content')) return;
+  window.ghostBrain('morning_brief').then(function(r) {
+    var el = document.getElementById('morning-brief-content');
+    if(el) el.textContent = r.brief || r.text || 'Ghost is thinking...';
+  });
+});
 
 </script>
 </body>
