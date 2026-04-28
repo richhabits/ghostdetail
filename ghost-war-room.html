@@ -2135,7 +2135,7 @@ setInterval(()=>document.getElementById('hdr-time').textContent=new Date().toLoc
 
 const AGENTS_URL='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-agents';
 const CLEANUP_URL='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-cleanup-agent';
-const BRAIN_URL='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-ai-router';
+const BRAIN_URL='https://text.pollinations.ai/';
 const GHOST_BRAIN_URL='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain';
 const SB_URL='https://slzawehsiotvkjzaehqw.supabase.co';
 const SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
@@ -2358,7 +2358,8 @@ async function callGhostBrain(systemPrompt, userMsg) {
   return {text, model: d.model || 'gemini'};
 }
 
-async function sendMsg() {
+// OLD sendMsg replaced
+async function sendMsg_OLD() {
   const inp = document.getElementById('chat-inp');
   const msg = inp?.value?.trim();
   if (!msg) return;
@@ -3297,6 +3298,94 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
   if(n.id&&['hero-vehicle-result','booking-vehicle-banner','dvla-preview','concierge-vehicle-result'].includes(n.id))
     animate(n,{opacity:[0,1],y:[12,0],scale:[0.97,1]},{duration:0.4,ease:EXPO});
 }))).observe(document.body,{childList:true,subtree:true});
+
+let chatHistory = [];
+
+const AGENT_SYSTEMS = {
+  ghost: "You are GHOST — AI brain of Ghost Detail Autos, Watford WD18. Romeo Cruz and Ferrel run this luxury detailing studio. Services: Spark Wash £79, Quick Refinement £249, Depth Refinement £149, Total Refinement £349, Nano Banana Ceramic £279, PPF. Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. Be direct, sharp, business-focused. Max 150 words.",
+  aria: "You are ARIA — receptionist AI for Ghost Detail Autos Watford. Handle enquiries professionally, draft WhatsApp messages. Max 100 words.",
+  jade: "You are JADE — lead nurturing AI for Ghost Detail Autos Watford. Write compelling follow-up WhatsApp messages, turn cold leads into bookings. Max 100 words.",
+  marcus: "You are MARCUS — market intelligence AI for Ghost Detail. Analyse competitors and detailing trends in Hertfordshire. Max 100 words.",
+  aaliya: "You are AALIYA — social content AI for Ghost Detail. Write Instagram captions and TikTok scripts for car transformations. Energetic, aspirational. Max 100 words.",
+  priya: "You are PRIYA — operations AI for Ghost Detail. Bay scheduling, stock, workflow. Practical. Max 100 words.",
+  dev: "You are DEV — financial AI for Ghost Detail. Revenue, forecasts, deposits. Precise with numbers. Max 100 words.",
+  romeo_ai: "You are ROMEO AI — brand strategy AI for Ghost Detail. Vision, positioning, identity. Max 100 words."
+};
+
+async function sendMsg() {
+  const inp = document.getElementById('chat-inp');
+  const msg = inp?.value?.trim();
+  if (!msg) return;
+  inp.value = '';
+
+  addMsg('user', msg);
+  chatHistory.push({role:'user', content: msg});
+  if(chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
+
+  const thinking = addMsg('ghost', '', true);
+  const m = BRAIN_META[activeBrain] || BRAIN_META.ghost;
+  const micBtn = document.getElementById('mic-btn');
+  if (micBtn) { micBtn.textContent = '⏳'; micBtn.classList.add('processing'); }
+
+  const system = AGENT_SYSTEMS[activeBrain] || AGENT_SYSTEMS.ghost;
+  
+  const msgs = [
+    {role:'system', content: system},
+    ...chatHistory.filter(h=>h.role!=='system').slice(-8),
+  ];
+
+  try {
+    // Pollinations AI — GPT-OSS 20B — FREE, no API key, browser-direct
+    const r = await fetch('https://text.pollinations.ai/', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        messages: msgs,
+        model: 'openai-fast',
+        seed: Math.floor(Math.random()*9999),
+        private: true,
+        nofeed: true
+      })
+    });
+    
+    let responseText = '';
+    let modelUsed = 'gpt-oss-20b';
+    
+    if (r.ok) {
+      responseText = await r.text();
+      if (!responseText || responseText.length < 3) throw new Error('Empty response');
+    } else {
+      throw new Error('Pollinations error: ' + r.status);
+    }
+    
+    chatHistory.push({role:'assistant', content: responseText});
+    
+    thinking.innerHTML = `<div class="msg-role">${m.n}</div><div class="msg-text" id="last-response"></div><div class="msg-meta"><span>GPT-OSS 20B · Free</span><span style="cursor:pointer;color:var(--muted);user-select:none;margin-left:8px" onclick="speakLast()">🔊</span></div>`;
+    thinking.querySelector('#last-response').textContent = responseText;
+    speak(responseText);
+
+  } catch(e) {
+    // Fallback: Supabase ghost-brain (Gemini)
+    try {
+      const r2 = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
+        body:JSON.stringify({prompt: system + '\n\nUser: ' + msg})
+      });
+      const d2 = await r2.json();
+      const fallbackText = d2.text || 'Ghost offline. Try again.';
+      chatHistory.push({role:'assistant', content: fallbackText});
+      thinking.innerHTML = `<div class="msg-role">${m.n}</div><div class="msg-text" id="last-response"></div><div class="msg-meta"><span>Gemini Fallback</span></div>`;
+      thinking.querySelector('#last-response').textContent = fallbackText;
+      speak(fallbackText);
+    } catch(e2) {
+      thinking.innerHTML = `<div class="msg-role">${m.n}</div><div class="msg-text" style="color:#ef4444">Ghost temporarily offline. Check internet connection.</div>`;
+    }
+  } finally {
+    if (micBtn) { micBtn.textContent = '🎤'; micBtn.classList.remove('processing'); }
+    document.getElementById('chat-msgs').scrollTop = 9999;
+  }
+}
 </script>
 </body>
 </html>

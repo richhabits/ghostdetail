@@ -163,7 +163,7 @@ button#gham{display:none;background:none;border:none;color:var(--gold);font-size
 const SB = 'https://slzawehsiotvkjzaehqw.supabase.co';
 const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
 const VEH_URL = SB+'/functions/v1/vehicle-lookup';
-const AI_URL = SB+'/functions/v1/ghost-ai-router';
+const AI_URL = 'https://text.pollinations.ai/';
 
 let dvlaData = null;
 let uploadedPhotos = []; // array of {file, dataUrl, area}
@@ -506,7 +506,7 @@ async function startAssessment(){
   try{
     const r = await fetch(VEH_URL, {
       method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},
+      headers:{'Content-Type':'application/json'},
       body:JSON.stringify({registration:reg})
     });
     const data = await r.json();
@@ -778,7 +778,15 @@ Then output EXACTLY this JSON block (no other text after it):
     } catch(polErr) {
       // FALLBACK: ghost-brain (Gemini Flash free)
       try {
-        const r2 = await fetch(AI_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},body:JSON.stringify({action:'ghost_chat',prompt})});
+        const r2 = await fetch(AI_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+      messages:[
+        {role:'system',content:'You are Ghost Vision, AI paint assessment for Ghost Detail Autos Watford. Be specific about services and prices.'},
+        {role:'user',content:prompt}
+      ],
+      model:'openai-fast',
+      private:true,
+      nofeed:true
+    })});
         const d2 = await r2.json();
         text = d2.text || d2.message || '';
       } catch(e2) { text = ''; }
@@ -835,7 +843,7 @@ Then output EXACTLY this JSON block (no other text after it):
 
   fetch(SB+'/rest/v1/paint_assessments', {
     method:'POST',
-    headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=representation'},
+    headers:{'apikey':KEY,'Content-Type':'application/json','Content-Type':'application/json','Prefer':'return=representation'},
     body:JSON.stringify(assessmentPayload)
   }).then(r=>r.json()).then(data=>{
     if(data[0]?.id) assessmentId = data[0].id;
