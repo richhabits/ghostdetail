@@ -38,6 +38,8 @@
 <style>
 
 
+
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --charcoal:#0A0905;--vault:#161310;
@@ -72,12 +74,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .nav-inner{max-width:var(--wide);margin:0 auto;height:100%;padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between}
 .nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
 .hex{width:24px;height:24px;background:var(--gold);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);animation:breathe 3s ease-in-out infinite}
-.nav-brand{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
+.nav-brand{font-family:DM Mono,monospace;font-size:11px;font-weight:500;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
 .nav-links{display:flex;gap:0;list-style:none;align-items:center}
-.nav-links a{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);text-decoration:none;padding:5px 9px;transition:color .2s}
+.nav-links a{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);text-decoration:none;padding:5px 9px;transition:color .2s}
 .nav-links a:hover{color:var(--text)}
-.nav-pillar{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(197,160,89,.2);color:var(--gold) !important;text-decoration:none;margin-right:4px}
-.nav-cta{background:var(--gold);color:#0A0905 !important;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:7px 16px;text-decoration:none;margin-left:8px;flex-shrink:0}
+.nav-pillar{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(197,160,89,.2);color:var(--gold) !important;text-decoration:none;margin-right:4px}
+.nav-cta{background:var(--gold);color:#0A0905 !important;font-family:DM Mono,monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:7px 16px;text-decoration:none;margin-left:8px;flex-shrink:0}
 .ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}.ham span{width:22px;height:1px;background:var(--gold)}
 @media(max-width:880px){.nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:rgba(10,9,5,.98);flex-direction:column;align-items:stretch;border-bottom:1px solid rgba(197,160,89,.08)}.nav-links.open{display:flex}.nav-links a,.nav-pillar{padding:13px var(--pad);font-size:10px;display:block;border-bottom:1px solid rgba(197,160,89,.05);margin:0;border-left:none;border-right:none;border-top:none;border-radius:0}.ham{display:flex}.nav-cta{display:none}}
 
@@ -85,17 +87,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .hero{min-height:100svh;display:flex;align-items:center;justify-content:center;position:relative;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(197,160,89,.06) 0%,transparent 65%),var(--charcoal);text-align:center}
 .hero-lines{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(197,160,89,.02) 80px)}
 .hero-inner{position:relative;z-index:2;max-width:var(--max);margin:0 auto;padding:100px var(--pad) 60px;width:100%}
-.hero-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);margin-bottom:24px;animation:fadeUp .7s var(--ease) .05s both}
+.hero-eyebrow{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);margin-bottom:24px;animation:fadeUp .7s var(--ease) .05s both}
 .hero-title{font-family:'Playfair Display',serif;font-size:clamp(48px,7vw,88px);font-weight:900;line-height:1.0;margin-bottom:22px;animation:fadeUp .7s var(--ease) .1s both;letter-spacing:-.02em}
 .hero-title em{font-style:italic;color:var(--gold)}
 .hero-sub{font-size:15px;color:var(--muted2);max-width:520px;line-height:1.75;margin:0 auto 36px;animation:fadeUp .7s var(--ease) .2s both}
 .hero-pillars{display:flex;gap:10px;justify-content:center;margin-bottom:48px;flex-wrap:wrap;animation:fadeUp .7s var(--ease) .25s both}
-.pillar-badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1px solid rgba(197,160,89,.2);color:var(--muted2);text-decoration:none;transition:all .25s}
+.pillar-badge{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1px solid rgba(197,160,89,.2);color:var(--muted2);text-decoration:none;transition:all .25s}
 .pillar-badge:hover,.pillar-badge.studio{border-color:rgba(197,160,89,.4);color:var(--gold)}
 .hero-stats{display:flex;justify-content:center;gap:1px;background:rgba(197,160,89,.06);border:1px solid rgba(197,160,89,.06);max-width:520px;margin:0 auto 48px;animation:fadeUp .7s var(--ease) .3s both}
 .hstat{padding:14px 20px;flex:1}
 .hstat-n{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);font-weight:700}
-.hstat-l{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.hstat-l{font-family:DM Mono,monospace;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:2px}
 
 /* ── JADE — centred card ── */
 .jade-wrap{animation:fadeUp .7s var(--ease) .35s both}
@@ -104,23 +106,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .jade-scan{position:absolute;left:0;right:0;height:1px;background:rgba(249,249,6,.05);animation:scanline 3s linear infinite;pointer-events:none}
 .jade-header{display:flex;align-items:center;gap:10px;margin-bottom:20px}
 .jade-ico{width:30px;height:30px;background:rgba(249,249,6,.08);border:1px solid rgba(249,249,6,.18);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
-.jade-title{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--banana)}
+.jade-title{font-family:DM Mono,monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--banana)}
 .jade-sub-txt{font-size:10px;color:var(--muted);margin-top:2px}
 .jade-progress{display:flex;gap:5px;margin-bottom:16px}
 .jade-prog-dot{width:6px;height:6px;border-radius:50%;background:rgba(249,249,6,.12);transition:background .3s}
 .jade-prog-dot.done{background:var(--banana)}
 .jade-step{display:none}.jade-step.active{display:block}
-.jade-q{font-family:'DM Mono',monospace;font-size:11px;color:var(--text);margin-bottom:12px;letter-spacing:.04em}
+.jade-q{font-family:DM Mono,monospace;font-size:11px;color:var(--text);margin-bottom:12px;letter-spacing:.04em}
 .jade-options{display:flex;flex-direction:column;gap:6px}
-.jade-opt{background:transparent;border:1px solid rgba(249,249,6,.1);color:var(--muted2);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.05em;padding:10px 14px;cursor:pointer;text-align:left;transition:all .2s;width:100%}
+.jade-opt{background:transparent;border:1px solid rgba(249,249,6,.1);color:var(--muted2);font-family:DM Mono,monospace;font-size:10px;letter-spacing:.05em;padding:10px 14px;cursor:pointer;text-align:left;transition:all .2s;width:100%}
 .jade-opt:hover{border-color:rgba(249,249,6,.4);color:var(--text);background:rgba(249,249,6,.04)}
-.jade-or{display:flex;align-items:center;gap:10px;margin:12px 0;font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.jade-or{display:flex;align-items:center;gap:10px;margin:12px 0;font-family:DM Mono,monospace;font-size:8px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
 .jade-or::before,.jade-or::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.06)}
 .jade-free{display:flex;gap:8px}
-.jade-free input{flex:1;background:rgba(249,249,6,.03);border:1px solid rgba(249,249,6,.1);color:var(--text);font-family:'DM Mono',monospace;font-size:11px;padding:10px 12px;outline:none}
+.jade-free input{flex:1;background:rgba(249,249,6,.03);border:1px solid rgba(249,249,6,.1);color:var(--text);font-family:DM Mono,monospace;font-size:11px;padding:10px 12px;outline:none}
 .jade-free input::placeholder{color:var(--muted)}
 .jade-free input:focus{border-color:rgba(249,249,6,.35)}
-.jade-free button{background:rgba(249,249,6,.1);border:1px solid rgba(249,249,6,.2);color:var(--banana);font-family:'DM Mono',monospace;font-size:10px;padding:0 16px;cursor:pointer;transition:background .2s}
+.jade-free button{background:rgba(249,249,6,.1);border:1px solid rgba(249,249,6,.2);color:var(--banana);font-family:DM Mono,monospace;font-size:10px;padding:0 16px;cursor:pointer;transition:background .2s}
 .jade-free button:hover{background:rgba(249,249,6,.18)}
 .jade-loading{display:none;align-items:center;gap:10px;padding:14px 0}
 .jade-dots span{width:4px;height:4px;background:var(--banana);border-radius:50%;display:inline-block;animation:blink 1.2s infinite}
@@ -128,14 +130,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .jade-result{display:none;border-top:1px solid rgba(249,249,6,.1);padding-top:16px;margin-top:16px}
 .jade-verdict{font-size:13px;color:var(--text);line-height:1.75;margin-bottom:14px}
 .jade-ctas{display:flex;gap:8px;flex-wrap:wrap}
-.jade-book{background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:10px 20px;text-decoration:none}
-.jade-reset{background:none;border:none;color:var(--muted);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;cursor:pointer;padding:10px 8px}
+.jade-book{background:var(--gold);color:#0A0905;font-family:DM Mono,monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:10px 20px;text-decoration:none}
+.jade-reset{background:none;border:none;color:var(--muted);font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;cursor:pointer;padding:10px 8px}
 
 /* ── SECTIONS — all centred ── */
 .section{padding:80px 0}
 .section-vault{padding:80px 0;background:var(--vault)}
 .section-dark{padding:80px 0;background:linear-gradient(135deg,rgba(197,160,89,.03),transparent),var(--charcoal);border-top:1px solid rgba(197,160,89,.06);border-bottom:1px solid rgba(197,160,89,.06)}
-.eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);margin-bottom:10px}
+.eyebrow{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);margin-bottom:10px}
 .sec-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:900;line-height:1.08;margin-bottom:12px;letter-spacing:-.01em}
 .sec-title em{font-style:italic;color:var(--gold)}
 .sec-sub{font-size:14px;color:var(--muted2);max-width:480px;margin:0 auto 40px;line-height:1.75}
@@ -147,21 +149,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .plate-stars{font-size:3px;letter-spacing:1px;color:#FFCC00;display:block}
 .plate-gb-txt{font-size:9px;font-weight:700;color:#fff;letter-spacing:.08em;font-family:sans-serif}
 .plate-input-wrap{background:#F9F906;padding:4px 14px;display:flex;align-items:center}
-.plate-input-wrap input{background:transparent;border:none;outline:none;font-family:'DM Mono',monospace;font-size:clamp(22px,4vw,32px);font-weight:500;letter-spacing:.16em;color:#1A1410;width:clamp(140px,30vw,220px);text-transform:uppercase;text-align:center}
-.plate-btn{background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border:none;padding:12px 32px;cursor:pointer;transition:opacity .2s}
+.plate-input-wrap input{background:transparent;border:none;outline:none;font-family:DM Mono,monospace;font-size:clamp(22px,4vw,32px);font-weight:500;letter-spacing:.16em;color:#1A1410;width:clamp(140px,30vw,220px);text-transform:uppercase;text-align:center}
+.plate-btn{background:var(--gold);color:#0A0905;font-family:DM Mono,monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border:none;padding:12px 32px;cursor:pointer;transition:opacity .2s}
 .plate-btn:hover{opacity:.85}
-.plate-err{font-family:'DM Mono',monospace;font-size:11px;color:var(--red);display:none}
+.plate-err{font-family:DM Mono,monospace;font-size:11px;color:var(--red);display:none}
 .plate-err.show{display:block}
 .plate-result{display:none;background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.12);padding:28px;max-width:560px;margin:0 auto;text-align:left}
 .plate-result.show{display:block}
 /* Identity bar */
 .pr-identity{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(197,160,89,.08);flex-wrap:wrap;gap:8px}
 .pr-make{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--text);letter-spacing:-.01em}
-.pr-year{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);margin-top:3px}
+.pr-year{font-family:DM Mono,monospace;font-size:11px;color:var(--muted2);margin-top:3px}
 .pr-colour-swatch{width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,.1);flex-shrink:0}
 /* Status pills */
 .pr-status-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.pr-pill{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:2px;display:inline-flex;align-items:center;gap:5px;font-weight:500}
+.pr-pill{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:2px;display:inline-flex;align-items:center;gap:5px;font-weight:500}
 .pr-pill.ok{background:rgba(16,185,129,.12);color:#10B981;border:1px solid rgba(16,185,129,.2)}
 .pr-pill.warn{background:rgba(245,158,11,.12);color:#F59E0B;border:1px solid rgba(245,158,11,.2)}
 .pr-pill.bad{background:rgba(239,68,68,.12);color:#EF4444;border:1px solid rgba(239,68,68,.2)}
@@ -169,16 +171,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 /* Data grid */
 .pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(197,160,89,.05);border:1px solid rgba(197,160,89,.07);margin-bottom:14px}
 .pr-cell{background:var(--charcoal);padding:12px 10px;text-align:center}
-.pr-label{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-.pr-val{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--text)}
+.pr-label{font-family:DM Mono,monospace;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.pr-val{font-family:DM Mono,monospace;font-size:13px;font-weight:500;color:var(--text)}
 /* Recommendations */
 .pr-recs{margin-bottom:16px}
-.pr-rec{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.pr-rec{font-family:DM Mono,monospace;font-size:9px;color:var(--muted2);padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
 .pr-rec::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:1px}
-.pr-source{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);margin-bottom:14px;text-align:center}
+.pr-source{font-family:DM Mono,monospace;font-size:8px;color:var(--muted);margin-bottom:14px;text-align:center}
 .pr-ctas{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.pr-cta{display:inline-block;background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:11px 24px;text-decoration:none}
-.pr-cta-2{display:inline-block;border:1px solid rgba(197,160,89,.22);color:var(--muted2);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:11px 20px;text-decoration:none;transition:all .2s}
+.pr-cta{display:inline-block;background:var(--gold);color:#0A0905;font-family:DM Mono,monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:11px 24px;text-decoration:none}
+.pr-cta-2{display:inline-block;border:1px solid rgba(197,160,89,.22);color:var(--muted2);font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:11px 20px;text-decoration:none;transition:all .2s}
 .pr-cta-2:hover{border-color:var(--gold);color:var(--gold)}
 
 /* ── DUAL PILLAR SPLIT — centred cards ── */
@@ -189,7 +191,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .pillar-card.studio::after{background:var(--gold)}
 .pillar-card.concierge::after{background:var(--green)}
 .pillar-card:hover::after{width:100%}
-.pc-num{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;color:var(--muted);margin-bottom:20px}
+.pc-num{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.18em;color:var(--muted);margin-bottom:20px}
 .pc-icon{font-size:32px;margin-bottom:16px;display:block}
 .pc-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,40px);font-weight:900;line-height:1.05;margin-bottom:12px}
 .pc-title em{font-style:italic}
@@ -197,11 +199,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .pillar-card.concierge .pc-title em{color:var(--green)}
 .pc-sub{font-size:13px;color:var(--muted2);line-height:1.7;margin-bottom:24px;max-width:340px;margin-left:auto;margin-right:auto}
 .pc-list{list-style:none;margin-bottom:28px;text-align:left;max-width:280px;margin-left:auto;margin-right:auto}
-.pc-list li{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--muted2);padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:8px}
+.pc-list li{font-family:DM Mono,monospace;font-size:10px;letter-spacing:.06em;color:var(--muted2);padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:8px}
 .pc-list li::before{content:'—';opacity:.4;flex-shrink:0}
 .pillar-card.studio .pc-list li::before{color:var(--gold)}
 .pillar-card.concierge .pc-list li::before{color:var(--green)}
-.pc-btn{display:inline-block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:10px 22px;border:1px solid;transition:all .2s;margin-top:8px}
+.pc-btn{display:inline-block;font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:10px 22px;border:1px solid;transition:all .2s;margin-top:8px}
 .pillar-card.studio .pc-btn{border-color:rgba(197,160,89,.3);color:var(--gold)}
 .pillar-card.studio:hover .pc-btn{background:var(--gold);color:#0A0905}
 .pillar-card.concierge .pc-btn{border-color:rgba(16,185,129,.3);color:var(--green)}
@@ -217,18 +219,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .rev-card{background:rgba(197,160,89,.03);border:1px solid rgba(197,160,89,.08);padding:24px 28px;width:320px;flex-shrink:0;text-align:center}
 .rev-stars{color:var(--gold);font-size:10px;margin-bottom:12px;letter-spacing:3px}
 .rev-text{font-size:13px;color:var(--muted2);line-height:1.7;margin-bottom:16px;font-style:italic}
-.rev-author{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:var(--text);margin-bottom:3px}
-.rev-car{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)}
+.rev-author{font-family:DM Mono,monospace;font-size:10px;font-weight:500;color:var(--text);margin-bottom:3px}
+.rev-car{font-family:DM Mono,monospace;font-size:9px;color:var(--muted)}
 
 /* ── GHOST GARAGE PROMO — centred ── */
-.garage-badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15);padding:4px 12px;display:inline-block;margin-bottom:16px}
+.garage-badge{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15);padding:4px 12px;display:inline-block;margin-bottom:16px}
 .garage-features{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 32px;margin:28px 0}
-.gf{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--muted2)}
+.gf{display:flex;align-items:center;gap:8px;font-family:DM Mono,monospace;font-size:9px;letter-spacing:.06em;color:var(--muted2)}
 .gf::before{content:'✓';color:var(--green);font-size:11px}
 .garage-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-gold{display:inline-block;background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:12px 26px;text-decoration:none;transition:opacity .2s}
+.btn-gold{display:inline-block;background:var(--gold);color:#0A0905;font-family:DM Mono,monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:12px 26px;text-decoration:none;transition:opacity .2s}
 .btn-gold:hover{opacity:.85}
-.btn-outline{display:inline-block;border:1px solid rgba(197,160,89,.22);color:var(--muted2);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:12px 26px;text-decoration:none;transition:all .2s}
+.btn-outline{display:inline-block;border:1px solid rgba(197,160,89,.22);color:var(--muted2);font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:12px 26px;text-decoration:none;transition:all .2s}
 .btn-outline:hover{border-color:var(--gold);color:var(--gold)}
 
 /* ── FOOTER ── */
@@ -237,24 +239,30 @@ footer{background:var(--vault);border-top:1px solid rgba(197,160,89,.06);padding
 .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
 .foot-logo{display:flex;align-items:center;gap:8px;margin-bottom:14px}
 .fhex{width:20px;height:20px;background:var(--gold);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);opacity:.7}
-.fbrand{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.12em;color:var(--gold);text-transform:uppercase}
+.fbrand{font-family:DM Mono,monospace;font-size:11px;font-weight:500;letter-spacing:.12em;color:var(--gold);text-transform:uppercase}
 .ftag{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;max-width:240px}
-.foot-wa{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:10px;color:#25D366;text-decoration:none;padding:8px 12px;border:1px solid rgba(37,211,102,.15);width:fit-content;transition:all .2s}
+.foot-wa{display:flex;align-items:center;gap:8px;font-family:DM Mono,monospace;font-size:10px;color:#25D366;text-decoration:none;padding:8px 12px;border:1px solid rgba(37,211,102,.15);width:fit-content;transition:all .2s}
 .foot-wa:hover{background:rgba(37,211,102,.06)}
-.foot-col h4{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.foot-col h4{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
 .foot-col ul{list-style:none}
 .foot-col li{margin-bottom:8px}
 .foot-col a{font-size:12px;color:var(--muted2);text-decoration:none;transition:color .2s}
 .foot-col a:hover{color:var(--text)}
 .foot-bottom{border-top:1px solid rgba(197,160,89,.06);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.foot-legal{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)}
+.foot-legal{font-family:DM Mono,monospace;font-size:9px;color:var(--muted)}
 .foot-legal a{color:inherit;text-decoration:none}
-.foot-phone{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);text-decoration:none}
+.foot-phone{font-family:DM Mono,monospace;font-size:9px;color:var(--muted2);text-decoration:none}
 .foot-phone:hover{color:var(--gold)}
 @media(max-width:768px){.foot-grid{grid-template-columns:1fr 1fr;gap:32px}}
 @media(max-width:480px){.foot-grid{grid-template-columns:1fr}.foot-bottom{flex-direction:column;text-align:center}}
 
 
+
+
+
+/* ── GHOST NAV OVERRIDE ── */
+nav#gnav, nav.nav-links, nav.nav-inner { position:static !important; }
+header[style*="sticky"] { position:sticky !important; }
 </style><style id="ghost-mobile">
 /* ── MOBILE GLOBAL RESET ── */
 *{box-sizing:border-box}
@@ -391,6 +399,67 @@ header[style*="sticky"] > div{
   }
 }
 </style>
+<style id="ghost-motion-css">
+/* Pre-animation states — prevent flash of unstyled content */
+.hero-title,.hero-sub,.hero-reg-wrap,.hero-stats,header{
+  will-change:transform,opacity;
+}
+/* Smooth scroll */
+html{scroll-behavior:smooth}
+/* Cursor */
+*{cursor:none!important}
+#ghost-cursor{
+  position:fixed;width:10px;height:10px;
+  background:var(--gold,#c5a059);border-radius:50%;
+  pointer-events:none;z-index:99999;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,background .2s;
+  mix-blend-mode:difference;
+}
+#ghost-cursor-ring{
+  position:fixed;width:36px;height:36px;
+  border:1px solid rgba(197,160,89,.5);border-radius:50%;
+  pointer-events:none;z-index:99998;
+  transform:translate(-50%,-50%);
+  transition:all .12s ease;
+}
+a:hover ~ #ghost-cursor, button:hover ~ #ghost-cursor{
+  width:20px;height:20px;
+}
+</style>
+<div id="ghost-cursor"></div>
+<div id="ghost-cursor-ring"></div>
+<script>
+(function(){
+  var cur = document.getElementById('ghost-cursor');
+  var ring = document.getElementById('ghost-cursor-ring');
+  if(!cur||!ring) return;
+  var mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',function(e){
+    mx=e.clientX;my=e.clientY;
+    cur.style.left=mx+'px';cur.style.top=my+'px';
+  });
+  function animRing(){
+    rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+    ring.style.left=rx+'px';ring.style.top=ry+'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  // Expand on hover
+  document.querySelectorAll('a,button,[onclick]').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      cur.style.width='16px';cur.style.height='16px';
+      ring.style.width='52px';ring.style.height='52px';
+      ring.style.borderColor='rgba(197,160,89,.8)';
+    });
+    el.addEventListener('mouseleave',function(){
+      cur.style.width='10px';cur.style.height='10px';
+      ring.style.width='36px';ring.style.height='36px';
+      ring.style.borderColor='rgba(197,160,89,.5)';
+    });
+  });
+})();
+</script>
 <style id="ghost-desktop-nav">
 @media(min-width:821px){
   nav#gnav{
@@ -410,135 +479,9 @@ header[style*="sticky"] > div{
   button#gham{display:none!important}
 }
 </style>
-<style id="ghost-premium">
-/* ── NOISE TEXTURE ────────────────────────────── */
-body::before{
-  content:'';
-  position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:9998;opacity:.6;
-}
-
-/* ── ANIMATED GRADIENT BORDER on reg input ─────── */
-.hero-reg-wrap::before{
-  content:'';
-  position:absolute;inset:-1px;
-  background:linear-gradient(135deg,#c5a059,rgba(197,160,89,.2),#c5a059);
-  background-size:300% 300%;
-  animation:borderRotate 4s linear infinite;
-  border-radius:5px;
-  z-index:-1;
-  opacity:0;
-  transition:opacity .4s;
-}
-.hero-reg-wrap:focus-within::before{opacity:1}
-@keyframes borderRotate{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-.hero-reg-wrap{position:relative}
-
-/* ── TICKER ──────────────────────────────────── */
-.ghost-ticker{
-  overflow:hidden;white-space:nowrap;
-  border-top:1px solid rgba(197,160,89,.08);
-  border-bottom:1px solid rgba(197,160,89,.08);
-  padding:12px 0;margin:60px 0;
-  background:rgba(197,160,89,.02);
-}
-.ghost-ticker-inner{
-  display:inline-flex;gap:0;
-  animation:ticker 28s linear infinite;
-}
-.ghost-ticker-inner:hover{animation-play-state:paused}
-.ghost-tick{
-  display:inline-flex;align-items:center;gap:20px;
-  font-family:DM Mono,monospace;font-size:10px;
-  letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(197,160,89,.5);padding:0 40px;
-  white-space:nowrap;
-}
-.ghost-tick .dot{color:var(--gold);font-size:6px}
-@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-
-/* ── HERO EYEBROW PULSE ──────────────────────── */
-.hero-eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-}
-.hero-eyebrow::before{
-  content:'';width:6px;height:6px;border-radius:50%;
-  background:var(--gold);flex-shrink:0;
-  animation:pulse 2s ease-in-out infinite;
-}
-@keyframes pulse{
-  0%,100%{box-shadow:0 0 0 0 rgba(197,160,89,.4)}
-  50%{box-shadow:0 0 0 8px rgba(197,160,89,0)}
-}
-
-/* ── HOVER LIFT on all cards ─────────────────── */
-[style*="border:1px solid rgba(197,160,89"]:not(header):not(footer):not(input):not(div div div){
-  transition:transform .2s cubic-bezier(.22,1,.36,1), box-shadow .2s ease !important;
-}
-[style*="border:1px solid rgba(197,160,89"]:not(header):not(footer):not(input):hover{
-  transform:translateY(-2px) !important;
-  box-shadow:0 12px 40px rgba(197,160,89,.08) !important;
-}
-
-/* ── LINK UNDERLINE ANIMATION ─────────────────── */
-footer a, nav a{
-  position:relative;
-  background-image:linear-gradient(var(--gold),var(--gold));
-  background-size:0% 1px;
-  background-position:0 100%;
-  background-repeat:no-repeat;
-  transition:background-size .3s ease, color .2s;
-}
-footer a:hover, nav a:hover{
-  background-size:100% 1px;
-  color:var(--gold)!important;
-}
-
-/* ── SCROLL INDICATOR ─────────────────────────── */
-.scroll-indicator{
-  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  font-family:DM Mono,monospace;font-size:8px;letter-spacing:.2em;
-  text-transform:uppercase;color:rgba(197,160,89,.4);
-  animation:scrollBob 2s ease-in-out infinite;
-}
-.scroll-indicator svg{width:16px;height:20px;stroke:rgba(197,160,89,.4);fill:none}
-@keyframes scrollBob{
-  0%,100%{transform:translateX(-50%) translateY(0)}
-  50%{transform:translateX(-50%) translateY(6px)}
-}
-
-/* ── GOLD SHIMMER on BOOK NOW ─────────────────── */
-.hero-reg-btn, [style*="background:var(--gold)"]{
-  background-image:linear-gradient(105deg, transparent 40%, rgba(255,255,255,.15) 50%, transparent 60%) !important;
-  background-size:200% 100%;
-  background-position:200% 0;
-  transition:background-position .6s ease !important;
-}
-.hero-reg-btn:hover, [style*="background:var(--gold)"]:hover{
-  background-position:-200% 0 !important;
-}
-</style>
 </head>
 <body>
-<div id="cur"></div><div id="cur-ring"></div>
-<footer style="background:#0a0a0a;border-top:1px solid rgba(197,160,89,0.08);margin-top:60px;padding:40px 20px 24px">
-  <div style="max-width:1400px;margin:0 auto 24px;display:grid;grid-template-columns:200px 1fr;gap:40px;padding-bottom:24px;border-bottom:1px solid rgba(197,160,89,0.08)">
-    <div style="display:flex;flex-direction:column;gap:8px">
-      <div style="font-size:18px;font-weight:900;color:#c5a059">⬡</div>
-      <div style="font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#fff;font-weight:700">Ghost Detail</div>
-      <div style="font-size:8px;letter-spacing:.1em;color:rgba(197,160,89,0.5)">Watford WD18</div>
-      <div style="margin-top:8px;display:flex;flex-direction:column;gap:4px">
-        <a href="tel:01923959839" style="font-size:10px;color:#e8e0d0;text-decoration:none">01923 959839</a>
-        <a href="https://wa.me/447927576142" style="font-size:10px;color:#e8e0d0;text-decoration:none">WhatsApp</a>
-      </div>
-    </div>
-    <header style="position:sticky;top:0;z-index:1000;background:#0a0905;border-bottom:1px solid rgba(197,160,89,.1);height:60px;display:flex;align-items:center;padding:0 clamp(16px,4vw,48px)">
+<header style="position:sticky;top:0;z-index:1000;background:#0a0905;border-bottom:1px solid rgba(197,160,89,.1);height:60px;display:flex;align-items:center;padding:0 clamp(16px,4vw,48px)">
   <div style="max-width:1400px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px">
     <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0">
       <span style="font-size:20px;color:#c5a059;font-weight:900;line-height:1">⬡</span>
@@ -558,10 +501,91 @@ footer a:hover, nav a:hover{
     </div>
   </div>
 </header>
-  </div>
-  <div style="max-width:1400px;margin:0 auto;text-align:center;font-size:8px;letter-spacing:.1em;color:rgba(197,160,89,0.4)">© 2026 Ghost Detail Autos · Watford WD18</div>
+<style>
+@media(max-width:820px){
+  #gnav{display:none!important;position:fixed;top:60px;left:0;right:0;background:#0a0905;flex-direction:column!important;padding:16px 20px;gap:0!important;border-bottom:1px solid rgba(197,160,89,.1);z-index:999}
+  #gnav a{padding:12px 0;border-bottom:1px solid rgba(197,160,89,.05);display:block}
+  #gnav.open{display:flex!important}
+  #gham{display:block!important}
+}
+</style>
+<script>
+(function(){
+  var ham=document.getElementById('gham');
+  var nav=document.getElementById('gnav');
+  if(ham&&nav){ham.onclick=function(){nav.classList.toggle('open');};}
+})();
+</script>
 
-</footer><script type="module" id="ghost-motion-module">
+<div style="padding:140px 0 64px;text-align:center;border-bottom:1px solid rgba(197,160,89,.06)">
+  <div style="max-width:900px;margin:0 auto;padding:0 clamp(20px,4vw,64px)">
+    <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Romeo & Ferrel Cruz</div>
+    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,68px);font-weight:900;line-height:1.03;margin-bottom:24px">Two people. <em style="font-style:italic;color:var(--gold)">One standard.</em></h1>
+    <p style="font-size:16px;color:var(--muted2);max-width:600px;line-height:1.9;margin:0 auto 40px">Ghost Detail is Romeo and Ferrel Cruz. Father and son. One vehicle at a time, in the private studio on Sandown Road, Watford. No production line. No rush jobs.</p>
+  </div>
+</div>
+
+<section style="padding:80px 0;max-width:1200px;margin:0 auto;padding-left:clamp(20px,4vw,64px);padding-right:clamp(20px,4vw,64px)">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;margin-bottom:60px">
+    <div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.16em;color:var(--muted);margin-bottom:12px">01</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:36px;font-weight:900;margin-bottom:16px">Romeo <em style="font-style:italic;color:var(--gold)">Cruz</em></h2>
+      <p style="font-size:14px;color:var(--muted2);line-height:1.9;margin-bottom:16px">Founder. Romeo has been working on cars for over 15 years, building expertise in paint correction, ceramic coatings, and concierge management. Every car that comes through the studio is his personal responsibility.</p>
+      <p style="font-size:14px;color:var(--muted2);line-height:1.9">Before Ghost Detail, Romeo ran a vehicle consulting business and developed a reputation for being direct: if the paint isn't correctable, he'll tell you. If a cheaper service will do the job, he'll say so.</p>
+    </div>
+    <div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.16em;color:var(--muted);margin-bottom:12px">02</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:36px;font-weight:900;margin-bottom:16px">Ferrel <em style="font-style:italic;color:var(--gold)">Cruz</em></h2>
+      <p style="font-size:14px;color:var(--muted2);line-height:1.9;margin-bottom:16px">Apprentice. Ferrel is training under Romeo full-time, learning every service from paint depth readings to full correction. His role is hands-on from day one — no shortcuts in the training.</p>
+      <p style="font-size:14px;color:var(--muted2);line-height:1.9">The aim: Ghost Detail becomes a two-person studio that operates at the same standard regardless of which Cruz is working on your car.</p>
+    </div>
+  </div>
+
+  <div style="background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.08);padding:32px;text-align:center">
+    <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">The standard</div>
+    <p style="font-size:15px;color:var(--text);line-height:1.8;max-width:600px;margin:0 auto">Every car that leaves Ghost Detail has had its paint depth measured, its condition documented in Ghost Garage, and its service logged permanently. This is not a car wash. It's a record of what was done and why.</p>
+  </div>
+</section>
+
+<footer style="background:#0a0905;border-top:1px solid rgba(197,160,89,.08);margin-top:80px;padding:48px clamp(16px,4vw,48px) 28px">
+  <div style="max-width:1400px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:180px 1fr;gap:48px;padding-bottom:24px;border-bottom:1px solid rgba(197,160,89,.07);margin-bottom:20px">
+      <div>
+        <div style="font-size:22px;color:#c5a059;font-weight:900;margin-bottom:6px">⬡</div>
+        <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-weight:700;margin-bottom:2px;font-family:DM Mono,monospace">Ghost Detail Autos</div>
+        <div style="font-size:8px;letter-spacing:.1em;color:rgba(197,160,89,.45);margin-bottom:14px;font-family:DM Mono,monospace">Watford WD18</div>
+        <a href="tel:01923959839" style="display:block;font-size:11px;color:#e8e0d0;text-decoration:none;margin-bottom:4px;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">01923 959839</a>
+        <a href="https://wa.me/447927576142" style="display:block;font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">WhatsApp</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px 24px;align-content:start">
+        <a href="/studio.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Studio</a>
+        <a href="/concierge.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Concierge</a>
+        <a href="/paint-check.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Ghost Vision</a>
+        <a href="/results.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Before & After</a>
+        <a href="/membership.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Ghost Pass</a>
+        <a href="/shop.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Shop</a>
+        <a href="/gift-vouchers.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Gift Vouchers</a>
+        <a href="/garage.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">My Garage</a>
+        <a href="/live-tracker.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Live Track</a>
+        <a href="/quote.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Quote</a>
+        <a href="/contact.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Contact</a>
+        <a href="/login.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Staff Login</a>
+        <a href="/legal.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Privacy</a>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:8px;letter-spacing:.1em;color:rgba(197,160,89,.35);font-family:DM Mono,monospace">
+      <span>© 2026 Ghost Detail Autos · Watford WD18</span>
+      <span>Romeo & Ferrel Cruz</span>
+    </div>
+  </div>
+</footer>
+<style>
+@media(max-width:768px){
+  footer>div>div:first-child{grid-template-columns:1fr!important}
+  footer>div>div:first-child>nav{grid-template-columns:repeat(2,1fr)!important}
+}
+</style>
+<script type="module" id="ghost-motion-module">
 import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm";
 const EXPO=[0.16,1,0.3,1];
 const nav=document.querySelector('header');
@@ -598,295 +622,479 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
     animate(n,{opacity:[0,1],y:[12,0],scale:[0.97,1]},{duration:0.4,ease:EXPO});
 }))).observe(document.body,{childList:true,subtree:true});
 </script>
-
+<!-- ═══════════════════════════════════════════════════════
+     ARIA — Ghost Detail Floating AI Chat Widget
+     Included on every page. Routes → signs up → converts.
+═══════════════════════════════════════════════════════ -->
 <style id="aria-widget-css">
 #aria-float{position:fixed;bottom:24px;right:24px;z-index:9990;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
-#aria-bubble{width:52px;height:52px;background:#c5a059;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(197,160,89,.4);flex-shrink:0;border:none}
-#aria-bubble svg{width:22px;height:22px;fill:#0a0905;pointer-events:none}
-.aria-notif{position:absolute;top:0;right:0;width:12px;height:12px;background:#ef4444;border-radius:50%;border:2px solid #0a0905;display:none}
-.aria-notif.show{display:block}
-#aria-window{display:none;width:320px;background:#0d0b07;border:1px solid rgba(197,160,89,.15);box-shadow:0 20px 60px rgba(0,0,0,.8);flex-direction:column;max-height:500px;border-radius:4px;overflow:hidden}
+#aria-bubble{width:56px;height:56px;background:var(--gold,#c5a059);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(197,160,89,.4);transition:transform .2s,box-shadow .2s;flex-shrink:0}
+#aria-bubble:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(197,160,89,.5)}
+#aria-bubble svg{width:24px;height:24px;fill:#0a0905}
+#aria-bubble .aria-notif{position:absolute;top:-2px;right:-2px;width:14px;height:14px;background:#ef4444;border-radius:50%;border:2px solid #0a0905;display:none}
+#aria-bubble .aria-notif.show{display:block}
+#aria-window{display:none;width:340px;background:#0d0b07;border:1px solid rgba(197,160,89,.15);box-shadow:0 20px 60px rgba(0,0,0,.7);flex-direction:column;max-height:520px;border-radius:3px;overflow:hidden}
 #aria-window.open{display:flex}
-.aria-hdr{background:rgba(197,160,89,.06);border-bottom:1px solid rgba(197,160,89,.1);padding:11px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.aria-hdr-left{display:flex;align-items:center;gap:9px}
-.aria-av{width:30px;height:30px;background:#c5a059;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
-.aria-nm{font-family:"DM Mono",monospace;font-size:10px;font-weight:700;color:#e8e0d0;letter-spacing:.06em}
-.aria-st{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.5)}
-.aria-st::before{content:"● ";color:#22c55e}
-#aria-close{background:none;border:none;color:rgba(197,160,89,.4);font-size:17px;cursor:pointer;padding:0 3px;line-height:1}
-#aria-msgs{flex:1;overflow-y:auto;padding:12px 10px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
-.am{max-width:86%;display:flex;flex-direction:column;gap:2px}
-.am.g{align-self:flex-start}.am.u{align-self:flex-end}
-.am-txt{font-size:11px;line-height:1.6;padding:9px 12px;border-radius:3px}
-.am.g .am-txt{background:rgba(197,160,89,.07);border:1px solid rgba(197,160,89,.1);color:#e8e0d0}
-.am.u .am-txt{background:rgba(197,160,89,.15);color:#e8e0d0;border:1px solid rgba(197,160,89,.2)}
-.am-time{font-size:8px;color:rgba(197,160,89,.3);font-family:"DM Mono",monospace}
-.aria-quick{display:flex;flex-wrap:wrap;gap:4px;padding:0 10px 8px}
-.aqb{background:transparent;border:1px solid rgba(197,160,89,.2);color:rgba(197,160,89,.8);font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.06em;padding:5px 9px;cursor:pointer;white-space:nowrap;border-radius:2px}
-.aqb:hover{background:rgba(197,160,89,.1);border-color:rgba(197,160,89,.4)}
-.aria-inp-row{border-top:1px solid rgba(197,160,89,.08);padding:9px 10px;display:flex;gap:7px;flex-shrink:0;background:#0d0b07}
-#aria-input{flex:1;background:#0a0905;border:1px solid rgba(197,160,89,.12);color:#e8e0d0;font-family:"DM Mono",monospace;font-size:11px;padding:7px 11px;outline:none;border-radius:2px;-webkit-appearance:none}
+.aria-header{background:rgba(197,160,89,.06);border-bottom:1px solid rgba(197,160,89,.1);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.aria-header-left{display:flex;align-items:center;gap:10px}
+.aria-avatar{width:32px;height:32px;background:var(--gold,#c5a059);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.aria-name{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:#e8e0d0;letter-spacing:.08em}
+.aria-status{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.5)}
+.aria-status::before{content:'● ';color:#22c55e}
+#aria-close{background:none;border:none;color:rgba(197,160,89,.4);font-size:18px;cursor:pointer;padding:0 4px;line-height:1}
+#aria-msgs{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.aria-msg{max-width:85%;display:flex;flex-direction:column;gap:3px}
+.aria-msg.ghost{align-self:flex-start}
+.aria-msg.user{align-self:flex-end}
+.aria-msg-text{font-size:12px;line-height:1.6;padding:10px 13px;border-radius:2px}
+.aria-msg.ghost .aria-msg-text{background:rgba(197,160,89,.07);border:1px solid rgba(197,160,89,.1);color:#e8e0d0}
+.aria-msg.user .aria-msg-text{background:rgba(197,160,89,.15);color:#e8e0d0;border:1px solid rgba(197,160,89,.2)}
+.aria-msg-time{font-size:8px;letter-spacing:.08em;color:rgba(197,160,89,.3);font-family:'DM Mono',monospace}
+.aria-quick{display:flex;flex-wrap:wrap;gap:5px;padding:0 12px 10px}
+.aria-quick-btn{background:transparent;border:1px solid rgba(197,160,89,.2);color:rgba(197,160,89,.8);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;padding:5px 10px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.aria-quick-btn:hover{background:rgba(197,160,89,.1);border-color:rgba(197,160,89,.4)}
+.aria-input-row{border-top:1px solid rgba(197,160,89,.08);padding:10px 12px;display:flex;gap:8px;flex-shrink:0;background:#0d0b07}
+#aria-input{flex:1;background:#0a0905;border:1px solid rgba(197,160,89,.12);color:#e8e0d0;font-family:'DM Mono',monospace;font-size:11px;padding:8px 12px;outline:none;border-radius:2px}
 #aria-input:focus{border-color:rgba(197,160,89,.3)}
-#aria-send{background:#c5a059;color:#0a0905;border:none;padding:7px 13px;font-family:"DM Mono",monospace;font-size:9px;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:2px;white-space:nowrap;-webkit-appearance:none}
-.aria-typing{display:flex;gap:4px;align-items:center;padding:8px 11px;background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.08);align-self:flex-start;border-radius:3px}
-.aria-typing span{width:5px;height:5px;border-radius:50%;background:rgba(197,160,89,.4);animation:adot 1s ease-in-out infinite}
+#aria-send{background:var(--gold,#c5a059);color:#0a0905;border:none;padding:8px 14px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:2px;white-space:nowrap}
+/* REG lookup in chat */
+.aria-reg-wrap{display:flex;gap:0;margin-top:8px}
+.aria-reg-badge{background:#003399;display:flex;align-items:center;padding:0 8px;border-radius:2px 0 0 2px;flex-shrink:0}
+.aria-reg-badge span{font-size:8px;font-weight:700;color:#fff;font-family:'DM Mono',monospace;letter-spacing:.05em}
+#aria-reg-input{background:#F5F0C8;border:none;outline:none;font-family:'DM Mono',monospace;font-size:15px;font-weight:700;letter-spacing:.06em;color:#111;padding:7px 10px;text-transform:uppercase;width:120px}
+#aria-reg-go{background:var(--gold,#c5a059);color:#0a0905;border:none;padding:7px 12px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:0 2px 2px 0}
+/* Typing indicator */
+.aria-typing{display:flex;gap:4px;align-items:center;padding:8px 12px;background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.08);align-self:flex-start}
+.aria-typing span{width:5px;height:5px;border-radius:50%;background:rgba(197,160,89,.4);animation:ariadot 1s ease-in-out infinite}
 .aria-typing span:nth-child(2){animation-delay:.15s}
 .aria-typing span:nth-child(3){animation-delay:.3s}
-@keyframes adot{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
-@media(max-width:480px){
-  #aria-window{width:calc(100vw - 24px);max-height:420px}
-  #aria-float{bottom:16px;right:12px}
-}
-/* Touch device: remove cursor none from bubble */
-@media(pointer:coarse){
-  #aria-bubble{cursor:pointer!important}
-}
+@keyframes ariadot{0%,80%,100%{transform:scale(0.6);opacity:.4}40%{transform:scale(1);opacity:1}}
+@media(max-width:480px){#aria-window{width:calc(100vw - 32px)}}
 </style>
 
 <div id="aria-float">
   <div id="aria-window">
-    <div class="aria-hdr">
-      <div class="aria-hdr-left">
-        <div class="aria-av">⬡</div>
+    <div class="aria-header">
+      <div class="aria-header-left">
+        <div class="aria-avatar">⬡</div>
         <div>
-          <div class="aria-nm">ARIA</div>
-          <div class="aria-st">Online &middot; Ghost Detail</div>
+          <div class="aria-name">ARIA</div>
+          <div class="aria-status">Online · Ghost Detail</div>
         </div>
       </div>
-      <button id="aria-close" onclick="ariaToggle()">&#215;</button>
+      <button id="aria-close" onclick="ariaToggle()">×</button>
     </div>
     <div id="aria-msgs"></div>
     <div class="aria-quick" id="aria-quick"></div>
-    <div class="aria-inp-row">
-      <input type="text" id="aria-input" placeholder="Ask anything..." inputmode="text" autocomplete="off"
-        onkeydown="if(event.key==='Enter')ariaSend()">
-      <button id="aria-send" onclick="ariaSend()">Send</button>
+    <div class="aria-input-row">
+      <input type="text" id="aria-input" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')ariaSend()">
+      <button id="aria-send" onclick="ariaSend()">Send →</button>
     </div>
   </div>
-  <div style="position:relative;display:inline-block">
-    <button id="aria-bubble" onclick="ariaToggle()" aria-label="Chat with ARIA">
-      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-    </button>
+  <div id="aria-bubble" onclick="ariaToggle()">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l5.71-.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
     <div class="aria-notif" id="aria-notif"></div>
   </div>
 </div>
 
 <script id="aria-widget-js">
 (function(){
-  var SB='https://slzawehsiotvkjzaehqw.supabase.co';
-  var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
-  var STRIPE={spark:'https://buy.stripe.com/9AQ16V8DF9gq0rC6oo',shield:'https://buy.stripe.com/6oE2aZ8DFcsy3DOfYZ',legend:'https://buy.stripe.com/28o16Vgc7gIM5LW6op'};
-  var ariaOpen=false,ariaHistory=[],ariaUserData={},ariaReg=null,ariaVehicle=null,ariaStarted=false;
+  const SB = 'https://slzawehsiotvkjzaehqw.supabase.co';
+  const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
+  
+  let ariaOpen = false;
+  let ariaHistory = [];
+  let ariaUserData = {};  // builds up as user tells ARIA things
+  let ariaReg = null;
+  let ariaVehicle = null;
+  let ariaStarted = false;
 
-  window.ariaToggle=function(){
-    ariaOpen=!ariaOpen;
-    document.getElementById('aria-window').classList.toggle('open',ariaOpen);
+  // ── OPEN / CLOSE ─────────────────────────────────
+  window.ariaToggle = function(){
+    ariaOpen = !ariaOpen;
+    document.getElementById('aria-window').classList.toggle('open', ariaOpen);
     document.getElementById('aria-notif').classList.remove('show');
-    if(ariaOpen&&!ariaStarted){ariaInit();ariaStarted=true;}
-    if(ariaOpen)setTimeout(function(){var i=document.getElementById('aria-input');if(i)i.focus();},150);
+    if(ariaOpen && !ariaStarted){ ariaInit(); ariaStarted=true; }
+    if(ariaOpen) setTimeout(()=>document.getElementById('aria-input')?.focus(), 100);
   };
 
   function ariaInit(){
-    var page=window.location.pathname.replace(/\//g,'').replace('.html','');
-    var h=new Date().getHours();
-    var greet=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
-    var openers={
-      'studio':'Checking out our services? Give me your reg — I'll tell you exactly what your car needs.',
-      'paint-check':'Ghost Vision uses DVLA data for a full AI paint assessment. Enter your reg to start.',
-      'booking':'Ready to book? Tell me your reg and preferred service.',
-      'membership':'Ghost Pass members save 15% on every service. Want help picking the right plan?',
-      'concierge':'Concierge handles MOT, repairs, and servicing end to end. What does your car need?'
+    const page = window.location.pathname.replace('/','')||'home';
+    const hour = new Date().getHours();
+    const greet = hour<12?'Good morning':'hour<17?'Good afternoon':'Good evening';
+    
+    // Context-aware opener
+    const openers = {
+      'studio': "I can see you're checking out our services. Got a reg plate? I'll tell you exactly what your car needs. 🔍",
+      'paint-check': "Ghost Vision uses DVLA data to assess your paintwork. Want to run a quick check? Just give me your reg.",
+      'booking': "Ready to book? Tell me your reg and I'll match you to the right service and check availability.",
+      'membership': "Ghost Pass members save 15% on every service. Want me to help you pick the right plan?",
+      'concierge': "Concierge handles your MOT, service, repairs — everything. What's your car and what needs doing?",
     };
-    var opener=openers[page]||(greet+'. I'm ARIA — Ghost Detail's AI. What's your car?');
-    ariaAddMsg('g',opener);
-    ariaShowQuick(['Check my car','See prices','Book a service','Ghost Pass']);
-    setTimeout(function(){if(!ariaOpen)document.getElementById('aria-notif').classList.add('show');},5000);
+    
+    const opener = openers[page.replace('.html','')] || 
+      `${greet}. I'm ARIA — I'll help you get the most from Ghost Detail. What's your car?`;
+    
+    ariaAddMsg('ghost', opener);
+    
+    // Show quick replies based on page
+    ariaShowQuick([
+      '🔍 Check my car',
+      '💰 See prices', 
+      '📅 Book a service',
+      '⭐ Ghost Pass'
+    ]);
+    
+    // Show notif after 5s if not opened
+    setTimeout(()=>{
+      if(!ariaOpen) document.getElementById('aria-notif').classList.add('show');
+    }, 5000);
   }
 
-  function ariaAddMsg(role,text){
-    var msgs=document.getElementById('aria-msgs');
-    var d=document.createElement('div');
-    d.className='am '+role;
-    var now=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
-    var b=document.createElement('div');b.className='am-txt';b.textContent=text;
-    var t=document.createElement('div');t.className='am-time';t.textContent=now;
-    d.appendChild(b);d.appendChild(t);
-    msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
-    return d;
+  // ── MESSAGES ─────────────────────────────────────
+  function ariaAddMsg(role, text, isHtml=false){
+    const msgs = document.getElementById('aria-msgs');
+    const div = document.createElement('div');
+    div.className = 'aria-msg '+role;
+    const now = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    div.innerHTML = `<div class="aria-msg-text"></div><div class="aria-msg-time">${now}</div>`;
+    if(isHtml) div.querySelector('.aria-msg-text').innerHTML = text;
+    else div.querySelector('.aria-msg-text').textContent = text;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    return div;
   }
 
   function ariaTyping(){
-    var msgs=document.getElementById('aria-msgs');
-    var t=document.createElement('div');t.className='aria-typing';
-    t.innerHTML='<span></span><span></span><span></span>';
-    msgs.appendChild(t);msgs.scrollTop=msgs.scrollHeight;
+    const msgs = document.getElementById('aria-msgs');
+    const t = document.createElement('div');
+    t.className = 'aria-typing';
+    t.innerHTML = '<span></span><span></span><span></span>';
+    msgs.appendChild(t);
+    msgs.scrollTop = msgs.scrollHeight;
     return t;
   }
 
-  function ariaShowQuick(opts){
-    var el=document.getElementById('aria-quick');
-    el.innerHTML=opts.map(function(o){
-      return '<button class="aqb" onclick="ariaQuick(''+o.replace(/'/g,"\'")+''">'+o+'</button>';
-    }).join('');
+  function ariaShowQuick(options){
+    const el = document.getElementById('aria-quick');
+    el.innerHTML = options.map(o => 
+      `<button class="aria-quick-btn" onclick="ariaQuick('${o}')">${o}</button>`
+    ).join('');
   }
 
   function ariaShowReg(){
-    var msgs=document.getElementById('aria-msgs');
-    var d=document.createElement('div');d.className='am g';
-    var b=document.createElement('div');b.className='am-txt';
-    b.innerHTML='<div style="margin-bottom:6px;font-size:11px">Enter your reg plate:</div>'
-      +'<div style="display:flex;gap:0">'
-      +'<div style="background:#003399;display:flex;align-items:center;padding:0 7px;border-radius:2px 0 0 2px"><span style="font-size:8px;font-weight:700;color:#fff;font-family:DM Mono,monospace">GB</span></div>'
-      +'<input type="text" id="aria-reg-inp" placeholder="YOUR REG" maxlength="8" inputmode="text" autocomplete="off"'
-      +' style="background:#F5F0C8;border:none;outline:none;font-family:DM Mono,monospace;font-size:15px;font-weight:700;letter-spacing:.06em;color:#111;padding:6px 9px;text-transform:uppercase;width:110px;-webkit-appearance:none"'
-      +' oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')ariaLookupReg()">'
-      +'<button onclick="ariaLookupReg()" style="background:#c5a059;color:#0a0905;border:none;padding:6px 11px;font-family:DM Mono,monospace;font-size:9px;font-weight:700;cursor:pointer;border-radius:0 2px 2px 0;-webkit-appearance:none">Go</button>'
-      +'</div>';
-    d.appendChild(b);msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
-    setTimeout(function(){var i=document.getElementById('aria-reg-inp');if(i)i.focus();},100);
+    const msgs = document.getElementById('aria-msgs');
+    const div = document.createElement('div');
+    div.className = 'aria-msg ghost';
+    div.innerHTML = `<div class="aria-msg-text">
+      <div style="margin-bottom:6px;font-size:11px">Enter your reg plate:</div>
+      <div class="aria-reg-wrap">
+        <div class="aria-reg-badge"><span>GB</span></div>
+        <input type="text" id="aria-reg-input" placeholder="BX19MBT" maxlength="8"
+          style="background:#F5F0C8;border:none;outline:none;font-family:'DM Mono',monospace;font-size:15px;font-weight:700;letter-spacing:.06em;color:#111;padding:7px 10px;text-transform:uppercase;width:120px"
+          oninput="this.value=this.value.toUpperCase()" 
+          onkeydown="if(event.key==='Enter')ariaLookupReg()">
+        <button onclick="ariaLookupReg()" style="background:var(--gold,#c5a059);color:#0a0905;border:none;padding:7px 12px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:0 2px 2px 0">Go →</button>
+      </div>
+    </div>`;
+    msgs.appendChild(div);
+    msgs.scrollTop = msgs.scrollHeight;
+    setTimeout(()=>document.getElementById('aria-reg-input')?.focus(), 100);
   }
 
-  window.ariaLookupReg=async function(){
-    var reg=(document.getElementById('aria-reg-inp')||{value:''}).value.trim().toUpperCase();
-    if(!reg||reg.length<2)return;
-    ariaReg=reg;
-    document.getElementById('aria-quick').innerHTML='';
-    var t=ariaTyping();
+  // ── REG LOOKUP ───────────────────────────────────
+  window.ariaLookupReg = async function(){
+    const reg = (document.getElementById('aria-reg-input')||{value:''}).value.trim().toUpperCase();
+    if(!reg || reg.length < 2) return;
+    ariaReg = reg;
+    document.getElementById('aria-quick').innerHTML = '';
+    
+    const t = ariaTyping();
     try{
-      var r=await fetch(SB+'/functions/v1/vehicle-lookup',{
+      const r = await fetch(SB+'/functions/v1/vehicle-lookup',{
         method:'POST',
         headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},
         body:JSON.stringify({registration:reg})
       });
-      var d=await r.json();
+      const d = await r.json();
       t.remove();
+      
       if(d.error){
-        ariaAddMsg('g','Couldn't find '+reg+' in DVLA. Tell me the make and model and I'll still help.');
-        ariaShowQuick(['BMW','Mercedes','Audi','Other']);return;
+        ariaAddMsg('ghost', `I couldn't find ${reg} in DVLA records. No worries — tell me the make and model and I'll still help you.`);
+        ariaShowQuick(['BMW', 'Mercedes', 'Audi', 'VW', 'Other']);
+        return;
       }
-      ariaVehicle=d;ariaUserData.vehicle=d;ariaUserData.reg=reg;
-      var make=(d.make||'').charAt(0)+(d.make||'').slice(1).toLowerCase();
-      var colour=(d.colour||'').toLowerCase();
-      var age=d.vehicle_age_years||'';
-      var mot=d.mot_days_left;
-      var msg='Found it. '+colour+' '+make+' '+d.year+' — '+age+' year'+(age!==1?'s':'')+' old.
-
-';
-      if(mot<0)msg+='Your MOT has expired. Concierge can manage the whole thing.
-
-';
-      else if(mot<90)msg+='MOT due in '+mot+' days — we can handle that.
-
-';
-      if(d.is_ulez_compliant===false)msg+='Not ULEZ compliant — check before driving into London.
-
-';
-      if(age>=7)msg+='At '+age+' years, paint usually needs correction before ceramic. Depth Refinement £149 first.';
-      else if(age>=3)msg+='3+ years in, showing some swirling. Ghost Vision gives a full AI read.';
-      else msg+='Good time to protect it before contamination builds up. Nano Ceramic £279.';
-      ariaAddMsg('g',msg);
-      // Save lead
-      fetch(SB+'/rest/v1/aria_leads',{method:'POST',headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({registration:reg,vehicle_make:d.make,vehicle_year:d.year,vehicle_colour:d.colour,vehicle_age:age,mot_days_left:mot,is_ulez:d.is_ulez_compliant,source_page:window.location.pathname,created_at:new Date().toISOString()})}).catch(function(){});
-      if(mot<90&&mot>=0)ariaShowQuick(['Book Concierge MOT','Ghost Vision Assessment','Book Now']);
-      else if(mot<0)ariaShowQuick(['Concierge MOT','Book Now','See prices']);
-      else ariaShowQuick(['Ghost Vision AI','Book a service','Ceramic coating','Ghost Pass']);
+      
+      ariaVehicle = d;
+      ariaUserData.vehicle = d;
+      ariaUserData.reg = reg;
+      
+      const make = (d.make||'').charAt(0)+(d.make||'').slice(1).toLowerCase();
+      const colour = (d.colour||'').toLowerCase();
+      const year = d.year||'';
+      const age = d.vehicle_age_years||'';
+      const mot = d.mot_days_left;
+      
+      // Build smart response based on DVLA data
+      let response = `Found it! ${colour} ${make} ${year} — ${age} year${age!==1?'s':''} old.\n\n`;
+      
+      // Leverage ALL the DVLA data
+      if(mot !== undefined && mot < 0){
+        response += `⚠️ Your MOT has expired. You can't legally drive it. Our Concierge service handles everything — book, drop keys, we sort it.\n\n`;
+        ariaUserData.urgent = 'mot_expired';
+      } else if(mot !== undefined && mot < 90){
+        response += `Your MOT is due in ${mot} days — we can manage that for you.\n\n`;
+        ariaUserData.urgent = 'mot_due';
+      }
+      
+      if(d.is_ulez_compliant === false){
+        response += `⚠️ This vehicle isn't ULEZ compliant — daily charges apply in London zones.\n\n`;
+      }
+      
+      // Age-based recommendation
+      if(age >= 7){
+        response += `At ${age} years, paint typically has swirl marks and oxidation. I'd recommend a Depth Refinement (£149) before any ceramic coating.`;
+      } else if(age >= 3){
+        response += `${age} years in, paint's probably showing some swirling. Ghost Vision can give you a full AI assessment.`;
+      } else {
+        response += `Relatively new — perfect time to protect it with Nano Banana Ceramic before contamination sets in.`;
+      }
+      
+      ariaAddMsg('ghost', response);
+      
+      // Save to DB (lead capture)
+      fetch(SB+'/rest/v1/aria_leads',{
+        method:'POST',
+        headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+        body:JSON.stringify({
+          registration:reg, vehicle_make:d.make, vehicle_year:d.year,
+          vehicle_colour:d.colour, vehicle_age:age,
+          mot_days_left:mot, is_ulez:d.is_ulez_compliant,
+          source_page:window.location.pathname,
+          created_at:new Date().toISOString()
+        })
+      }).catch(()=>{});
+      
+      // Follow-up quick replies
+      if(ariaUserData.urgent){
+        ariaShowQuick(['🔧 Book Concierge MOT', '🔍 Full Assessment', '📅 Book Now']);
+      } else {
+        ariaShowQuick(['🔍 Ghost Vision AI Assessment', '📅 Book a Service', '💎 Protect with Ceramic', '⭐ Ghost Pass Plans']);
+      }
+      
     }catch(e){
       t.remove();
-      ariaAddMsg('g','DVLA is slow right now. Try ghostdetail.autos/paint-check for the full assessment.');
+      ariaAddMsg('ghost', `Couldn't reach DVLA right now. Go to ghostdetail.autos/paint-check and try there — it'll give you the full AI assessment.`);
     }
   };
 
-  window.ariaQuick=async function(opt){
-    document.getElementById('aria-quick').innerHTML='';
-    ariaAddMsg('u',opt);
-    var lo=opt.toLowerCase();
-    if(lo.includes('check my car')||lo.includes('reg')){ariaShowReg();return;}
-    if(lo.includes('book now')||lo.includes('book a service')){
-      window.location.href=ariaReg?'/booking?reg='+ariaReg:'/booking';return;
+  // ── QUICK REPLIES ─────────────────────────────────
+  window.ariaQuick = async function(opt){
+    document.getElementById('aria-quick').innerHTML = '';
+    ariaAddMsg('user', opt);
+    
+    if(opt.includes('Check my car') || opt.includes('reg')){
+      ariaShowReg(); return;
     }
-    if(lo.includes('ghost pass')||lo.includes('plans')){
-      ariaAddMsg('g','Ghost Pass from £99/month. 15% off all services, priority booking. Which tier?');
-      ariaShowQuick(['Spark £99/mo','Shield £199/mo','Legend £299/mo']);return;
+    if(opt.includes('Book')){
+      const url = ariaReg ? `/booking?reg=${ariaReg}` : '/booking';
+      ariaAddMsg('ghost', `Let's get you booked in. ${ariaVehicle ? 'I\'ve pre-filled your '+((ariaVehicle.make||'').charAt(0)+(ariaVehicle.make||'').slice(1).toLowerCase())+' details.' : 'Takes 2 minutes.'}`, false);
+      setTimeout(()=>{ window.location.href = url; }, 1500);
+      return;
     }
-    if(lo.includes('spark £99')){window.location.href=STRIPE.spark;return;}
-    if(lo.includes('shield £199')){window.location.href=STRIPE.shield;return;}
-    if(lo.includes('legend £299')){window.location.href=STRIPE.legend;return;}
-    if(lo.includes('prices')||lo.includes('see prices')){
-      ariaAddMsg('g','Spark Wash £79 · Depth Refinement £149 · Total Refinement £349 · Nano Banana Ceramic £279 · Quick Refinement £249 · PPF (POA).
-
-Ghost Pass members save 15% on all of these.');
-      ariaShowQuick(['Book now','Ghost Pass','Assess my car']);return;
+    if(opt.includes('Ghost Pass') || opt.includes('plans')){
+      ariaAddMsg('ghost', 'Ghost Pass starts at £99/month. Members get 15% off every service, priority booking, and a personal vehicle profile. Which sounds right for you — Spark, Shield, or Legend?');
+      ariaShowQuick(['Spark £99/mo', 'Shield £199/mo', 'Legend £299/mo', 'Tell me more']);
+      return;
     }
-    if(lo.includes('ghost vision')||lo.includes('assessment')||lo.includes('assess')){
-      window.location.href=ariaReg?'/paint-check?reg='+ariaReg:'/paint-check';return;
+    if(opt.includes('Spark £99')){
+      setTimeout(()=>{ window.location.href = 'https://buy.stripe.com/9AQ16V8DF9gq0rC6oo'; }, 800);
+      ariaAddMsg('ghost', 'Perfect — taking you to secure payment now.');
+      return;
     }
-    if(lo.includes('concierge')||lo.includes('mot')){
-      window.location.href=ariaReg?'/concierge?reg='+ariaReg:'/concierge';return;
+    if(opt.includes('Shield £199')){
+      setTimeout(()=>{ window.location.href = 'https://buy.stripe.com/6oE2aZ8DFcsy3DOfYZ'; }, 800);
+      ariaAddMsg('ghost', 'Great choice. Taking you to payment now.');
+      return;
     }
-    if(lo.includes('ceramic')){
-      ariaAddMsg('g','Nano Banana Ceramic £279 — 3+ year protection. We correct paint first if needed (Depth Refinement £149), then coat. Worth doing right.');
-      ariaShowQuick(['Get assessed first','Book ceramic','Already corrected']);return;
+    if(opt.includes('Legend £299')){
+      setTimeout(()=>{ window.location.href = 'https://buy.stripe.com/28o16Vgc7gIM5LW6op'; }, 800);
+      ariaAddMsg('ghost', 'Legend tier — Romeo\'s top plan. Taking you to payment.');
+      return;
     }
-    if(['bmw','mercedes','audi','vw','other'].includes(lo)){
-      ariaUserData.make_hint=opt;
-      ariaAddMsg('g',opt+' — solid. What year and what needs doing?');
-      ariaShowQuick(['Paint correction','Ceramic coating','Full valet','Just browsing']);return;
+    if(opt.includes('prices') || opt.includes('Prices')){
+      ariaAddMsg('ghost', 'Services start at £79 (Spark Wash). Here\'s the range:\n\n• Spark Wash — £79\n• Depth Refinement — £149\n• Total Refinement — £349\n• Nano Banana Ceramic — £279\n• Quick Refinement — £249\n• PPF — POA\n\nGhost Pass members save 15%. Want the full list?', false);
+      ariaShowQuick(['📅 Book now', '⭐ Ghost Pass', '🔍 Assess my car']);
+      return;
     }
+    if(opt.includes('Ghost Vision') || opt.includes('Assessment')){
+      const url = ariaReg ? `/paint-check?reg=${ariaReg}` : '/paint-check';
+      ariaAddMsg('ghost', `Ghost Vision uses your DVLA data + your photos to give a full AI paint assessment. Free, instant, no account needed.`);
+      setTimeout(()=>{ window.location.href = url; }, 1800);
+      return;
+    }
+    if(opt.includes('MOT') || opt.includes('Concierge')){
+      const url = ariaReg ? `/concierge?reg=${ariaReg}` : '/concierge';
+      ariaAddMsg('ghost', `Concierge handles MOT booking, drop-off, advisories, and we detail the car when it comes back. Simple.`);
+      setTimeout(()=>{ window.location.href = url; }, 1800);
+      return;
+    }
+    
+    // Named vehicle types
+    if(['BMW','Mercedes','Audi','VW','Other'].includes(opt)){
+      ariaUserData.make_hint = opt;
+      ariaAddMsg('ghost', `${opt} — great. What's the year? And what's brought you here today?`);
+      ariaShowQuick(['Paint correction', 'Ceramic coating', 'Full valet', 'Just browsing']);
+      return;
+    }
+    
+    // Ceramic/PPF interest
+    if(opt.includes('Ceramic') || opt.includes('Protect')){
+      ariaAddMsg('ghost', `Nano Banana Ceramic is £279 and protects for 3+ years. If your paint has swirls or scratches, we correct first (Depth Refinement £149) then coat. Otherwise the imperfections get locked in. Want a proper assessment?`);
+      ariaShowQuick(['🔍 Assess my car first', '📅 Book Ceramic', 'Already corrected']);
+      return;
+    }
+    
+    // Sign up push
+    if(opt.includes('account') || opt.includes('profile') || opt.includes('save')){
+      ariaAddMsg('ghost', `Your Ghost Garage profile saves your vehicle history, before/after photos, MOT reminders, and lets Romeo track your car's service passport. Free to create.`);
+      setTimeout(()=>{ window.location.href = '/account'; }, 2000);
+      return;
+    }
+    
+    // Default: AI response
     await ariaChatAI(opt);
   };
 
-  window.ariaSend=function(){
-    var inp=document.getElementById('aria-input');
-    var msg=inp.value.trim();if(!msg)return;
-    inp.value='';ariaAddMsg('u',msg);
-    document.getElementById('aria-quick').innerHTML='';
+  // ── AI CHAT ───────────────────────────────────────
+  window.ariaSend = function(){
+    const inp = document.getElementById('aria-input');
+    const msg = inp.value.trim();
+    if(!msg) return;
+    inp.value = '';
+    ariaAddMsg('user', msg);
+    document.getElementById('aria-quick').innerHTML = '';
     ariaChatAI(msg);
   };
 
   async function ariaChatAI(msg){
-    var t=ariaTyping();
-    ariaHistory.push({role:'user',content:msg});
-    var vCtx=ariaVehicle?('Vehicle: '+(ariaVehicle.make||'')+' '+(ariaVehicle.year||'')+', '+(ariaVehicle.colour||'')+', '+(ariaVehicle.vehicle_age_years||'?')+'yr, MOT: '+(ariaVehicle.mot_status||'?')+' ('+(ariaVehicle.mot_days_left||'?')+'d), ULEZ: '+(ariaVehicle.is_ulez_compliant===true?'OK':'Non-compliant')+', CO2: '+(ariaVehicle.co2_label||'?')):'No vehicle data.';
-    var system='You are ARIA — Ghost Detail Autos customer AI, Watford WD18. Services: Spark Wash £79, Depth Refinement £149, Quick Refinement £249, Total Refinement £349, Nano Banana Ceramic £279, PPF POA. Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. '+vCtx+'. Keep answers under 3 sentences. Push booking, Ghost Vision, or Ghost Pass. Facts only.';
+    const t = ariaTyping();
+    ariaHistory.push({role:'user', content:msg});
+    
+    const vehicleCtx = ariaVehicle ? 
+      `Customer vehicle: ${ariaVehicle.make} ${ariaVehicle.year}, ${ariaVehicle.colour}, ${ariaVehicle.vehicle_age_years}yrs old, MOT: ${ariaVehicle.mot_status} (${ariaVehicle.mot_days_left}d), ULEZ: ${ariaVehicle.is_ulez_compliant ? 'OK' : 'NON-COMPLIANT'}, ${ariaVehicle.engine_litres||''} ${ariaVehicle.fuel_type||''}. CO2: ${ariaVehicle.co2_label||''}. Ghost recs: ${(ariaVehicle.ghost_recommendations||[]).join('; ')}.` :
+      'No vehicle data yet.';
+    
+    const system = `You are ARIA — the AI customer assistant for Ghost Detail Autos, Watford WD18. Run by Romeo and his son Ferrel Cruz.
+
+Services: Spark Wash £79, Quick Refinement £249, Depth Refinement £149, Total Refinement £349, Nano Banana Ceramic £279, PPF (POA), Alloy Refurb, Interior Detail, Concierge (MOT mgmt, PDR, repairs).
+
+Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. Annual: Obsidian £950, Phantom £1,900, Legend £2,870. All memberships = 15% off + priority booking.
+
+${vehicleCtx}
+
+Rules: Short answers (max 3 sentences). Always push towards booking, Ghost Vision, or account creation. Use facts from DVLA data when available. Never make up prices. If asked about a competitor, pivot to Ghost Detail quality. If they want to buy, send them to the right page.`;
+
     try{
-      var r=await fetch('https://api.anthropic.com/v1/messages',{
+      const r = await fetch('https://api.anthropic.com/v1/messages',{
         method:'POST',
-        headers:{'Content-Type':'application/json','x-api-key':window._ghostApiKey||'','anthropic-version':'2023-06-01'},
-        body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:250,system:system,messages:ariaHistory.slice(-6)})
+        headers:{
+          'Content-Type':'application/json',
+          'x-api-key': window._ghostApiKey||'',
+          'anthropic-version':'2023-06-01'
+        },
+        body:JSON.stringify({
+          model:'claude-haiku-4-5-20251001',
+          max_tokens:300,
+          system,
+          messages:ariaHistory.slice(-8)
+        })
       });
+      
       t.remove();
-      var reply='';
-      if(r.ok){var d=await r.json();reply=d.content&&d.content[0]&&d.content[0].text||'';}
-      if(!reply){
-        var kw=msg.toLowerCase();
-        if(kw.includes('price')||kw.includes('cost')||kw.includes('how much'))reply='Services from £79. Depth Refinement £149, Ceramic £279, Total Refinement £349. Ghost Pass saves 15%.';
-        else if(kw.includes('location')||kw.includes('where'))reply='Sandown Road, Watford WD18. Private studio — one car at a time. Romeo or Ferrel work every job.';
-        else if(kw.includes('book'))reply='Book at ghostdetail.autos/booking — takes 2 minutes. Small deposit holds your slot.';
-        else reply='Romeo and Ferrel work every car personally. Call 01923 959839 or book online.';
+      let reply = '';
+      
+      if(r.ok){
+        const d = await r.json();
+        reply = d.content?.[0]?.text || '';
+      } else {
+        // Fallback: ghost-ai-router
+        const d2 = await fetch(SB+'/functions/v1/ghost-ai-router',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},
+          body:JSON.stringify({action:'aria_chat', prompt: system+'\n\nUser: '+msg})
+        }).then(r=>r.json()).catch(()=>({}));
+        reply = d2.text||'';
       }
-      ariaHistory.push({role:'assistant',content:reply});
-      ariaAddMsg('g',reply);
-      ariaShowQuick(['Book now','See prices','Check my car']);
-      var em=msg.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
-      if(em){ariaUserData.email=em[0];fetch(SB+'/rest/v1/aria_leads',{method:'POST',headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(Object.assign({},ariaUserData,{email:em[0],created_at:new Date().toISOString()}))}).catch(function(){});}
+      
+      if(!reply || reply === 'Assessment unavailable'){
+        // Smart fallback based on keywords
+        const kw = msg.toLowerCase();
+        if(kw.includes('price') || kw.includes('cost') || kw.includes('how much'))
+          reply = 'Services from £79. Depth Refinement £149, Nano Ceramic £279, Total Refinement £349. Ghost Pass members save 15%. Want to book?';
+        else if(kw.includes('book') || kw.includes('appointment'))
+          reply = 'Booking takes 2 minutes. Pick your service, date, and pay a small deposit to hold the slot.';
+        else if(kw.includes('ceramic') || kw.includes('coating'))
+          reply = 'Nano Banana Ceramic is £279 and lasts 3+ years. If paint has swirls, correction first (£149) then ceramic. Worth doing right.';
+        else if(kw.includes('mot'))
+          reply = 'Concierge handles MOT booking, drop-off, and advisory management. We detail the car when it comes back too.';
+        else if(kw.includes('location') || kw.includes('where') || kw.includes('address'))
+          reply = 'Sandown Road, Watford WD18. Private studio — one car at a time. Romeo or Ferrel work every job personally.';
+        else
+          reply = 'Romeo and Ferrel handle every car personally at our Watford WD18 studio. What service are you after?';
+      }
+      
+      ariaHistory.push({role:'assistant', content:reply});
+      ariaAddMsg('ghost', reply);
+      
+      // Contextual follow-ups
+      const replyLower = reply.toLowerCase();
+      if(replyLower.includes('book')){
+        ariaShowQuick(['📅 Book Now', '🔍 Assess my car first']);
+      } else if(replyLower.includes('ceramic') || replyLower.includes('correction')){
+        ariaShowQuick(['🔍 Get AI Assessment', '📅 Book Directly']);
+      } else {
+        ariaShowQuick(['📅 Book a service', '🔍 Check my car', '⭐ Ghost Pass']);
+      }
+      
+      // Capture contact if email mentioned
+      const emailMatch = msg.match(/[\w.-]+@[\w.-]+\.\w+/);
+      if(emailMatch){
+        ariaUserData.email = emailMatch[0];
+        // Save lead with email
+        fetch(SB+'/rest/v1/aria_leads',{
+          method:'POST',
+          headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
+          body:JSON.stringify({...ariaUserData, email:emailMatch[0], created_at:new Date().toISOString()})
+        }).catch(()=>{});
+      }
+      
     }catch(e){
       t.remove();
-      ariaAddMsg('g','Try calling Romeo on 01923 959839 or book online at ghostdetail.autos/booking.');
-      ariaShowQuick(['Book online','Call us']);
+      ariaAddMsg('ghost', 'Romeo and Ferrel are at the studio — try calling 01923 959839 or WhatsApp for a quick answer.');
+      ariaShowQuick(['📞 Call us', '💬 WhatsApp', '📅 Book online']);
     }
   }
+  
+  // Auto-open after 8 seconds on relevant pages (first visit only)
+  const page = window.location.pathname;
+  const triggered = sessionStorage.getItem('aria_triggered');
+  if(!triggered && ['/studio','/membership','/paint-check','/concierge'].some(p=>page.includes(p))){
+    sessionStorage.setItem('aria_triggered','1');
+    setTimeout(()=>{
+      if(!ariaOpen){ ariaToggle(); }
+    }, 8000);
+  }
+  
+  // Show pulsing notif on homepage after 5s (first visit)
+  if(!triggered && (page === '/' || page === '/index.html')){
+    setTimeout(()=>{
+      if(!ariaOpen) document.getElementById('aria-notif').classList.add('show');
+    }, 5000);
+  }
 
-  // Auto open on service pages (first visit per session)
-  var page=window.location.pathname;
-  var triggered=sessionStorage.getItem('aria_t');
-  if(!triggered&&['/studio','/membership','/paint-check','/concierge'].some(function(p){return page.includes(p);})){
-    sessionStorage.setItem('aria_t','1');
-    setTimeout(function(){if(!ariaOpen)ariaToggle();},8000);
-  }
-  if(!triggered&&(page==='/'||page==='/index.html')){
-    setTimeout(function(){if(!ariaOpen)document.getElementById('aria-notif').classList.add('show');},5000);
-  }
 })();
 </script>
+
 </body>
 </html>
