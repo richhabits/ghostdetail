@@ -2314,69 +2314,110 @@ const SYSTEM_PROMPTS = {"ghost": "You are GHOST — the AI brain of Ghost Detail
 
 let chatHistory = [];
 
+
+const GHOST_SYSTEMS = {"ghost": "You are GHOST — the AI command brain of Ghost Detail Autos, Watford WD18, UK. Owner: Romeo Cruz. Son/Apprentice: Ferrel Cruz. Services: Spark Wash £79, Quick Refinement £249, Depth Refinement £149, Total Refinement £349, Nano Banana Ceramic £279, PPF (POA). Ghost Pass memberships: Spark £99/mo, Shield £199/mo, Legend £299/mo. Phone: 01923 959839. Be direct, business-focused, and sharp like a war room AI.", "aria": "You are ARIA — Ghost Detail Autos receptionist AI. Handle customer enquiries, follow up leads, draft WhatsApp messages for Romeo to send. Professional, warm, British English. Phone: 01923 959839.", "jade": "You are JADE — Ghost Detail lead nurturing AI. Write follow-up messages, spot booking opportunities. Persuasive, strategic. Turn cold leads hot. Know all Ghost Detail services and pricing.", "marcus": "You are MARCUS — Ghost Detail market intelligence AI. Track Hertfordshire/North London detailing trends, competitor pricing, new services trending. Data-driven and sharp.", "aaliya": "You are AALIYA — Ghost Detail content AI. Turn before/after results into Instagram captions, TikTok scripts, Reels hooks. Gen Z tone, aspirational, brand-aligned for Ghost Detail.", "priya": "You are PRIYA — Ghost Detail operations AI. Bay scheduling, stock, job tracking, workflow optimisation. Practical and organised.", "dev": "You are DEV — Ghost Detail financial AI. Revenue tracking, deposit analysis, monthly forecasting. Precise with numbers. Help Romeo understand the money.", "romeo_ai": "You are ROMEO AI — Ghost Detail brand and strategy AI. Help Romeo with positioning, storytelling, brand decisions, long-term growth. Visionary and honest."};
+
+let chatHistory = [];
+
+async function callPollinations(systemPrompt, userMsg, history) {
+  const messages = [
+    {role:'system', content: systemPrompt},
+    ...history.slice(-8),
+    {role:'user', content: userMsg}
+  ];
+  const r = await fetch('https://text.pollinations.ai/', {
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'Referer':'https://ghostdetail.autos'
+    },
+    body: JSON.stringify({
+      messages,
+      model: 'openai',
+      seed: Math.floor(Math.random()*9999)
+    })
+  });
+  if(!r.ok) throw new Error('Pollinations '+r.status);
+  const text = await r.text();
+  if(!text || text.trim().length < 2) throw new Error('Empty response');
+  return {text, model:'GPT-OSS (free)'};
+}
+
+async function callGhostBrain(systemPrompt, userMsg) {
+  const r = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      action:'ghost_chat',
+      prompt: systemPrompt + '\n\nUser: ' + userMsg
+    })
+  });
+  const d = await r.json();
+  const text = d.text || d.response || '';
+  if(!text || text.trim().length < 2) throw new Error('Empty ghost-brain response');
+  return {text, model: d.model || 'gemini'};
+}
+
 async function sendMsg() {
-  const inp = document.getElementById('chat-inp')
-  const msg = inp?.value?.trim()
-  if (!msg) return
-  inp.value = ''
-
-  addMsg('user', msg)
-  chatHistory.push({role:'user', content: msg})
-
-  const thinking = addMsg('ghost', '', true)
-  const m = BRAIN_META[activeBrain] || BRAIN_META.ghost
-  const micBtn = document.getElementById('mic-btn')
-  if (micBtn) { micBtn.textContent = '⏳'; micBtn.classList.add('processing') }
-
-  const systemPrompt = SYSTEM_PROMPTS[activeBrain] || SYSTEM_PROMPTS.ghost;
+  const inp = document.getElementById('chat-inp');
+  const msg = inp?.value?.trim();
+  if (!msg) return;
+  inp.value = '';
+  
+  addMsg('user', msg);
+  chatHistory.push({role:'user', content: msg});
+  
+  const thinking = addMsg('ghost', '', true);
+  const m = BRAIN_META[activeBrain] || BRAIN_META.ghost;
+  const micBtn = document.getElementById('mic-btn');
+  if (micBtn) { micBtn.textContent = '⏳'; micBtn.classList.add('processing'); }
+  
+  const systemPrompt = GHOST_SYSTEMS[activeBrain] || GHOST_SYSTEMS.ghost;
+  let responseText = '';
+  let modelUsed = '';
   
   try {
-    // Use Anthropic API directly — Claude Haiku (fastest, cheapest)
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': window._ghostApiKey || '',
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 800,
-        system: systemPrompt,
-        messages: chatHistory.slice(-10)
-      })
-    })
-    
-    let responseText = '';
-    let modelUsed = 'claude-haiku';
-    
-    if (r.ok) {
-      const d = await r.json()
-      responseText = d.content?.[0]?.text || 'No response'
-      modelUsed = 'claude-haiku'
-    } else {
-      // Fallback to ghost-brain (Gemini)
-      const d2 = await fetch(GHOST_BRAIN_URL, {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({prompt: systemPrompt + '\n\nUser: ' + msg})
-      }).then(r=>r.json())
-      responseText = d2.text || 'Ghost is thinking... Try again.'
-      modelUsed = d2.model || 'gemini'
+    // PRIMARY: Pollinations (GPT-OSS, 100% free, no key needed)
+    try {
+      const result = await callPollinations(systemPrompt, msg, chatHistory.slice(-8));
+      responseText = result.text;
+      modelUsed = result.model;
+    } catch(e1) {
+      console.log('Pollinations failed:', e1.message, '— trying Gemini...');
+      // FALLBACK 1: ghost-brain (Gemini Flash)
+      try {
+        const result = await callGhostBrain(systemPrompt, msg);
+        responseText = result.text;
+        modelUsed = result.model;
+      } catch(e2) {
+        console.log('Ghost-brain failed:', e2.message, '— using Llama fallback...');
+        // FALLBACK 2: Hugging Face Llama (no key for some models)
+        const hfR = await fetch('https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-beta', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({inputs: systemPrompt + '\n\nUser: ' + msg + '\nAssistant:', parameters:{max_new_tokens:300,return_full_text:false}})
+        });
+        const hfD = await hfR.json();
+        responseText = Array.isArray(hfD) ? hfD[0]?.generated_text : (hfD.error || 'AI temporarily unavailable. Try again in a moment.');
+        modelUsed = 'Zephyr 7B';
+      }
     }
     
-    chatHistory.push({role:'assistant', content: responseText})
-    if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20)
+    // Clean up any trailing artifacts
+    responseText = responseText.trim();
     
-    thinking.innerHTML = `<div class="msg-role">${m.n}</div><div class="msg-text" id="last-response"></div><div class="msg-meta"><span>${modelUsed}</span><span style="cursor:pointer;color:var(--muted);user-select:none" onclick="speakLast()">🔊</span></div>`
-    thinking.querySelector('#last-response').textContent = responseText
-    speak(responseText)
-
+    chatHistory.push({role:'assistant', content: responseText});
+    if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
+    
+    thinking.innerHTML = `<div class="msg-role">${m.n}</div><div class="msg-text" id="last-response"></div><div class="msg-meta"><span>${modelUsed}</span><span style="cursor:pointer;color:var(--muted);user-select:none" onclick="speakLast()">🔊</span></div>`;
+    thinking.querySelector('#last-response').textContent = responseText;
+    speak(responseText);
+    
   } catch(e) {
-    thinking.innerHTML = `<div class="msg-role">${m.n}</div><div class="msg-text" style="color:#ef4444">Connection error. Check your API key in settings.</div>`
+    thinking.innerHTML = `<div class="msg-role">${m.n}</div><div class="msg-text" style="color:#ef4444">⚡ All AI providers unavailable right now. Check your internet connection and try again.</div>`;
   } finally {
-    if (micBtn) { micBtn.textContent = '🎤'; micBtn.classList.remove('processing') }
-    document.getElementById('chat-msgs').scrollTop = 9999
+    if (micBtn) { micBtn.textContent = '🎤'; micBtn.classList.remove('processing'); }
+    document.getElementById('chat-msgs').scrollTop = 9999;
   }
 }
 

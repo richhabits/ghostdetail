@@ -757,13 +757,33 @@ Then output EXACTLY this JSON block (no other text after it):
   let scoreLabel = 'Fair condition';
 
   try{
-    const r = await fetch(AI_URL, {
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},
-      body:JSON.stringify({action:'chat', prompt})
-    });
-    const data = await r.json();
-    const text = data.text || data.message || '';
+    // PRIMARY: Pollinations (GPT-OSS free, no key)
+    let text = '';
+    try {
+      const polR = await fetch('https://text.pollinations.ai/', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Referer':'https://ghostdetail.autos'},
+        body:JSON.stringify({
+          messages:[
+            {role:'system',content:'You are Ghost Vision — the AI paint assessment system for Ghost Detail Autos, a luxury car detailing studio in Watford WD18 UK, run by Romeo and Ferrel Cruz. Give specific, professional assessments. Recommend exact services with prices.'},
+            {role:'user',content:prompt}
+          ],
+          model:'openai',
+          seed:42
+        })
+      });
+      const polText = await polR.text();
+      if(polText && polText.trim().length > 30 && !polText.includes('"error"')) text = polText.trim();
+      else throw new Error('empty or error');
+    } catch(polErr) {
+      // FALLBACK: ghost-brain (Gemini Flash free)
+      try {
+        const r2 = await fetch(AI_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},body:JSON.stringify({action:'ghost_chat',prompt})});
+        const d2 = await r2.json();
+        text = d2.text || d2.message || '';
+      } catch(e2) { text = ''; }
+    }
+    const data = {text, model:'GPT-OSS'};
 
     // Parse verdict and JSON
     const jsonMatch = text.match(/\{[\s\S]*"score"[\s\S]*\}/);
