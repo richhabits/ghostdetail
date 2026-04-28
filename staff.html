@@ -551,7 +551,270 @@ a:hover ~ #ghost-cursor, button:hover ~ #ghost-cursor{
         <div class="card-label">Generate Guide</div>
         <div class="g2">
           <div class="field"><label>Registration</label><input class="finp" id="g-reg" placeholder="AB12 CDE" style="text-transform:uppercase;font-family:DM Mono,monospace;font-size:16px;letter-spacing:.1em" autocomplete="off"></div>
-          <div class="field"><label>Service</label>
+          
+<!-- ═══ CLIENT PROFILE PANEL ═══ -->
+<div style="margin-bottom:20px">
+  <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:10px">🔍 Client Lookup · Enter Reg or Email</div>
+  
+  <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap">
+    <div style="display:flex;gap:0;flex:1;min-width:200px">
+      <div style="background:#003399;display:flex;align-items:center;padding:0 8px;border-radius:2px 0 0 2px;flex-shrink:0">
+        <span style="font-size:8px;font-weight:700;color:#fff;font-family:'DM Mono',monospace">GB</span>
+      </div>
+      <input type="text" id="client-reg" placeholder="REG" maxlength="8"
+        style="background:#F5F0C8;border:none;outline:none;font-family:'DM Mono',monospace;font-size:16px;font-weight:700;letter-spacing:.06em;color:#111;padding:7px 10px;text-transform:uppercase;flex:1"
+        oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')lookupClient()">
+    </div>
+    <input type="email" id="client-email" placeholder="or email@..." 
+      style="background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.1);color:#e8e0d0;font-family:'DM Mono',monospace;font-size:11px;padding:7px 12px;outline:none;flex:1;min-width:160px"
+      onkeydown="if(event.key==='Enter')lookupClient()">
+    <button onclick="lookupClient()" 
+      style="background:var(--gold,#c5a059);color:#0a0905;border:none;padding:7px 16px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;white-space:nowrap">
+      Pull Client →
+    </button>
+  </div>
+  
+  <!-- Client profile card -->
+  <div id="client-profile-card" style="display:none">
+    
+    <!-- Vehicle + DVLA data -->
+    <div style="background:rgba(197,160,89,.05);border:1px solid rgba(197,160,89,.15);padding:16px 20px;margin-bottom:12px">
+      <div style="display:flex;justify-content:space-between;align-items:start;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+        <div>
+          <div style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:4px">Vehicle · DVLA Live</div>
+          <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:#fff" id="cp-vehicle-name">—</div>
+          <div style="font-size:9px;color:rgba(255,255,255,.45);font-family:'DM Mono',monospace" id="cp-vehicle-meta">—</div>
+        </div>
+        <div id="cp-mot-badge"></div>
+      </div>
+      
+      <!-- DVLA grid — all data Romeo needs -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:10px;margin-bottom:12px" id="cp-dvla-grid"></div>
+      
+      <!-- Alerts -->
+      <div id="cp-alerts" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+    </div>
+    
+    <!-- Client history -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div style="background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.08);padding:14px">
+        <div style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:8px">Service History</div>
+        <div id="cp-history" style="font-size:11px;color:rgba(232,224,208,.6)">Loading...</div>
+      </div>
+      <div style="background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.08);padding:14px">
+        <div style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:8px">Client Notes</div>
+        <div id="cp-notes" style="font-size:11px;color:rgba(232,224,208,.6)">No notes yet.</div>
+        <textarea id="cp-note-input" placeholder="Add note..." 
+          style="width:100%;background:transparent;border:1px solid rgba(197,160,89,.12);color:#e8e0d0;font-family:'DM Mono',monospace;font-size:10px;padding:6px 8px;margin-top:8px;outline:none;resize:vertical;height:60px"></textarea>
+        <button onclick="saveClientNote()" style="margin-top:6px;background:transparent;border:1px solid rgba(197,160,89,.2);color:rgba(197,160,89,.6);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;cursor:pointer">Save Note →</button>
+      </div>
+    </div>
+    
+    <!-- Product recommendations for this car -->
+    <div style="background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.08);padding:14px;margin-bottom:12px">
+      <div style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:10px">Products & Services for This Car</div>
+      <div id="cp-products" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px"></div>
+    </div>
+    
+    <!-- Quick actions -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <a id="cp-book-btn" href="/booking" style="background:var(--gold,#c5a059);color:#0a0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;text-decoration:none">Book This Car →</a>
+      <a id="cp-ghost-btn" href="/paint-check" style="border:1px solid rgba(197,160,89,.2);color:rgba(197,160,89,.7);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;text-decoration:none">Ghost Vision →</a>
+      <button onclick="generateJobSheet()" style="border:1px solid rgba(197,160,89,.2);color:rgba(197,160,89,.7);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;background:transparent;cursor:pointer">Job Sheet →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let _currentClient = null;
+
+async function lookupClient(){
+  const reg = (document.getElementById('client-reg')||{value:''}).value.trim().toUpperCase();
+  const email = (document.getElementById('client-email')||{value:''}).value.trim();
+  
+  if(!reg && !email){ alert('Enter a reg plate or email'); return; }
+  
+  const card = document.getElementById('client-profile-card');
+  card.style.display='block';
+  document.getElementById('cp-vehicle-name').textContent = 'Loading...';
+  document.getElementById('cp-history').textContent = 'Loading...';
+  
+  // 1. DVLA lookup (if reg provided)
+  let dvla = {};
+  if(reg){
+    try{
+      const r = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/vehicle-lookup',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
+        body:JSON.stringify({registration:reg})
+      });
+      dvla = await r.json();
+    }catch(e){}
+  }
+  
+  _currentClient = { reg, email, dvla };
+  
+  // 2. Show DVLA card
+  if(dvla.make || dvla.colour){
+    const make = (dvla.make||'').charAt(0)+(dvla.make||'').slice(1).toLowerCase();
+    const colour = (dvla.colour||'').toLowerCase();
+    document.getElementById('cp-vehicle-name').textContent = make+' '+(dvla.model||'')+' '+(dvla.year||'');
+    document.getElementById('cp-vehicle-meta').textContent = [colour,reg,dvla.engine_litres,dvla.fuel_type,dvla.co2_label].filter(Boolean).join(' · ');
+    
+    // MOT badge
+    const motBadge = document.getElementById('cp-mot-badge');
+    if(dvla.mot_days_left !== undefined){
+      const d = dvla.mot_days_left;
+      motBadge.innerHTML = d<0 ? '<span style="background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.2);padding:4px 10px;font-size:8px;letter-spacing:.1em;text-transform:uppercase">⚠ MOT EXPIRED</span>' :
+        d<90 ? `<span style="background:rgba(245,158,11,.1);color:#f59e0b;border:1px solid rgba(245,158,11,.2);padding:4px 10px;font-size:8px;letter-spacing:.1em;text-transform:uppercase">MOT ${d}d</span>` :
+        '<span style="background:rgba(34,197,94,.1);color:#22c55e;border:1px solid rgba(34,197,94,.2);padding:4px 10px;font-size:8px;letter-spacing:.1em;text-transform:uppercase">✓ MOT Valid</span>';
+    }
+    
+    // DVLA grid
+    const fields = [
+      {k:'Age',v:dvla.vehicle_age_years?dvla.vehicle_age_years+'yr':null},
+      {k:'Euro',v:dvla.euro_status},
+      {k:'ULEZ',v:dvla.is_ulez_compliant===true?'✓ OK':dvla.is_ulez_compliant===false?'✗ Non':null},
+      {k:'CO2',v:dvla.co2_label},
+      {k:'Engine',v:dvla.engine_litres},
+      {k:'V5C',v:dvla.date_of_last_v5c?dvla.date_of_last_v5c.split('T')[0]:null},
+      {k:'Tax',v:dvla.tax_due_date?dvla.tax_due_date.split('T')[0]:null},
+      {k:'MOT Exp',v:dvla.mot_expiry?dvla.mot_expiry.split('T')[0]:null},
+    ].filter(f=>f.v);
+    
+    document.getElementById('cp-dvla-grid').innerHTML = fields.map(f=>
+      `<div><div style="font-size:13px;color:#c5a059;font-family:'Playfair Display',serif;font-style:italic">${f.v}</div><div style="font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35)">${f.k}</div></div>`
+    ).join('');
+    
+    // Alerts
+    const alerts = [];
+    if(dvla.mot_days_left<0) alerts.push('<span style="background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.2);padding:3px 8px;font-size:8px;letter-spacing:.08em;text-transform:uppercase">MOT EXPIRED</span>');
+    if(dvla.mot_days_left>=0&&dvla.mot_days_left<90) alerts.push(`<span style="background:rgba(245,158,11,.1);color:#f59e0b;border:1px solid rgba(245,158,11,.2);padding:3px 8px;font-size:8px;letter-spacing:.08em;text-transform:uppercase">MOT ${dvla.mot_days_left}d left</span>`);
+    if(dvla.is_ulez_compliant===false) alerts.push('<span style="background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.2);padding:3px 8px;font-size:8px;letter-spacing:.08em;text-transform:uppercase">Non-ULEZ</span>');
+    if(dvla.ghost_recommendations) dvla.ghost_recommendations.forEach(r=>alerts.push(`<span style="background:rgba(197,160,89,.08);color:#c5a059;border:1px solid rgba(197,160,89,.15);padding:3px 8px;font-size:8px">${r}</span>`));
+    document.getElementById('cp-alerts').innerHTML = alerts.join('');
+    
+    // Update quick action links
+    document.getElementById('cp-book-btn').href = `/booking?reg=${reg}`;
+    document.getElementById('cp-ghost-btn').href = `/paint-check?reg=${reg}`;
+    
+    // Products for this car
+    buildProductRecs(dvla);
+  } else {
+    document.getElementById('cp-vehicle-name').textContent = reg || email || 'Client';
+    document.getElementById('cp-vehicle-meta').textContent = 'Not found in DVLA records';
+  }
+  
+  // 3. Service history from DB
+  try{
+    let query = 'https://slzawehsiotvkjzaehqw.supabase.co/rest/v1/bookings?select=*&order=created_at.desc&limit=5';
+    if(reg) query += '&registration=eq.'+encodeURIComponent(reg);
+    else if(email) query += '&customer_email=eq.'+encodeURIComponent(email);
+    
+    const r = await fetch(query, {
+      headers:{'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'}
+    });
+    const bookings = await r.json();
+    
+    if(Array.isArray(bookings)&&bookings.length>0){
+      document.getElementById('cp-history').innerHTML = bookings.map(b=>
+        `<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid rgba(197,160,89,.06)">
+          <div>
+            <div style="font-size:11px;color:#e8e0d0">${b.service_type||b.service||'Service'}</div>
+            <div style="font-size:9px;color:rgba(197,160,89,.4)">${b.preferred_date||b.created_at?.split('T')[0]||''}</div>
+          </div>
+          <span style="font-size:8px;letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;background:rgba(197,160,89,.06);color:rgba(197,160,89,.6)">${b.status||'pending'}</span>
+        </div>`
+      ).join('');
+    } else {
+      document.getElementById('cp-history').textContent = 'No previous services found.';
+    }
+  }catch(e){ document.getElementById('cp-history').textContent = 'Could not load history.'; }
+  
+  // 4. Notes
+  try{
+    const noteKey = `staff_note_${reg||email}`;
+    const saved = localStorage.getItem(noteKey);
+    if(saved) document.getElementById('cp-notes').textContent = saved;
+  }catch(e){}
+}
+
+function saveClientNote(){
+  const note = document.getElementById('cp-note-input').value.trim();
+  if(!note||!_currentClient) return;
+  const key = `staff_note_${_currentClient.reg||_currentClient.email}`;
+  localStorage.setItem(key, note);
+  document.getElementById('cp-notes').textContent = note;
+  document.getElementById('cp-note-input').value = '';
+}
+
+function buildProductRecs(dvla){
+  const age = dvla.vehicle_age_years||5;
+  const colour = (dvla.colour||'').toLowerCase();
+  const make = (dvla.make||'').toLowerCase();
+  
+  const products = [];
+  
+  // Always recommend
+  products.push({name:'Spark Wash',price:'£79',reason:'Maintenance',color:''});
+  
+  // Age-based
+  if(age>=7) products.push({name:'Depth Refinement',price:'£149',reason:age+'yr paint correction',color:'rgba(239,68,68,.1)'});
+  else if(age>=3) products.push({name:'Quick Refinement',price:'£249',reason:'Single-stage correction',color:''});
+  
+  // Colour-specific
+  if(['black','dark blue','dark grey','graphite'].some(c=>colour.includes(c)))
+    products.push({name:'Total Refinement',price:'£349',reason:'Dark paint needs multi-stage',color:''});
+  
+  // Ceramic for all
+  products.push({name:'Nano Banana Ceramic',price:'£279',reason:'3yr+ protection',color:'rgba(197,160,89,.05)'});
+  
+  // Premium makes
+  if(['mercedes','bmw','porsche','ferrari','lamborghini','bentley','rolls','aston'].some(m=>make.includes(m)))
+    products.push({name:'PPF Protection',price:'POA',reason:'Premium paint protection film',color:''});
+  
+  // MOT
+  if(dvla.mot_days_left<90) products.push({name:'Concierge MOT',price:'From £30',reason:'MOT management + detail',color:'rgba(245,158,11,.08)'});
+  
+  document.getElementById('cp-products').innerHTML = products.map(p=>
+    `<div style="background:${p.color||'rgba(197,160,89,.04)'};border:1px solid rgba(197,160,89,.1);padding:10px;cursor:pointer" 
+      onclick="document.getElementById('client-reg').value && (window.location='/booking?service='+encodeURIComponent('${p.name}')+'&reg='+document.getElementById('client-reg').value)">
+      <div style="font-size:11px;color:#fff;font-weight:600;margin-bottom:2px">${p.name}</div>
+      <div style="font-size:9px;color:rgba(197,160,89,.5);margin-bottom:4px">${p.reason}</div>
+      <div style="font-family:'Playfair Display',serif;font-size:14px;color:#c5a059">${p.price}</div>
+    </div>`
+  ).join('');
+}
+
+function generateJobSheet(){
+  if(!_currentClient) return;
+  const d = _currentClient.dvla;
+  const make = d.make?d.make.charAt(0)+d.make.slice(1).toLowerCase():'Vehicle';
+  const text = `GHOST DETAIL AUTOS — JOB SHEET
+${new Date().toLocaleDateString('en-GB')}
+
+VEHICLE: ${make} ${d.model||''} ${d.year||''}
+REG: ${_currentClient.reg||'—'}
+COLOUR: ${(d.colour||'').toLowerCase()}
+ENGINE: ${d.engine_litres||'—'} ${d.fuel_type||''}
+MOT: ${d.mot_expiry?d.mot_expiry.split('T')[0]:'—'} (${d.mot_days_left}d)
+ULEZ: ${d.is_ulez_compliant===true?'✓ Compliant':'✗ Non-compliant'}
+CO2: ${d.co2_label||'—'}
+V5C: ${d.date_of_last_v5c?d.date_of_last_v5c.split('T')[0]:'—'}
+
+SERVICES PLANNED:
+
+NOTES:
+
+Romeo / Ferrel Cruz — ghostdetail.autos — 01923 959839`;
+  
+  const win = window.open('','_blank');
+  win.document.write('<pre style="font-family:monospace;font-size:13px;padding:20px;white-space:pre-wrap">'+text+'</pre>');
+  win.print();
+}
+</script>
+
+<div class="field"><label>Service</label>
             <select class="finp" id="g-svc">
               <option value="Spark Wash">Spark Wash £79</option>
               <option value="Quick Refinement">Quick Refinement £249</option>
