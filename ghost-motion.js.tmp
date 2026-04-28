@@ -1,73 +1,3 @@
-<!DOCTYP
-<nav><div class="nav-inner"><a href="/" class="nav-logo"><div class="hex"></div><span class="nb">Ghost Detail</span></a><a href="/booking.html" class="nc">Book</a></div></nav>
-<div class="hero">
-  <div class="badge">Ghost Detail Autos · Apprentice Programme</div>
-  <h1>Ferrel Cruz.<br><em>Learning the craft.</em></h1>
-  <p class="sub">Apprentice detailer under Romeo Cruz. Every skill logged, every car a lesson. Watch the journey.</p>
-</div>
-<div style="max-width:var(--max);margin:0 auto;padding:0 var(--pad)">
-  <div class="stats-row">
-    <div class="stat"><div class="stat-n" id="s-skills">10</div><div class="stat-l">Skills tracked</div></div>
-    <div class="stat"><div class="stat-n" id="s-independent">5</div><div class="stat-l">Independent</div></div>
-    <div class="stat"><div class="stat-n" id="s-hours">0</div><div class="stat-l">Hours logged</div></div>
-    <div class="stat"><div class="stat-n" id="s-cars">0</div><div class="stat-l">Cars worked</div></div>
-  </div>
-</div>
-<div class="section">
-  <p class="sec-eyebrow">Current skills</p>
-  <h2 class="sec-title">The <em>progress.</em></h2>
-  <div class="skills-grid" id="skills-grid"><div style="background:var(--charcoal);padding:48px;text-align:center;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;grid-column:1/-1">Loading skills...</div></div>
-</div>
-<div class="timeline" style="padding-top:0">
-  <p class="sec-eyebrow" style="text-align:center;margin-bottom:10px">Recent log</p>
-  <h2 class="sec-title">Recent <em>sessions.</em></h2>
-  <div id="timeline"></div>
-</div>
-<footer><p>© 2026 Ghost Detail Autos · Watford WD18 · <a href="/about.html">About Romeo</a> · <a href="/booking.html">Book a Service</a></p></footer>
-<script>
-const SB_URL='https://slzawehsiotvkjzaehqw.supabase.co';
-const SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
-const LEVEL_ORDER={independent:4,competent:3,practising:2,learning:1};
-async function loadSkills(){
-  const r=await fetch(`${SB_URL}/rest/v1/ferrel_skills_log?order=confidence_level.desc&limit=50`,{headers:{'apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON}});
-  const skills=await r.json();
-  const grid=document.getElementById('skills-grid');
-  const independent=skills.filter(s=>(s.confidence_level||0)>=8).length;
-  const competent=skills.filter(s=>(s.confidence_level||0)>=6&&(s.confidence_level||0)<8).length;
-  const totalHours=skills.reduce((s,k)=>s+(k.hours_on_this||0),0);
-  const totalCars=skills.reduce((s,k)=>s+(k.cars_practised_on||0),0);
-  document.getElementById('s-skills').textContent=skills.length;
-  document.getElementById('s-independent').textContent=independent;
-  document.getElementById('s-hours').textContent=Math.round(totalHours)||'—';
-  document.getElementById('s-cars').textContent=totalCars||'—';
-  const levelName=(c)=>c>=8?'independent':c>=6?'competent':c>=4?'practising':'learning';
-  grid.innerHTML=skills.map(s=>{
-    const lvl=levelName(s.confidence_level||1);
-    const pct=((s.confidence_level||1)/10)*100;
-    return `<div class="skill-card">
-      <div class="skill-cat">${(s.skill_category||'general').replace('_',' ')}</div>
-      <div class="skill-header">
-        <div class="skill-name">${s.skill_name||'Unknown'}</div>
-        <span class="skill-level ${lvl}">${lvl}</span>
-      </div>
-      <div class="skill-bar"><div class="skill-bar-fill" style="width:${pct}%"></div></div>
-      <div class="skill-note">${s.romeo_notes||''}</div>
-    </div>`;
-  }).join('');
-  // Timeline
-  const recent=skills.slice(0,6);
-  document.getElementById('timeline').innerHTML=recent.map(s=>`
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-body">
-        <div class="tl-date">${s.logged_at?new Date(s.logged_at).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}):''}</div>
-        <div class="tl-skill">${s.skill_name||''}</div>
-        <div class="tl-note">${s.romeo_notes||''}</div>
-      </div>
-    </div>`).join('');
-}
-loadSkills();
-</script>
 <script type="module" id="ghost-motion-module">
 import { 
   animate, scroll, inView, stagger, 
@@ -236,5 +166,3 @@ observer.observe(document.body, { childList:true, subtree:true });
 
 console.log('⬡ Ghost Motion loaded');
 </script>
-</body>
-</html>

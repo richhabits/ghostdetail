@@ -375,6 +375,86 @@ header[style*="sticky"] > div{
   }
 }
 </style>
+<style id="ghost-motion-css">
+/* Pre-animation states — prevent flash of unstyled content */
+.hero-title,.hero-sub,.hero-reg-wrap,.hero-stats,header{
+  will-change:transform,opacity;
+}
+/* Smooth scroll */
+html{scroll-behavior:smooth}
+/* Cursor */
+*{cursor:none!important}
+#ghost-cursor{
+  position:fixed;width:10px;height:10px;
+  background:var(--gold,#c5a059);border-radius:50%;
+  pointer-events:none;z-index:99999;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,background .2s;
+  mix-blend-mode:difference;
+}
+#ghost-cursor-ring{
+  position:fixed;width:36px;height:36px;
+  border:1px solid rgba(197,160,89,.5);border-radius:50%;
+  pointer-events:none;z-index:99998;
+  transform:translate(-50%,-50%);
+  transition:all .12s ease;
+}
+a:hover ~ #ghost-cursor, button:hover ~ #ghost-cursor{
+  width:20px;height:20px;
+}
+</style>
+<div id="ghost-cursor"></div>
+<div id="ghost-cursor-ring"></div>
+<script>
+(function(){
+  var cur = document.getElementById('ghost-cursor');
+  var ring = document.getElementById('ghost-cursor-ring');
+  if(!cur||!ring) return;
+  var mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',function(e){
+    mx=e.clientX;my=e.clientY;
+    cur.style.left=mx+'px';cur.style.top=my+'px';
+  });
+  function animRing(){
+    rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+    ring.style.left=rx+'px';ring.style.top=ry+'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  // Expand on hover
+  document.querySelectorAll('a,button,[onclick]').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      cur.style.width='16px';cur.style.height='16px';
+      ring.style.width='52px';ring.style.height='52px';
+      ring.style.borderColor='rgba(197,160,89,.8)';
+    });
+    el.addEventListener('mouseleave',function(){
+      cur.style.width='10px';cur.style.height='10px';
+      ring.style.width='36px';ring.style.height='36px';
+      ring.style.borderColor='rgba(197,160,89,.5)';
+    });
+  });
+})();
+</script>
+<style id="ghost-desktop-nav">
+@media(min-width:821px){
+  nav#gnav{
+    display:flex!important;
+    position:static!important;
+    flex-direction:row!important;
+    background:transparent!important;
+    padding:0!important;
+    border:none!important;
+    gap:28px!important;
+  }
+  nav#gnav a{
+    padding:0!important;
+    border:none!important;
+    display:inline-block!important;
+  }
+  button#gham{display:none!important}
+}
+</style>
 </head>
 <body>
 <header style="position:sticky;top:0;z-index:1000;background:#0a0905;border-bottom:1px solid rgba(197,160,89,.1);height:60px;display:flex;align-items:center;padding:0 clamp(16px,4vw,48px)">
@@ -451,5 +531,173 @@ header[style*="sticky"] > div{
   footer>div>div:first-child>nav{grid-template-columns:repeat(2,1fr)!important}
 }
 </style>
+<script type="module" id="ghost-motion-module">
+import { 
+  animate, scroll, inView, stagger, 
+  spring, hover, press
+} from "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm";
+
+/* ── GHOST DETAIL · MOTION SYSTEM ─────────────────────────────── */
+
+const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];
+const EASE_OUT_BACK = [0.34, 1.56, 0.64, 1];
+const EASE_SMOOTH  = [0.25, 0.1, 0.25, 1];
+
+/* ── 1. NAV ENTRANCE ─────────────────────────────────────────── */
+const nav = document.querySelector('header');
+if(nav) {
+  animate(nav, 
+    { opacity: [0, 1], y: [-16, 0] }, 
+    { duration: 0.6, ease: EASE_OUT_EXPO }
+  );
+}
+
+/* ── 2. HERO TITLE — WORD-BY-WORD STAGGER ───────────────────── */
+const heroTitle = document.querySelector('.hero-title');
+if(heroTitle) {
+  // Split into words
+  const html = heroTitle.innerHTML;
+  const words = heroTitle.querySelectorAll('*');
+  animate(heroTitle,
+    { opacity: [0, 1], y: [48, 0] },
+    { duration: 0.9, ease: EASE_OUT_EXPO, delay: 0.1 }
+  );
+}
+
+/* ── 3. HERO SUB + REG INPUT ─────────────────────────────────── */
+const heroSub = document.querySelector('.hero-sub');
+if(heroSub) animate(heroSub, { opacity:[0,1], y:[24,0] }, { duration:0.7, ease:EASE_OUT_EXPO, delay:0.3 });
+
+const regWrap = document.querySelector('.hero-reg-wrap');
+if(regWrap) animate(regWrap, { opacity:[0,1], y:[20,0] }, { duration:0.6, ease:EASE_OUT_EXPO, delay:0.5 });
+
+const heroStats = document.querySelector('.hero-stats');
+if(heroStats) animate(heroStats, { opacity:[0,1] }, { duration:0.8, delay:0.7 });
+
+/* ── 4. SCROLL-TRIGGERED REVEALS ─────────────────────────────── */
+// Every h1, h2 fades up when scrolled into view
+document.querySelectorAll('h1:not(.hero-title), h2, h3').forEach(el => {
+  inView(el, () => {
+    animate(el, { opacity:[0,1], y:[30,0] }, { duration:0.6, ease:EASE_OUT_EXPO });
+  }, { margin: '-8% 0px' });
+});
+
+// Paragraphs and description text
+document.querySelectorAll('p:not(.hero-sub)').forEach((el, i) => {
+  inView(el, () => {
+    animate(el, { opacity:[0,1], y:[16,0] }, { duration:0.5, ease:EASE_SMOOTH });
+  }, { margin: '-5% 0px' });
+});
+
+/* ── 5. GRID STAGGER — cards animate in sequence ─────────────── */
+const gridSelectors = [
+  '[style*="grid-template-columns:repeat(3"]',
+  '[style*="grid-template-columns:repeat(2"]', 
+  '[style*="grid-template-columns:1fr 1fr"]',
+  '[style*="grid-template-columns: repeat"]'
+];
+
+gridSelectors.forEach(sel => {
+  document.querySelectorAll(sel).forEach(grid => {
+    const kids = Array.from(grid.children).filter(c => 
+      !c.querySelector('input') && c.textContent.trim().length > 0
+    );
+    if(kids.length < 2 || kids.length > 16) return;
+    inView(grid, () => {
+      animate(kids, 
+        { opacity:[0,1], y:[24,0], scale:[0.97,1] }, 
+        { duration:0.5, delay: stagger(0.07), ease:EASE_OUT_EXPO }
+      );
+    }, { margin: '-5% 0px' });
+  });
+});
+
+/* ── 6. SERVICE CARDS — border glow on hover ─────────────────── */
+document.querySelectorAll('.svc-card, [class*="service-card"]').forEach(card => {
+  hover(card, () => {
+    animate(card, { scale: 1.01 }, { type:'spring', stiffness:400, damping:25 });
+    return () => animate(card, { scale: 1 }, { type:'spring', stiffness:400, damping:25 });
+  });
+});
+
+/* ── 7. BOOK NOW BUTTON — magnetic pull ─────────────────────── */
+document.querySelectorAll('.hero-reg-btn, [href*="booking"], .nav-cta, [class*="book"]').forEach(btn => {
+  if(btn.tagName === 'INPUT' || btn.type === 'text') return;
+  press(btn, () => {
+    animate(btn, { scale: 0.95 }, { type:'spring', stiffness:500, damping:30 });
+    return () => animate(btn, { scale: 1 }, { type:'spring', stiffness:500, damping:30 });
+  });
+});
+
+/* ── 8. SCROLL PARALLAX on hero canvas ─────────────────────────── */
+const heroSection = document.querySelector('.hero');
+if(heroSection) {
+  scroll(({ y }) => {
+    const progress = y.progress;
+    if(progress > 0.3) return;
+    animate(heroSection, { 
+      opacity: 1 - progress * 2 
+    }, { duration: 0 });
+  }, { target: heroSection });
+}
+
+/* ── 9. STAT COUNTERS — count up animation ─────────────────── */
+document.querySelectorAll('.hstat-n, .stat-n').forEach(el => {
+  const text = el.textContent.trim();
+  const num = parseInt(text.replace(/[^0-9]/g,''));
+  if(!num || num < 5) return;
+  const suffix = text.replace(/[0-9]/g,'');
+  inView(el, () => {
+    const start = performance.now();
+    const dur = 1500;
+    const easeOut = t => 1 - Math.pow(1 - t, 3);
+    const tick = () => {
+      const elapsed = performance.now() - start;
+      const progress = Math.min(elapsed / dur, 1);
+      el.textContent = Math.round(easeOut(progress) * num) + suffix;
+      if(progress < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }, { margin: '-10% 0px' });
+});
+
+/* ── 10. GOLD LINE DRAW on section dividers ────────────────── */
+document.querySelectorAll('[style*="border-bottom:1px solid rgba(197,160,89"]').forEach(el => {
+  inView(el, () => {
+    animate(el, { opacity:[0,1] }, { duration:0.8, ease:EASE_SMOOTH });
+  }, { margin: '-5% 0px' });
+});
+
+/* ── 11. FOOTER REVEAL ────────────────────────────────────── */
+const footer = document.querySelector('footer');
+if(footer) {
+  inView(footer, () => {
+    const cols = footer.querySelectorAll('div > div, div > a, div > p');
+    animate(Array.from(cols).slice(0,8), 
+      { opacity:[0,1], y:[20,0] }, 
+      { duration:0.5, delay: stagger(0.05), ease:EASE_SMOOTH }
+    );
+  }, { margin: '-10% 0px' });
+}
+
+/* ── 12. VEHICLE RESULT CARD — spring in ────────────────── */
+const observer = new MutationObserver(mutations => {
+  mutations.forEach(m => {
+    m.addedNodes.forEach(node => {
+      if(node.id === 'hero-vehicle-result' || 
+         node.id === 'booking-vehicle-banner' ||
+         node.id === 'dvla-preview') {
+        animate(node, 
+          { opacity:[0,1], y:[12,0], scale:[0.97,1] }, 
+          { type:'spring', stiffness:400, damping:28 }
+        );
+      }
+    });
+  });
+});
+observer.observe(document.body, { childList:true, subtree:true });
+
+console.log('⬡ Ghost Motion loaded');
+</script>
 </body>
 </html>
