@@ -288,11 +288,11 @@ footer{background:var(--vault);border-top:1px solid rgba(197,160,89,.06);padding
 .brain-pill::after{content:'';display:inline-block;width:5px;height:5px;background:var(--green);border-radius:50%;float:right;margin-top:5px}
 
 /* ── MAIN CONTENT AREA ── */
-.main{flex:1;overflow-y:auto;display:flex;flex-direction:column;min-width:0}
+.main{flex:1;overflow-y:auto;display:flex;flex-direction:column;min-width:0;min-height:0;height:calc(100vh - 52px)}
 
 /* ── PANES ── */
-.pane{display:none;flex:1;flex-direction:column;padding:28px 32px}
-.pane.on{display:flex}
+.pane{display:none;flex:1;flex-direction:column;padding:28px 32px;min-height:0;height:100%;overflow:hidden}
+.pane.on{display:flex !important;flex-direction:column}
 
 /* Overview pane - Jarvis screen */
 .jarvis-screen{background:#0d0c09;border:1px solid rgba(197,160,89,.1);padding:28px;margin-bottom:24px;position:relative;overflow:hidden}
@@ -386,7 +386,7 @@ footer{background:var(--vault);border-top:1px solid rgba(197,160,89,.06);padding
 .main::-webkit-scrollbar-thumb{background:rgba(197,160,89,.1)}
 
 /* ── CHAT CLASS ALIASES (bridge old names → new design) ── */
-.chat-wrap{display:flex;flex-direction:column;flex:1;min-height:0;height:calc(100vh - 52px - 80px)}
+.chat-wrap{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden}
 .chat-hdr{padding:16px 0 14px;border-bottom:1px solid rgba(197,160,89,.07);flex-shrink:0;display:flex;align-items:center;gap:10px;margin-bottom:0}
 .chat-hdr .ch-ico{font-size:20px;width:28px;text-align:center}
 .chat-hdr .ch-name{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.1em;color:var(--gold);text-transform:uppercase}
