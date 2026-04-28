@@ -21,11 +21,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:72px;d
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
 .hex{width:26px;height:26px;background:var(--gold);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);animation:breathe 3s ease-in-out infinite}
 @keyframes breathe{0%,100%{filter:brightness(1)}50%{filter:brightness(1.25)}}
-.nav-brand{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+.nav-brand{font-family:DM Mono,monospace;font-size:13px;font-weight:500;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
 .progress-bar{position:fixed;top:72px;left:0;right:0;z-index:99;height:3px;background:rgba(197,160,89,.08)}
 .progress-fill{height:100%;background:var(--gold);transition:width .5s var(--ease)}
 .steps-indicator{position:fixed;top:75px;left:0;right:0;z-index:99;display:flex;justify-content:center;gap:8px;padding:12px;background:rgba(10,9,5,.85);backdrop-filter:blur(8px);border-bottom:1px solid rgba(197,160,89,.05)}
-.step-dot{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:6px}
+.step-dot{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:6px}
 .step-dot.active{color:var(--gold)}
 .step-dot.done{color:var(--green)}
 .step-dot::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--muted);transition:background .3s}
@@ -33,7 +33,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:72px;d
 .step-dot.done::before{background:var(--green)}
 .booking-wrap{min-height:100vh;padding:160px 48px 120px;max-width:900px;margin:0 auto}
 .step{display:none}.step.active{display:block}
-.step-num{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.step-num{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
 h1{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,56px);font-weight:900;line-height:1;margin-bottom:8px}
 h1 em,h2 em{font-style:italic;color:var(--gold)}
 h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1;margin-bottom:8px}
@@ -43,45 +43,45 @@ h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weig
 .svc-card:hover{border-color:rgba(197,160,89,.4);background:var(--surface)}
 .svc-card.selected{border-color:var(--gold);background:rgba(197,160,89,.06)}
 .svc-card.selected::after{content:'✓';position:absolute;top:12px;right:14px;font-size:14px;color:var(--gold)}
-.svc-tag{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.svc-tag{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
 .svc-name{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:6px}
-.svc-price{font-family:'DM Mono',monospace;font-size:20px;color:var(--gold);margin-bottom:8px}
+.svc-price{font-family:DM Mono,monospace;font-size:20px;color:var(--gold);margin-bottom:8px}
 .svc-includes{font-size:12px;color:var(--muted);line-height:1.7}
-.svc-dur{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid rgba(197,160,89,.08)}
+.svc-dur{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid rgba(197,160,89,.08)}
 .upsell-section{margin-bottom:32px}
-.upsell-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.upsell-lbl{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
 .upsell-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .upsell-card{background:var(--vault);border:1px solid rgba(197,160,89,.1);padding:18px;cursor:pointer;transition:all .3s var(--ease);position:relative}
 .upsell-card:hover{border-color:rgba(197,160,89,.3)}
 .upsell-card.selected{border-color:var(--banana);background:rgba(249,249,6,.03)}
 .upsell-card.selected::after{content:'✓';position:absolute;top:10px;right:12px;font-size:12px;color:var(--banana)}
 .uc-icon{font-size:24px;margin-bottom:8px}
-.uc-name{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text);margin-bottom:4px}
+.uc-name{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text);margin-bottom:4px}
 .uc-price{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);margin-bottom:4px}
 .uc-desc{font-size:11px;color:var(--muted);line-height:1.6}
 .price-summary{background:rgba(197,160,89,.05);border:1px solid rgba(197,160,89,.15);padding:20px;margin-bottom:24px}
-.ps-row{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;padding:5px 0;color:var(--muted)}
+.ps-row{display:flex;justify-content:space-between;font-family:DM Mono,monospace;font-size:11px;letter-spacing:.06em;padding:5px 0;color:var(--muted)}
 .ps-row.total{border-top:1px solid rgba(197,160,89,.15);margin-top:8px;padding-top:12px;font-size:14px;color:var(--gold)}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
 .fg{margin-bottom:14px}
-.fl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
-.fi{width:100%;background:#030303;border:1px solid rgba(197,160,89,.15);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:11px 14px;outline:none;transition:border-color .3s}
+.fl{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+.fi{width:100%;background:#030303;border:1px solid rgba(197,160,89,.15);color:var(--text);font-family:DM Mono,monospace;font-size:13px;padding:11px 14px;outline:none;transition:border-color .3s}
 .fi:focus{border-color:var(--gold)}
 select.fi{cursor:pointer}
 .uk-plate{display:flex;background:#F5F0C8;border-radius:3px;overflow:hidden;margin-bottom:6px}
 .uk-gb{background:#003399;width:36px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 0;flex-shrink:0}
 .uk-gb-stars{color:#FFD700;font-size:4px;letter-spacing:1px}
-.uk-gb-txt{color:#fff;font-family:'DM Mono',monospace;font-size:11px;font-weight:500}
+.uk-gb-txt{color:#fff;font-family:DM Mono,monospace;font-size:11px;font-weight:500}
 .uk-in{flex:1;padding:0 12px;display:flex;align-items:center;background:#F5F0C8}
-.uk-in input{width:100%;background:transparent;border:none;outline:none;font-family:'DM Mono',monospace;font-size:26px;font-weight:500;letter-spacing:.08em;color:#111;text-transform:uppercase;padding:6px 0}
-.btn-next{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);border:none;padding:16px 48px;cursor:pointer;transition:background .3s;margin-right:12px}
+.uk-in input{width:100%;background:transparent;border:none;outline:none;font-family:DM Mono,monospace;font-size:26px;font-weight:500;letter-spacing:.08em;color:#111;text-transform:uppercase;padding:6px 0}
+.btn-next{font-family:DM Mono,monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);border:none;padding:16px 48px;cursor:pointer;transition:background .3s;margin-right:12px}
 .btn-next:hover{background:var(--gold-b)}
-.btn-back{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:transparent;border:1px solid rgba(197,160,89,.2);padding:15px 28px;cursor:pointer;transition:all .3s}
+.btn-back{font-family:DM Mono,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:transparent;border:1px solid rgba(197,160,89,.2);padding:15px 28px;cursor:pointer;transition:all .3s}
 .btn-back:hover{border-color:var(--gold);color:var(--gold)}
 .confirm-card{background:var(--vault);border:1px solid rgba(197,160,89,.12);padding:32px;margin-bottom:20px}
 .cc-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(197,160,89,.06);font-size:14px}
 .cc-label{color:var(--muted)}
-.cc-value{color:var(--text);font-family:'DM Mono',monospace;font-size:12px}
+.cc-value{color:var(--text);font-family:DM Mono,monospace;font-size:12px}
 .cc-value.highlight{color:var(--gold)}
 .success-wrap{text-align:center;padding:48px 24px;display:none}
 .success-wrap.show{display:block}
@@ -339,7 +339,7 @@ footer a:hover,nav a:hover{background-size:100% 1px;color:var(--gold)!important}
 
 <nav>
   <a href="/" class="nav-logo"><div class="hex"></div><span class="nav-brand">Ghost Detail Autos</span></a>
-  <a href="/" style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none">← Back</a>
+  <a href="/" style="font-family:DM Mono,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-decoration:none">← Back</a>
 </nav>
 
 <div class="progress-bar"><div class="progress-fill" id="prog" style="width:25%"></div></div>
@@ -429,7 +429,7 @@ footer a:hover,nav a:hover{background-size:100% 1px;color:var(--gold)!important}
         <div class="uk-gb"><div class="uk-gb-stars">★★★★★★★★★★</div><div class="uk-gb-txt">GB</div></div>
         <div class="uk-in"><input type="text" id="b-reg" placeholder="BX19 MBT" maxlength="8" autocomplete="off" oninput="this.value=this.value.toUpperCase()" onchange="lookupReg()"></div>
       </div>
-      <div id="reg-result" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--green);margin-top:6px;display:none"></div>
+      <div id="reg-result" style="font-family:DM Mono,monospace;font-size:10px;color:var(--green);margin-top:6px;display:none"></div>
     </div>
     <div class="form-grid">
       <div class="fg"><label class="fl">Make</label><input type="text" class="fi" id="b-make" placeholder="e.g. BMW"></div>
@@ -491,7 +491,7 @@ footer a:hover,nav a:hover{background-size:100% 1px;color:var(--gold)!important}
       By submitting this booking request you agree to our <a href="/login.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Staff Login</a>
         <a href="/legal.html" style="color:var(--gold)">Terms & Conditions</a>. Romeo will contact you via WhatsApp within 2 hours to confirm your slot and send deposit payment details.
     </div>
-    <div id="booking-error" style="display:none;font-family:'DM Mono',monospace;font-size:11px;color:var(--red);margin-bottom:16px;padding:12px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2)"></div>
+    <div id="booking-error" style="display:none;font-family:DM Mono,monospace;font-size:11px;color:var(--red);margin-bottom:16px;padding:12px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2)"></div>
     <button class="btn-back" onclick="goStep(3)">← Back</button>
     <button class="btn-next" onclick="submitBooking()" id="submit-btn">Confirm Booking Request →</button>
   </div>
@@ -501,8 +501,8 @@ footer a:hover,nav a:hover{background-size:100% 1px;color:var(--gold)!important}
     <h2 class="success-title">Booking <em>Received.</em></h2>
     <p style="font-size:16px;color:var(--muted);margin-bottom:24px">Romeo will WhatsApp you within 2 hours with confirmation and deposit details.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px">
-      <a href="https://wa.me/447927576142" style="font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:#25D366;text-decoration:none;padding:12px 20px">WhatsApp Romeo</a>
-      <a href="/" style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;padding:12px 20px;border:1px solid rgba(197,160,89,.3)">Back to Home</a>
+      <a href="https://wa.me/447927576142" style="font-family:DM Mono,monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:#25D366;text-decoration:none;padding:12px 20px">WhatsApp Romeo</a>
+      <a href="/" style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;padding:12px 20px;border:1px solid rgba(197,160,89,.3)">Back to Home</a>
     </div>
   </div>
 
@@ -714,172 +714,41 @@ async function submitBooking(){
 }
 </script>
 <script type="module" id="ghost-motion-module">
-import { 
-  animate, scroll, inView, stagger, 
-  spring, hover, press
-} from "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm";
-
-/* ── GHOST DETAIL · MOTION SYSTEM ─────────────────────────────── */
-
-const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];
-const EASE_OUT_BACK = [0.34, 1.56, 0.64, 1];
-const EASE_SMOOTH  = [0.25, 0.1, 0.25, 1];
-
-/* ── 1. NAV ENTRANCE ─────────────────────────────────────────── */
-const nav = document.querySelector('header');
-if(nav) {
-  animate(nav, 
-    { opacity: [0, 1], y: [-16, 0] }, 
-    { duration: 0.6, ease: EASE_OUT_EXPO }
-  );
-}
-
-/* ── 2. HERO TITLE — WORD-BY-WORD STAGGER ───────────────────── */
-const heroTitle = document.querySelector('.hero-title');
-if(heroTitle) {
-  // Split into words
-  const html = heroTitle.innerHTML;
-  const words = heroTitle.querySelectorAll('*');
-  animate(heroTitle,
-    { opacity: [0, 1], y: [48, 0] },
-    { duration: 0.9, ease: EASE_OUT_EXPO, delay: 0.1 }
-  );
-}
-
-/* ── 3. HERO SUB + REG INPUT ─────────────────────────────────── */
-const heroSub = document.querySelector('.hero-sub');
-if(heroSub) animate(heroSub, { opacity:[0,1], y:[24,0] }, { duration:0.7, ease:EASE_OUT_EXPO, delay:0.3 });
-
-const regWrap = document.querySelector('.hero-reg-wrap');
-if(regWrap) animate(regWrap, { opacity:[0,1], y:[20,0] }, { duration:0.6, ease:EASE_OUT_EXPO, delay:0.5 });
-
-const heroStats = document.querySelector('.hero-stats');
-if(heroStats) animate(heroStats, { opacity:[0,1] }, { duration:0.8, delay:0.7 });
-
-/* ── 4. SCROLL-TRIGGERED REVEALS ─────────────────────────────── */
-// Every h1, h2 fades up when scrolled into view
-document.querySelectorAll('h1:not(.hero-title), h2, h3').forEach(el => {
-  inView(el, () => {
-    animate(el, { opacity:[0,1], y:[30,0] }, { duration:0.6, ease:EASE_OUT_EXPO });
-  }, { margin: '-8% 0px' });
+import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm";
+const EXPO=[0.16,1,0.3,1];
+const nav=document.querySelector('header');
+if(nav) animate(nav,{opacity:[0,1],y:[-16,0]},{duration:0.5,ease:EXPO});
+const ht=document.querySelector('.hero-title');
+if(ht) animate(ht,{opacity:[0,1],y:[48,0]},{duration:0.9,ease:EXPO,delay:0.1});
+const hs=document.querySelector('.hero-sub');
+if(hs) animate(hs,{opacity:[0,1],y:[24,0]},{duration:0.7,ease:EXPO,delay:0.3});
+const rw=document.querySelector('.hero-reg-wrap');
+if(rw) animate(rw,{opacity:[0,1],y:[20,0]},{duration:0.6,ease:EXPO,delay:0.5});
+document.querySelectorAll('h1:not(.hero-title),h2,h3').forEach(el=>{
+  inView(el,()=>{animate(el,{opacity:[0,1],y:[28,0]},{duration:0.6,ease:EXPO});},{margin:'-8% 0px'});
 });
-
-// Paragraphs and description text
-document.querySelectorAll('p:not(.hero-sub)').forEach((el, i) => {
-  inView(el, () => {
-    animate(el, { opacity:[0,1], y:[16,0] }, { duration:0.5, ease:EASE_SMOOTH });
-  }, { margin: '-5% 0px' });
+document.querySelectorAll('[style*="grid-template-columns"]').forEach(grid=>{
+  const kids=Array.from(grid.children).filter(c=>c.textContent.trim().length>0&&!c.querySelector('input'));
+  if(kids.length<2||kids.length>16) return;
+  inView(grid,()=>{
+    animate(kids,{opacity:[0,1],y:[20,0],scale:[0.97,1]},{duration:0.5,delay:stagger(0.07),ease:EXPO});
+  },{margin:'-5% 0px'});
 });
-
-/* ── 5. GRID STAGGER — cards animate in sequence ─────────────── */
-const gridSelectors = [
-  '[style*="grid-template-columns:repeat(3"]',
-  '[style*="grid-template-columns:repeat(2"]', 
-  '[style*="grid-template-columns:1fr 1fr"]',
-  '[style*="grid-template-columns: repeat"]'
-];
-
-gridSelectors.forEach(sel => {
-  document.querySelectorAll(sel).forEach(grid => {
-    const kids = Array.from(grid.children).filter(c => 
-      !c.querySelector('input') && c.textContent.trim().length > 0
-    );
-    if(kids.length < 2 || kids.length > 16) return;
-    inView(grid, () => {
-      animate(kids, 
-        { opacity:[0,1], y:[24,0], scale:[0.97,1] }, 
-        { duration:0.5, delay: stagger(0.07), ease:EASE_OUT_EXPO }
-      );
-    }, { margin: '-5% 0px' });
-  });
-});
-
-/* ── 6. SERVICE CARDS — border glow on hover ─────────────────── */
-document.querySelectorAll('.svc-card, [class*="service-card"]').forEach(card => {
-  hover(card, () => {
-    animate(card, { scale: 1.01 }, { type:'spring', stiffness:400, damping:25 });
-    return () => animate(card, { scale: 1 }, { type:'spring', stiffness:400, damping:25 });
-  });
-});
-
-/* ── 7. BOOK NOW BUTTON — magnetic pull ─────────────────────── */
-document.querySelectorAll('.hero-reg-btn, [href*="booking"], .nav-cta, [class*="book"]').forEach(btn => {
-  if(btn.tagName === 'INPUT' || btn.type === 'text') return;
-  press(btn, () => {
-    animate(btn, { scale: 0.95 }, { type:'spring', stiffness:500, damping:30 });
-    return () => animate(btn, { scale: 1 }, { type:'spring', stiffness:500, damping:30 });
-  });
-});
-
-/* ── 8. SCROLL PARALLAX on hero canvas ─────────────────────────── */
-const heroSection = document.querySelector('.hero');
-if(heroSection) {
-  scroll(({ y }) => {
-    const progress = y.progress;
-    if(progress > 0.3) return;
-    animate(heroSection, { 
-      opacity: 1 - progress * 2 
-    }, { duration: 0 });
-  }, { target: heroSection });
-}
-
-/* ── 9. STAT COUNTERS — count up animation ─────────────────── */
-document.querySelectorAll('.hstat-n, .stat-n').forEach(el => {
-  const text = el.textContent.trim();
-  const num = parseInt(text.replace(/[^0-9]/g,''));
-  if(!num || num < 5) return;
-  const suffix = text.replace(/[0-9]/g,'');
-  inView(el, () => {
-    const start = performance.now();
-    const dur = 1500;
-    const easeOut = t => 1 - Math.pow(1 - t, 3);
-    const tick = () => {
-      const elapsed = performance.now() - start;
-      const progress = Math.min(elapsed / dur, 1);
-      el.textContent = Math.round(easeOut(progress) * num) + suffix;
-      if(progress < 1) requestAnimationFrame(tick);
-    };
+document.querySelectorAll('.hstat-n,.stat-n').forEach(el=>{
+  const text=el.textContent.trim();
+  const num=parseInt(text.replace(/[^0-9]/g,''));
+  if(!num||num<5) return;
+  const suffix=text.replace(/[0-9]/g,'');
+  inView(el,()=>{
+    const s=performance.now(),d=1500;
+    const tick=()=>{const p=Math.min((performance.now()-s)/d,1);el.textContent=Math.round((1-Math.pow(1-p,3))*num)+suffix;if(p<1)requestAnimationFrame(tick);};
     requestAnimationFrame(tick);
-  }, { margin: '-10% 0px' });
+  },{margin:'-10% 0px'});
 });
-
-/* ── 10. GOLD LINE DRAW on section dividers ────────────────── */
-document.querySelectorAll('[style*="border-bottom:1px solid rgba(197,160,89"]').forEach(el => {
-  inView(el, () => {
-    animate(el, { opacity:[0,1] }, { duration:0.8, ease:EASE_SMOOTH });
-  }, { margin: '-5% 0px' });
-});
-
-/* ── 11. FOOTER REVEAL ────────────────────────────────────── */
-const footer = document.querySelector('footer');
-if(footer) {
-  inView(footer, () => {
-    const cols = footer.querySelectorAll('div > div, div > a, div > p');
-    animate(Array.from(cols).slice(0,8), 
-      { opacity:[0,1], y:[20,0] }, 
-      { duration:0.5, delay: stagger(0.05), ease:EASE_SMOOTH }
-    );
-  }, { margin: '-10% 0px' });
-}
-
-/* ── 12. VEHICLE RESULT CARD — spring in ────────────────── */
-const observer = new MutationObserver(mutations => {
-  mutations.forEach(m => {
-    m.addedNodes.forEach(node => {
-      if(node.id === 'hero-vehicle-result' || 
-         node.id === 'booking-vehicle-banner' ||
-         node.id === 'dvla-preview') {
-        animate(node, 
-          { opacity:[0,1], y:[12,0], scale:[0.97,1] }, 
-          { type:'spring', stiffness:400, damping:28 }
-        );
-      }
-    });
-  });
-});
-observer.observe(document.body, { childList:true, subtree:true });
-
-console.log('⬡ Ghost Motion loaded');
+new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
+  if(n.id&&['hero-vehicle-result','booking-vehicle-banner','dvla-preview','concierge-vehicle-result'].includes(n.id))
+    animate(n,{opacity:[0,1],y:[12,0],scale:[0.97,1]},{duration:0.4,ease:EXPO});
+}))).observe(document.body,{childList:true,subtree:true});
 </script>
 </body>
 </html>

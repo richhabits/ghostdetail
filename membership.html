@@ -58,12 +58,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .nav-inner{max-width:var(--wide);margin:0 auto;height:100%;padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between}
 .nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
 .hex{width:24px;height:24px;background:var(--gold);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);animation:breathe 3s ease-in-out infinite}
-.nav-brand{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
+.nav-brand{font-family:DM Mono,monospace;font-size:11px;font-weight:500;letter-spacing:.16em;color:var(--gold);text-transform:uppercase}
 .nav-links{display:flex;gap:0;list-style:none;align-items:center}
-.nav-links a{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);text-decoration:none;padding:5px 9px;transition:color .2s}
+.nav-links a{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);text-decoration:none;padding:5px 9px;transition:color .2s}
 .nav-links a:hover{color:var(--text)}
-.nav-pillar{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(197,160,89,.2);color:var(--gold) !important;text-decoration:none;margin-right:4px}
-.nav-cta{background:var(--gold);color:#0A0905 !important;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:7px 16px;text-decoration:none;margin-left:8px;flex-shrink:0}
+.nav-pillar{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border:1px solid rgba(197,160,89,.2);color:var(--gold) !important;text-decoration:none;margin-right:4px}
+.nav-cta{background:var(--gold);color:#0A0905 !important;font-family:DM Mono,monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:7px 16px;text-decoration:none;margin-left:8px;flex-shrink:0}
 .ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px}.ham span{width:22px;height:1px;background:var(--gold)}
 @media(max-width:880px){.nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:rgba(10,9,5,.98);flex-direction:column;align-items:stretch;border-bottom:1px solid rgba(197,160,89,.08)}.nav-links.open{display:flex}.nav-links a,.nav-pillar{padding:13px var(--pad);font-size:10px;display:block;border-bottom:1px solid rgba(197,160,89,.05);margin:0;border-left:none;border-right:none;border-top:none;border-radius:0}.ham{display:flex}.nav-cta{display:none}}
 
@@ -71,17 +71,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .hero{min-height:100svh;display:flex;align-items:center;justify-content:center;position:relative;background:radial-gradient(ellipse 70% 60% at 50% 40%,rgba(197,160,89,.06) 0%,transparent 65%),var(--charcoal);text-align:center}
 .hero-lines{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(197,160,89,.02) 80px)}
 .hero-inner{position:relative;z-index:2;max-width:var(--max);margin:0 auto;padding:100px var(--pad) 60px;width:100%}
-.hero-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);margin-bottom:24px;animation:fadeUp .7s var(--ease) .05s both}
+.hero-eyebrow{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);margin-bottom:24px;animation:fadeUp .7s var(--ease) .05s both}
 .hero-title{font-family:'Playfair Display',serif;font-size:clamp(48px,7vw,88px);font-weight:900;line-height:1.0;margin-bottom:22px;animation:fadeUp .7s var(--ease) .1s both;letter-spacing:-.02em}
 .hero-title em{font-style:italic;color:var(--gold)}
 .hero-sub{font-size:15px;color:var(--muted2);max-width:520px;line-height:1.75;margin:0 auto 36px;animation:fadeUp .7s var(--ease) .2s both}
 .hero-pillars{display:flex;gap:10px;justify-content:center;margin-bottom:48px;flex-wrap:wrap;animation:fadeUp .7s var(--ease) .25s both}
-.pillar-badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1px solid rgba(197,160,89,.2);color:var(--muted2);text-decoration:none;transition:all .25s}
+.pillar-badge{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:7px 14px;border:1px solid rgba(197,160,89,.2);color:var(--muted2);text-decoration:none;transition:all .25s}
 .pillar-badge:hover,.pillar-badge.studio{border-color:rgba(197,160,89,.4);color:var(--gold)}
 .hero-stats{display:flex;justify-content:center;gap:1px;background:rgba(197,160,89,.06);border:1px solid rgba(197,160,89,.06);max-width:520px;margin:0 auto 48px;animation:fadeUp .7s var(--ease) .3s both}
 .hstat{padding:14px 20px;flex:1}
 .hstat-n{font-family:'Playfair Display',serif;font-size:20px;color:var(--gold);font-weight:700}
-.hstat-l{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.hstat-l{font-family:DM Mono,monospace;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:2px}
 
 /* ── JADE — centred card ── */
 .jade-wrap{animation:fadeUp .7s var(--ease) .35s both}
@@ -90,23 +90,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .jade-scan{position:absolute;left:0;right:0;height:1px;background:rgba(249,249,6,.05);animation:scanline 3s linear infinite;pointer-events:none}
 .jade-header{display:flex;align-items:center;gap:10px;margin-bottom:20px}
 .jade-ico{width:30px;height:30px;background:rgba(249,249,6,.08);border:1px solid rgba(249,249,6,.18);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
-.jade-title{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--banana)}
+.jade-title{font-family:DM Mono,monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--banana)}
 .jade-sub-txt{font-size:10px;color:var(--muted);margin-top:2px}
 .jade-progress{display:flex;gap:5px;margin-bottom:16px}
 .jade-prog-dot{width:6px;height:6px;border-radius:50%;background:rgba(249,249,6,.12);transition:background .3s}
 .jade-prog-dot.done{background:var(--banana)}
 .jade-step{display:none}.jade-step.active{display:block}
-.jade-q{font-family:'DM Mono',monospace;font-size:11px;color:var(--text);margin-bottom:12px;letter-spacing:.04em}
+.jade-q{font-family:DM Mono,monospace;font-size:11px;color:var(--text);margin-bottom:12px;letter-spacing:.04em}
 .jade-options{display:flex;flex-direction:column;gap:6px}
-.jade-opt{background:transparent;border:1px solid rgba(249,249,6,.1);color:var(--muted2);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.05em;padding:10px 14px;cursor:pointer;text-align:left;transition:all .2s;width:100%}
+.jade-opt{background:transparent;border:1px solid rgba(249,249,6,.1);color:var(--muted2);font-family:DM Mono,monospace;font-size:10px;letter-spacing:.05em;padding:10px 14px;cursor:pointer;text-align:left;transition:all .2s;width:100%}
 .jade-opt:hover{border-color:rgba(249,249,6,.4);color:var(--text);background:rgba(249,249,6,.04)}
-.jade-or{display:flex;align-items:center;gap:10px;margin:12px 0;font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.jade-or{display:flex;align-items:center;gap:10px;margin:12px 0;font-family:DM Mono,monospace;font-size:8px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
 .jade-or::before,.jade-or::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.06)}
 .jade-free{display:flex;gap:8px}
-.jade-free input{flex:1;background:rgba(249,249,6,.03);border:1px solid rgba(249,249,6,.1);color:var(--text);font-family:'DM Mono',monospace;font-size:11px;padding:10px 12px;outline:none}
+.jade-free input{flex:1;background:rgba(249,249,6,.03);border:1px solid rgba(249,249,6,.1);color:var(--text);font-family:DM Mono,monospace;font-size:11px;padding:10px 12px;outline:none}
 .jade-free input::placeholder{color:var(--muted)}
 .jade-free input:focus{border-color:rgba(249,249,6,.35)}
-.jade-free button{background:rgba(249,249,6,.1);border:1px solid rgba(249,249,6,.2);color:var(--banana);font-family:'DM Mono',monospace;font-size:10px;padding:0 16px;cursor:pointer;transition:background .2s}
+.jade-free button{background:rgba(249,249,6,.1);border:1px solid rgba(249,249,6,.2);color:var(--banana);font-family:DM Mono,monospace;font-size:10px;padding:0 16px;cursor:pointer;transition:background .2s}
 .jade-free button:hover{background:rgba(249,249,6,.18)}
 .jade-loading{display:none;align-items:center;gap:10px;padding:14px 0}
 .jade-dots span{width:4px;height:4px;background:var(--banana);border-radius:50%;display:inline-block;animation:blink 1.2s infinite}
@@ -114,14 +114,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .jade-result{display:none;border-top:1px solid rgba(249,249,6,.1);padding-top:16px;margin-top:16px}
 .jade-verdict{font-size:13px;color:var(--text);line-height:1.75;margin-bottom:14px}
 .jade-ctas{display:flex;gap:8px;flex-wrap:wrap}
-.jade-book{background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:10px 20px;text-decoration:none}
-.jade-reset{background:none;border:none;color:var(--muted);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;cursor:pointer;padding:10px 8px}
+.jade-book{background:var(--gold);color:#0A0905;font-family:DM Mono,monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:10px 20px;text-decoration:none}
+.jade-reset{background:none;border:none;color:var(--muted);font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;cursor:pointer;padding:10px 8px}
 
 /* ── SECTIONS — all centred ── */
 .section{padding:80px 0}
 .section-vault{padding:80px 0;background:var(--vault)}
 .section-dark{padding:80px 0;background:linear-gradient(135deg,rgba(197,160,89,.03),transparent),var(--charcoal);border-top:1px solid rgba(197,160,89,.06);border-bottom:1px solid rgba(197,160,89,.06)}
-.eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);margin-bottom:10px}
+.eyebrow{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted2);margin-bottom:10px}
 .sec-title{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);font-weight:900;line-height:1.08;margin-bottom:12px;letter-spacing:-.01em}
 .sec-title em{font-style:italic;color:var(--gold)}
 .sec-sub{font-size:14px;color:var(--muted2);max-width:480px;margin:0 auto 40px;line-height:1.75}
@@ -133,21 +133,21 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .plate-stars{font-size:3px;letter-spacing:1px;color:#FFCC00;display:block}
 .plate-gb-txt{font-size:9px;font-weight:700;color:#fff;letter-spacing:.08em;font-family:sans-serif}
 .plate-input-wrap{background:#F9F906;padding:4px 14px;display:flex;align-items:center}
-.plate-input-wrap input{background:transparent;border:none;outline:none;font-family:'DM Mono',monospace;font-size:clamp(22px,4vw,32px);font-weight:500;letter-spacing:.16em;color:#1A1410;width:clamp(140px,30vw,220px);text-transform:uppercase;text-align:center}
-.plate-btn{background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border:none;padding:12px 32px;cursor:pointer;transition:opacity .2s}
+.plate-input-wrap input{background:transparent;border:none;outline:none;font-family:DM Mono,monospace;font-size:clamp(22px,4vw,32px);font-weight:500;letter-spacing:.16em;color:#1A1410;width:clamp(140px,30vw,220px);text-transform:uppercase;text-align:center}
+.plate-btn{background:var(--gold);color:#0A0905;font-family:DM Mono,monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;border:none;padding:12px 32px;cursor:pointer;transition:opacity .2s}
 .plate-btn:hover{opacity:.85}
-.plate-err{font-family:'DM Mono',monospace;font-size:11px;color:var(--red);display:none}
+.plate-err{font-family:DM Mono,monospace;font-size:11px;color:var(--red);display:none}
 .plate-err.show{display:block}
 .plate-result{display:none;background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.12);padding:28px;max-width:560px;margin:0 auto;text-align:left}
 .plate-result.show{display:block}
 /* Identity bar */
 .pr-identity{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(197,160,89,.08);flex-wrap:wrap;gap:8px}
 .pr-make{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--text);letter-spacing:-.01em}
-.pr-year{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted2);margin-top:3px}
+.pr-year{font-family:DM Mono,monospace;font-size:11px;color:var(--muted2);margin-top:3px}
 .pr-colour-swatch{width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,.1);flex-shrink:0}
 /* Status pills */
 .pr-status-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.pr-pill{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:2px;display:inline-flex;align-items:center;gap:5px;font-weight:500}
+.pr-pill{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:5px 12px;border-radius:2px;display:inline-flex;align-items:center;gap:5px;font-weight:500}
 .pr-pill.ok{background:rgba(16,185,129,.12);color:#10B981;border:1px solid rgba(16,185,129,.2)}
 .pr-pill.warn{background:rgba(245,158,11,.12);color:#F59E0B;border:1px solid rgba(245,158,11,.2)}
 .pr-pill.bad{background:rgba(239,68,68,.12);color:#EF4444;border:1px solid rgba(239,68,68,.2)}
@@ -155,16 +155,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 /* Data grid */
 .pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(197,160,89,.05);border:1px solid rgba(197,160,89,.07);margin-bottom:14px}
 .pr-cell{background:var(--charcoal);padding:12px 10px;text-align:center}
-.pr-label{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-.pr-val{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--text)}
+.pr-label{font-family:DM Mono,monospace;font-size:7px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.pr-val{font-family:DM Mono,monospace;font-size:13px;font-weight:500;color:var(--text)}
 /* Recommendations */
 .pr-recs{margin-bottom:16px}
-.pr-rec{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
+.pr-rec{font-family:DM Mono,monospace;font-size:9px;color:var(--muted2);padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:flex-start;gap:8px;line-height:1.5}
 .pr-rec::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:1px}
-.pr-source{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);margin-bottom:14px;text-align:center}
+.pr-source{font-family:DM Mono,monospace;font-size:8px;color:var(--muted);margin-bottom:14px;text-align:center}
 .pr-ctas{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.pr-cta{display:inline-block;background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:11px 24px;text-decoration:none}
-.pr-cta-2{display:inline-block;border:1px solid rgba(197,160,89,.22);color:var(--muted2);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:11px 20px;text-decoration:none;transition:all .2s}
+.pr-cta{display:inline-block;background:var(--gold);color:#0A0905;font-family:DM Mono,monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:11px 24px;text-decoration:none}
+.pr-cta-2{display:inline-block;border:1px solid rgba(197,160,89,.22);color:var(--muted2);font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:11px 20px;text-decoration:none;transition:all .2s}
 .pr-cta-2:hover{border-color:var(--gold);color:var(--gold)}
 
 /* ── DUAL PILLAR SPLIT — centred cards ── */
@@ -175,7 +175,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .pillar-card.studio::after{background:var(--gold)}
 .pillar-card.concierge::after{background:var(--green)}
 .pillar-card:hover::after{width:100%}
-.pc-num{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;color:var(--muted);margin-bottom:20px}
+.pc-num{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.18em;color:var(--muted);margin-bottom:20px}
 .pc-icon{font-size:32px;margin-bottom:16px;display:block}
 .pc-title{font-family:'Playfair Display',serif;font-size:clamp(26px,3vw,40px);font-weight:900;line-height:1.05;margin-bottom:12px}
 .pc-title em{font-style:italic}
@@ -183,11 +183,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .pillar-card.concierge .pc-title em{color:var(--green)}
 .pc-sub{font-size:13px;color:var(--muted2);line-height:1.7;margin-bottom:24px;max-width:340px;margin-left:auto;margin-right:auto}
 .pc-list{list-style:none;margin-bottom:28px;text-align:left;max-width:280px;margin-left:auto;margin-right:auto}
-.pc-list li{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--muted2);padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:8px}
+.pc-list li{font-family:DM Mono,monospace;font-size:10px;letter-spacing:.06em;color:var(--muted2);padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:8px}
 .pc-list li::before{content:'—';opacity:.4;flex-shrink:0}
 .pillar-card.studio .pc-list li::before{color:var(--gold)}
 .pillar-card.concierge .pc-list li::before{color:var(--green)}
-.pc-btn{display:inline-block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:10px 22px;border:1px solid;transition:all .2s;margin-top:8px}
+.pc-btn{display:inline-block;font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:10px 22px;border:1px solid;transition:all .2s;margin-top:8px}
 .pillar-card.studio .pc-btn{border-color:rgba(197,160,89,.3);color:var(--gold)}
 .pillar-card.studio:hover .pc-btn{background:var(--gold);color:#0A0905}
 .pillar-card.concierge .pc-btn{border-color:rgba(16,185,129,.3);color:var(--green)}
@@ -203,18 +203,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;background:rgba(
 .rev-card{background:rgba(197,160,89,.03);border:1px solid rgba(197,160,89,.08);padding:24px 28px;width:320px;flex-shrink:0;text-align:center}
 .rev-stars{color:var(--gold);font-size:10px;margin-bottom:12px;letter-spacing:3px}
 .rev-text{font-size:13px;color:var(--muted2);line-height:1.7;margin-bottom:16px;font-style:italic}
-.rev-author{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;color:var(--text);margin-bottom:3px}
-.rev-car{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)}
+.rev-author{font-family:DM Mono,monospace;font-size:10px;font-weight:500;color:var(--text);margin-bottom:3px}
+.rev-car{font-family:DM Mono,monospace;font-size:9px;color:var(--muted)}
 
 /* ── GHOST GARAGE PROMO — centred ── */
-.garage-badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15);padding:4px 12px;display:inline-block;margin-bottom:16px}
+.garage-badge{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--green);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15);padding:4px 12px;display:inline-block;margin-bottom:16px}
 .garage-features{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 32px;margin:28px 0}
-.gf{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--muted2)}
+.gf{display:flex;align-items:center;gap:8px;font-family:DM Mono,monospace;font-size:9px;letter-spacing:.06em;color:var(--muted2)}
 .gf::before{content:'✓';color:var(--green);font-size:11px}
 .garage-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.btn-gold{display:inline-block;background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:12px 26px;text-decoration:none;transition:opacity .2s}
+.btn-gold{display:inline-block;background:var(--gold);color:#0A0905;font-family:DM Mono,monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:12px 26px;text-decoration:none;transition:opacity .2s}
 .btn-gold:hover{opacity:.85}
-.btn-outline{display:inline-block;border:1px solid rgba(197,160,89,.22);color:var(--muted2);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:12px 26px;text-decoration:none;transition:all .2s}
+.btn-outline{display:inline-block;border:1px solid rgba(197,160,89,.22);color:var(--muted2);font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:12px 26px;text-decoration:none;transition:all .2s}
 .btn-outline:hover{border-color:var(--gold);color:var(--gold)}
 
 /* ── FOOTER ── */
@@ -223,19 +223,19 @@ footer{background:var(--vault);border-top:1px solid rgba(197,160,89,.06);padding
 .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
 .foot-logo{display:flex;align-items:center;gap:8px;margin-bottom:14px}
 .fhex{width:20px;height:20px;background:var(--gold);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);opacity:.7}
-.fbrand{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.12em;color:var(--gold);text-transform:uppercase}
+.fbrand{font-family:DM Mono,monospace;font-size:11px;font-weight:500;letter-spacing:.12em;color:var(--gold);text-transform:uppercase}
 .ftag{font-size:12px;color:var(--muted);line-height:1.7;margin-bottom:16px;max-width:240px}
-.foot-wa{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:10px;color:#25D366;text-decoration:none;padding:8px 12px;border:1px solid rgba(37,211,102,.15);width:fit-content;transition:all .2s}
+.foot-wa{display:flex;align-items:center;gap:8px;font-family:DM Mono,monospace;font-size:10px;color:#25D366;text-decoration:none;padding:8px 12px;border:1px solid rgba(37,211,102,.15);width:fit-content;transition:all .2s}
 .foot-wa:hover{background:rgba(37,211,102,.06)}
-.foot-col h4{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.foot-col h4{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
 .foot-col ul{list-style:none}
 .foot-col li{margin-bottom:8px}
 .foot-col a{font-size:12px;color:var(--muted2);text-decoration:none;transition:color .2s}
 .foot-col a:hover{color:var(--text)}
 .foot-bottom{border-top:1px solid rgba(197,160,89,.06);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.foot-legal{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)}
+.foot-legal{font-family:DM Mono,monospace;font-size:9px;color:var(--muted)}
 .foot-legal a{color:inherit;text-decoration:none}
-.foot-phone{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);text-decoration:none}
+.foot-phone{font-family:DM Mono,monospace;font-size:9px;color:var(--muted2);text-decoration:none}
 .foot-phone:hover{color:var(--gold)}
 @media(max-width:768px){.foot-grid{grid-template-columns:1fr 1fr;gap:32px}}
 @media(max-width:480px){.foot-grid{grid-template-columns:1fr}.foot-bottom{flex-direction:column;text-align:center}}
@@ -479,19 +479,19 @@ footer a:hover,nav a:hover{background-size:100% 1px;color:var(--gold)!important}
   <div style="max-width:1400px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px">
     <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0">
       <span style="font-size:20px;color:#c5a059;font-weight:900;line-height:1">⬡</span>
-      <span style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#fff;font-weight:700;font-family:'DM Mono',monospace">Ghost Detail</span>
+      <span style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#fff;font-weight:700;font-family:DM Mono,monospace">Ghost Detail</span>
     </a>
     <nav id="gnav" style="display:flex;gap:28px;flex:1;justify-content:center">
-      <a href="/studio.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:'DM Mono',monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Studio</a>
-      <a href="/concierge.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:'DM Mono',monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Concierge</a>
-      <a href="/paint-check.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:'DM Mono',monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Ghost Vision</a>
-      <a href="/results.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:'DM Mono',monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Before & After</a>
-      <a href="/membership.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:'DM Mono',monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Ghost Pass</a>
-      <a href="/shop.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:'DM Mono',monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Shop</a>
+      <a href="/studio.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Studio</a>
+      <a href="/concierge.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Concierge</a>
+      <a href="/paint-check.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Ghost Vision</a>
+      <a href="/results.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Before & After</a>
+      <a href="/membership.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Ghost Pass</a>
+      <a href="/shop.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Shop</a>
     </nav>
     <div style="display:flex;align-items:center;gap:12px;flex-shrink:0">
       <button id="gham" onclick="var n=document.getElementById(\'gnav\');if(n){n.classList.toggle(\'open\');}" style="display:none;background:none;border:none;color:#c5a059;font-size:20px;cursor:pointer;padding:4px">☰</button>
-      <a href="/booking.html" style="background:#c5a059;color:#0a0905;padding:9px 18px;font-size:8px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;text-decoration:none;font-family:'DM Mono',monospace;transition:opacity .2s;white-space:nowrap" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">Book Now</a>
+      <a href="/booking.html" style="background:#c5a059;color:#0a0905;padding:9px 18px;font-size:8px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;text-decoration:none;font-family:DM Mono,monospace;transition:opacity .2s;white-space:nowrap" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">Book Now</a>
     </div>
   </div>
 </header>
@@ -633,12 +633,12 @@ async function analyseGVPhoto(){
 
 <div style="padding:140px 0 64px;text-align:center;border-bottom:1px solid rgba(197,160,89,.06);background:radial-gradient(ellipse 50% 60% at 50% 0%,rgba(197,160,89,.05),transparent)">
   <div style="max-width:900px;margin:0 auto;padding:0 clamp(20px,4vw,64px)">
-    <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Ghost Pass · Monthly</div>
+    <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Ghost Pass · Monthly</div>
     <h1 style="font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,68px);font-weight:900;line-height:1.03;margin-bottom:16px">Your car, <em style="font-style:italic;color:var(--gold)">sorted every month.</em></h1>
     <p style="font-size:15px;color:var(--muted2);max-width:560px;line-height:1.8;margin:0 auto 32px">One fixed monthly payment. One service every month. No booking faff, no thinking about it. Ghost handles your car.</p>
     <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
-      <a href="#plans" style="background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:12px 24px;text-decoration:none">See Plans →</a>
-      <a href="/booking.html" style="border:1px solid rgba(197,160,89,.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:12px 24px;text-decoration:none">Book First</a>
+      <a href="#plans" style="background:var(--gold);color:#0A0905;font-family:DM Mono,monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:12px 24px;text-decoration:none">See Plans →</a>
+      <a href="/booking.html" style="border:1px solid rgba(197,160,89,.3);color:var(--gold);font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:12px 24px;text-decoration:none">Book First</a>
     </div>
   </div>
 </div>
@@ -648,26 +648,26 @@ async function analyseGVPhoto(){
 
     <!-- SPARK -->
     <div style="background:rgba(197,160,89,.02);border:1px solid rgba(197,160,89,.1);padding:40px 32px;display:flex;flex-direction:column">
-      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:16px">Ghost Pass</div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:16px">Ghost Pass</div>
       <h2 style="font-family:'Playfair Display',serif;font-size:32px;font-weight:900;margin-bottom:4px">Spark</h2>
       <div style="font-family:'Playfair Display',serif;font-size:40px;color:var(--gold);margin-bottom:4px">£99<span style="font-size:16px;color:var(--muted2)">/mo</span></div>
-      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:24px">Cancel anytime</div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:24px">Cancel anytime</div>
       <div style="flex:1;display:flex;flex-direction:column;gap:10px;margin-bottom:28px">
         <div style="display:flex;gap:10px;font-size:13px;color:var(--muted2)"><span style="color:var(--gold)">✓</span> 1 Spark Wash per month</div>
         <div style="display:flex;gap:10px;font-size:13px;color:var(--muted2)"><span style="color:var(--gold)">✓</span> Priority booking</div>
         <div style="display:flex;gap:10px;font-size:13px;color:var(--muted2)"><span style="color:var(--gold)">✓</span> 10% off shop products</div>
         <div style="display:flex;gap:10px;font-size:13px;color:var(--muted2)"><span style="color:var(--gold)">✓</span> Ghost Garage access</div>
       </div>
-      <a href="https://wa.me/447927576142?text=Hi+Romeo,+I'd+like+to+join+Ghost+Pass+Spark+£99/mo" style="display:block;text-align:center;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:12px 20px;text-decoration:none">Join Spark →</a>
+      <a href="https://wa.me/447927576142?text=Hi+Romeo,+I'd+like+to+join+Ghost+Pass+Spark+£99/mo" style="display:block;text-align:center;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:DM Mono,monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:12px 20px;text-decoration:none">Join Spark →</a>
     </div>
 
     <!-- SHIELD -->
     <div style="background:rgba(197,160,89,.04);border:2px solid var(--gold);padding:40px 32px;display:flex;flex-direction:column;position:relative">
-      <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:4px 14px">MOST POPULAR</div>
-      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:16px">Ghost Pass</div>
+      <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#0A0905;font-family:DM Mono,monospace;font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;padding:4px 14px">MOST POPULAR</div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:16px">Ghost Pass</div>
       <h2 style="font-family:'Playfair Display',serif;font-size:32px;font-weight:900;margin-bottom:4px">Shield</h2>
       <div style="font-family:'Playfair Display',serif;font-size:40px;color:var(--gold);margin-bottom:4px">£199<span style="font-size:16px;color:var(--muted2)">/mo</span></div>
-      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:24px">Cancel anytime</div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:24px">Cancel anytime</div>
       <div style="flex:1;display:flex;flex-direction:column;gap:10px;margin-bottom:28px">
         <div style="display:flex;gap:10px;font-size:13px;color:var(--muted2)"><span style="color:var(--gold)">✓</span> 1 Quick Refinement per month</div>
         <div style="display:flex;gap:10px;font-size:13px;color:var(--muted2)"><span style="color:var(--gold)">✓</span> Front-of-line priority</div>
@@ -675,15 +675,15 @@ async function analyseGVPhoto(){
         <div style="display:flex;gap:10px;font-size:13px;color:var(--muted2)"><span style="color:var(--gold)">✓</span> Ceramic top-up every 6 months</div>
         <div style="display:flex;gap:10px;font-size:13px;color:var(--muted2)"><span style="color:var(--gold)">✓</span> Ghost Garage + service passport</div>
       </div>
-      <a href="https://wa.me/447927576142?text=Hi+Romeo,+I'd+like+to+join+Ghost+Pass+Shield+£199/mo" style="display:block;text-align:center;background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:12px 20px;text-decoration:none">Join Shield →</a>
+      <a href="https://wa.me/447927576142?text=Hi+Romeo,+I'd+like+to+join+Ghost+Pass+Shield+£199/mo" style="display:block;text-align:center;background:var(--gold);color:#0A0905;font-family:DM Mono,monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:12px 20px;text-decoration:none">Join Shield →</a>
     </div>
 
     <!-- LEGEND -->
     <div style="background:rgba(197,160,89,.02);border:1px solid rgba(197,160,89,.1);padding:40px 32px;display:flex;flex-direction:column">
-      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:16px">Ghost Pass</div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:16px">Ghost Pass</div>
       <h2 style="font-family:'Playfair Display',serif;font-size:32px;font-weight:900;margin-bottom:4px">Legend</h2>
       <div style="font-family:'Playfair Display',serif;font-size:40px;color:var(--gold);margin-bottom:4px">£299<span style="font-size:16px;color:var(--muted2)">/mo</span></div>
-      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:24px">Cancel anytime</div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2);margin-bottom:24px">Cancel anytime</div>
       <div style="flex:1;display:flex;flex-direction:column;gap:10px;margin-bottom:28px">
         <div style="display:flex;gap:10px;font-size:13px;color:var(--muted2)"><span style="color:var(--gold)">✓</span> 1 Depth Refinement per month</div>
         <div style="display:flex;gap:10px;font-size:13px;color:var(--muted2)"><span style="color:var(--gold)">✓</span> 20% off all shop products</div>
@@ -691,13 +691,13 @@ async function analyseGVPhoto(){
         <div style="display:flex;gap:10px;font-size:13px;color:var(--muted2)"><span style="color:var(--gold)">✓</span> Romeo's personal WhatsApp</div>
         <div style="display:flex;gap:10px;font-size:13px;color:var(--muted2)"><span style="color:var(--gold)">✓</span> Front-of-line always</div>
       </div>
-      <a href="https://wa.me/447927576142?text=Hi+Romeo,+I'd+like+to+join+Ghost+Pass+Legend+£299/mo" style="display:block;text-align:center;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:12px 20px;text-decoration:none">Join Legend →</a>
+      <a href="https://wa.me/447927576142?text=Hi+Romeo,+I'd+like+to+join+Ghost+Pass+Legend+£299/mo" style="display:block;text-align:center;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:DM Mono,monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:12px 20px;text-decoration:none">Join Legend →</a>
     </div>
   </div>
 
   <!-- Annual cards -->
   <div style="text-align:center;margin-bottom:32px">
-    <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2);margin-bottom:8px">Or go annual — save up to 30%</div>
+    <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2);margin-bottom:8px">Or go annual — save up to 30%</div>
     <h2 style="font-family:'Playfair Display',serif;font-size:clamp(24px,3vw,36px);font-weight:900;margin-bottom:24px">Annual <em style="font-style:italic;color:var(--gold)">Cards</em></h2>
   </div>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-bottom:40px">
@@ -705,19 +705,19 @@ async function analyseGVPhoto(){
       <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:4px">Obsidian</div>
       <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--gold);margin-bottom:8px">£950<span style="font-size:13px;color:var(--muted2)">/year</span></div>
       <p style="font-size:12px;color:var(--muted2);line-height:1.7;margin-bottom:16px">12 Spark Washes + priority scheduling for 12 months.</p>
-      <a href="https://wa.me/447927576142?text=Obsidian+annual+card" style="display:inline-block;border:1px solid rgba(197,160,89,.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;text-decoration:none">Get Obsidian</a>
+      <a href="https://wa.me/447927576142?text=Obsidian+annual+card" style="display:inline-block;border:1px solid rgba(197,160,89,.3);color:var(--gold);font-family:DM Mono,monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;text-decoration:none">Get Obsidian</a>
     </div>
     <div style="background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.2);padding:28px">
       <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:4px">Phantom</div>
       <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--gold);margin-bottom:8px">£1,900<span style="font-size:13px;color:var(--muted2)">/year</span></div>
       <p style="font-size:12px;color:var(--muted2);line-height:1.7;margin-bottom:16px">12 Quick Refinements + priority + 10% shop discount.</p>
-      <a href="https://wa.me/447927576142?text=Phantom+annual+card" style="display:inline-block;border:1px solid rgba(197,160,89,.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;text-decoration:none">Get Phantom</a>
+      <a href="https://wa.me/447927576142?text=Phantom+annual+card" style="display:inline-block;border:1px solid rgba(197,160,89,.3);color:var(--gold);font-family:DM Mono,monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;text-decoration:none">Get Phantom</a>
     </div>
     <div style="background:rgba(197,160,89,.02);border:1px solid rgba(197,160,89,.08);padding:28px">
       <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:4px">Legend</div>
       <div style="font-family:'Playfair Display',serif;font-size:28px;color:var(--gold);margin-bottom:8px">£2,870<span style="font-size:13px;color:var(--muted2)">/year</span></div>
       <p style="font-size:12px;color:var(--muted2);line-height:1.7;margin-bottom:16px">12 Depth Refinements + 20% shop + ceramic maintenance included.</p>
-      <a href="https://wa.me/447927576142?text=Legend+annual+card" style="display:inline-block;border:1px solid rgba(197,160,89,.3);color:var(--gold);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;text-decoration:none">Get Legend Card</a>
+      <a href="https://wa.me/447927576142?text=Legend+annual+card" style="display:inline-block;border:1px solid rgba(197,160,89,.3);color:var(--gold);font-family:DM Mono,monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:8px 14px;text-decoration:none">Get Legend Card</a>
     </div>
   </div>
 
@@ -731,8 +731,8 @@ async function analyseGVPhoto(){
     <div style="display:grid;grid-template-columns:180px 1fr;gap:48px;padding-bottom:24px;border-bottom:1px solid rgba(197,160,89,.07);margin-bottom:20px">
       <div>
         <div style="font-size:22px;color:#c5a059;font-weight:900;margin-bottom:6px">⬡</div>
-        <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-weight:700;margin-bottom:2px;font-family:'DM Mono',monospace">Ghost Detail Autos</div>
-        <div style="font-size:8px;letter-spacing:.1em;color:rgba(197,160,89,.45);margin-bottom:14px;font-family:'DM Mono',monospace">Watford WD18</div>
+        <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#fff;font-weight:700;margin-bottom:2px;font-family:DM Mono,monospace">Ghost Detail Autos</div>
+        <div style="font-size:8px;letter-spacing:.1em;color:rgba(197,160,89,.45);margin-bottom:14px;font-family:DM Mono,monospace">Watford WD18</div>
         <a href="tel:01923959839" style="display:block;font-size:11px;color:#e8e0d0;text-decoration:none;margin-bottom:4px;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">01923 959839</a>
         <a href="https://wa.me/447927576142" style="display:block;font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">WhatsApp</a>
       </div>
@@ -752,7 +752,7 @@ async function analyseGVPhoto(){
         <a href="/legal.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Privacy</a>
       </div>
     </div>
-    <div style="display:flex;justify-content:space-between;font-size:8px;letter-spacing:.1em;color:rgba(197,160,89,.35);font-family:'DM Mono',monospace">
+    <div style="display:flex;justify-content:space-between;font-size:8px;letter-spacing:.1em;color:rgba(197,160,89,.35);font-family:DM Mono,monospace">
       <span>© 2026 Ghost Detail Autos · Watford WD18</span>
       <span>Romeo & Ferrel Cruz</span>
     </div>
@@ -765,172 +765,41 @@ async function analyseGVPhoto(){
 }
 </style>
 <script type="module" id="ghost-motion-module">
-import { 
-  animate, scroll, inView, stagger, 
-  spring, hover, press
-} from "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm";
-
-/* ── GHOST DETAIL · MOTION SYSTEM ─────────────────────────────── */
-
-const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];
-const EASE_OUT_BACK = [0.34, 1.56, 0.64, 1];
-const EASE_SMOOTH  = [0.25, 0.1, 0.25, 1];
-
-/* ── 1. NAV ENTRANCE ─────────────────────────────────────────── */
-const nav = document.querySelector('header');
-if(nav) {
-  animate(nav, 
-    { opacity: [0, 1], y: [-16, 0] }, 
-    { duration: 0.6, ease: EASE_OUT_EXPO }
-  );
-}
-
-/* ── 2. HERO TITLE — WORD-BY-WORD STAGGER ───────────────────── */
-const heroTitle = document.querySelector('.hero-title');
-if(heroTitle) {
-  // Split into words
-  const html = heroTitle.innerHTML;
-  const words = heroTitle.querySelectorAll('*');
-  animate(heroTitle,
-    { opacity: [0, 1], y: [48, 0] },
-    { duration: 0.9, ease: EASE_OUT_EXPO, delay: 0.1 }
-  );
-}
-
-/* ── 3. HERO SUB + REG INPUT ─────────────────────────────────── */
-const heroSub = document.querySelector('.hero-sub');
-if(heroSub) animate(heroSub, { opacity:[0,1], y:[24,0] }, { duration:0.7, ease:EASE_OUT_EXPO, delay:0.3 });
-
-const regWrap = document.querySelector('.hero-reg-wrap');
-if(regWrap) animate(regWrap, { opacity:[0,1], y:[20,0] }, { duration:0.6, ease:EASE_OUT_EXPO, delay:0.5 });
-
-const heroStats = document.querySelector('.hero-stats');
-if(heroStats) animate(heroStats, { opacity:[0,1] }, { duration:0.8, delay:0.7 });
-
-/* ── 4. SCROLL-TRIGGERED REVEALS ─────────────────────────────── */
-// Every h1, h2 fades up when scrolled into view
-document.querySelectorAll('h1:not(.hero-title), h2, h3').forEach(el => {
-  inView(el, () => {
-    animate(el, { opacity:[0,1], y:[30,0] }, { duration:0.6, ease:EASE_OUT_EXPO });
-  }, { margin: '-8% 0px' });
+import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm";
+const EXPO=[0.16,1,0.3,1];
+const nav=document.querySelector('header');
+if(nav) animate(nav,{opacity:[0,1],y:[-16,0]},{duration:0.5,ease:EXPO});
+const ht=document.querySelector('.hero-title');
+if(ht) animate(ht,{opacity:[0,1],y:[48,0]},{duration:0.9,ease:EXPO,delay:0.1});
+const hs=document.querySelector('.hero-sub');
+if(hs) animate(hs,{opacity:[0,1],y:[24,0]},{duration:0.7,ease:EXPO,delay:0.3});
+const rw=document.querySelector('.hero-reg-wrap');
+if(rw) animate(rw,{opacity:[0,1],y:[20,0]},{duration:0.6,ease:EXPO,delay:0.5});
+document.querySelectorAll('h1:not(.hero-title),h2,h3').forEach(el=>{
+  inView(el,()=>{animate(el,{opacity:[0,1],y:[28,0]},{duration:0.6,ease:EXPO});},{margin:'-8% 0px'});
 });
-
-// Paragraphs and description text
-document.querySelectorAll('p:not(.hero-sub)').forEach((el, i) => {
-  inView(el, () => {
-    animate(el, { opacity:[0,1], y:[16,0] }, { duration:0.5, ease:EASE_SMOOTH });
-  }, { margin: '-5% 0px' });
+document.querySelectorAll('[style*="grid-template-columns"]').forEach(grid=>{
+  const kids=Array.from(grid.children).filter(c=>c.textContent.trim().length>0&&!c.querySelector('input'));
+  if(kids.length<2||kids.length>16) return;
+  inView(grid,()=>{
+    animate(kids,{opacity:[0,1],y:[20,0],scale:[0.97,1]},{duration:0.5,delay:stagger(0.07),ease:EXPO});
+  },{margin:'-5% 0px'});
 });
-
-/* ── 5. GRID STAGGER — cards animate in sequence ─────────────── */
-const gridSelectors = [
-  '[style*="grid-template-columns:repeat(3"]',
-  '[style*="grid-template-columns:repeat(2"]', 
-  '[style*="grid-template-columns:1fr 1fr"]',
-  '[style*="grid-template-columns: repeat"]'
-];
-
-gridSelectors.forEach(sel => {
-  document.querySelectorAll(sel).forEach(grid => {
-    const kids = Array.from(grid.children).filter(c => 
-      !c.querySelector('input') && c.textContent.trim().length > 0
-    );
-    if(kids.length < 2 || kids.length > 16) return;
-    inView(grid, () => {
-      animate(kids, 
-        { opacity:[0,1], y:[24,0], scale:[0.97,1] }, 
-        { duration:0.5, delay: stagger(0.07), ease:EASE_OUT_EXPO }
-      );
-    }, { margin: '-5% 0px' });
-  });
-});
-
-/* ── 6. SERVICE CARDS — border glow on hover ─────────────────── */
-document.querySelectorAll('.svc-card, [class*="service-card"]').forEach(card => {
-  hover(card, () => {
-    animate(card, { scale: 1.01 }, { type:'spring', stiffness:400, damping:25 });
-    return () => animate(card, { scale: 1 }, { type:'spring', stiffness:400, damping:25 });
-  });
-});
-
-/* ── 7. BOOK NOW BUTTON — magnetic pull ─────────────────────── */
-document.querySelectorAll('.hero-reg-btn, [href*="booking"], .nav-cta, [class*="book"]').forEach(btn => {
-  if(btn.tagName === 'INPUT' || btn.type === 'text') return;
-  press(btn, () => {
-    animate(btn, { scale: 0.95 }, { type:'spring', stiffness:500, damping:30 });
-    return () => animate(btn, { scale: 1 }, { type:'spring', stiffness:500, damping:30 });
-  });
-});
-
-/* ── 8. SCROLL PARALLAX on hero canvas ─────────────────────────── */
-const heroSection = document.querySelector('.hero');
-if(heroSection) {
-  scroll(({ y }) => {
-    const progress = y.progress;
-    if(progress > 0.3) return;
-    animate(heroSection, { 
-      opacity: 1 - progress * 2 
-    }, { duration: 0 });
-  }, { target: heroSection });
-}
-
-/* ── 9. STAT COUNTERS — count up animation ─────────────────── */
-document.querySelectorAll('.hstat-n, .stat-n').forEach(el => {
-  const text = el.textContent.trim();
-  const num = parseInt(text.replace(/[^0-9]/g,''));
-  if(!num || num < 5) return;
-  const suffix = text.replace(/[0-9]/g,'');
-  inView(el, () => {
-    const start = performance.now();
-    const dur = 1500;
-    const easeOut = t => 1 - Math.pow(1 - t, 3);
-    const tick = () => {
-      const elapsed = performance.now() - start;
-      const progress = Math.min(elapsed / dur, 1);
-      el.textContent = Math.round(easeOut(progress) * num) + suffix;
-      if(progress < 1) requestAnimationFrame(tick);
-    };
+document.querySelectorAll('.hstat-n,.stat-n').forEach(el=>{
+  const text=el.textContent.trim();
+  const num=parseInt(text.replace(/[^0-9]/g,''));
+  if(!num||num<5) return;
+  const suffix=text.replace(/[0-9]/g,'');
+  inView(el,()=>{
+    const s=performance.now(),d=1500;
+    const tick=()=>{const p=Math.min((performance.now()-s)/d,1);el.textContent=Math.round((1-Math.pow(1-p,3))*num)+suffix;if(p<1)requestAnimationFrame(tick);};
     requestAnimationFrame(tick);
-  }, { margin: '-10% 0px' });
+  },{margin:'-10% 0px'});
 });
-
-/* ── 10. GOLD LINE DRAW on section dividers ────────────────── */
-document.querySelectorAll('[style*="border-bottom:1px solid rgba(197,160,89"]').forEach(el => {
-  inView(el, () => {
-    animate(el, { opacity:[0,1] }, { duration:0.8, ease:EASE_SMOOTH });
-  }, { margin: '-5% 0px' });
-});
-
-/* ── 11. FOOTER REVEAL ────────────────────────────────────── */
-const footer = document.querySelector('footer');
-if(footer) {
-  inView(footer, () => {
-    const cols = footer.querySelectorAll('div > div, div > a, div > p');
-    animate(Array.from(cols).slice(0,8), 
-      { opacity:[0,1], y:[20,0] }, 
-      { duration:0.5, delay: stagger(0.05), ease:EASE_SMOOTH }
-    );
-  }, { margin: '-10% 0px' });
-}
-
-/* ── 12. VEHICLE RESULT CARD — spring in ────────────────── */
-const observer = new MutationObserver(mutations => {
-  mutations.forEach(m => {
-    m.addedNodes.forEach(node => {
-      if(node.id === 'hero-vehicle-result' || 
-         node.id === 'booking-vehicle-banner' ||
-         node.id === 'dvla-preview') {
-        animate(node, 
-          { opacity:[0,1], y:[12,0], scale:[0.97,1] }, 
-          { type:'spring', stiffness:400, damping:28 }
-        );
-      }
-    });
-  });
-});
-observer.observe(document.body, { childList:true, subtree:true });
-
-console.log('⬡ Ghost Motion loaded');
+new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
+  if(n.id&&['hero-vehicle-result','booking-vehicle-banner','dvla-preview','concierge-vehicle-result'].includes(n.id))
+    animate(n,{opacity:[0,1],y:[12,0],scale:[0.97,1]},{duration:0.4,ease:EXPO});
+}))).observe(document.body,{childList:true,subtree:true});
 </script>
 </body>
 </html>
