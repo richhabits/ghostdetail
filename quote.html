@@ -467,6 +467,13 @@ a:hover ~ #ghost-cursor, button:hover ~ #ghost-cursor{
   button#gham{display:none!important}
 }
 </style>
+<style id="ghost-mobile-cursor-fix">
+@media(pointer:coarse),(max-width:820px){
+  *{cursor:auto!important}
+  a,button,[onclick]{cursor:pointer!important}
+  #ghost-cursor,#ghost-cursor-ring{display:none!important}
+}
+</style>
 </head>
 <body>
 <header style="position:sticky;top:0;z-index:1000;background:#0a0905;border-bottom:1px solid rgba(197,160,89,.1);height:60px;display:flex;align-items:center;padding:0 clamp(16px,4vw,48px)">
@@ -716,479 +723,296 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
     animate(n,{opacity:[0,1],y:[12,0],scale:[0.97,1]},{duration:0.4,ease:EXPO});
 }))).observe(document.body,{childList:true,subtree:true});
 </script>
-<!-- ═══════════════════════════════════════════════════════
-     ARIA — Ghost Detail Floating AI Chat Widget
-     Included on every page. Routes → signs up → converts.
-═══════════════════════════════════════════════════════ -->
+
+
 <style id="aria-widget-css">
 #aria-float{position:fixed;bottom:24px;right:24px;z-index:9990;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
-#aria-bubble{width:56px;height:56px;background:var(--gold,#c5a059);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(197,160,89,.4);transition:transform .2s,box-shadow .2s;flex-shrink:0}
-#aria-bubble:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(197,160,89,.5)}
-#aria-bubble svg{width:24px;height:24px;fill:#0a0905}
-#aria-bubble .aria-notif{position:absolute;top:-2px;right:-2px;width:14px;height:14px;background:#ef4444;border-radius:50%;border:2px solid #0a0905;display:none}
-#aria-bubble .aria-notif.show{display:block}
-#aria-window{display:none;width:340px;background:#0d0b07;border:1px solid rgba(197,160,89,.15);box-shadow:0 20px 60px rgba(0,0,0,.7);flex-direction:column;max-height:520px;border-radius:3px;overflow:hidden}
+#aria-bubble{width:52px;height:52px;background:#c5a059;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 20px rgba(197,160,89,.4);flex-shrink:0;border:none}
+#aria-bubble svg{width:22px;height:22px;fill:#0a0905;pointer-events:none}
+.aria-notif{position:absolute;top:0;right:0;width:12px;height:12px;background:#ef4444;border-radius:50%;border:2px solid #0a0905;display:none}
+.aria-notif.show{display:block}
+#aria-window{display:none;width:320px;background:#0d0b07;border:1px solid rgba(197,160,89,.15);box-shadow:0 20px 60px rgba(0,0,0,.8);flex-direction:column;max-height:500px;border-radius:4px;overflow:hidden}
 #aria-window.open{display:flex}
-.aria-header{background:rgba(197,160,89,.06);border-bottom:1px solid rgba(197,160,89,.1);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.aria-header-left{display:flex;align-items:center;gap:10px}
-.aria-avatar{width:32px;height:32px;background:var(--gold,#c5a059);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.aria-name{font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:#e8e0d0;letter-spacing:.08em}
-.aria-status{font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.5)}
-.aria-status::before{content:'● ';color:#22c55e}
-#aria-close{background:none;border:none;color:rgba(197,160,89,.4);font-size:18px;cursor:pointer;padding:0 4px;line-height:1}
-#aria-msgs{flex:1;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
-.aria-msg{max-width:85%;display:flex;flex-direction:column;gap:3px}
-.aria-msg.ghost{align-self:flex-start}
-.aria-msg.user{align-self:flex-end}
-.aria-msg-text{font-size:12px;line-height:1.6;padding:10px 13px;border-radius:2px}
-.aria-msg.ghost .aria-msg-text{background:rgba(197,160,89,.07);border:1px solid rgba(197,160,89,.1);color:#e8e0d0}
-.aria-msg.user .aria-msg-text{background:rgba(197,160,89,.15);color:#e8e0d0;border:1px solid rgba(197,160,89,.2)}
-.aria-msg-time{font-size:8px;letter-spacing:.08em;color:rgba(197,160,89,.3);font-family:'DM Mono',monospace}
-.aria-quick{display:flex;flex-wrap:wrap;gap:5px;padding:0 12px 10px}
-.aria-quick-btn{background:transparent;border:1px solid rgba(197,160,89,.2);color:rgba(197,160,89,.8);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;padding:5px 10px;cursor:pointer;transition:all .2s;white-space:nowrap}
-.aria-quick-btn:hover{background:rgba(197,160,89,.1);border-color:rgba(197,160,89,.4)}
-.aria-input-row{border-top:1px solid rgba(197,160,89,.08);padding:10px 12px;display:flex;gap:8px;flex-shrink:0;background:#0d0b07}
-#aria-input{flex:1;background:#0a0905;border:1px solid rgba(197,160,89,.12);color:#e8e0d0;font-family:'DM Mono',monospace;font-size:11px;padding:8px 12px;outline:none;border-radius:2px}
+.aria-hdr{background:rgba(197,160,89,.06);border-bottom:1px solid rgba(197,160,89,.1);padding:11px 14px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.aria-hdr-left{display:flex;align-items:center;gap:9px}
+.aria-av{width:30px;height:30px;background:#c5a059;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.aria-nm{font-family:"DM Mono",monospace;font-size:10px;font-weight:700;color:#e8e0d0;letter-spacing:.06em}
+.aria-st{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.5)}
+.aria-st::before{content:"● ";color:#22c55e}
+#aria-close{background:none;border:none;color:rgba(197,160,89,.4);font-size:17px;cursor:pointer;padding:0 3px;line-height:1}
+#aria-msgs{flex:1;overflow-y:auto;padding:12px 10px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
+.am{max-width:86%;display:flex;flex-direction:column;gap:2px}
+.am.g{align-self:flex-start}.am.u{align-self:flex-end}
+.am-txt{font-size:11px;line-height:1.6;padding:9px 12px;border-radius:3px}
+.am.g .am-txt{background:rgba(197,160,89,.07);border:1px solid rgba(197,160,89,.1);color:#e8e0d0}
+.am.u .am-txt{background:rgba(197,160,89,.15);color:#e8e0d0;border:1px solid rgba(197,160,89,.2)}
+.am-time{font-size:8px;color:rgba(197,160,89,.3);font-family:"DM Mono",monospace}
+.aria-quick{display:flex;flex-wrap:wrap;gap:4px;padding:0 10px 8px}
+.aqb{background:transparent;border:1px solid rgba(197,160,89,.2);color:rgba(197,160,89,.8);font-family:"DM Mono",monospace;font-size:9px;letter-spacing:.06em;padding:5px 9px;cursor:pointer;white-space:nowrap;border-radius:2px}
+.aqb:hover{background:rgba(197,160,89,.1);border-color:rgba(197,160,89,.4)}
+.aria-inp-row{border-top:1px solid rgba(197,160,89,.08);padding:9px 10px;display:flex;gap:7px;flex-shrink:0;background:#0d0b07}
+#aria-input{flex:1;background:#0a0905;border:1px solid rgba(197,160,89,.12);color:#e8e0d0;font-family:"DM Mono",monospace;font-size:11px;padding:7px 11px;outline:none;border-radius:2px;-webkit-appearance:none}
 #aria-input:focus{border-color:rgba(197,160,89,.3)}
-#aria-send{background:var(--gold,#c5a059);color:#0a0905;border:none;padding:8px 14px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:2px;white-space:nowrap}
-/* REG lookup in chat */
-.aria-reg-wrap{display:flex;gap:0;margin-top:8px}
-.aria-reg-badge{background:#003399;display:flex;align-items:center;padding:0 8px;border-radius:2px 0 0 2px;flex-shrink:0}
-.aria-reg-badge span{font-size:8px;font-weight:700;color:#fff;font-family:'DM Mono',monospace;letter-spacing:.05em}
-#aria-reg-input{background:#F5F0C8;border:none;outline:none;font-family:'DM Mono',monospace;font-size:15px;font-weight:700;letter-spacing:.06em;color:#111;padding:7px 10px;text-transform:uppercase;width:120px}
-#aria-reg-go{background:var(--gold,#c5a059);color:#0a0905;border:none;padding:7px 12px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:0 2px 2px 0}
-/* Typing indicator */
-.aria-typing{display:flex;gap:4px;align-items:center;padding:8px 12px;background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.08);align-self:flex-start}
-.aria-typing span{width:5px;height:5px;border-radius:50%;background:rgba(197,160,89,.4);animation:ariadot 1s ease-in-out infinite}
+#aria-send{background:#c5a059;color:#0a0905;border:none;padding:7px 13px;font-family:"DM Mono",monospace;font-size:9px;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:2px;white-space:nowrap;-webkit-appearance:none}
+.aria-typing{display:flex;gap:4px;align-items:center;padding:8px 11px;background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.08);align-self:flex-start;border-radius:3px}
+.aria-typing span{width:5px;height:5px;border-radius:50%;background:rgba(197,160,89,.4);animation:adot 1s ease-in-out infinite}
 .aria-typing span:nth-child(2){animation-delay:.15s}
 .aria-typing span:nth-child(3){animation-delay:.3s}
-@keyframes ariadot{0%,80%,100%{transform:scale(0.6);opacity:.4}40%{transform:scale(1);opacity:1}}
-@media(max-width:480px){#aria-window{width:calc(100vw - 32px)}}
+@keyframes adot{0%,80%,100%{transform:scale(.6);opacity:.4}40%{transform:scale(1);opacity:1}}
+@media(max-width:480px){
+  #aria-window{width:calc(100vw - 24px);max-height:420px}
+  #aria-float{bottom:16px;right:12px}
+}
+/* Touch device: remove cursor none from bubble */
+@media(pointer:coarse){
+  #aria-bubble{cursor:pointer!important}
+}
 </style>
 
 <div id="aria-float">
   <div id="aria-window">
-    <div class="aria-header">
-      <div class="aria-header-left">
-        <div class="aria-avatar">⬡</div>
+    <div class="aria-hdr">
+      <div class="aria-hdr-left">
+        <div class="aria-av">⬡</div>
         <div>
-          <div class="aria-name">ARIA</div>
-          <div class="aria-status">Online · Ghost Detail</div>
+          <div class="aria-nm">ARIA</div>
+          <div class="aria-st">Online &middot; Ghost Detail</div>
         </div>
       </div>
-      <button id="aria-close" onclick="ariaToggle()">×</button>
+      <button id="aria-close" onclick="ariaToggle()">&#215;</button>
     </div>
     <div id="aria-msgs"></div>
     <div class="aria-quick" id="aria-quick"></div>
-    <div class="aria-input-row">
-      <input type="text" id="aria-input" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')ariaSend()">
-      <button id="aria-send" onclick="ariaSend()">Send →</button>
+    <div class="aria-inp-row">
+      <input type="text" id="aria-input" placeholder="Ask anything..." inputmode="text" autocomplete="off"
+        onkeydown="if(event.key==='Enter')ariaSend()">
+      <button id="aria-send" onclick="ariaSend()">Send</button>
     </div>
   </div>
-  <div id="aria-bubble" onclick="ariaToggle()">
-    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 3 .97 4.29L2 22l5.71-.97C9 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+  <div style="position:relative;display:inline-block">
+    <button id="aria-bubble" onclick="ariaToggle()" aria-label="Chat with ARIA">
+      <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+    </button>
     <div class="aria-notif" id="aria-notif"></div>
   </div>
 </div>
 
 <script id="aria-widget-js">
 (function(){
-  const SB = 'https://slzawehsiotvkjzaehqw.supabase.co';
-  const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
-  
-  let ariaOpen = false;
-  let ariaHistory = [];
-  let ariaUserData = {};  // builds up as user tells ARIA things
-  let ariaReg = null;
-  let ariaVehicle = null;
-  let ariaStarted = false;
+  var SB='https://slzawehsiotvkjzaehqw.supabase.co';
+  var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
+  var STRIPE={spark:'https://buy.stripe.com/9AQ16V8DF9gq0rC6oo',shield:'https://buy.stripe.com/6oE2aZ8DFcsy3DOfYZ',legend:'https://buy.stripe.com/28o16Vgc7gIM5LW6op'};
+  var ariaOpen=false,ariaHistory=[],ariaUserData={},ariaReg=null,ariaVehicle=null,ariaStarted=false;
 
-  // ── OPEN / CLOSE ─────────────────────────────────
-  window.ariaToggle = function(){
-    ariaOpen = !ariaOpen;
-    document.getElementById('aria-window').classList.toggle('open', ariaOpen);
+  window.ariaToggle=function(){
+    ariaOpen=!ariaOpen;
+    document.getElementById('aria-window').classList.toggle('open',ariaOpen);
     document.getElementById('aria-notif').classList.remove('show');
-    if(ariaOpen && !ariaStarted){ ariaInit(); ariaStarted=true; }
-    if(ariaOpen) setTimeout(()=>document.getElementById('aria-input')?.focus(), 100);
+    if(ariaOpen&&!ariaStarted){ariaInit();ariaStarted=true;}
+    if(ariaOpen)setTimeout(function(){var i=document.getElementById('aria-input');if(i)i.focus();},150);
   };
 
   function ariaInit(){
-    const page = window.location.pathname.replace('/','')||'home';
-    const hour = new Date().getHours();
-    const greet = hour<12?'Good morning':'hour<17?'Good afternoon':'Good evening';
-    
-    // Context-aware opener
-    const openers = {
-      'studio': "I can see you're checking out our services. Got a reg plate? I'll tell you exactly what your car needs. 🔍",
-      'paint-check': "Ghost Vision uses DVLA data to assess your paintwork. Want to run a quick check? Just give me your reg.",
-      'booking': "Ready to book? Tell me your reg and I'll match you to the right service and check availability.",
-      'membership': "Ghost Pass members save 15% on every service. Want me to help you pick the right plan?",
-      'concierge': "Concierge handles your MOT, service, repairs — everything. What's your car and what needs doing?",
+    var page=window.location.pathname.replace(/\//g,'').replace('.html','');
+    var h=new Date().getHours();
+    var greet=h<12?'Good morning':h<17?'Good afternoon':'Good evening';
+    var openers={
+      'studio':'Checking out our services? Give me your reg — I'll tell you exactly what your car needs.',
+      'paint-check':'Ghost Vision uses DVLA data for a full AI paint assessment. Enter your reg to start.',
+      'booking':'Ready to book? Tell me your reg and preferred service.',
+      'membership':'Ghost Pass members save 15% on every service. Want help picking the right plan?',
+      'concierge':'Concierge handles MOT, repairs, and servicing end to end. What does your car need?'
     };
-    
-    const opener = openers[page.replace('.html','')] || 
-      `${greet}. I'm ARIA — I'll help you get the most from Ghost Detail. What's your car?`;
-    
-    ariaAddMsg('ghost', opener);
-    
-    // Show quick replies based on page
-    ariaShowQuick([
-      '🔍 Check my car',
-      '💰 See prices', 
-      '📅 Book a service',
-      '⭐ Ghost Pass'
-    ]);
-    
-    // Show notif after 5s if not opened
-    setTimeout(()=>{
-      if(!ariaOpen) document.getElementById('aria-notif').classList.add('show');
-    }, 5000);
+    var opener=openers[page]||(greet+'. I'm ARIA — Ghost Detail's AI. What's your car?');
+    ariaAddMsg('g',opener);
+    ariaShowQuick(['Check my car','See prices','Book a service','Ghost Pass']);
+    setTimeout(function(){if(!ariaOpen)document.getElementById('aria-notif').classList.add('show');},5000);
   }
 
-  // ── MESSAGES ─────────────────────────────────────
-  function ariaAddMsg(role, text, isHtml=false){
-    const msgs = document.getElementById('aria-msgs');
-    const div = document.createElement('div');
-    div.className = 'aria-msg '+role;
-    const now = new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
-    div.innerHTML = `<div class="aria-msg-text"></div><div class="aria-msg-time">${now}</div>`;
-    if(isHtml) div.querySelector('.aria-msg-text').innerHTML = text;
-    else div.querySelector('.aria-msg-text').textContent = text;
-    msgs.appendChild(div);
-    msgs.scrollTop = msgs.scrollHeight;
-    return div;
+  function ariaAddMsg(role,text){
+    var msgs=document.getElementById('aria-msgs');
+    var d=document.createElement('div');
+    d.className='am '+role;
+    var now=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+    var b=document.createElement('div');b.className='am-txt';b.textContent=text;
+    var t=document.createElement('div');t.className='am-time';t.textContent=now;
+    d.appendChild(b);d.appendChild(t);
+    msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+    return d;
   }
 
   function ariaTyping(){
-    const msgs = document.getElementById('aria-msgs');
-    const t = document.createElement('div');
-    t.className = 'aria-typing';
-    t.innerHTML = '<span></span><span></span><span></span>';
-    msgs.appendChild(t);
-    msgs.scrollTop = msgs.scrollHeight;
+    var msgs=document.getElementById('aria-msgs');
+    var t=document.createElement('div');t.className='aria-typing';
+    t.innerHTML='<span></span><span></span><span></span>';
+    msgs.appendChild(t);msgs.scrollTop=msgs.scrollHeight;
     return t;
   }
 
-  function ariaShowQuick(options){
-    const el = document.getElementById('aria-quick');
-    el.innerHTML = options.map(o => 
-      `<button class="aria-quick-btn" onclick="ariaQuick('${o}')">${o}</button>`
-    ).join('');
+  function ariaShowQuick(opts){
+    var el=document.getElementById('aria-quick');
+    el.innerHTML=opts.map(function(o){
+      return '<button class="aqb" onclick="ariaQuick(''+o.replace(/'/g,"\'")+''">'+o+'</button>';
+    }).join('');
   }
 
   function ariaShowReg(){
-    const msgs = document.getElementById('aria-msgs');
-    const div = document.createElement('div');
-    div.className = 'aria-msg ghost';
-    div.innerHTML = `<div class="aria-msg-text">
-      <div style="margin-bottom:6px;font-size:11px">Enter your reg plate:</div>
-      <div class="aria-reg-wrap">
-        <div class="aria-reg-badge"><span>GB</span></div>
-        <input type="text" id="aria-reg-input" placeholder="BX19MBT" maxlength="8"
-          style="background:#F5F0C8;border:none;outline:none;font-family:'DM Mono',monospace;font-size:15px;font-weight:700;letter-spacing:.06em;color:#111;padding:7px 10px;text-transform:uppercase;width:120px"
-          oninput="this.value=this.value.toUpperCase()" 
-          onkeydown="if(event.key==='Enter')ariaLookupReg()">
-        <button onclick="ariaLookupReg()" style="background:var(--gold,#c5a059);color:#0a0905;border:none;padding:7px 12px;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.1em;cursor:pointer;border-radius:0 2px 2px 0">Go →</button>
-      </div>
-    </div>`;
-    msgs.appendChild(div);
-    msgs.scrollTop = msgs.scrollHeight;
-    setTimeout(()=>document.getElementById('aria-reg-input')?.focus(), 100);
+    var msgs=document.getElementById('aria-msgs');
+    var d=document.createElement('div');d.className='am g';
+    var b=document.createElement('div');b.className='am-txt';
+    b.innerHTML='<div style="margin-bottom:6px;font-size:11px">Enter your reg plate:</div>'
+      +'<div style="display:flex;gap:0">'
+      +'<div style="background:#003399;display:flex;align-items:center;padding:0 7px;border-radius:2px 0 0 2px"><span style="font-size:8px;font-weight:700;color:#fff;font-family:DM Mono,monospace">GB</span></div>'
+      +'<input type="text" id="aria-reg-inp" placeholder="YOUR REG" maxlength="8" inputmode="text" autocomplete="off"'
+      +' style="background:#F5F0C8;border:none;outline:none;font-family:DM Mono,monospace;font-size:15px;font-weight:700;letter-spacing:.06em;color:#111;padding:6px 9px;text-transform:uppercase;width:110px;-webkit-appearance:none"'
+      +' oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')ariaLookupReg()">'
+      +'<button onclick="ariaLookupReg()" style="background:#c5a059;color:#0a0905;border:none;padding:6px 11px;font-family:DM Mono,monospace;font-size:9px;font-weight:700;cursor:pointer;border-radius:0 2px 2px 0;-webkit-appearance:none">Go</button>'
+      +'</div>';
+    d.appendChild(b);msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;
+    setTimeout(function(){var i=document.getElementById('aria-reg-inp');if(i)i.focus();},100);
   }
 
-  // ── REG LOOKUP ───────────────────────────────────
-  window.ariaLookupReg = async function(){
-    const reg = (document.getElementById('aria-reg-input')||{value:''}).value.trim().toUpperCase();
-    if(!reg || reg.length < 2) return;
-    ariaReg = reg;
-    document.getElementById('aria-quick').innerHTML = '';
-    
-    const t = ariaTyping();
+  window.ariaLookupReg=async function(){
+    var reg=(document.getElementById('aria-reg-inp')||{value:''}).value.trim().toUpperCase();
+    if(!reg||reg.length<2)return;
+    ariaReg=reg;
+    document.getElementById('aria-quick').innerHTML='';
+    var t=ariaTyping();
     try{
-      const r = await fetch(SB+'/functions/v1/vehicle-lookup',{
+      var r=await fetch(SB+'/functions/v1/vehicle-lookup',{
         method:'POST',
         headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},
         body:JSON.stringify({registration:reg})
       });
-      const d = await r.json();
+      var d=await r.json();
       t.remove();
-      
       if(d.error){
-        ariaAddMsg('ghost', `I couldn't find ${reg} in DVLA records. No worries — tell me the make and model and I'll still help you.`);
-        ariaShowQuick(['BMW', 'Mercedes', 'Audi', 'VW', 'Other']);
-        return;
+        ariaAddMsg('g','Couldn't find '+reg+' in DVLA. Tell me the make and model and I'll still help.');
+        ariaShowQuick(['BMW','Mercedes','Audi','Other']);return;
       }
-      
-      ariaVehicle = d;
-      ariaUserData.vehicle = d;
-      ariaUserData.reg = reg;
-      
-      const make = (d.make||'').charAt(0)+(d.make||'').slice(1).toLowerCase();
-      const colour = (d.colour||'').toLowerCase();
-      const year = d.year||'';
-      const age = d.vehicle_age_years||'';
-      const mot = d.mot_days_left;
-      
-      // Build smart response based on DVLA data
-      let response = `Found it! ${colour} ${make} ${year} — ${age} year${age!==1?'s':''} old.\n\n`;
-      
-      // Leverage ALL the DVLA data
-      if(mot !== undefined && mot < 0){
-        response += `⚠️ Your MOT has expired. You can't legally drive it. Our Concierge service handles everything — book, drop keys, we sort it.\n\n`;
-        ariaUserData.urgent = 'mot_expired';
-      } else if(mot !== undefined && mot < 90){
-        response += `Your MOT is due in ${mot} days — we can manage that for you.\n\n`;
-        ariaUserData.urgent = 'mot_due';
-      }
-      
-      if(d.is_ulez_compliant === false){
-        response += `⚠️ This vehicle isn't ULEZ compliant — daily charges apply in London zones.\n\n`;
-      }
-      
-      // Age-based recommendation
-      if(age >= 7){
-        response += `At ${age} years, paint typically has swirl marks and oxidation. I'd recommend a Depth Refinement (£149) before any ceramic coating.`;
-      } else if(age >= 3){
-        response += `${age} years in, paint's probably showing some swirling. Ghost Vision can give you a full AI assessment.`;
-      } else {
-        response += `Relatively new — perfect time to protect it with Nano Banana Ceramic before contamination sets in.`;
-      }
-      
-      ariaAddMsg('ghost', response);
-      
-      // Save to DB (lead capture)
-      fetch(SB+'/rest/v1/aria_leads',{
-        method:'POST',
-        headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
-        body:JSON.stringify({
-          registration:reg, vehicle_make:d.make, vehicle_year:d.year,
-          vehicle_colour:d.colour, vehicle_age:age,
-          mot_days_left:mot, is_ulez:d.is_ulez_compliant,
-          source_page:window.location.pathname,
-          created_at:new Date().toISOString()
-        })
-      }).catch(()=>{});
-      
-      // Follow-up quick replies
-      if(ariaUserData.urgent){
-        ariaShowQuick(['🔧 Book Concierge MOT', '🔍 Full Assessment', '📅 Book Now']);
-      } else {
-        ariaShowQuick(['🔍 Ghost Vision AI Assessment', '📅 Book a Service', '💎 Protect with Ceramic', '⭐ Ghost Pass Plans']);
-      }
-      
+      ariaVehicle=d;ariaUserData.vehicle=d;ariaUserData.reg=reg;
+      var make=(d.make||'').charAt(0)+(d.make||'').slice(1).toLowerCase();
+      var colour=(d.colour||'').toLowerCase();
+      var age=d.vehicle_age_years||'';
+      var mot=d.mot_days_left;
+      var msg='Found it. '+colour+' '+make+' '+d.year+' — '+age+' year'+(age!==1?'s':'')+' old.
+
+';
+      if(mot<0)msg+='Your MOT has expired. Concierge can manage the whole thing.
+
+';
+      else if(mot<90)msg+='MOT due in '+mot+' days — we can handle that.
+
+';
+      if(d.is_ulez_compliant===false)msg+='Not ULEZ compliant — check before driving into London.
+
+';
+      if(age>=7)msg+='At '+age+' years, paint usually needs correction before ceramic. Depth Refinement £149 first.';
+      else if(age>=3)msg+='3+ years in, showing some swirling. Ghost Vision gives a full AI read.';
+      else msg+='Good time to protect it before contamination builds up. Nano Ceramic £279.';
+      ariaAddMsg('g',msg);
+      // Save lead
+      fetch(SB+'/rest/v1/aria_leads',{method:'POST',headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({registration:reg,vehicle_make:d.make,vehicle_year:d.year,vehicle_colour:d.colour,vehicle_age:age,mot_days_left:mot,is_ulez:d.is_ulez_compliant,source_page:window.location.pathname,created_at:new Date().toISOString()})}).catch(function(){});
+      if(mot<90&&mot>=0)ariaShowQuick(['Book Concierge MOT','Ghost Vision Assessment','Book Now']);
+      else if(mot<0)ariaShowQuick(['Concierge MOT','Book Now','See prices']);
+      else ariaShowQuick(['Ghost Vision AI','Book a service','Ceramic coating','Ghost Pass']);
     }catch(e){
       t.remove();
-      ariaAddMsg('ghost', `Couldn't reach DVLA right now. Go to ghostdetail.autos/paint-check and try there — it'll give you the full AI assessment.`);
+      ariaAddMsg('g','DVLA is slow right now. Try ghostdetail.autos/paint-check for the full assessment.');
     }
   };
 
-  // ── QUICK REPLIES ─────────────────────────────────
-  window.ariaQuick = async function(opt){
-    document.getElementById('aria-quick').innerHTML = '';
-    ariaAddMsg('user', opt);
-    
-    if(opt.includes('Check my car') || opt.includes('reg')){
-      ariaShowReg(); return;
+  window.ariaQuick=async function(opt){
+    document.getElementById('aria-quick').innerHTML='';
+    ariaAddMsg('u',opt);
+    var lo=opt.toLowerCase();
+    if(lo.includes('check my car')||lo.includes('reg')){ariaShowReg();return;}
+    if(lo.includes('book now')||lo.includes('book a service')){
+      window.location.href=ariaReg?'/booking?reg='+ariaReg:'/booking';return;
     }
-    if(opt.includes('Book')){
-      const url = ariaReg ? `/booking?reg=${ariaReg}` : '/booking';
-      ariaAddMsg('ghost', `Let's get you booked in. ${ariaVehicle ? 'I\'ve pre-filled your '+((ariaVehicle.make||'').charAt(0)+(ariaVehicle.make||'').slice(1).toLowerCase())+' details.' : 'Takes 2 minutes.'}`, false);
-      setTimeout(()=>{ window.location.href = url; }, 1500);
-      return;
+    if(lo.includes('ghost pass')||lo.includes('plans')){
+      ariaAddMsg('g','Ghost Pass from £99/month. 15% off all services, priority booking. Which tier?');
+      ariaShowQuick(['Spark £99/mo','Shield £199/mo','Legend £299/mo']);return;
     }
-    if(opt.includes('Ghost Pass') || opt.includes('plans')){
-      ariaAddMsg('ghost', 'Ghost Pass starts at £99/month. Members get 15% off every service, priority booking, and a personal vehicle profile. Which sounds right for you — Spark, Shield, or Legend?');
-      ariaShowQuick(['Spark £99/mo', 'Shield £199/mo', 'Legend £299/mo', 'Tell me more']);
-      return;
+    if(lo.includes('spark £99')){window.location.href=STRIPE.spark;return;}
+    if(lo.includes('shield £199')){window.location.href=STRIPE.shield;return;}
+    if(lo.includes('legend £299')){window.location.href=STRIPE.legend;return;}
+    if(lo.includes('prices')||lo.includes('see prices')){
+      ariaAddMsg('g','Spark Wash £79 · Depth Refinement £149 · Total Refinement £349 · Nano Banana Ceramic £279 · Quick Refinement £249 · PPF (POA).
+
+Ghost Pass members save 15% on all of these.');
+      ariaShowQuick(['Book now','Ghost Pass','Assess my car']);return;
     }
-    if(opt.includes('Spark £99')){
-      setTimeout(()=>{ window.location.href = 'https://buy.stripe.com/9AQ16V8DF9gq0rC6oo'; }, 800);
-      ariaAddMsg('ghost', 'Perfect — taking you to secure payment now.');
-      return;
+    if(lo.includes('ghost vision')||lo.includes('assessment')||lo.includes('assess')){
+      window.location.href=ariaReg?'/paint-check?reg='+ariaReg:'/paint-check';return;
     }
-    if(opt.includes('Shield £199')){
-      setTimeout(()=>{ window.location.href = 'https://buy.stripe.com/6oE2aZ8DFcsy3DOfYZ'; }, 800);
-      ariaAddMsg('ghost', 'Great choice. Taking you to payment now.');
-      return;
+    if(lo.includes('concierge')||lo.includes('mot')){
+      window.location.href=ariaReg?'/concierge?reg='+ariaReg:'/concierge';return;
     }
-    if(opt.includes('Legend £299')){
-      setTimeout(()=>{ window.location.href = 'https://buy.stripe.com/28o16Vgc7gIM5LW6op'; }, 800);
-      ariaAddMsg('ghost', 'Legend tier — Romeo\'s top plan. Taking you to payment.');
-      return;
+    if(lo.includes('ceramic')){
+      ariaAddMsg('g','Nano Banana Ceramic £279 — 3+ year protection. We correct paint first if needed (Depth Refinement £149), then coat. Worth doing right.');
+      ariaShowQuick(['Get assessed first','Book ceramic','Already corrected']);return;
     }
-    if(opt.includes('prices') || opt.includes('Prices')){
-      ariaAddMsg('ghost', 'Services start at £79 (Spark Wash). Here\'s the range:\n\n• Spark Wash — £79\n• Depth Refinement — £149\n• Total Refinement — £349\n• Nano Banana Ceramic — £279\n• Quick Refinement — £249\n• PPF — POA\n\nGhost Pass members save 15%. Want the full list?', false);
-      ariaShowQuick(['📅 Book now', '⭐ Ghost Pass', '🔍 Assess my car']);
-      return;
+    if(['bmw','mercedes','audi','vw','other'].includes(lo)){
+      ariaUserData.make_hint=opt;
+      ariaAddMsg('g',opt+' — solid. What year and what needs doing?');
+      ariaShowQuick(['Paint correction','Ceramic coating','Full valet','Just browsing']);return;
     }
-    if(opt.includes('Ghost Vision') || opt.includes('Assessment')){
-      const url = ariaReg ? `/paint-check?reg=${ariaReg}` : '/paint-check';
-      ariaAddMsg('ghost', `Ghost Vision uses your DVLA data + your photos to give a full AI paint assessment. Free, instant, no account needed.`);
-      setTimeout(()=>{ window.location.href = url; }, 1800);
-      return;
-    }
-    if(opt.includes('MOT') || opt.includes('Concierge')){
-      const url = ariaReg ? `/concierge?reg=${ariaReg}` : '/concierge';
-      ariaAddMsg('ghost', `Concierge handles MOT booking, drop-off, advisories, and we detail the car when it comes back. Simple.`);
-      setTimeout(()=>{ window.location.href = url; }, 1800);
-      return;
-    }
-    
-    // Named vehicle types
-    if(['BMW','Mercedes','Audi','VW','Other'].includes(opt)){
-      ariaUserData.make_hint = opt;
-      ariaAddMsg('ghost', `${opt} — great. What's the year? And what's brought you here today?`);
-      ariaShowQuick(['Paint correction', 'Ceramic coating', 'Full valet', 'Just browsing']);
-      return;
-    }
-    
-    // Ceramic/PPF interest
-    if(opt.includes('Ceramic') || opt.includes('Protect')){
-      ariaAddMsg('ghost', `Nano Banana Ceramic is £279 and protects for 3+ years. If your paint has swirls or scratches, we correct first (Depth Refinement £149) then coat. Otherwise the imperfections get locked in. Want a proper assessment?`);
-      ariaShowQuick(['🔍 Assess my car first', '📅 Book Ceramic', 'Already corrected']);
-      return;
-    }
-    
-    // Sign up push
-    if(opt.includes('account') || opt.includes('profile') || opt.includes('save')){
-      ariaAddMsg('ghost', `Your Ghost Garage profile saves your vehicle history, before/after photos, MOT reminders, and lets Romeo track your car's service passport. Free to create.`);
-      setTimeout(()=>{ window.location.href = '/account'; }, 2000);
-      return;
-    }
-    
-    // Default: AI response
     await ariaChatAI(opt);
   };
 
-  // ── AI CHAT ───────────────────────────────────────
-  window.ariaSend = function(){
-    const inp = document.getElementById('aria-input');
-    const msg = inp.value.trim();
-    if(!msg) return;
-    inp.value = '';
-    ariaAddMsg('user', msg);
-    document.getElementById('aria-quick').innerHTML = '';
+  window.ariaSend=function(){
+    var inp=document.getElementById('aria-input');
+    var msg=inp.value.trim();if(!msg)return;
+    inp.value='';ariaAddMsg('u',msg);
+    document.getElementById('aria-quick').innerHTML='';
     ariaChatAI(msg);
   };
 
   async function ariaChatAI(msg){
-    const t = ariaTyping();
-    ariaHistory.push({role:'user', content:msg});
-    
-    const vehicleCtx = ariaVehicle ? 
-      `Customer vehicle: ${ariaVehicle.make} ${ariaVehicle.year}, ${ariaVehicle.colour}, ${ariaVehicle.vehicle_age_years}yrs old, MOT: ${ariaVehicle.mot_status} (${ariaVehicle.mot_days_left}d), ULEZ: ${ariaVehicle.is_ulez_compliant ? 'OK' : 'NON-COMPLIANT'}, ${ariaVehicle.engine_litres||''} ${ariaVehicle.fuel_type||''}. CO2: ${ariaVehicle.co2_label||''}. Ghost recs: ${(ariaVehicle.ghost_recommendations||[]).join('; ')}.` :
-      'No vehicle data yet.';
-    
-    const system = `You are ARIA — the AI customer assistant for Ghost Detail Autos, Watford WD18. Run by Romeo and his son Ferrel Cruz.
-
-Services: Spark Wash £79, Quick Refinement £249, Depth Refinement £149, Total Refinement £349, Nano Banana Ceramic £279, PPF (POA), Alloy Refurb, Interior Detail, Concierge (MOT mgmt, PDR, repairs).
-
-Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. Annual: Obsidian £950, Phantom £1,900, Legend £2,870. All memberships = 15% off + priority booking.
-
-${vehicleCtx}
-
-Rules: Short answers (max 3 sentences). Always push towards booking, Ghost Vision, or account creation. Use facts from DVLA data when available. Never make up prices. If asked about a competitor, pivot to Ghost Detail quality. If they want to buy, send them to the right page.`;
-
+    var t=ariaTyping();
+    ariaHistory.push({role:'user',content:msg});
+    var vCtx=ariaVehicle?('Vehicle: '+(ariaVehicle.make||'')+' '+(ariaVehicle.year||'')+', '+(ariaVehicle.colour||'')+', '+(ariaVehicle.vehicle_age_years||'?')+'yr, MOT: '+(ariaVehicle.mot_status||'?')+' ('+(ariaVehicle.mot_days_left||'?')+'d), ULEZ: '+(ariaVehicle.is_ulez_compliant===true?'OK':'Non-compliant')+', CO2: '+(ariaVehicle.co2_label||'?')):'No vehicle data.';
+    var system='You are ARIA — Ghost Detail Autos customer AI, Watford WD18. Services: Spark Wash £79, Depth Refinement £149, Quick Refinement £249, Total Refinement £349, Nano Banana Ceramic £279, PPF POA. Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. '+vCtx+'. Keep answers under 3 sentences. Push booking, Ghost Vision, or Ghost Pass. Facts only.';
     try{
-      const r = await fetch('https://api.anthropic.com/v1/messages',{
+      var r=await fetch('https://api.anthropic.com/v1/messages',{
         method:'POST',
-        headers:{
-          'Content-Type':'application/json',
-          'x-api-key': window._ghostApiKey||'',
-          'anthropic-version':'2023-06-01'
-        },
-        body:JSON.stringify({
-          model:'claude-haiku-4-5-20251001',
-          max_tokens:300,
-          system,
-          messages:ariaHistory.slice(-8)
-        })
+        headers:{'Content-Type':'application/json','x-api-key':window._ghostApiKey||'','anthropic-version':'2023-06-01'},
+        body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:250,system:system,messages:ariaHistory.slice(-6)})
       });
-      
       t.remove();
-      let reply = '';
-      
-      if(r.ok){
-        const d = await r.json();
-        reply = d.content?.[0]?.text || '';
-      } else {
-        // Fallback: ghost-ai-router
-        const d2 = await fetch(SB+'/functions/v1/ghost-ai-router',{
-          method:'POST',
-          headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},
-          body:JSON.stringify({action:'aria_chat', prompt: system+'\n\nUser: '+msg})
-        }).then(r=>r.json()).catch(()=>({}));
-        reply = d2.text||'';
+      var reply='';
+      if(r.ok){var d=await r.json();reply=d.content&&d.content[0]&&d.content[0].text||'';}
+      if(!reply){
+        var kw=msg.toLowerCase();
+        if(kw.includes('price')||kw.includes('cost')||kw.includes('how much'))reply='Services from £79. Depth Refinement £149, Ceramic £279, Total Refinement £349. Ghost Pass saves 15%.';
+        else if(kw.includes('location')||kw.includes('where'))reply='Sandown Road, Watford WD18. Private studio — one car at a time. Romeo or Ferrel work every job.';
+        else if(kw.includes('book'))reply='Book at ghostdetail.autos/booking — takes 2 minutes. Small deposit holds your slot.';
+        else reply='Romeo and Ferrel work every car personally. Call 01923 959839 or book online.';
       }
-      
-      if(!reply || reply === 'Assessment unavailable'){
-        // Smart fallback based on keywords
-        const kw = msg.toLowerCase();
-        if(kw.includes('price') || kw.includes('cost') || kw.includes('how much'))
-          reply = 'Services from £79. Depth Refinement £149, Nano Ceramic £279, Total Refinement £349. Ghost Pass members save 15%. Want to book?';
-        else if(kw.includes('book') || kw.includes('appointment'))
-          reply = 'Booking takes 2 minutes. Pick your service, date, and pay a small deposit to hold the slot.';
-        else if(kw.includes('ceramic') || kw.includes('coating'))
-          reply = 'Nano Banana Ceramic is £279 and lasts 3+ years. If paint has swirls, correction first (£149) then ceramic. Worth doing right.';
-        else if(kw.includes('mot'))
-          reply = 'Concierge handles MOT booking, drop-off, and advisory management. We detail the car when it comes back too.';
-        else if(kw.includes('location') || kw.includes('where') || kw.includes('address'))
-          reply = 'Sandown Road, Watford WD18. Private studio — one car at a time. Romeo or Ferrel work every job personally.';
-        else
-          reply = 'Romeo and Ferrel handle every car personally at our Watford WD18 studio. What service are you after?';
-      }
-      
-      ariaHistory.push({role:'assistant', content:reply});
-      ariaAddMsg('ghost', reply);
-      
-      // Contextual follow-ups
-      const replyLower = reply.toLowerCase();
-      if(replyLower.includes('book')){
-        ariaShowQuick(['📅 Book Now', '🔍 Assess my car first']);
-      } else if(replyLower.includes('ceramic') || replyLower.includes('correction')){
-        ariaShowQuick(['🔍 Get AI Assessment', '📅 Book Directly']);
-      } else {
-        ariaShowQuick(['📅 Book a service', '🔍 Check my car', '⭐ Ghost Pass']);
-      }
-      
-      // Capture contact if email mentioned
-      const emailMatch = msg.match(/[\w.-]+@[\w.-]+\.\w+/);
-      if(emailMatch){
-        ariaUserData.email = emailMatch[0];
-        // Save lead with email
-        fetch(SB+'/rest/v1/aria_leads',{
-          method:'POST',
-          headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},
-          body:JSON.stringify({...ariaUserData, email:emailMatch[0], created_at:new Date().toISOString()})
-        }).catch(()=>{});
-      }
-      
+      ariaHistory.push({role:'assistant',content:reply});
+      ariaAddMsg('g',reply);
+      ariaShowQuick(['Book now','See prices','Check my car']);
+      var em=msg.match(/[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}/);
+      if(em){ariaUserData.email=em[0];fetch(SB+'/rest/v1/aria_leads',{method:'POST',headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify(Object.assign({},ariaUserData,{email:em[0],created_at:new Date().toISOString()}))}).catch(function(){});}
     }catch(e){
       t.remove();
-      ariaAddMsg('ghost', 'Romeo and Ferrel are at the studio — try calling 01923 959839 or WhatsApp for a quick answer.');
-      ariaShowQuick(['📞 Call us', '💬 WhatsApp', '📅 Book online']);
+      ariaAddMsg('g','Try calling Romeo on 01923 959839 or book online at ghostdetail.autos/booking.');
+      ariaShowQuick(['Book online','Call us']);
     }
   }
-  
-  // Auto-open after 8 seconds on relevant pages (first visit only)
-  const page = window.location.pathname;
-  const triggered = sessionStorage.getItem('aria_triggered');
-  if(!triggered && ['/studio','/membership','/paint-check','/concierge'].some(p=>page.includes(p))){
-    sessionStorage.setItem('aria_triggered','1');
-    setTimeout(()=>{
-      if(!ariaOpen){ ariaToggle(); }
-    }, 8000);
-  }
-  
-  // Show pulsing notif on homepage after 5s (first visit)
-  if(!triggered && (page === '/' || page === '/index.html')){
-    setTimeout(()=>{
-      if(!ariaOpen) document.getElementById('aria-notif').classList.add('show');
-    }, 5000);
-  }
 
+  // Auto open on service pages (first visit per session)
+  var page=window.location.pathname;
+  var triggered=sessionStorage.getItem('aria_t');
+  if(!triggered&&['/studio','/membership','/paint-check','/concierge'].some(function(p){return page.includes(p);})){
+    sessionStorage.setItem('aria_t','1');
+    setTimeout(function(){if(!ariaOpen)ariaToggle();},8000);
+  }
+  if(!triggered&&(page==='/'||page==='/index.html')){
+    setTimeout(function(){if(!ariaOpen)document.getElementById('aria-notif').classList.add('show');},5000);
+  }
 })();
 </script>
-
 </body>
 </html>
