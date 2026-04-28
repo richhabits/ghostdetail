@@ -725,7 +725,8 @@ setInterval(()=>{document.getElementById('tb-clock').textContent=new Date().toLo
 const SB_URL='https://slzawehsiotvkjzaehqw.supabase.co';
 const SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
 const AUTH_URL='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/admin-auth';
-const AI_URL='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-ai-router';
+const AI_URL='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain';
+const POLLINATIONS_URL='https://text.pollinations.ai/openai';
 const ADMIN_API='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/admin-api';
 
 // Admin API helper — uses service role via edge function, bypasses RLS
@@ -1427,6 +1428,81 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
   if(n.id&&['hero-vehicle-result','booking-vehicle-banner','dvla-preview','concierge-vehicle-result'].includes(n.id))
     animate(n,{opacity:[0,1],y:[12,0],scale:[0.97,1]},{duration:0.4,ease:EXPO});
 }))).observe(document.body,{childList:true,subtree:true});
+</script>
+
+<!-- GHOST Jarvis chat -->
+<div style="margin-top:20px;border:1px solid rgba(197,160,89,.1);background:rgba(197,160,89,.03)">
+  <div style="padding:10px 14px;border-bottom:1px solid rgba(197,160,89,.08);display:flex;justify-content:space-between;align-items:center">
+    <span style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#c5a059">⬡ GHOST · Business AI</span>
+    <span style="font-family:DM Mono,monospace;font-size:8px;color:rgba(197,160,89,.4)">Free · Pollinations GPT-4o</span>
+  </div>
+  <div id="jarvis-msgs" style="height:200px;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;font-size:11px">
+    <div style="color:rgba(197,160,89,.6)">GHOST ready. Ask me anything about the business, bookings, strategy, or any task.</div>
+  </div>
+  <div style="display:flex;gap:8px;padding:10px 12px;border-top:1px solid rgba(197,160,89,.08)">
+    <input type="text" id="jarvis-input" placeholder="e.g. Draft a WhatsApp message to chase unpaid invoices..." 
+      style="flex:1;background:#0a0905;border:1px solid rgba(197,160,89,.1);color:#e8e0d0;font-family:DM Mono,monospace;font-size:10px;padding:7px 10px;outline:none"
+      onkeydown="if(event.key==='Enter')adminJarvis()">
+    <button onclick="adminJarvis()" style="background:#c5a059;color:#0a0905;border:none;padding:7px 14px;font-family:DM Mono,monospace;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">Ask →</button>
+  </div>
+</div>
+<script>
+var jarvisHistory = [];
+async function adminJarvis(){
+  var inp = document.getElementById('jarvis-input');
+  var msg = inp.value.trim();
+  if(!msg) return;
+  inp.value = '';
+  
+  var msgs = document.getElementById('jarvis-msgs');
+  var userDiv = document.createElement('div');
+  userDiv.style.cssText = 'align-self:flex-end;background:rgba(197,160,89,.1);padding:6px 10px;max-width:80%;font-size:11px;color:#e8e0d0';
+  userDiv.textContent = msg;
+  msgs.appendChild(userDiv);
+  
+  var thinkDiv = document.createElement('div');
+  thinkDiv.style.cssText = 'color:rgba(197,160,89,.4);font-size:10px;font-family:DM Mono,monospace';
+  thinkDiv.textContent = 'GHOST thinking...';
+  msgs.appendChild(thinkDiv);
+  msgs.scrollTop = msgs.scrollHeight;
+  
+  jarvisHistory.push({role:'user',content:msg});
+  
+  var system = 'You are GHOST — the business AI for Ghost Detail Autos, Watford WD18. Owner: Romeo Cruz. Services: Spark Wash £79, Quick Refinement £249, Depth Refinement £149, Total Refinement £349, Nano Banana Ceramic £279, PPF. Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. Be sharp, direct, commercial. Help Romeo run and grow the business. Answer directly in 3 sentences max unless a longer task is requested.';
+  
+  var reply = '';
+  try {
+    var r = await fetch('https://text.pollinations.ai/openai', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'openai',
+        messages:[{role:'system',content:system}].concat(jarvisHistory.slice(-8)),
+        max_tokens:500,
+        seed:Math.floor(Math.random()*99999)
+      })
+    });
+    if(r.ok){
+      var d = await r.json();
+      reply = d.choices?.[0]?.message?.content||'';
+    }
+  }catch(e){}
+  
+  if(!reply){
+    try{
+      var r2 = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain',{
+        method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
+        body:JSON.stringify({prompt:system+'\n\nUser: '+msg})
+      });
+      var d2=await r2.json(); reply=d2.text||'';
+    }catch(e){}
+  }
+  
+  jarvisHistory.push({role:'assistant',content:reply||'Processing...'});
+  thinkDiv.textContent = reply||'Could not process. Try again.';
+  thinkDiv.style.color='#e8e0d0';
+  msgs.scrollTop = msgs.scrollHeight;
+}
 </script>
 </body>
 </html>

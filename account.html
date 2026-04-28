@@ -1094,19 +1094,10 @@ Rules: Short answers (max 3 sentences). Always push towards booking, Ghost Visio
       }catch(e2){}
     }
     try{
-      const r = await fetch('https://api.anthropic.com/v1/messages',{
+      const r = await fetch('https://text.pollinations.ai/openai',{
         method:'POST',
-        headers:{
-          'Content-Type':'application/json',
-          'x-api-key': window._ghostApiKey||'',
-          'anthropic-version':'2023-06-01'
-        },
-        body:JSON.stringify({
-          model:'claude-haiku-4-5-20251001',
-          max_tokens:300,
-          system,
-          messages:ariaHistory.slice(-8)
-        })
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({model:'openai-fast',max_tokens:300,messages:[{role:'system',content:system}].concat(ariaHistory.slice(-8))})
       });
       
       t.remove();
@@ -1117,10 +1108,10 @@ Rules: Short answers (max 3 sentences). Always push towards booking, Ghost Visio
         reply = d.content?.[0]?.text || '';
       } else {
         // Fallback: ghost-ai-router
-        const d2 = await fetch(SB+'/functions/v1/ghost-ai-router',{
+        const d2 = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain',{
           method:'POST',
           headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},
-          body:JSON.stringify({action:'aria_chat', prompt: system+'\n\nUser: '+msg})
+          body:JSON.stringify({prompt:system+'\\n\\nUser: '+msg})
         }).then(r=>r.json()).catch(()=>({}));
         reply = d2.text||'';
       }
@@ -1349,7 +1340,7 @@ Concierge: MOT management, PDR, alloy refurb, full coordination.
 Be personal, direct, and specific to their vehicle. Keep answers under 3 sentences. Always end with a clear next action.`;
     
     try{
-      const r = await fetch('https://api.anthropic.com/v1/messages',{
+      const r = await fetch('https://text.pollinations.ai/openai',{
         method:'POST',
         headers:{'Content-Type':'application/json','x-api-key':window._ghostApiKey||'','anthropic-version':'2023-06-01'},
         body:JSON.stringify({
@@ -1364,8 +1355,8 @@ Be personal, direct, and specific to their vehicle. Keep answers under 3 sentenc
       let reply = '';
       
       if(r.ok){
-        const d = await r.json();
-        reply = d.content?.[0]?.text||'';
+        const d=await r.json();
+        reply=d.choices?.[0]?.message?.content||'';
       }
       
       if(!reply){
@@ -1411,12 +1402,20 @@ window.ghostAI = async function(systemPrompt, userMessage, historyArr) {
   var key = window._ghostApiKey || localStorage.getItem('ghost_api_key') || '';
   if(key && key.startsWith('sk-ant')) {
     try {
-      var r = await fetch('https://api.anthropic.com/v1/messages', {
+      var rp = await fetch('https://text.pollinations.ai/openai', {
         method:'POST',
-        headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},
-        body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,system:systemPrompt,messages:msgs})
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          model:'openai-fast',
+          messages:[{role:'system',content:system}].concat(companionHistory.slice(-8)),
+          max_tokens:300,
+          seed:Math.floor(Math.random()*99999)
+        })
       });
-      if(r.ok){ var d=await r.json(); var t=d.content?.[0]?.text; if(t) return {text:t,model:'claude-haiku'}; }
+      if(rp.ok){
+        var dp = await rp.json();
+        reply = dp.choices?.[0]?.message?.content||'';
+      }
     } catch(e){}
   }
   

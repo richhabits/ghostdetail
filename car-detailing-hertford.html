@@ -828,7 +828,7 @@ Ghost Pass members save 15% on all of these.');
     var vCtx=ariaVehicle?('Vehicle: '+(ariaVehicle.make||'')+' '+(ariaVehicle.year||'')+', '+(ariaVehicle.colour||'')+', '+(ariaVehicle.vehicle_age_years||'?')+'yr, MOT: '+(ariaVehicle.mot_status||'?')+' ('+(ariaVehicle.mot_days_left||'?')+'d), ULEZ: '+(ariaVehicle.is_ulez_compliant===true?'OK':'Non-compliant')+', CO2: '+(ariaVehicle.co2_label||'?')):'No vehicle data.';
     var system='You are ARIA — Ghost Detail Autos customer AI, Watford WD18. Services: Spark Wash £79, Depth Refinement £149, Quick Refinement £249, Total Refinement £349, Nano Banana Ceramic £279, PPF POA. Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. '+vCtx+'. Keep answers under 3 sentences. Push booking, Ghost Vision, or Ghost Pass. Facts only.';
     try{
-      var r=await fetch('https://api.anthropic.com/v1/messages',{
+      var r=await fetch('https://text.pollinations.ai/openai',{
         method:'POST',
         headers:{'Content-Type':'application/json','x-api-key':window._ghostApiKey||'','anthropic-version':'2023-06-01'},
         body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:250,system:system,messages:ariaHistory.slice(-6)})

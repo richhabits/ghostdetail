@@ -1015,19 +1015,10 @@ Rules: Short answers (max 3 sentences). Always push towards booking, Ghost Visio
       }catch(e2){}
     }
     try{
-      const r = await fetch('https://api.anthropic.com/v1/messages',{
+      const r = await fetch('https://text.pollinations.ai/openai',{
         method:'POST',
-        headers:{
-          'Content-Type':'application/json',
-          'x-api-key': window._ghostApiKey||'',
-          'anthropic-version':'2023-06-01'
-        },
-        body:JSON.stringify({
-          model:'claude-haiku-4-5-20251001',
-          max_tokens:300,
-          system,
-          messages:ariaHistory.slice(-8)
-        })
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({model:'openai-fast',max_tokens:300,messages:[{role:'system',content:system}].concat(ariaHistory.slice(-8))})
       });
       
       t.remove();
@@ -1038,10 +1029,10 @@ Rules: Short answers (max 3 sentences). Always push towards booking, Ghost Visio
         reply = d.content?.[0]?.text || '';
       } else {
         // Fallback: ghost-ai-router
-        const d2 = await fetch(SB+'/functions/v1/ghost-ai-router',{
+        const d2 = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain',{
           method:'POST',
           headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},
-          body:JSON.stringify({action:'aria_chat', prompt: system+'\n\nUser: '+msg})
+          body:JSON.stringify({prompt:system+'\\n\\nUser: '+msg})
         }).then(r=>r.json()).catch(()=>({}));
         reply = d2.text||'';
       }
