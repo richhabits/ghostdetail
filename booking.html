@@ -21,11 +21,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:72px;d
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
 .hex{width:26px;height:26px;background:var(--gold);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);animation:breathe 3s ease-in-out infinite}
 @keyframes breathe{0%,100%{filter:brightness(1)}50%{filter:brightness(1.25)}}
-.nav-brand{font-family:DM Mono,monospace;font-size:13px;font-weight:500;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+.nav-brand{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
 .progress-bar{position:fixed;top:72px;left:0;right:0;z-index:99;height:3px;background:rgba(197,160,89,.08)}
 .progress-fill{height:100%;background:var(--gold);transition:width .5s var(--ease)}
 .steps-indicator{position:fixed;top:75px;left:0;right:0;z-index:99;display:flex;justify-content:center;gap:8px;padding:12px;background:rgba(10,9,5,.85);backdrop-filter:blur(8px);border-bottom:1px solid rgba(197,160,89,.05)}
-.step-dot{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:6px}
+.step-dot{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:6px}
 .step-dot.active{color:var(--gold)}
 .step-dot.done{color:var(--green)}
 .step-dot::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--muted);transition:background .3s}
@@ -33,7 +33,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:72px;d
 .step-dot.done::before{background:var(--green)}
 .booking-wrap{min-height:100vh;padding:160px 48px 120px;max-width:900px;margin:0 auto}
 .step{display:none}.step.active{display:block}
-.step-num{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.step-num{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
 h1{font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,56px);font-weight:900;line-height:1;margin-bottom:8px}
 h1 em,h2 em{font-style:italic;color:var(--gold)}
 h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:900;line-height:1;margin-bottom:8px}
@@ -43,45 +43,45 @@ h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weig
 .svc-card:hover{border-color:rgba(197,160,89,.4);background:var(--surface)}
 .svc-card.selected{border-color:var(--gold);background:rgba(197,160,89,.06)}
 .svc-card.selected::after{content:'✓';position:absolute;top:12px;right:14px;font-size:14px;color:var(--gold)}
-.svc-tag{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.svc-tag{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
 .svc-name{font-family:'Playfair Display',serif;font-size:22px;margin-bottom:6px}
-.svc-price{font-family:DM Mono,monospace;font-size:20px;color:var(--gold);margin-bottom:8px}
+.svc-price{font-family:'DM Mono',monospace;font-size:20px;color:var(--gold);margin-bottom:8px}
 .svc-includes{font-size:12px;color:var(--muted);line-height:1.7}
-.svc-dur{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid rgba(197,160,89,.08)}
+.svc-dur{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid rgba(197,160,89,.08)}
 .upsell-section{margin-bottom:32px}
-.upsell-lbl{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.upsell-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
 .upsell-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .upsell-card{background:var(--vault);border:1px solid rgba(197,160,89,.1);padding:18px;cursor:pointer;transition:all .3s var(--ease);position:relative}
 .upsell-card:hover{border-color:rgba(197,160,89,.3)}
 .upsell-card.selected{border-color:var(--banana);background:rgba(249,249,6,.03)}
 .upsell-card.selected::after{content:'✓';position:absolute;top:10px;right:12px;font-size:12px;color:var(--banana)}
 .uc-icon{font-size:24px;margin-bottom:8px}
-.uc-name{font-family:DM Mono,monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text);margin-bottom:4px}
+.uc-name{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text);margin-bottom:4px}
 .uc-price{font-family:'Playfair Display',serif;font-size:18px;color:var(--gold);margin-bottom:4px}
 .uc-desc{font-size:11px;color:var(--muted);line-height:1.6}
 .price-summary{background:rgba(197,160,89,.05);border:1px solid rgba(197,160,89,.15);padding:20px;margin-bottom:24px}
-.ps-row{display:flex;justify-content:space-between;font-family:DM Mono,monospace;font-size:11px;letter-spacing:.06em;padding:5px 0;color:var(--muted)}
+.ps-row{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.06em;padding:5px 0;color:var(--muted)}
 .ps-row.total{border-top:1px solid rgba(197,160,89,.15);margin-top:8px;padding-top:12px;font-size:14px;color:var(--gold)}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
 .fg{margin-bottom:14px}
-.fl{font-family:DM Mono,monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
-.fi{width:100%;background:#030303;border:1px solid rgba(197,160,89,.15);color:var(--text);font-family:DM Mono,monospace;font-size:13px;padding:11px 14px;outline:none;transition:border-color .3s}
+.fl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+.fi{width:100%;background:#030303;border:1px solid rgba(197,160,89,.15);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:11px 14px;outline:none;transition:border-color .3s}
 .fi:focus{border-color:var(--gold)}
 select.fi{cursor:pointer}
 .uk-plate{display:flex;background:#F5F0C8;border-radius:3px;overflow:hidden;margin-bottom:6px}
 .uk-gb{background:#003399;width:36px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:6px 0;flex-shrink:0}
 .uk-gb-stars{color:#FFD700;font-size:4px;letter-spacing:1px}
-.uk-gb-txt{color:#fff;font-family:DM Mono,monospace;font-size:11px;font-weight:500}
+.uk-gb-txt{color:#fff;font-family:'DM Mono',monospace;font-size:11px;font-weight:500}
 .uk-in{flex:1;padding:0 12px;display:flex;align-items:center;background:#F5F0C8}
-.uk-in input{width:100%;background:transparent;border:none;outline:none;font-family:DM Mono,monospace;font-size:26px;font-weight:500;letter-spacing:.08em;color:#111;text-transform:uppercase;padding:6px 0}
-.btn-next{font-family:DM Mono,monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);border:none;padding:16px 48px;cursor:pointer;transition:background .3s;margin-right:12px}
+.uk-in input{width:100%;background:transparent;border:none;outline:none;font-family:'DM Mono',monospace;font-size:26px;font-weight:500;letter-spacing:.08em;color:#111;text-transform:uppercase;padding:6px 0}
+.btn-next{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);border:none;padding:16px 48px;cursor:pointer;transition:background .3s;margin-right:12px}
 .btn-next:hover{background:var(--gold-b)}
-.btn-back{font-family:DM Mono,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:transparent;border:1px solid rgba(197,160,89,.2);padding:15px 28px;cursor:pointer;transition:all .3s}
+.btn-back{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:transparent;border:1px solid rgba(197,160,89,.2);padding:15px 28px;cursor:pointer;transition:all .3s}
 .btn-back:hover{border-color:var(--gold);color:var(--gold)}
 .confirm-card{background:var(--vault);border:1px solid rgba(197,160,89,.12);padding:32px;margin-bottom:20px}
 .cc-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(197,160,89,.06);font-size:14px}
 .cc-label{color:var(--muted)}
-.cc-value{color:var(--text);font-family:DM Mono,monospace;font-size:12px}
+.cc-value{color:var(--text);font-family:'DM Mono',monospace;font-size:12px}
 .cc-value.highlight{color:var(--gold)}
 .success-wrap{text-align:center;padding:48px 24px;display:none}
 .success-wrap.show{display:block}
@@ -101,12 +101,708 @@ select.fi{cursor:pointer}
 .footer-links a:hover{color:#c5a059}
 .footer-bottom{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;font-size:9px;letter-spacing:.1em;color:rgba(197,160,89,0.4)}
 @media(max-width:768px){nav{padding:0 20px}.booking-wrap{padding:140px 20px 100px}.services-grid{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.upsell-grid{grid-template-columns:1fr}.footer-inner{flex-direction:column;gap:32px}.footer-links{gap:16px 24px}.footer-bottom{flex-direction:column;gap:8px}}
-
-/* ── GHOST NAV OVERRIDE ── */
-nav#gnav, nav.nav-links, nav.nav-inner { position:static !important; }
-header[style*="sticky"] { position:sticky !important; }
 </style>
+<style id="ghost-mobile">
+/* ── MOBILE GLOBAL RESET ── */
+*{box-sizing:border-box}
+body{overflow-x:hidden;-webkit-text-size-adjust:100%}
 
+/* ── NAV MOBILE FIX ── */
+header[style*="sticky"]{
+  height:56px!important;
+  padding:0 16px!important;
+}
+header[style*="sticky"] > div{
+  height:56px!important;
+  gap:8px!important;
+}
+/* Hide center nav links on mobile - show hamburger */
+#gnav{
+  display:none;
+  position:fixed!important;
+  top:56px!important;
+  left:0;right:0;
+  background:#0a0905!important;
+  flex-direction:column!important;
+  padding:12px 0!important;
+  gap:0!important;
+  border-bottom:1px solid rgba(197,160,89,.12)!important;
+  z-index:9999!important;
+}
+#gnav.open{display:flex!important}
+#gnav a{
+  padding:13px 20px!important;
+  border-bottom:1px solid rgba(197,160,89,.06)!important;
+  font-size:11px!important;
+  display:block!important;
+  white-space:nowrap!important;
+}
+#gham{display:flex!important;background:none!important;border:none!important;color:#c5a059!important;font-size:22px!important;cursor:pointer!important;padding:4px 8px!important;align-items:center!important}
+
+/* Hero responsive */
+@media(max-width:768px){
+  .hero-inner{padding:20px 16px 32px!important;text-align:center!important}
+  .hero-title{font-size:clamp(28px,8vw,48px)!important;line-height:1.08!important}
+  .hero-sub{font-size:13px!important;line-height:1.7!important}
+  .hero-pillars{justify-content:center!important;flex-wrap:wrap!important;gap:8px!important}
+  .hero-stats{grid-template-columns:repeat(3,1fr)!important;gap:4px!important;margin:16px 8px!important}
+  .hstat-n{font-size:18px!important}
+
+  /* Reg input stacked nicely */
+  .hero-reg-wrap{padding:0 16px!important}
+  .hero-reg-inner{flex-direction:column!important}
+  .uk-plate-input{border-radius:4px 4px 0 0!important;width:100%!important}
+  .hero-reg-btn{border-radius:0 0 4px 4px!important;padding:13px!important;width:100%!important;font-size:12px!important}
+  .uk-plate-field{font-size:20px!important;width:100%!important}
+
+  /* Jade widget */
+  .jade-wrap{padding:0 8px!important}
+  .jade-card{padding:20px 16px!important}
+
+  /* Section padding */
+  .section,.section-dark{padding:40px 0!important}
+  .centre{padding:0 16px!important}
+
+  /* Grids → single col */
+  .pillar-grid,.service-grid{grid-template-columns:1fr!important;gap:12px!important}
+  .rev-track{gap:12px!important}
+
+  /* Page headers */
+  [style*="padding:140px"]{padding:80px 16px 40px!important}
+  h1[style*="font-size:clamp"]{font-size:clamp(32px,9vw,52px)!important}
+
+  /* 2-col grids on mobile */
+  [style*="grid-template-columns:repeat(3"]{grid-template-columns:1fr 1fr!important}
+  [style*="grid-template-columns:repeat(2"]{grid-template-columns:1fr!important}
+  [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
+
+  /* Footer */
+  footer > div > div:first-child{
+    grid-template-columns:1fr!important;
+    gap:24px!important;
+  }
+  footer > div > div:first-child > div:last-child{
+    grid-template-columns:repeat(2,1fr)!important;
+  }
+
+  /* Svc cards */
+  .svc-card-inner{grid-template-columns:1fr!important;gap:12px!important;padding:20px 16px!important}
+  .svc-price-block{text-align:left!important}
+
+  /* Booking */
+  .services-grid{grid-template-columns:1fr!important;gap:8px!important}
+
+  /* Membership plans */
+  [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important;gap:8px!important}
+}
+
+@media(max-width:480px){
+  .nav-brand,.logo-text,[style*="nav-brand"]{display:none!important}
+  header[style*="sticky"] a:first-child span:last-child{display:none!important}
+}
+</style>
+<style id="ghost-nav-mobile">
+@media(max-width:820px){
+  nav#gnav{
+    display:none!important;
+  }
+  nav#gnav.open{
+    display:flex!important;
+    flex-direction:column!important;
+    position:fixed!important;
+    top:56px!important;
+    left:0!important;
+    right:0!important;
+    background:#0a0905!important;
+    padding:8px 0!important;
+    gap:0!important;
+    z-index:9999!important;
+    border-bottom:1px solid rgba(197,160,89,.1)!important;
+  }
+  nav#gnav a{
+    display:block!important;
+    padding:12px 20px!important;
+    white-space:nowrap!important;
+    border-bottom:1px solid rgba(197,160,89,.06)!important;
+  }
+  button#gham{
+    display:block!important;
+  }
+}
+@media(min-width:821px){
+  button#gham{
+    display:none!important;
+  }
+  nav#gnav{
+    display:flex!important;
+  }
+}
+</style>
+<style id="ghost-desktop-nav">
+@media(min-width:821px){
+  nav#gnav{
+    display:flex!important;
+    position:static!important;
+    flex-direction:row!important;
+    background:transparent!important;
+    padding:0!important;
+    border:none!important;
+    gap:28px!important;
+  }
+  nav#gnav a{
+    padding:0!important;
+    border:none!important;
+    display:inline-block!important;
+  }
+  button#gham{display:none!important}
+}
+</style>
+<style id="ghost-premium">
+/* ── NOISE TEXTURE ────────────────────────────── */
+body::before{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9998;opacity:.6;
+}
+
+/* ── ANIMATED GRADIENT BORDER on reg input ─────── */
+.hero-reg-wrap::before{
+  content:'';
+  position:absolute;inset:-1px;
+  background:linear-gradient(135deg,#c5a059,rgba(197,160,89,.2),#c5a059);
+  background-size:300% 300%;
+  animation:borderRotate 4s linear infinite;
+  border-radius:5px;
+  z-index:-1;
+  opacity:0;
+  transition:opacity .4s;
+}
+.hero-reg-wrap:focus-within::before{opacity:1}
+@keyframes borderRotate{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+.hero-reg-wrap{position:relative}
+
+/* ── TICKER ──────────────────────────────────── */
+.ghost-ticker{
+  overflow:hidden;white-space:nowrap;
+  border-top:1px solid rgba(197,160,89,.08);
+  border-bottom:1px solid rgba(197,160,89,.08);
+  padding:12px 0;margin:60px 0;
+  background:rgba(197,160,89,.02);
+}
+.ghost-ticker-inner{
+  display:inline-flex;gap:0;
+  animation:ticker 28s linear infinite;
+}
+.ghost-ticker-inner:hover{animation-play-state:paused}
+.ghost-tick{
+  display:inline-flex;align-items:center;gap:20px;
+  font-family:DM Mono,monospace;font-size:10px;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(197,160,89,.5);padding:0 40px;
+  white-space:nowrap;
+}
+.ghost-tick .dot{color:var(--gold);font-size:6px}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── HERO EYEBROW PULSE ──────────────────────── */
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+}
+.hero-eyebrow::before{
+  content:'';width:6px;height:6px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(197,160,89,.4)}
+  50%{box-shadow:0 0 0 8px rgba(197,160,89,0)}
+}
+
+/* ── HOVER LIFT on all cards ─────────────────── */
+[style*="border:1px solid rgba(197,160,89"]:not(header):not(footer):not(input):not(div div div){
+  transition:transform .2s cubic-bezier(.22,1,.36,1), box-shadow .2s ease !important;
+}
+[style*="border:1px solid rgba(197,160,89"]:not(header):not(footer):not(input):hover{
+  transform:translateY(-2px) !important;
+  box-shadow:0 12px 40px rgba(197,160,89,.08) !important;
+}
+
+/* ── LINK UNDERLINE ANIMATION ─────────────────── */
+footer a, nav a{
+  position:relative;
+  background-image:linear-gradient(var(--gold),var(--gold));
+  background-size:0% 1px;
+  background-position:0 100%;
+  background-repeat:no-repeat;
+  transition:background-size .3s ease, color .2s;
+}
+footer a:hover, nav a:hover{
+  background-size:100% 1px;
+  color:var(--gold)!important;
+}
+
+/* ── SCROLL INDICATOR ─────────────────────────── */
+.scroll-indicator{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-family:DM Mono,monospace;font-size:8px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(197,160,89,.4);
+  animation:scrollBob 2s ease-in-out infinite;
+}
+.scroll-indicator svg{width:16px;height:20px;stroke:rgba(197,160,89,.4);fill:none}
+@keyframes scrollBob{
+  0%,100%{transform:translateX(-50%) translateY(0)}
+  50%{transform:translateX(-50%) translateY(6px)}
+}
+
+/* ── GOLD SHIMMER on BOOK NOW ─────────────────── */
+.hero-reg-btn, [style*="background:var(--gold)"]{
+  background-image:linear-gradient(105deg, transparent 40%, rgba(255,255,255,.15) 50%, transparent 60%) !important;
+  background-size:200% 100%;
+  background-position:200% 0;
+  transition:background-position .6s ease !important;
+}
+.hero-reg-btn:hover, [style*="background:var(--gold)"]:hover{
+  background-position:-200% 0 !important;
+}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="cur-ring"></div>
+
+<header style="position:sticky;top:0;z-index:1000;background:#0a0905;border-bottom:1px solid rgba(197,160,89,.1);height:60px;display:flex;align-items:center;padding:0 clamp(16px,4vw,48px)">
+  <div style="max-width:1400px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px">
+    <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;flex-shrink:0">
+      <span style="font-size:20px;color:#c5a059;font-weight:900;line-height:1">⬡</span>
+      <span style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#fff;font-weight:700;font-family:DM Mono,monospace">Ghost Detail</span>
+    </a>
+    <nav id="gnav" style="display:flex;gap:28px;flex:1;justify-content:center">
+      <a href="/studio.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Studio</a>
+      <a href="/concierge.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Concierge</a>
+      <a href="/paint-check.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Ghost Vision</a>
+      <a href="/results.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Before & After</a>
+      <a href="/membership.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Ghost Pass</a>
+      <a href="/shop.html" style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Shop</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:12px;flex-shrink:0">
+      <button id="gham" onclick="var n=document.getElementById(\'gnav\');if(n){n.classList.toggle(\'open\');}" style="display:none;background:none;border:none;color:#c5a059;font-size:20px;cursor:pointer;padding:4px">☰</button>
+      <a href="/booking.html" style="background:#c5a059;color:#0a0905;padding:9px 18px;font-size:8px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;text-decoration:none;font-family:DM Mono,monospace;transition:opacity .2s;white-space:nowrap" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">Book Now</a>
+    </div>
+  </div>
+</header>
+
+<div class="progress-bar"><div class="progress-fill" id="prog" style="width:25%"></div></div>
+<div class="steps-indicator">
+  <div class="step-dot active" id="dot-1">Service</div>
+  <div class="step-dot" id="dot-2">Vehicle</div>
+  <div class="step-dot" id="dot-3">Details</div>
+  <div class="step-dot" id="dot-4">Confirm</div>
+</div>
+
+<div class="booking-wrap">
+
+  <div class="step active" id="step-1">
+    <div class="step-num">Step 1 of 4</div>
+    <h1>Choose Your <em>Service</em></h1>
+    <p class="step-sub">All prices subject to vehicle condition assessment. Large vehicles may incur a small surcharge.</p>
+    <div class="services-grid">
+      <div class="svc-card" onclick="selectService(this,'Spark Wash',79)" data-service="Spark Wash" data-price="79">
+        <div class="svc-tag">Maintenance</div>
+        <div class="svc-name">Spark Wash</div>
+        <div class="svc-price">£79</div>
+        <div class="svc-includes">pH-neutral foam wash · Two-bucket method · Tyre dressing · Glass clean</div>
+        <div class="svc-dur">2–3 hours</div>
+      </div>
+      <div class="svc-card" onclick="selectService(this,'Quick Refinement',249)" data-service="Quick Refinement" data-price="249">
+        <div class="svc-tag">Popular</div>
+        <div class="svc-name">Quick Refinement</div>
+        <div class="svc-price">£249</div>
+        <div class="svc-includes">Full decontamination · Clay bar · Single-stage machine polish · Paint sealant · Interior vacuum</div>
+        <div class="svc-dur">2–3 hours</div>
+      </div>
+      <div class="svc-card" onclick="selectService(this,'Depth Refinement',449)" data-service="Depth Refinement" data-price="449">
+        <div class="svc-tag">Most popular</div>
+        <div class="svc-name">Depth Refinement</div>
+        <div class="svc-price">£449</div>
+        <div class="svc-includes">Multi-stage paint correction · Paint depth readings · Clay bar · Engine bay · Leather treatment · Full interior</div>
+        <div class="svc-dur">4–5 hours</div>
+      </div>
+      <div class="svc-card" onclick="selectService(this,'Total Refinement',799)" data-service="Total Refinement" data-price="799">
+        <div class="svc-tag">Elite</div>
+        <div class="svc-name">Total Refinement</div>
+        <div class="svc-price">£799</div>
+        <div class="svc-includes">Everything in Depth · Nano Banana ceramic included · Ozone treatment · Service Passport · Before/after documentation</div>
+        <div class="svc-dur">6–8 hours</div>
+      </div>
+    </div>
+    <div class="upsell-section" id="upsell-section" style="display:none">
+      <div class="upsell-lbl">🚀 Add-ons</div>
+      <div class="upsell-grid">
+        <div class="upsell-card" id="upsell-ceramic" onclick="toggleUpsell('ceramic',149)">
+          <div class="uc-icon">🍌</div>
+          <div class="uc-name">Nano Banana Ceramic</div>
+          <div class="uc-price">+£149</div>
+          <div class="uc-desc">9H hardness. 5-year warranty.</div>
+        </div>
+        <div class="upsell-card" id="upsell-ppf" onclick="toggleUpsell('ppf',149)">
+          <div class="uc-icon">🛡</div>
+          <div class="uc-name">PPF High-Impact Zones</div>
+          <div class="uc-price">+£149</div>
+          <div class="uc-desc">Front bumper + bonnet leading edge.</div>
+        </div>
+        <div class="upsell-card" id="upsell-mobile" onclick="toggleUpsell('mobile',45)">
+          <div class="uc-icon">🚐</div>
+          <div class="uc-name">Mobile Service</div>
+          <div class="uc-price">+£45</div>
+          <div class="uc-desc">We come to you within 30 miles of WD18.</div>
+        </div>
+      </div>
+    </div>
+    <div class="price-summary" id="price-summary" style="display:none">
+      <div class="ps-row" id="ps-base"><span>Base service</span><span id="ps-base-val">—</span></div>
+      <div class="ps-row" id="ps-ceramic-row" style="display:none"><span>🍌 Nano Banana ceramic</span><span>+£149</span></div>
+      <div class="ps-row" id="ps-ppf-row" style="display:none"><span>🛡 PPF add-on</span><span>+£149</span></div>
+      <div class="ps-row" id="ps-mobile-row" style="display:none"><span>🚐 Mobile service</span><span>+£45</span></div>
+      <div class="ps-row total"><span>Total</span><span id="ps-total">—</span></div>
+    </div>
+    <button class="btn-next" onclick="goStep(2)" id="btn-step1" disabled style="opacity:.4">Continue →</button>
+  </div>
+
+  <div class="step" id="step-2">
+    <div class="step-num">Step 2 of 4</div>
+    <h2>Your <em>Vehicle</em></h2>
+    <p class="step-sub">Enter your registration — we'll look it up automatically.</p>
+    <div class="fg">
+      <label class="fl">Vehicle Registration</label>
+      <div class="uk-plate">
+        <div class="uk-gb"><div class="uk-gb-stars">★★★★★★★★★★</div><div class="uk-gb-txt">GB</div></div>
+        <div class="uk-in"><input type="text" id="b-reg" placeholder="BX19 MBT" maxlength="8" autocomplete="off" oninput="this.value=this.value.toUpperCase()" onchange="lookupReg()"></div>
+      </div>
+      <div id="reg-result" style="font-family:'DM Mono',monospace;font-size:10px;color:var(--green);margin-top:6px;display:none"></div>
+    </div>
+    <div class="form-grid">
+      <div class="fg"><label class="fl">Make</label><input type="text" class="fi" id="b-make" placeholder="e.g. BMW"></div>
+      <div class="fg"><label class="fl">Model</label><input type="text" class="fi" id="b-model" placeholder="e.g. 3 Series"></div>
+      <div class="fg"><label class="fl">Year</label><input type="text" class="fi" id="b-year" placeholder="e.g. 2021"></div>
+      <div class="fg"><label class="fl">Colour</label><input type="text" class="fi" id="b-colour" placeholder="e.g. Midnight Blue"></div>
+    </div>
+    <div class="fg">
+      <label class="fl">Any known paint issues or special requirements?</label>
+      <input type="text" class="fi" id="b-paint-notes" placeholder="e.g. light swirl marks, previous respray on bonnet...">
+    </div>
+    <button class="btn-back" onclick="goStep(1)">← Back</button>
+    <button class="btn-next" onclick="goStep(3)">Continue →</button>
+  </div>
+
+  <div class="step" id="step-3">
+    <div class="step-num">Step 3 of 4</div>
+    <h2>Your <em>Details</em></h2>
+    <p class="step-sub">We need your contact details to confirm your booking.</p>
+    <div class="form-grid">
+      <div class="fg"><label class="fl">Full Name *</label><input type="text" class="fi" id="b-name" placeholder="Romeo Cruz"></div>
+      <div class="fg"><label class="fl">Phone / WhatsApp *</label><input type="tel" class="fi" id="b-phone" placeholder="+44 7700..."></div>
+    </div>
+    <div class="fg"><label class="fl">Email *</label><input type="email" class="fi" id="b-email" placeholder="you@email.com"></div>
+    <div class="form-grid" style="margin-top:8px">
+      <div class="fg"><label class="fl">Preferred Date</label><input type="date" class="fi" id="b-date" min=""></div>
+      <div class="fg"><label class="fl">Preferred Time</label>
+        <select class="fi" id="b-time">
+          <option value="">Any time</option>
+          <option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option>
+          <option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option>
+          <option>2:00 PM</option><option>3:00 PM</option>
+        </select>
+      </div>
+    </div>
+    <div class="fg"><label class="fl">Additional notes for Romeo</label><textarea class="fi" id="b-notes" rows="3" placeholder="Anything specific about your vehicle or requirements..."></textarea></div>
+    <button class="btn-back" onclick="goStep(2)">← Back</button>
+    <button class="btn-next" onclick="goStep(4)">Review Booking →</button>
+  </div>
+
+  <div class="step" id="step-4">
+    <div class="step-num">Step 4 of 4</div>
+    <h2>Confirm <em>Booking</em></h2>
+    <p class="step-sub">Check your details below. A 30% deposit is required to secure your slot.</p>
+    <div class="confirm-card">
+      <div class="cc-row"><span class="cc-label">Service</span><span class="cc-value highlight" id="c-service">—</span></div>
+      <div class="cc-row" id="c-ceramic-row" style="display:none"><span class="cc-label">🍌 Nano Banana Ceramic</span><span class="cc-value">+£149</span></div>
+      <div class="cc-row" id="c-ppf-row" style="display:none"><span class="cc-label">🛡 PPF Add-on</span><span class="cc-value">+£149</span></div>
+      <div class="cc-row" id="c-mobile-row" style="display:none"><span class="cc-label">🚐 Mobile Service</span><span class="cc-value">+£45</span></div>
+      <div class="cc-row"><span class="cc-label">Vehicle</span><span class="cc-value" id="c-vehicle">—</span></div>
+      <div class="cc-row"><span class="cc-label">Name</span><span class="cc-value" id="c-name">—</span></div>
+      <div class="cc-row"><span class="cc-label">Phone</span><span class="cc-value" id="c-phone">—</span></div>
+      <div class="cc-row"><span class="cc-label">Email</span><span class="cc-value" id="c-email">—</span></div>
+      <div class="cc-row" id="c-date-row" style="display:none"><span class="cc-label">Preferred date</span><span class="cc-value" id="c-date">—</span></div>
+      <div class="cc-row"><span class="cc-label" style="font-weight:500;color:var(--text)">Total price</span><span class="cc-value highlight" id="c-total" style="font-size:18px">—</span></div>
+      <div class="cc-row"><span class="cc-label">30% deposit due</span><span class="cc-value highlight" id="c-deposit">—</span></div>
+    </div>
+    <div style="background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.12);padding:16px;margin-bottom:24px;font-size:13px;color:var(--muted);line-height:1.8">
+      By submitting this booking request you agree to our <a href="/legal.html" style="color:var(--gold)">Terms & Conditions</a>. Romeo will contact you via WhatsApp within 2 hours to confirm your slot and send deposit payment details.
+    </div>
+    <div id="booking-error" style="display:none;font-family:'DM Mono',monospace;font-size:11px;color:var(--red);margin-bottom:16px;padding:12px;background:rgba(239,68,68,.06);border:1px solid rgba(239,68,68,.2)"></div>
+    <button class="btn-back" onclick="goStep(3)">← Back</button>
+    <button class="btn-next" onclick="submitBooking()" id="submit-btn">Confirm Booking Request →</button>
+  </div>
+
+  <div class="success-wrap" id="success-wrap">
+    <div class="success-ico">🖤</div>
+    <h2 class="success-title">Booking <em>Received.</em></h2>
+    <p style="font-size:16px;color:var(--muted);margin-bottom:24px">Romeo will WhatsApp you within 2 hours with confirmation and deposit details.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px">
+      <a href="https://wa.me/447927576142" style="font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:#25D366;text-decoration:none;padding:12px 20px">WhatsApp Romeo</a>
+      <a href="/" style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);text-decoration:none;padding:12px 20px;border:1px solid rgba(197,160,89,.3)">Back to Home</a>
+    </div>
+  </div>
+
+</div>
+
+<a href="https://wa.me/447927576142" class="wa-float">💬</a>
+
+<footer class="footer-clean">
+  <div class="footer-inner">
+    <div class="footer-block">
+      <div class="fbrand-logo">⬡</div>
+      <div class="fbrand-name">Ghost Detail Autos</div>
+      <div class="fbrand-addr">Watford WD18 · Romeo & Ferrel</div>
+      <a href="tel:01923959839" class="footer-link-phone">01923 959839</a>
+      <a href="https://wa.me/447927576142" class="footer-link-wa">WhatsApp</a>
+    </div>
+    <div class="footer-links">
+      <a href="/studio.html">Studio</a>
+      <a href="/concierge.html">Concierge</a>
+      <a href="/paint-check.html">Ghost Vision</a>
+      <a href="/results.html">Before & After</a>
+      <a href="/membership.html">Ghost Pass</a>
+      <a href="/shop.html">Shop</a>
+      <a href="/gift-vouchers.html">Gift Vouchers</a>
+      <a href="/garage.html">My Garage</a>
+      <a href="/live-tracker.html">Live Track</a>
+      <a href="/quote.html">Quote</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/legal.html">Privacy</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© 2026 Ghost Detail Autos · Watford WD18</div>
+    <div>01923 959839</div>
+  </div>
+</footer>
+
+<script>
+const c=document.getElementById('cur'),r=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c.style.left=mx+'px';c.style.top=my+'px'});
+(function t(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;r.style.left=rx+'px';r.style.top=ry+'px';requestAnimationFrame(t)})();
+
+const SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
+let SB;
+if(window.supabase){SB=window.supabase.createClient('https://slzawehsiotvkjzaehqw.supabase.co',SB_ANON);}
+
+let state={service:'',price:0,ceramic:false,ppf:false,mobile:false};
+
+// Pre-fill from URL
+const params=new URLSearchParams(window.location.search);
+if(params.get('service')){
+  const svcMap={spark:'Spark Wash',quick:'Quick Refinement',depth:'Depth Refinement',total:'Total Refinement'};
+  const priceMap={'Spark Wash':79,'Quick Refinement':249,'Depth Refinement':449,'Total Refinement':799};
+  const s=svcMap[params.get('service')];
+  if(s){state.service=s;state.price=priceMap[s];document.querySelectorAll('.svc-card').forEach(el=>{if(el.dataset.service===s)el.classList.add('selected')});document.getElementById('btn-step1').disabled=false;document.getElementById('btn-step1').style.opacity='1';showUpsells();updatePriceSummary();}
+}
+if(params.get('reg'))document.getElementById('b-reg').value=params.get('reg').toUpperCase();
+if(params.get('make'))document.getElementById('b-make').value=params.get('make');
+
+// Set min date
+const tom=new Date();tom.setDate(tom.getDate()+1);
+document.getElementById('b-date').min=tom.toISOString().split('T')[0];
+
+function selectService(el,name,price){
+  document.querySelectorAll('.svc-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.service=name;state.price=price;
+  document.getElementById('btn-step1').disabled=false;
+  document.getElementById('btn-step1').style.opacity='1';
+  showUpsells();updatePriceSummary();
+}
+function showUpsells(){
+  const sec=document.getElementById('upsell-section');
+  if(state.service==='Total Refinement'){sec.style.display='none';return}
+  sec.style.display='block';
+}
+function toggleUpsell(type,price){
+  state[type]=!state[type];
+  document.getElementById('upsell-'+type).classList.toggle('selected',state[type]);
+  updatePriceSummary();
+}
+function updatePriceSummary(){
+  const ps=document.getElementById('price-summary');
+  if(!state.service){ps.style.display='none';return}
+  ps.style.display='block';
+  let total=state.price;
+  document.getElementById('ps-base-val').textContent='£'+state.price;
+  document.getElementById('ps-ceramic-row').style.display=state.ceramic?'flex':'none';if(state.ceramic)total+=149;
+  document.getElementById('ps-ppf-row').style.display=state.ppf?'flex':'none';if(state.ppf)total+=149;
+  document.getElementById('ps-mobile-row').style.display=state.mobile?'flex':'none';if(state.mobile)total+=45;
+  document.getElementById('ps-total').textContent='£'+total;
+}
+async function lookupReg(){
+  const reg=document.getElementById('b-reg').value.replace(/\s/g,'').toUpperCase();
+  const resEl=document.getElementById('reg-result');
+  if(reg.length<5)return;
+  resEl.style.display='block';resEl.style.color='var(--muted)';resEl.textContent='Looking up '+reg+'...';
+  try{
+    const resp=await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/vehicle-lookup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({registration:reg})});
+    const d=await resp.json();
+    if(d.make){
+      document.getElementById('b-make').value=d.make||'';
+      document.getElementById('b-model').value=d.model||'';
+      document.getElementById('b-year').value=d.year||'';
+      document.getElementById('b-colour').value=d.colour||'';
+      resEl.style.color='var(--green)';
+      resEl.textContent='✓ '+d.make+' '+d.model+' ('+d.year+') found';
+    }else{resEl.style.color='var(--muted)';resEl.textContent='Enter details below';}
+  }catch(e){resEl.style.color='var(--muted)';resEl.textContent='Enter details manually';}
+}
+function goStep(n){
+  if(n===2&&!state.service)return;
+  if(n===4){
+    const name=document.getElementById('b-name').value.trim();
+    const phone=document.getElementById('b-phone').value.trim();
+    const email=document.getElementById('b-email').value.trim();
+    if(!name||!phone||!email)return;
+    populateConfirm();
+  }
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step-'+n).classList.add('active');
+  const pcts={1:25,2:50,3:75,4:95};
+  document.getElementById('prog').style.width=pcts[n]+'%';
+  ['1','2','3','4'].forEach(i=>{
+    const d=document.getElementById('dot-'+i);
+    d.classList.remove('active','done');
+    if(parseInt(i)<n)d.classList.add('done');
+    else if(parseInt(i)===n)d.classList.add('active');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function populateConfirm(){
+  let total=state.price;
+  if(state.ceramic)total+=149;if(state.ppf)total+=149;if(state.mobile)total+=45;
+  const dep=Math.round(total*0.3);
+  document.getElementById('c-service').textContent=state.service;
+  document.getElementById('c-ceramic-row').style.display=state.ceramic?'flex':'none';
+  document.getElementById('c-ppf-row').style.display=state.ppf?'flex':'none';
+  document.getElementById('c-mobile-row').style.display=state.mobile?'flex':'none';
+  const reg=document.getElementById('b-reg').value;
+  const make=document.getElementById('b-make').value;
+  const model=document.getElementById('b-model').value;
+  const yr=document.getElementById('b-year').value;
+  document.getElementById('c-vehicle').textContent=[yr,make,model,reg?'('+reg+')':''].filter(Boolean).join(' ')||'Not specified';
+  document.getElementById('c-name').textContent=document.getElementById('b-name').value;
+  document.getElementById('c-phone').textContent=document.getElementById('b-phone').value;
+  document.getElementById('c-email').textContent=document.getElementById('b-email').value;
+  const dt=document.getElementById('b-date').value;
+  if(dt){document.getElementById('c-date-row').style.display='flex';document.getElementById('c-date').textContent=new Date(dt).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}
+  document.getElementById('c-total').textContent='£'+total;
+  document.getElementById('c-deposit').textContent='£'+dep;
+}
+async function submitBooking(){
+  const btn=document.getElementById('submit-btn');
+  btn.textContent='Submitting...';btn.disabled=true;
+  let total=state.price;
+  if(state.ceramic)total+=149;if(state.ppf)total+=149;if(state.mobile)total+=45;
+  const dep=Math.round(total*0.3);
+  const booking={
+    customer_name:document.getElementById('b-name').value.trim(),
+    customer_email:document.getElementById('b-email').value.trim(),
+    customer_phone:document.getElementById('b-phone').value.trim(),
+    registration:document.getElementById('b-reg').value.replace(/\s/g,'').toUpperCase()||null,
+    vehicle_make:document.getElementById('b-make').value||null,
+    vehicle_model:document.getElementById('b-model').value||null,
+    vehicle_year:parseInt(document.getElementById('b-year').value)||null,
+    vehicle_colour:document.getElementById('b-colour').value||null,
+    service_type:state.service,
+    service_price:state.price,
+    add_ceramic:state.ceramic,
+    add_ppf:state.ppf,
+    add_mobile:state.mobile,
+    total_price:total,
+    preferred_date:document.getElementById('b-date').value||null,
+    preferred_time:document.getElementById('b-time').value||null,
+    deposit_amount:dep,
+    customer_notes:document.getElementById('b-notes').value||null,
+    status:'new',
+    source:'website'
+  };
+  if(!SB){
+    // Fallback if supabase not loaded
+    window.location.href='https://wa.me/447927576142?text=Hi+Romeo,+I+want+to+book+'+encodeURIComponent(state.service)+'+for+my+'+encodeURIComponent(booking.vehicle_make||'car');
+    return;
+  }
+  const {data,error}=await SB.from('bookings').insert(booking).select().single();
+  if(error){
+    btn.textContent='Confirm Booking Request →';btn.disabled=false;
+    const errDiv=document.getElementById('booking-error');
+    errDiv.style.display='block';
+    errDiv.innerHTML='There was an issue submitting. <a href="https://wa.me/447927576142?text=Hi+Romeo,+I+want+to+book+a+detail" style="color:var(--gold)">WhatsApp Romeo directly →</a>';
+    return;
+  }
+  // Fire confirmation
+  fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/booking-submitted',{
+    method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+SB_ANON},
+    body:JSON.stringify({...booking,booking_id:data?.id})
+  }).catch(()=>{});
+  // Show success
+  document.querySelectorAll('.step').forEach(s=>s.style.display='none');
+  document.getElementById('prog').style.width='100%';
+  document.getElementById('success-wrap').classList.add('show');
+  gtag('event','booking_submitted',{service:state.service,value:total,currency:'GBP'});
+  window.scrollTo({top:0,behavior:'smooth'});
+  // Redirect to thankyou
+  const ref=data?.id?data.id.toString().slice(0,8).toUpperCase():'GDL'+Date.now().toString().slice(-6);
+  setTimeout(()=>{window.location.href='/thankyou.html?ref='+ref+'&name='+encodeURIComponent(booking.customer_name.split(' ')[0])+'&service='+encodeURIComponent(booking.service_type)+'&total='+total+'&dep='+dep;},1500);
+}
+</script>
+<script type="module" id="ghost-motion-module">
+import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm";
+const EXPO=[0.16,1,0.3,1];
+const nav=document.querySelector('header');
+if(nav) animate(nav,{opacity:[0,1],y:[-16,0]},{duration:0.5,ease:EXPO});
+const ht=document.querySelector('.hero-title');
+if(ht) animate(ht,{opacity:[0,1],y:[48,0]},{duration:0.9,ease:EXPO,delay:0.1});
+const hs=document.querySelector('.hero-sub');
+if(hs) animate(hs,{opacity:[0,1],y:[24,0]},{duration:0.7,ease:EXPO,delay:0.3});
+const rw=document.querySelector('.hero-reg-wrap');
+if(rw) animate(rw,{opacity:[0,1],y:[20,0]},{duration:0.6,ease:EXPO,delay:0.5});
+document.querySelectorAll('h1:not(.hero-title),h2,h3').forEach(el=>{
+  inView(el,()=>{animate(el,{opacity:[0,1],y:[28,0]},{duration:0.6,ease:EXPO});},{margin:'-8% 0px'});
+});
+document.querySelectorAll('[style*="grid-template-columns"]').forEach(grid=>{
+  const kids=Array.from(grid.children).filter(c=>c.textContent.trim().length>0&&!c.querySelector('input'));
+  if(kids.length<2||kids.length>16) return;
+  inView(grid,()=>{
+    animate(kids,{opacity:[0,1],y:[20,0],scale:[0.97,1]},{duration:0.5,delay:stagger(0.07),ease:EXPO});
+  },{margin:'-5% 0px'});
+});
+document.querySelectorAll('.hstat-n,.stat-n').forEach(el=>{
+  const text=el.textContent.trim();
+  const num=parseInt(text.replace(/[^0-9]/g,''));
+  if(!num||num<5) return;
+  const suffix=text.replace(/[0-9]/g,'');
+  inView(el,()=>{
+    const s=performance.now(),d=1500;
+    const tick=()=>{const p=Math.min((performance.now()-s)/d,1);el.textContent=Math.round((1-Math.pow(1-p,3))*num)+suffix;if(p<1)requestAnimationFrame(tick);};
+    requestAnimationFrame(tick);
+  },{margin:'-10% 0px'});
+});
+new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
+  if(n.id&&['hero-vehicle-result','booking-vehicle-banner','dvla-preview','concierge-vehicle-result'].includes(n.id))
+    animate(n,{opacity:[0,1],y:[12,0],scale:[0.97,1]},{duration:0.4,ease:EXPO});
+}))).observe(document.body,{childList:true,subtree:true});
+</script>
 
 <style id="aria-widget-css">
 #aria-float{position:fixed;bottom:24px;right:24px;z-index:9990;display:flex;flex-direction:column;align-items:flex-end;gap:12px}

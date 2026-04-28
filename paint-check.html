@@ -163,7 +163,7 @@ button#gham{display:none;background:none;border:none;color:var(--gold);font-size
 const SB = 'https://slzawehsiotvkjzaehqw.supabase.co';
 const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
 const VEH_URL = SB+'/functions/v1/vehicle-lookup';
-const AI_URL = 'https://text.pollinations.ai/';
+const AI_URL = SB+'/functions/v1/ghost-ai-router';
 
 let dvlaData = null;
 let uploadedPhotos = []; // array of {file, dataUrl, area}
@@ -187,7 +187,757 @@ fetch(SB+'/rest/v1/paint_assessments?select=count',{
 
 <div style="padding:clamp(40px,6vw,80px) clamp(16px,4vw,48px);max-width:720px;margin:0 auto">
 
-  
+  <!-- Hero -->
+  <div style="text-align:center;margin-bottom:48px">
+    <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px">⬡ Ghost Vision · AI Assessment</div>
+    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(32px,5vw,52px);font-weight:900;line-height:1.05;margin-bottom:12px">
+      Know <em style="color:var(--gold);font-style:italic">exactly</em> what<br>your car needs.
+    </h1>
+    <p style="font-size:13px;color:var(--muted2);max-width:480px;margin:0 auto 8px;line-height:1.7">
+      Enter your reg. GHOST pulls DVLA data, reads your photos, and gives a full AI assessment with exact service recommendations.
+    </p>
+    <p style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(197,160,89,.35)" id="assess-count">Loading...</p>
+  </div>
+
+  <!-- Stepper -->
+  <div class="stepper" id="stepper">
+    <div class="step active" id="step-1">
+      <div class="step-num">1</div>
+      <span>Your Reg</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step" id="step-2">
+      <div class="step-num">2</div>
+      <span>Vehicle Details</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step" id="step-3">
+      <div class="step-num">3</div>
+      <span>Assessment</span>
+    </div>
+  </div>
+
+  <!-- ── STEP 1: REG INPUT ─────────────────────────────── -->
+  <div id="panel-1">
+    <div class="gv-card">
+      <div class="section-label">Vehicle Registration</div>
+      <div class="reg-wrap">
+        <div class="reg-badge">
+          <span style="font-size:16px">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+          <span>GB</span>
+        </div>
+        <input type="text" id="reg-input" placeholder="YOUR REG" maxlength="8"
+          oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')"
+          onkeydown="if(event.key==='Enter')startAssessment()">
+        <button class="reg-go" onclick="startAssessment()">Ghost Vision →</button>
+      </div>
+      <!-- DVLA card appears here -->
+      <div id="dvla-card" class="dvla-card">
+        <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+          <div>
+            <div style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Vehicle Found · DVLA Live</div>
+            <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:#fff" id="dvla-name">—</div>
+          </div>
+          <div id="dvla-mot-badge"></div>
+        </div>
+        <div class="dvla-grid" id="dvla-grid"></div>
+        <div class="dvla-alerts" id="dvla-alerts"></div>
+        <div style="margin-top:14px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.4)">Data from DVLA · <span id="dvla-timestamp"></span></div>
+      </div>
+      <div style="text-align:center;margin-top:12px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.3)">Free · Instant · No account needed</div>
+    </div>
+  </div>
+
+  <!-- ── STEP 2: VEHICLE DETAILS ────────────────────────── -->
+  <div id="panel-2" style="display:none">
+    
+    <!-- Vehicle type -->
+    <div class="gv-card" style="margin-bottom:12px">
+      <div class="section-label">What's your car?</div>
+      <div class="vtype-grid">
+        <button class="vtype-btn" onclick="selectType('daily')" id="vt-daily">
+          <span class="icon">🚗</span>
+          <div class="label">Daily Driver</div>
+          <div class="desc">Regular commuter</div>
+        </button>
+        <button class="vtype-btn" onclick="selectType('luxury')" id="vt-luxury">
+          <span class="icon">🏎️</span>
+          <div class="label">Luxury / Performance</div>
+          <div class="desc">Premium or sports car</div>
+        </button>
+        <button class="vtype-btn" onclick="selectType('classic')" id="vt-classic">
+          <span class="icon">✨</span>
+          <div class="label">Classic / Show</div>
+          <div class="desc">Show car or concours</div>
+        </button>
+        <button class="vtype-btn" onclick="selectType('suv')" id="vt-suv">
+          <span class="icon">🚙</span>
+          <div class="label">SUV / 4x4</div>
+          <div class="desc">Off-road or family SUV</div>
+        </button>
+        <button class="vtype-btn" onclick="selectType('fleet')" id="vt-fleet">
+          <span class="icon">🚐</span>
+          <div class="label">Fleet / Van</div>
+          <div class="desc">Commercial vehicle</div>
+        </button>
+        <button class="vtype-btn" onclick="selectType('new')" id="vt-new">
+          <span class="icon">🆕</span>
+          <div class="label">New / Nearly New</div>
+          <div class="desc">Under 12 months old</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Concern areas -->
+    <div class="gv-card" style="margin-bottom:12px">
+      <div class="section-label">Areas of Concern</div>
+      <p style="font-size:11px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Select all areas you've noticed issues with</p>
+      <div class="areas-grid">
+        <label class="area-check" onclick="toggleArea(this,'paintwork')"><div class="area-dot"></div><span>Paintwork</span></label>
+        <label class="area-check" onclick="toggleArea(this,'swirls')"><div class="area-dot"></div><span>Swirl Marks</span></label>
+        <label class="area-check" onclick="toggleArea(this,'scratches')"><div class="area-dot"></div><span>Scratches</span></label>
+        <label class="area-check" onclick="toggleArea(this,'oxidation')"><div class="area-dot"></div><span>Oxidation</span></label>
+        <label class="area-check" onclick="toggleArea(this,'chips')"><div class="area-dot"></div><span>Stone Chips</span></label>
+        <label class="area-check" onclick="toggleArea(this,'interior')"><div class="area-dot"></div><span>Interior</span></label>
+        <label class="area-check" onclick="toggleArea(this,'alloys')"><div class="area-dot"></div><span>Alloy Wheels</span></label>
+        <label class="area-check" onclick="toggleArea(this,'glass')"><div class="area-dot"></div><span>Glass / Windscreen</span></label>
+        <label class="area-check" onclick="toggleArea(this,'trim')"><div class="area-dot"></div><span>Trim / Plastics</span></label>
+        <label class="area-check" onclick="toggleArea(this,'engine')"><div class="area-dot"></div><span>Engine Bay</span></label>
+      </div>
+    </div>
+
+    <!-- Photo upload -->
+    <div class="gv-card" style="margin-bottom:20px">
+      <div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px;flex-wrap:wrap;gap:8px">
+        <div>
+          <div class="section-label">Upload Photos</div>
+          <p style="font-size:11px;color:var(--muted2);line-height:1.6">Optional but gives a much more accurate assessment. Photos save to your profile for before/after comparisons.</p>
+        </div>
+        <span style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.35)" id="photo-count">0 photos</span>
+      </div>
+      
+      <div class="upload-grid" id="upload-grid">
+        <div class="upload-add" id="upload-add-btn">
+          <input type="file" accept="image/*,video/*" multiple onchange="handlePhotos(this)">
+          <div style="font-size:28px;margin-bottom:6px">📸</div>
+          <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)">Add Photos</div>
+          <div style="font-size:9px;color:rgba(197,160,89,.3);margin-top:3px">Or videos · Up to 8 files</div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;padding:10px 14px;background:rgba(197,160,89,.03);border:1px solid rgba(197,160,89,.08)">
+        <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.4);margin-bottom:4px">Photo tips for best results</div>
+        <div style="font-size:10px;color:var(--muted2);line-height:1.6">Shoot in natural light · Capture front/rear/sides · Close-up of any damage · Interior if needed</div>
+      </div>
+    </div>
+
+    <button class="btn-gold" onclick="runFullAssessment()">Run Ghost Vision Assessment →</button>
+    <button class="btn-outline" onclick="runFullAssessment(true)">Skip photos — use DVLA data only</button>
+  </div>
+
+  <!-- ── LOADING ──────────────────────────────────────── -->
+  <div id="gv-loading">
+    <div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--gold);margin-bottom:8px">Ghost Vision</div>
+    <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2);margin-bottom:20px">Analysing your vehicle</div>
+    <div class="dots"><span></span><span></span><span></span></div>
+    <div class="loading-stages" id="loading-stages">
+      <div class="load-stage" id="ls-dvla">Pulling DVLA records</div>
+      <div class="load-stage" id="ls-photos">Processing photos</div>
+      <div class="load-stage" id="ls-ai">AI paint assessment</div>
+      <div class="load-stage" id="ls-services">Matching services</div>
+      <div class="load-stage" id="ls-save">Saving to profile</div>
+    </div>
+  </div>
+
+  <!-- ── RESULT ─────────────────────────────────────── -->
+  <div id="gv-result">
+    <!-- Reg + vehicle banner -->
+    <div style="background:rgba(197,160,89,.05);border:1px solid rgba(197,160,89,.15);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px" id="result-vehicle-banner">
+    </div>
+
+    <!-- Assessment -->
+    <div class="verdict-box">
+      <div class="verdict-score" id="result-score-wrap">
+        <div class="score-badge" id="result-score">—</div>
+        <div>
+          <div class="score-label">Paint Condition Score</div>
+          <div class="score-name" id="result-score-label">—</div>
+        </div>
+      </div>
+      <p id="result-verdict" class="verdict-text"></p>
+    </div>
+
+    <!-- Photo thumbnails if uploaded -->
+    <div id="result-photos" style="display:none;margin-bottom:16px">
+      <div style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Your Photos · Saved to Profile</div>
+      <div class="social-strip" id="result-photo-strip"></div>
+    </div>
+
+    <!-- Services -->
+    <div style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Recommended Services</div>
+    <div class="services-grid" id="result-services"></div>
+
+    <!-- MOT / ULEZ alert if needed -->
+    <div id="result-alerts" style="margin-bottom:16px"></div>
+
+    <!-- Save to profile -->
+    <div class="save-profile" id="save-profile-section">
+      <div class="section-label">Save this assessment</div>
+      <p style="font-size:11px;color:var(--muted2);margin-bottom:14px;line-height:1.6">Create a free account to save your vehicle history, photos, and get reminders when services are due.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <a href="/account" class="btn-gold" style="display:block;text-align:center;padding:11px">Save to My Garage →</a>
+        <a id="result-book" href="/booking" class="btn-outline" style="display:block;text-align:center;padding:11px;margin:0">Book Now</a>
+      </div>
+    </div>
+
+    <!-- Ghost Pass upsell -->
+    <div class="upsell-strip">
+      <div>
+        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:3px">Save with Ghost Pass</div>
+        <div style="font-size:11px;color:var(--muted2)">Members get 15% off all services + priority booking</div>
+      </div>
+      <a href="/membership" style="background:var(--gold);color:#0a0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;text-decoration:none;white-space:nowrap">From £99/mo →</a>
+    </div>
+
+    <button class="btn-outline" onclick="resetAssessment()" style="display:block;width:100%;margin-top:8px">← New Assessment</button>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer style="border-top:1px solid var(--border);padding:48px clamp(16px,4vw,48px);margin-top:80px">
+  <div style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:240px 1fr;gap:48px;flex-wrap:wrap">
+    <div>
+      <div style="font-size:24px;color:var(--gold);margin-bottom:8px">⬡</div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;margin-bottom:4px">Ghost Detail Autos</div>
+      <div style="font-size:10px;color:var(--muted2)">Watford WD18</div>
+      <div style="margin-top:16px;display:flex;flex-direction:column;gap:6px">
+        <a href="tel:01923959839" style="font-size:11px;color:var(--text);text-decoration:none">01923 959839</a>
+        <a href="https://wa.me/447927576142" style="font-size:11px;color:var(--text);text-decoration:none">WhatsApp</a>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <a href="/studio" style="font-size:11px;color:var(--text);text-decoration:none">Studio</a>
+        <a href="/concierge" style="font-size:11px;color:var(--text);text-decoration:none">Concierge</a>
+        <a href="/paint-check" style="font-size:11px;color:var(--text);text-decoration:none">Ghost Vision</a>
+        <a href="/results" style="font-size:11px;color:var(--text);text-decoration:none">Before & After</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <a href="/membership" style="font-size:11px;color:var(--text);text-decoration:none">Ghost Pass</a>
+        <a href="/shop" style="font-size:11px;color:var(--text);text-decoration:none">Shop</a>
+        <a href="/gift-vouchers" style="font-size:11px;color:var(--text);text-decoration:none">Gift Vouchers</a>
+        <a href="/garage" style="font-size:11px;color:var(--text);text-decoration:none">My Garage</a>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <a href="/live-tracker" style="font-size:11px;color:var(--text);text-decoration:none">Live Track</a>
+        <a href="/contact" style="font-size:11px;color:var(--text);text-decoration:none">Contact</a>
+        <a href="/login" style="font-size:11px;color:var(--text);text-decoration:none">Staff Login</a>
+        <a href="/legal" style="font-size:11px;color:var(--text);text-decoration:none">Privacy</a>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1200px;margin:32px auto 0;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+    <span style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.3)">© 2026 Ghost Detail Autos · Watford WD18</span>
+    <span style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.3)">Romeo & Ferrel Cruz</span>
+  </div>
+</footer>
+
+<script>
+// ── STEP NAVIGATION ─────────────────────────────────
+function setStep(n){
+  step = n;
+  [1,2,3].forEach(i=>{
+    document.getElementById('panel-'+i) && (document.getElementById('panel-'+i).style.display = i===n?'block':'none');
+    const s = document.getElementById('step-'+i);
+    if(s){ s.classList.toggle('active',i===n); s.classList.toggle('done',i<n); }
+  });
+  document.getElementById('gv-loading').style.display = 'none';
+  document.getElementById('gv-result').style.display = 'none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showLoading(){
+  [1,2,3].forEach(i=>{ const p=document.getElementById('panel-'+i); if(p)p.style.display='none'; });
+  document.getElementById('gv-loading').style.display = 'block';
+  document.getElementById('gv-result').style.display = 'none';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showResult(){
+  document.getElementById('gv-loading').style.display = 'none';
+  document.getElementById('gv-result').style.display = 'block';
+  const s = document.getElementById('step-3');
+  if(s){ s.classList.add('active'); s.classList.remove('done'); }
+}
+
+function setLoadStage(id){
+  document.querySelectorAll('.load-stage').forEach(el=>{
+    el.classList.remove('active');
+    if(el.id === id) el.classList.add('active');
+    else if(el.compareDocumentPosition(document.getElementById(id)) & Node.DOCUMENT_POSITION_FOLLOWING){
+      el.classList.add('done');
+    }
+  });
+}
+
+// ── STEP 1: REG LOOKUP ─────────────────────────────
+async function startAssessment(){
+  const reg = document.getElementById('reg-input').value.trim().toUpperCase();
+  if(reg.length < 2) return;
+  currentReg = reg;
+
+  const btn = document.querySelector('.reg-go');
+  btn.innerHTML = 'Searching...'; btn.disabled = true;
+
+  try{
+    const r = await fetch(VEH_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},
+      body:JSON.stringify({registration:reg})
+    });
+    const data = await r.json();
+
+    if(data.error){
+      // Vehicle not found — still continue, let user add details
+      dvlaData = {registration:reg};
+      showDvlaCard({registration:reg, make:'Unknown', error:true});
+    } else {
+      dvlaData = data;
+      showDvlaCard(data);
+    }
+
+    btn.innerHTML = 'Ghost Vision →'; btn.disabled = false;
+
+    // Move to step 2 after a moment
+    setTimeout(()=>setStep(2), 1200);
+
+  } catch(e){
+    dvlaData = {registration:reg};
+    btn.innerHTML = 'Ghost Vision →'; btn.disabled = false;
+    setStep(2);
+  }
+}
+
+function showDvlaCard(d){
+  const card = document.getElementById('dvla-card');
+  card.classList.add('show');
+
+  const make = d.make ? d.make.charAt(0)+d.make.slice(1).toLowerCase() : 'Unknown';
+  const model = d.model || '';
+  const year = d.year || '';
+  document.getElementById('dvla-name').textContent = [make, model, year].filter(Boolean).join(' ');
+
+  // Grid of data points
+  const fields = [
+    {k:'Colour', v: d.colour ? d.colour.charAt(0)+d.colour.slice(1).toLowerCase() : null},
+    {k:'Fuel', v: d.fuel_type},
+    {k:'Engine', v: d.engine_litres},
+    {k:'Age', v: d.vehicle_age_years ? d.vehicle_age_years+'yr' : null},
+    {k:'CO₂', v: d.co2_label},
+    {k:'ULEZ', v: d.is_ulez_compliant ? 'Compliant' : d.is_ulez_compliant===false ? 'Non-compliant' : null},
+    {k:'MOT', v: d.mot_expiry ? d.mot_expiry.split('T')[0] : null},
+    {k:'Tax', v: d.tax_due_date ? d.tax_due_date.split('T')[0] : null},
+    {k:'Euro', v: d.euro_status},
+    {k:'V5C', v: d.date_of_last_v5c ? d.date_of_last_v5c.split('T')[0] : null},
+  ].filter(f=>f.v);
+
+  document.getElementById('dvla-grid').innerHTML = fields.map(f=>
+    `<div class="dvla-item"><strong>${f.v}</strong><span>${f.k}</span></div>`
+  ).join('');
+
+  // Alerts
+  const alerts = [];
+  if(d.mot_urgent || (d.mot_days_left !== undefined && d.mot_days_left < 90))
+    alerts.push(`<span class="dvla-pill ${d.mot_days_left < 0 ? 'red':'amber'}">MOT ${d.mot_days_left < 0 ? 'EXPIRED' : 'in '+d.mot_days_left+'d'}</span>`);
+  if(d.mot_status === 'Valid')
+    alerts.push('<span class="dvla-pill green">MOT Valid</span>');
+  if(d.is_ulez_compliant === false)
+    alerts.push('<span class="dvla-pill red">Non-ULEZ</span>');
+  if(d.is_ulez_compliant === true)
+    alerts.push('<span class="dvla-pill blue">ULEZ OK</span>');
+  if(d.tax_urgent)
+    alerts.push('<span class="dvla-pill amber">Tax Due Soon</span>');
+  if(d.marked_for_export)
+    alerts.push('<span class="dvla-pill amber">Marked for Export</span>');
+  if(d.ghost_recommendations?.length)
+    d.ghost_recommendations.forEach(r=>alerts.push(`<span class="dvla-pill amber">${r}</span>`));
+
+  document.getElementById('dvla-alerts').innerHTML = alerts.join('');
+
+  // MOT badge
+  const motBadge = document.getElementById('dvla-mot-badge');
+  if(d.mot_status === 'Valid'){
+    motBadge.innerHTML = `<span class="dvla-pill green">✓ MOT Valid · ${d.mot_days_left}d</span>`;
+  } else if(d.mot_days_left < 0){
+    motBadge.innerHTML = `<span class="dvla-pill red">⚠ MOT EXPIRED</span>`;
+  }
+
+  document.getElementById('dvla-timestamp').textContent = new Date().toLocaleDateString('en-GB');
+}
+
+// ── STEP 2: VEHICLE TYPE ──────────────────────────
+function selectType(type){
+  vehicleType = type;
+  document.querySelectorAll('.vtype-btn').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('vt-'+type).classList.add('selected');
+}
+
+function toggleArea(el, area){
+  el.classList.toggle('selected');
+  if(checkedAreas.includes(area)){
+    checkedAreas = checkedAreas.filter(a=>a!==area);
+  } else {
+    checkedAreas.push(area);
+  }
+}
+
+// ── PHOTO HANDLING ────────────────────────────────
+function handlePhotos(input){
+  const files = Array.from(input.files||[]);
+  files.slice(0, 8-uploadedPhotos.length).forEach(file=>{
+    const reader = new FileReader();
+    reader.onload = e=>{
+      uploadedPhotos.push({file, dataUrl:e.target.result, area:'general'});
+      renderPhotos();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderPhotos(){
+  const grid = document.getElementById('upload-grid');
+  const countEl = document.getElementById('photo-count');
+  countEl.textContent = uploadedPhotos.length+' photo'+(uploadedPhotos.length!==1?'s':'');
+
+  // Clear and rebuild
+  grid.innerHTML = '';
+
+  uploadedPhotos.forEach((p,i)=>{
+    const div = document.createElement('div');
+    div.className = 'upload-thumb';
+    div.innerHTML = `<img src="${p.dataUrl}" alt="Vehicle photo ${i+1}">
+      <button class="remove" onclick="removePhoto(${i})">×</button>`;
+    grid.appendChild(div);
+  });
+
+  // Add button if under limit
+  if(uploadedPhotos.length < 8){
+    const add = document.createElement('div');
+    add.className = 'upload-add';
+    add.id = 'upload-add-btn';
+    add.innerHTML = `<input type="file" accept="image/*,video/*" multiple onchange="handlePhotos(this)">
+      <div style="font-size:24px">+</div>
+      <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)">Add More</div>`;
+    grid.appendChild(add);
+  }
+}
+
+function removePhoto(i){
+  uploadedPhotos.splice(i,1);
+  renderPhotos();
+}
+
+// ── STEP 3: RUN ASSESSMENT ─────────────────────────
+async function runFullAssessment(skipPhotos=false){
+  showLoading();
+
+  const d = dvlaData || {};
+  const make = d.make ? d.make.charAt(0)+d.make.slice(1).toLowerCase() : 'vehicle';
+  const year = d.year || '';
+  const colour = d.colour ? d.colour.charAt(0)+d.colour.slice(1).toLowerCase() : 'unknown colour';
+  const age = d.vehicle_age_years || 'unknown';
+  const fuel = d.fuel_type || '';
+  const engineSize = d.engine_litres || '';
+  const motStatus = d.mot_status || '';
+  const motDaysLeft = d.mot_days_left;
+  const ulez = d.is_ulez_compliant;
+  const co2 = d.co2_label || '';
+  const reg = currentReg;
+
+  // Stage 1: DVLA (already done)
+  setLoadStage('ls-dvla');
+  await sleep(600);
+
+  // Stage 2: Photos
+  setLoadStage('ls-photos');
+  let photoContext = '';
+  if(uploadedPhotos.length > 0 && !skipPhotos){
+    photoContext = `\n\nUser has uploaded ${uploadedPhotos.length} photo(s) of the vehicle for assessment. Areas of concern noted: ${checkedAreas.join(', ')||'general'}.`;
+  }
+  await sleep(800);
+
+  // Stage 3: AI assessment
+  setLoadStage('ls-ai');
+
+  const vehicleTypeContext = {
+    daily: 'Daily commuter vehicle',
+    luxury: 'Luxury/performance vehicle — higher standard expected',
+    classic: 'Classic/show car — concours standards apply',
+    suv: 'SUV/4x4 — practical vehicle',
+    fleet: 'Commercial/fleet vehicle',
+    new: 'New or nearly new vehicle — paint protection priority'
+  }[vehicleType] || 'Standard vehicle';
+
+  const areasContext = checkedAreas.length > 0
+    ? `\nCustomer has flagged these specific concerns: ${checkedAreas.join(', ')}.`
+    : '';
+
+  const motContext = motDaysLeft !== undefined
+    ? motDaysLeft < 0 ? '\n⚠️ CRITICAL: MOT has expired — vehicle cannot legally be driven.'
+      : motDaysLeft < 90 ? `\n⚠️ MOT due in ${motDaysLeft} days — concierge MOT management available.`
+      : ''
+    : '';
+
+  const ulezContext = ulez === false ? '\n⚠️ Vehicle is NOT ULEZ compliant.' : '';
+
+  const prompt = `You are Ghost Vision — the AI paint assessment system for Ghost Detail Autos, a luxury car detailing studio in Watford WD18 run by Romeo and his son Ferrel Cruz.
+
+VEHICLE DATA FROM DVLA:
+Registration: ${reg}
+Make/Model: ${make} ${year}
+Colour: ${colour}
+Fuel: ${fuel} ${engineSize}
+Age: ${age} years old
+CO2: ${co2}
+MOT Status: ${motStatus}${motContext}
+ULEZ: ${ulez === true ? 'Compliant' : ulez === false ? 'NOT compliant' : 'Unknown'}${ulezContext}
+Vehicle Type: ${vehicleTypeContext}${areasContext}${photoContext}
+Ghost Recommendations: ${d.ghost_recommendations?.join('; ')||'Standard assessment'}
+
+Write a 4-5 sentence professional paint assessment. Be specific about:
+1. What condition their ${colour} ${make} is likely in at ${age} years old
+2. The biggest priority for their specific vehicle type
+3. Whether paint correction is needed before ceramic
+4. Any MOT/ULEZ issues if relevant
+
+Then output EXACTLY this JSON block (no other text after it):
+{"score":7,"label":"Good condition","priority_1":{"name":"Depth Refinement","price":"£149","why":"7-year-old paint needs correction before any protection"},"priority_2":{"name":"Nano Banana Ceramic","price":"£279","why":"Locks in correction, protection for 3+ years"},"priority_3":{"name":"Spark Wash","price":"£79","why":"Maintain between major services"},"upsell":"Ghost Pass Shield saves 15% on all services"}`;
+
+  let verdict = '';
+  let services = [];
+  let score = 6;
+  let scoreLabel = 'Fair condition';
+
+  try{
+    const r = await fetch(AI_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+KEY},
+      body:JSON.stringify({action:'chat', prompt})
+    });
+    const data = await r.json();
+    const text = data.text || data.message || '';
+
+    // Parse verdict and JSON
+    const jsonMatch = text.match(/\{[\s\S]*"score"[\s\S]*\}/);
+    if(jsonMatch){
+      verdict = text.slice(0, text.indexOf(jsonMatch[0])).trim();
+      try{
+        const parsed = JSON.parse(jsonMatch[0]);
+        score = parsed.score || 6;
+        scoreLabel = parsed.label || getScoreLabel(score);
+        ['priority_1','priority_2','priority_3'].forEach(k=>{
+          if(parsed[k]) services.push(parsed[k]);
+        });
+      } catch(e){
+        services = getDefaultServices(age, vehicleType, checkedAreas);
+      }
+    } else {
+      verdict = text;
+      services = getDefaultServices(age, vehicleType, checkedAreas);
+    }
+  } catch(e){
+    verdict = `Based on the DVLA data, your ${colour} ${make} (${year}) is ${age} years old. At this age, paint typically shows signs of micro-swirling from regular washing and environmental contamination. We recommend starting with a Depth Refinement to restore paint clarity, followed by Nano Banana Ceramic coating for long-term protection.`;
+    services = getDefaultServices(age, vehicleType, checkedAreas);
+  }
+
+  // Stage 4: Services
+  setLoadStage('ls-services');
+  await sleep(500);
+
+  // Stage 5: Save
+  setLoadStage('ls-save');
+
+  // Save to DB
+  const assessmentPayload = {
+    vehicle_reg: reg,
+    vehicle_make: make,
+    vehicle_year: d.year||null,
+    vehicle_colour: colour,
+    vehicle_age: age,
+    vehicle_type: vehicleType,
+    dvla_data: d,
+    ai_verdict: verdict,
+    concern_areas: checkedAreas,
+    photo_count: uploadedPhotos.length,
+    assessment_method: uploadedPhotos.length > 0 ? 'dvla_and_photos' : 'dvla_reg',
+    score,
+    recommended_services: services,
+    created_at: new Date().toISOString()
+  };
+
+  fetch(SB+'/rest/v1/paint_assessments', {
+    method:'POST',
+    headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=representation'},
+    body:JSON.stringify(assessmentPayload)
+  }).then(r=>r.json()).then(data=>{
+    if(data[0]?.id) assessmentId = data[0].id;
+  }).catch(()=>{});
+
+  await sleep(500);
+
+  // Render result
+  renderResult(reg, d, verdict, services, score, scoreLabel);
+}
+
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+function getScoreLabel(s){
+  if(s>=9) return 'Excellent — near perfect';
+  if(s>=7) return 'Good condition';
+  if(s>=5) return 'Fair — correction recommended';
+  if(s>=3) return 'Poor — correction needed';
+  return 'Critical — urgent attention';
+}
+
+function getDefaultServices(age, type, areas){
+  const svcs = [];
+  const ageNum = parseInt(age)||5;
+
+  if(type==='new' || ageNum < 2){
+    svcs.push({name:'Nano Banana Ceramic',price:'£279',why:'Protect new paintwork before contamination sets in'});
+    svcs.push({name:'PPF Protection',price:'POA',why:'Ultimate paint protection for new vehicles'});
+    svcs.push({name:'Spark Wash',price:'£79',why:'Maintenance wash to keep it pristine'});
+  } else if(type==='luxury' || type==='classic'){
+    svcs.push({name:'Total Refinement',price:'£349',why:'Full multi-stage correction for premium vehicles'});
+    svcs.push({name:'Nano Banana Ceramic',price:'£279',why:'Premium protection for luxury paint'});
+    svcs.push({name:'PPF Protection',price:'POA',why:'Protect your investment long-term'});
+  } else {
+    if(ageNum >= 5 || areas.includes('swirls') || areas.includes('scratches')){
+      svcs.push({name:'Depth Refinement',price:'£149',why:'Remove swirls and scratches accumulated over '+ageNum+' years'});
+    } else {
+      svcs.push({name:'Quick Refinement',price:'£249',why:'Single-stage correction to restore shine'});
+    }
+    svcs.push({name:'Nano Banana Ceramic',price:'£279',why:'Lock in correction with 3+ year ceramic protection'});
+    svcs.push({name:'Spark Wash',price:'£79',why:'Regular maintenance between major services'});
+  }
+
+  if(areas.includes('alloys')) svcs.push({name:'Alloy Refurbishment',price:'POA',why:'Restore kerbed or corroded alloys'});
+  if(areas.includes('interior')) svcs.push({name:'Interior Detail',price:'POA',why:'Deep clean interior flagged as concern'});
+
+  return svcs.slice(0,4);
+}
+
+function renderResult(reg, d, verdict, services, score, scoreLabel){
+  // Vehicle banner
+  const make = d.make ? d.make.charAt(0)+d.make.slice(1).toLowerCase() : 'Vehicle';
+  const colour = d.colour ? d.colour.charAt(0)+d.colour.slice(1).toLowerCase() : '';
+  const year = d.year || '';
+
+  document.getElementById('result-vehicle-banner').innerHTML =
+    `<div>
+      <div style="font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:3px">Assessed Vehicle</div>
+      <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff">${make} ${d.model||''} ${year}</div>
+      <div style="font-size:9px;color:var(--muted2)">${colour} · ${reg}${d.engine_litres?' · '+d.engine_litres:''}${d.fuel_type?' · '+d.fuel_type:''}</div>
+    </div>
+    <div style="text-align:right">
+      ${d.mot_status==='Valid'?`<div style="font-size:9px;color:#22c55e;letter-spacing:.1em;text-transform:uppercase">✓ MOT Valid · ${d.mot_days_left}d</div>`:
+        d.mot_days_left<0?`<div style="font-size:9px;color:#ef4444;letter-spacing:.1em;text-transform:uppercase">⚠ MOT Expired</div>`:''}
+      ${d.is_ulez_compliant===true?`<div style="font-size:9px;color:#60a5fa;letter-spacing:.1em;text-transform:uppercase">✓ ULEZ OK</div>`:''}
+    </div>`;
+
+  // Score
+  const scoreColor = score>=8?'#22c55e':score>=6?'#c5a059':score>=4?'#f59e0b':'#ef4444';
+  document.getElementById('result-score').textContent = score;
+  document.getElementById('result-score').style.background = scoreColor;
+  document.getElementById('result-score-label').textContent = scoreLabel;
+
+  // Verdict
+  document.getElementById('result-verdict').textContent = verdict;
+
+  // Photos strip
+  if(uploadedPhotos.length > 0){
+    document.getElementById('result-photos').style.display = 'block';
+    document.getElementById('result-photo-strip').innerHTML = uploadedPhotos.map((p,i)=>
+      `<div style="width:140px;flex-shrink:0;aspect-ratio:4/3;overflow:hidden;border:1px solid var(--border)">
+        <img src="${p.dataUrl}" style="width:100%;height:100%;object-fit:cover" alt="Photo ${i+1}">
+      </div>`
+    ).join('');
+  }
+
+  // Services
+  document.getElementById('result-services').innerHTML = services.map((s,i)=>
+    `<a href="/booking?service=${encodeURIComponent(s.name)}&reg=${reg}" class="svc-rec ${i===0?'urgent':''}">
+      <div class="priority ${i===0?'urgent':''}">${i===0?'🔑 Priority':'Recommended'}</div>
+      <div class="name">${s.name}</div>
+      <div class="why">${s.why}</div>
+      <div class="price">${s.price}</div>
+    </a>`
+  ).join('');
+
+  // Alerts
+  const alerts = [];
+  if(d.mot_days_left !== undefined && d.mot_days_left < 90)
+    alerts.push(`<div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);padding:12px 16px;margin-bottom:8px;font-size:11px;color:#f59e0b">⚠ MOT ${d.mot_days_left<0?'expired':'due in '+d.mot_days_left+' days'} — <a href="/concierge?reg=${reg}" style="color:#f59e0b">Let us manage your MOT →</a></div>`);
+  if(d.is_ulez_compliant === false)
+    alerts.push(`<div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);padding:12px 16px;margin-bottom:8px;font-size:11px;color:#ef4444">⚠ This vehicle is NOT ULEZ compliant — daily charges apply in London ULEZ zones.</div>`);
+  document.getElementById('result-alerts').innerHTML = alerts.join('');
+
+  // Book link
+  const bookUrl = `/booking?reg=${reg}&service=${encodeURIComponent(services[0]?.name||'')}&make=${encodeURIComponent(make)}&year=${year}`;
+  document.getElementById('result-book').href = bookUrl;
+
+  showResult();
+  document.getElementById('step-3').classList.add('active');
+}
+
+function resetAssessment(){
+  uploadedPhotos = [];
+  vehicleType = null;
+  checkedAreas = [];
+  dvlaData = null;
+  currentReg = '';
+  document.getElementById('reg-input').value = '';
+  document.getElementById('dvla-card').classList.remove('show');
+  document.getElementById('upload-grid').innerHTML = `<div class="upload-add" id="upload-add-btn">
+    <input type="file" accept="image/*,video/*" multiple onchange="handlePhotos(this)">
+    <div style="font-size:28px;margin-bottom:6px">📸</div>
+    <div style="font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)">Add Photos</div>
+    <div style="font-size:9px;color:rgba(197,160,89,.3);margin-top:3px">Or videos · Up to 8 files</div>
+  </div>`;
+  document.getElementById('photo-count').textContent = '0 photos';
+  document.querySelectorAll('.vtype-btn').forEach(b=>b.classList.remove('selected'));
+  document.querySelectorAll('.area-check').forEach(b=>b.classList.remove('selected'));
+  setStep(1);
+}
+
+// URL param auto-trigger
+(function(){
+  const p = new URLSearchParams(window.location.search);
+  const reg = p.get('reg');
+  if(reg){
+    window.addEventListener('DOMContentLoaded', function(){
+      const inp = document.getElementById('reg-input');
+      if(inp){ inp.value = reg.toUpperCase(); }
+      setTimeout(startAssessment, 500);
+    });
+  }
+})();
+</script>
+
+<!-- Motion JS -->
+<script type="module">
+import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm";
+const EXPO=[0.16,1,0.3,1];
+const nav=document.querySelector('header');
+if(nav) animate(nav,{opacity:[0,1],y:[-16,0]},{duration:0.5,ease:EXPO});
+inView('.gv-card',el=>{ animate(el,{opacity:[0,1],y:[20,0]},{duration:0.5,ease:EXPO}); },{margin:'-5% 0px'});
+</script>
+
+<!-- Premium CSS -->
+<style>
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9998;opacity:.6}
+</style>
 
 <style id="aria-widget-css">
 #aria-float{position:fixed;bottom:24px;right:24px;z-index:9990;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
@@ -477,6 +1227,43 @@ Ghost Pass members save 15% on all of these.');
     setTimeout(function(){if(!ariaOpen)document.getElementById('aria-notif').classList.add('show');},5000);
   }
 })();
+</script>
+<script type="module" id="ghost-motion-module">
+import { animate, inView, stagger } from "https://cdn.jsdelivr.net/npm/motion@11.11.13/+esm";
+const EXPO=[0.16,1,0.3,1];
+const nav=document.querySelector('header');
+if(nav) animate(nav,{opacity:[0,1],y:[-16,0]},{duration:0.5,ease:EXPO});
+const ht=document.querySelector('.hero-title');
+if(ht) animate(ht,{opacity:[0,1],y:[48,0]},{duration:0.9,ease:EXPO,delay:0.1});
+const hs=document.querySelector('.hero-sub');
+if(hs) animate(hs,{opacity:[0,1],y:[24,0]},{duration:0.7,ease:EXPO,delay:0.3});
+const rw=document.querySelector('.hero-reg-wrap');
+if(rw) animate(rw,{opacity:[0,1],y:[20,0]},{duration:0.6,ease:EXPO,delay:0.5});
+document.querySelectorAll('h1:not(.hero-title),h2,h3').forEach(el=>{
+  inView(el,()=>{animate(el,{opacity:[0,1],y:[28,0]},{duration:0.6,ease:EXPO});},{margin:'-8% 0px'});
+});
+document.querySelectorAll('[style*="grid-template-columns"]').forEach(grid=>{
+  const kids=Array.from(grid.children).filter(c=>c.textContent.trim().length>0&&!c.querySelector('input'));
+  if(kids.length<2||kids.length>16) return;
+  inView(grid,()=>{
+    animate(kids,{opacity:[0,1],y:[20,0],scale:[0.97,1]},{duration:0.5,delay:stagger(0.07),ease:EXPO});
+  },{margin:'-5% 0px'});
+});
+document.querySelectorAll('.hstat-n,.stat-n').forEach(el=>{
+  const text=el.textContent.trim();
+  const num=parseInt(text.replace(/[^0-9]/g,''));
+  if(!num||num<5) return;
+  const suffix=text.replace(/[0-9]/g,'');
+  inView(el,()=>{
+    const s=performance.now(),d=1500;
+    const tick=()=>{const p=Math.min((performance.now()-s)/d,1);el.textContent=Math.round((1-Math.pow(1-p,3))*num)+suffix;if(p<1)requestAnimationFrame(tick);};
+    requestAnimationFrame(tick);
+  },{margin:'-10% 0px'});
+});
+new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
+  if(n.id&&['hero-vehicle-result','booking-vehicle-banner','dvla-preview','concierge-vehicle-result'].includes(n.id))
+    animate(n,{opacity:[0,1],y:[12,0],scale:[0.97,1]},{duration:0.4,ease:EXPO});
+}))).observe(document.body,{childList:true,subtree:true});
 </script>
 </body>
 </html>
