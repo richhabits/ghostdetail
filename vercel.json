@@ -112,23 +112,6 @@
       ]
     },
     {
-      "source": "/zone",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-store, no-cache, must-revalidate, private"
-        },
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow, noarchive"
-        },
-        {
-          "key": "X-Frame-Options",
-          "value": "DENY"
-        }
-      ]
-    },
-    {
       "source": "/(sitemap.xml|robots.txt)",
       "headers": [
         {
@@ -138,6 +121,19 @@
         {
           "key": "Content-Type",
           "value": "text/xml; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/.well-known/(.*)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/plain; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
         }
       ]
     }

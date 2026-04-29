@@ -832,7 +832,7 @@ if (autoReg) { document.getElementById('main-reg').value = autoReg.toUpperCase()
         <a href="/quote.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Quote</a>
         <a href="/contact.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Contact</a>
         <a href="/login.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Staff Login</a>
-        <a href="/legal.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Privacy</a>
+        <a href="/legal.html" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Privacy</a><a href="javascript:void(0)" onclick="gdCc.open()" style="font-size:11px;color:#e8e0d0;text-decoration:none;transition:color .2s;margin-left:24px" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Cookie preferences</a>
       </div>
     </div>
     <div style="display:flex;justify-content:space-between;font-size:8px;letter-spacing:.1em;color:rgba(197,160,89,.35);font-family:DM Mono,monospace">
@@ -1252,5 +1252,136 @@ window.addEventListener('load', function() {
 });
 
 </script>
+<!-- GHOST DETAIL COOKIE CONSENT (GDPR/UK PECR compliant) -->
+<style id="gd-cc-css">
+#gd-cc{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:99998;background:#0A0905;border:1px solid rgba(197,160,89,.2);box-shadow:0 12px 48px rgba(0,0,0,.6);max-width:520px;width:calc(100% - 32px);padding:18px 20px;font-family:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;color:#F0EDE6;display:none;border-radius:2px}
+#gd-cc.show{display:block;animation:gd-cc-in .35s cubic-bezier(.25,1,.5,1)}
+@keyframes gd-cc-in{from{opacity:0;transform:translate(-50%,16px)}to{opacity:1;transform:translate(-50%,0)}}
+#gd-cc h3{font-family:'Playfair Display',Georgia,serif;font-size:16px;font-weight:900;margin:0 0 6px;color:#fff}
+#gd-cc p{font-size:12px;line-height:1.6;color:#8A8680;margin:0 0 12px}
+#gd-cc a{color:#C5A059;text-decoration:none}
+#gd-cc a:hover{text-decoration:underline}
+#gd-cc .gd-cc-row{display:flex;gap:8px;flex-wrap:wrap}
+#gd-cc button{font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:10px 16px;border:none;cursor:pointer;transition:opacity .2s,background .2s;border-radius:2px}
+#gd-cc .gd-cc-accept{background:#C5A059;color:#0A0905;flex:1;min-width:140px}
+#gd-cc .gd-cc-accept:hover{background:#D4B06A}
+#gd-cc .gd-cc-reject{background:transparent;border:1px solid rgba(197,160,89,.3);color:#C5A059;flex:1;min-width:120px}
+#gd-cc .gd-cc-reject:hover{background:rgba(197,160,89,.06)}
+#gd-cc .gd-cc-custom{background:transparent;color:#5A5650;border:none;font-size:9px;padding:10px 8px}
+#gd-cc .gd-cc-custom:hover{color:#C5A059}
+#gd-cc-prefs{display:none;margin-top:14px;padding-top:14px;border-top:1px solid rgba(197,160,89,.1)}
+#gd-cc.expanded #gd-cc-prefs{display:block}
+.gd-cc-cat{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:11px}
+.gd-cc-cat-name{color:#F0EDE6;font-weight:500}
+.gd-cc-cat-desc{font-size:10px;color:#5A5650;margin-top:2px}
+.gd-cc-toggle{position:relative;width:36px;height:20px;background:#1A1710;border:1px solid rgba(197,160,89,.2);border-radius:20px;cursor:pointer;flex-shrink:0;margin-left:12px;transition:background .2s}
+.gd-cc-toggle.on{background:#C5A059;border-color:#C5A059}
+.gd-cc-toggle::after{content:'';position:absolute;top:1px;left:1px;width:16px;height:16px;background:#5A5650;border-radius:50%;transition:left .2s,background .2s}
+.gd-cc-toggle.on::after{left:17px;background:#0A0905}
+.gd-cc-toggle.locked{opacity:.5;cursor:not-allowed}
+@media(max-width:600px){#gd-cc{left:8px;right:8px;transform:none;bottom:8px;max-width:none;width:auto;padding:14px 16px}}
+</style>
+
+<div id="gd-cc" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <h3>Cookie preferences</h3>
+  <p>We use essential cookies to make this site work, and (with your permission) analytics cookies to understand how visitors use the site. We never sell your data. <a href="/legal.html#cookies">Read our cookie policy</a>.</p>
+  <div class="gd-cc-row">
+    <button class="gd-cc-accept" onclick="gdCc.acceptAll()">Accept all</button>
+    <button class="gd-cc-reject" onclick="gdCc.rejectNonEssential()">Essential only</button>
+    <button class="gd-cc-custom" onclick="gdCc.toggleCustom()">Customize</button>
+  </div>
+  <div id="gd-cc-prefs">
+    <div class="gd-cc-cat">
+      <div>
+        <div class="gd-cc-cat-name">Essential</div>
+        <div class="gd-cc-cat-desc">Required for the site to work. Always on.</div>
+      </div>
+      <div class="gd-cc-toggle on locked" aria-disabled="true"></div>
+    </div>
+    <div class="gd-cc-cat">
+      <div>
+        <div class="gd-cc-cat-name">Analytics</div>
+        <div class="gd-cc-cat-desc">Anonymous usage stats to improve the site.</div>
+      </div>
+      <div class="gd-cc-toggle" id="gd-cc-tog-analytics" onclick="gdCc.toggle(this,'analytics')"></div>
+    </div>
+    <div class="gd-cc-cat">
+      <div>
+        <div class="gd-cc-cat-name">Marketing</div>
+        <div class="gd-cc-cat-desc">Used by Stripe, ARIA, and ads we may run.</div>
+      </div>
+      <div class="gd-cc-toggle" id="gd-cc-tog-marketing" onclick="gdCc.toggle(this,'marketing')"></div>
+    </div>
+    <div class="gd-cc-row" style="margin-top:12px">
+      <button class="gd-cc-accept" onclick="gdCc.savePrefs()">Save preferences</button>
+    </div>
+  </div>
+</div>
+
+<script>
+window.gdCc = (function(){
+  var KEY = 'gd_cc_v1';
+  var prefs = {essential:true, analytics:false, marketing:false, ts:0};
+  var banner = null;
+
+  function load(){ try{ var s = localStorage.getItem(KEY); if(s) prefs = JSON.parse(s); }catch(e){} }
+  function save(){ try{ prefs.ts = Date.now(); localStorage.setItem(KEY, JSON.stringify(prefs)); }catch(e){} }
+  function show(){ if(banner) banner.classList.add('show'); }
+  function hide(){ if(banner) banner.classList.remove('show'); }
+
+  // Public API
+  return {
+    init: function(){
+      banner = document.getElementById('gd-cc');
+      load();
+      // If user has not made a choice yet (no ts), show banner
+      if(!prefs.ts) show();
+      // Apply preferences
+      this.apply();
+    },
+    apply: function(){
+      // Reflect prefs in toggles
+      var ta = document.getElementById('gd-cc-tog-analytics');
+      var tm = document.getElementById('gd-cc-tog-marketing');
+      if(ta) ta.classList.toggle('on', !!prefs.analytics);
+      if(tm) tm.classList.toggle('on', !!prefs.marketing);
+      // Notify other scripts
+      try{ window.dispatchEvent(new CustomEvent('gd-cc-changed', {detail: prefs})); }catch(e){}
+    },
+    acceptAll: function(){
+      prefs = {essential:true, analytics:true, marketing:true, ts:Date.now()};
+      save(); this.apply(); hide();
+    },
+    rejectNonEssential: function(){
+      prefs = {essential:true, analytics:false, marketing:false, ts:Date.now()};
+      save(); this.apply(); hide();
+    },
+    toggle: function(el, key){
+      if(el.classList.contains('locked')) return;
+      el.classList.toggle('on');
+      prefs[key] = el.classList.contains('on');
+    },
+    toggleCustom: function(){
+      banner && banner.classList.toggle('expanded');
+    },
+    savePrefs: function(){
+      save(); this.apply(); hide();
+    },
+    open: function(){
+      load(); this.apply();
+      if(banner){ banner.classList.add('show','expanded'); }
+    },
+    get: function(){ return Object.assign({}, prefs); }
+  };
+})();
+
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', function(){ gdCc.init(); });
+} else {
+  gdCc.init();
+}
+</script>
+<!-- END GHOST DETAIL COOKIE CONSENT -->
+
 </body>
 </html>

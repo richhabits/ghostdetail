@@ -1,12 +1,48 @@
+# Ghost Detail Autos - robots.txt
+# https://ghostdetail.autos/robots.txt
+
 User-agent: *
 Allow: /
+Allow: /.well-known/
 
-# Block admin pages
+# Internal pages - keep out of search results
+Disallow: /admin
 Disallow: /admin.html
+Disallow: /ghost-war-room
 Disallow: /ghost-war-room.html
+Disallow: /staff
 Disallow: /staff.html
+Disallow: /content
 Disallow: /content.html
-Disallow: /zone.html
+Disallow: /ferrel
+Disallow: /ferrel.html
+Disallow: /track/
+Disallow: /api/
+
+# Aggressive scrapers - block entirely
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
 
 # Sitemap
 Sitemap: https://ghostdetail.autos/sitemap.xml

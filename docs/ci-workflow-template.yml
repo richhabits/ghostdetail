@@ -1,0 +1,103 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate HTML & structure
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check HTML structure (every page has <html>, <title>, <viewport>, favicon)
+        run: |
+          set -e
+          MISSING=0
+          for f in *.html; do
+            # Skip Google verification file
+            [ "$f" = "google1db23d5925a0c061.html" ] && continue
+            
+            grep -q "<html" "$f" || { echo "❌ $f missing <html"; MISSING=$((MISSING+1)); }
+            grep -q "<title" "$f" || { echo "❌ $f missing <title"; MISSING=$((MISSING+1)); }
+            grep -q "viewport" "$f" || { echo "❌ $f missing viewport"; MISSING=$((MISSING+1)); }
+            grep -q "favicon" "$f" || { echo "❌ $f missing favicon"; MISSING=$((MISSING+1)); }
+          done
+          if [ $MISSING -gt 0 ]; then
+            echo ""
+            echo "Found $MISSING structural issues. Fix before merging."
+            exit 1
+          fi
+          echo "✅ All HTML pages structurally sound"
+
+      - name: Scan for leaked secrets
+        run: |
+          set -e
+          LEAKED=0
+          
+          # Service role keys — never allowed in HTML
+          if grep -lE "sk_live_[A-Za-z0-9]{20,}|sk_test_[A-Za-z0-9]{20,}" *.html 2>/dev/null; then
+            echo "❌ CRITICAL: Stripe SECRET key found in HTML"
+            LEAKED=1
+          fi
+          
+          # Service role JWT (role: service_role) — never allowed
+          if grep -lE "service_role" *.html 2>/dev/null | grep -v "ALWAYS use the anon key" >/dev/null; then
+            echo "⚠️ WARN: 'service_role' string found in HTML"
+          fi
+          
+          # GitHub PATs
+          if grep -lE "ghp_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{50,}" *.html 2>/dev/null; then
+            echo "❌ CRITICAL: GitHub PAT leaked in HTML"
+            LEAKED=1
+          fi
+          
+          # Vercel tokens
+          if grep -lE "vcp_[A-Za-z0-9]{30,}" *.html 2>/dev/null; then
+            echo "❌ CRITICAL: Vercel token leaked in HTML"
+            LEAKED=1
+          fi
+          
+          if [ $LEAKED -eq 1 ]; then
+            echo ""
+            echo "BUILD BLOCKED: leaked secrets detected. Rotate immediately and remove from repo history."
+            exit 1
+          fi
+          echo "✅ No leaked secrets in HTML"
+
+      - name: Validate vercel.json
+        run: |
+          python3 -c "import json; json.load(open('vercel.json'))" && echo "✅ vercel.json is valid JSON"
+
+      - name: Validate sitemap.xml
+        run: |
+          python3 -c "import xml.etree.ElementTree as ET; ET.parse('sitemap.xml')" && echo "✅ sitemap.xml is valid XML"
+
+      - name: Check no orphan/dead pages
+        run: |
+          set -e
+          # Check for the dead 'fix.html' that we removed
+          if [ -f fix.html ]; then
+            echo "❌ Dead 'fix.html' has reappeared — should be deleted"
+            exit 1
+          fi
+          echo "✅ No orphan pages"
+
+  size-check:
+    name: Repo size sanity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check repo isn't bloated
+        run: |
+          SIZE_KB=$(du -sk --exclude=.git . | cut -f1)
+          MAX_KB=10000  # 10MB ceiling
+          echo "Repo size: ${SIZE_KB}KB (max: ${MAX_KB}KB)"
+          if [ $SIZE_KB -gt $MAX_KB ]; then
+            echo "❌ Repo exceeds ${MAX_KB}KB. Investigate bloat."
+            exit 1
+          fi
+          echo "✅ Repo size OK"

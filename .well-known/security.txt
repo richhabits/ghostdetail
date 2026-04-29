@@ -1,0 +1,15 @@
+Contact: mailto:security@ghostdetail.autos
+Contact: https://ghostdetail.autos/contact
+Expires: 2027-04-29T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://ghostdetail.autos/.well-known/security.txt
+Policy: https://ghostdetail.autos/legal.html#security
+
+# Ghost Detail Autos — Responsible Disclosure
+# We welcome security researchers. If you find a vulnerability:
+# 1. Email security@ghostdetail.autos with details + reproduction steps
+# 2. Give us 90 days before public disclosure
+# 3. Don't access customer data or disrupt service during testing
+#
+# We don't currently run a paid bug bounty, but we do thank researchers
+# in our hall of fame and provide a written letter of recognition.
