@@ -147,7 +147,7 @@ table{max-width:100%;overflow-x:auto;display:block;border-collapse:collapse}
 <footer><p>© 2026 Ghost Detail Autos · Watford WD18 · <a href="/about.html">About Romeo</a> · <a href="/booking.html">Book a Service</a></p></footer>
 <script>
 const SB_URL='https://slzawehsiotvkjzaehqw.supabase.co';
-const SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
+const SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzYzMjcsImV4cCI6MjA5MjQ1MjMyN30.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
 const LEVEL_ORDER={independent:4,competent:3,practising:2,learning:1};
 async function loadSkills(){
   const r=await fetch(`${SB_URL}/rest/v1/ferrel_skills_log?order=confidence_level.desc&limit=50`,{headers:{'apikey':SB_ANON,'Authorization':'Bearer '+SB_ANON}});

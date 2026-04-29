@@ -592,7 +592,7 @@ table{max-width:100%;overflow-x:auto;display:block;border-collapse:collapse}
 
 <script>
 const SB_URL='https://slzawehsiotvkjzaehqw.supabase.co';
-const SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
+const SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzYzMjcsImV4cCI6MjA5MjQ1MjMyN30.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
 
 const p=new URLSearchParams(location.search);
 const cname=p.get('name')||'';
@@ -790,7 +790,7 @@ async function ghostAI(system, messages, maxTokens){
   try{
     var r2 = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain', {
       method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
+      headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzYzMjcsImV4cCI6MjA5MjQ1MjMyN30.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
       body:JSON.stringify({prompt:system+'\n\nUser: '+messages[messages.length-1]?.content})
     });
     var d2 = await r2.json();
@@ -802,7 +802,7 @@ async function ghostAI(system, messages, maxTokens){
 <script id="aria-widget-js">
 (function(){
   var SB='https://slzawehsiotvkjzaehqw.supabase.co';
-  var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
+  var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzYzMjcsImV4cCI6MjA5MjQ1MjMyN30.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
   var STRIPE={spark:'https://buy.stripe.com/9AQ16V8DF9gq0rC6oo',shield:'https://buy.stripe.com/6oE2aZ8DFcsy3DOfYZ',legend:'https://buy.stripe.com/28o16Vgc7gIM5LW6op'};
   var ariaOpen=false,ariaHistory=[],ariaUserData={},ariaReg=null,ariaVehicle=null,ariaStarted=false;
 

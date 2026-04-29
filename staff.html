@@ -724,7 +724,7 @@ async function lookupClient(){
     try{
       const r = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/vehicle-lookup',{
         method:'POST',
-        headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
+        headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzYzMjcsImV4cCI6MjA5MjQ1MjMyN30.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
         body:JSON.stringify({registration:reg})
       });
       dvla = await r.json();
@@ -791,7 +791,7 @@ async function lookupClient(){
     else if(email) query += '&customer_email=eq.'+encodeURIComponent(email);
     
     const r = await fetch(query, {
-      headers:{'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'}
+      headers:{'apikey':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzYzMjcsImV4cCI6MjA5MjQ1MjMyN30.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzYzMjcsImV4cCI6MjA5MjQ1MjMyN30.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'}
     });
     const bookings = await r.json();
     
@@ -1226,7 +1226,7 @@ Romeo / Ferrel Cruz — ghostdetail.autos — 01923 959839`;
 const STAFF_URL='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-staff';
 const BRAIN_URL='https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain';
 const SB_URL='https://slzawehsiotvkjzaehqw.supabase.co';
-const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
+const SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzYzMjcsImV4cCI6MjA5MjQ1MjMyN30.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
 const ADMIN_SECRET='GHOST-ROMEO-2026';
 
 let currentStaff=null;
@@ -2128,7 +2128,7 @@ document.head.appendChild(sopStyle);
 // ── SOP VAULT ──────────────────────────────────────────────────────────
 let allSOPs = [];
 const SB_URL_GARAGE = 'https://slzawehsiotvkjzaehqw.supabase.co';
-const SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
+const SB_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzYzMjcsImV4cCI6MjA5MjQ1MjMyN30.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
 
 async function loadSOPs(category='all'){
   const grid=document.getElementById('sop-grid');

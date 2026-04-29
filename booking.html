@@ -679,9 +679,26 @@ let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;c.style.left=mx+'px';c.style.top=my+'px'});
 (function t(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;r.style.left=rx+'px';r.style.top=ry+'px';requestAnimationFrame(t)})();
 
-const SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
+const SB_ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzYzMjcsImV4cCI6MjA5MjQ1MjMyN30.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
 let SB;
-if(window.supabase){SB=window.supabase.createClient('https://slzawehsiotvkjzaehqw.supabase.co',SB_ANON);}
+function initSB(){
+  if(window.supabase&&!SB){
+    SB=window.supabase.createClient('https://slzawehsiotvkjzaehqw.supabase.co',SB_ANON);
+  }
+  return SB;
+}
+// Try immediately (in case script is already loaded)
+initSB();
+// Fallback: poll for supabase global up to 5 seconds
+if(!SB){
+  let attempts=0;
+  const sbPoll=setInterval(()=>{
+    attempts++;
+    if(initSB()||attempts>50){clearInterval(sbPoll);}
+  },100);
+}
+// Also wait for DOMContentLoaded as final guarantee
+document.addEventListener('DOMContentLoaded',initSB);
 
 let state={service:'',price:0,ceramic:false,ppf:false,mobile:false};
 
@@ -743,7 +760,7 @@ async function lookupReg(){
       document.getElementById('b-year').value=d.year||'';
       document.getElementById('b-colour').value=d.colour||'';
       resEl.style.color='var(--green)';
-      resEl.textContent='✓ '+d.make+' '+d.model+' ('+d.year+') found';
+      resEl.textContent='✓ '+[d.make,d.model,d.year?'('+d.year+')':null].filter(Boolean).join(' ')+' found';
     }else{resEl.style.color='var(--muted)';resEl.textContent='Enter details below';}
   }catch(e){resEl.style.color='var(--muted)';resEl.textContent='Enter details manually';}
 }
@@ -818,7 +835,11 @@ async function submitBooking(){
     source:'website'
   };
   if(!SB){
-    // Fallback if supabase not loaded
+    // Last-chance attempt to initialize before falling back
+    initSB();
+  }
+  if(!SB){
+    // Truly cannot reach Supabase — fallback to WhatsApp
     window.location.href='https://wa.me/447927576142?text=Hi+Romeo,+I+want+to+book+'+encodeURIComponent(state.service)+'+for+my+'+encodeURIComponent(booking.vehicle_make||'car');
     return;
   }
@@ -976,7 +997,7 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
 <script id="aria-widget-js">
 (function(){
   var SB='https://slzawehsiotvkjzaehqw.supabase.co';
-  var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
+  var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzYzMjcsImV4cCI6MjA5MjQ1MjMyN30.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
   var STRIPE={spark:'https://buy.stripe.com/9AQ16V8DF9gq0rC6oo',shield:'https://buy.stripe.com/6oE2aZ8DFcsy3DOfYZ',legend:'https://buy.stripe.com/28o16Vgc7gIM5LW6op'};
   var ariaOpen=false,ariaHistory=[],ariaUserData={},ariaReg=null,ariaVehicle=null,ariaStarted=false;
 
@@ -1224,7 +1245,7 @@ User: ' + userMessage;
     }
     var r2 = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain', {
       method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
+      headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzYzMjcsImV4cCI6MjA5MjQ1MjMyN30.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
       body:JSON.stringify({action:'chat', prompt:prompt})
     });
     if(r2.ok){ var d2=await r2.json(); var t2=d2.text; if(t2) return {text:t2,model:'gemini-2.5-flash'}; }
@@ -1250,7 +1271,7 @@ window.ghostBrain = async function(action, params) {
   try {
     var r = await fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/ghost-brain', {
       method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
+      headers:{'Content-Type':'application/json','Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4NzYzMjcsImV4cCI6MjA5MjQ1MjMyN30.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA'},
       body:JSON.stringify(Object.assign({action:action}, params||{}))
     });
     return await r.json();
