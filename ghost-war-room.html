@@ -1078,7 +1078,45 @@ table{max-width:100%;overflow-x:auto;display:block;border-collapse:collapse}
     </div>
 
     <!-- AUTOMATIONS -->
-    <div class="pane" id="pane-automations">
+    <div class="pane" id="pane-callbacks">
+  <div class="pane-header">
+    <div class="pane-eyebrow">Lead Triage</div>
+    <h2 class="pane-title">Pending <em>Callbacks</em></h2>
+    <div class="pane-meta">Specialists routing · Callback requests awaiting contact</div>
+  </div>
+  <div class="pane-body">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px">
+      <div class="wr-mini-stat">
+        <div class="wr-mini-stat-value" id="cb-pending-count">0</div>
+        <div class="wr-mini-stat-label">Pending</div>
+      </div>
+      <div class="wr-mini-stat">
+        <div class="wr-mini-stat-value" id="cb-called-today">0</div>
+        <div class="wr-mini-stat-label">Called Today</div>
+      </div>
+      <div class="wr-mini-stat">
+        <div class="wr-mini-stat-value" id="cb-avg-response">—</div>
+        <div class="wr-mini-stat-label">Avg Response</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:10px">Filter by Specialist</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="cb-filter-btn active" onclick="filterCallbacks('all')">All</button>
+        <button class="cb-filter-btn" onclick="filterCallbacks('marcus')">🔧 Marcus</button>
+        <button class="cb-filter-btn" onclick="filterCallbacks('jade')">💎 Jade</button>
+        <button class="cb-filter-btn" onclick="filterCallbacks('aaliya')">✨ Aaliya</button>
+        <button class="cb-filter-btn" onclick="filterCallbacks('priya')">🚗 Priya</button>
+        <button class="cb-filter-btn" onclick="filterCallbacks('aria')">🎙 ARIA</button>
+      </div>
+    </div>
+
+    <div id="callbacks-list"></div>
+  </div>
+</div>
+
+<div class="pane" id="pane-automations">
       <div class="panel">
         <h1 class="p-title">One-Touch <em>Automations</em></h1>
         <p class="p-sub">Every button triggers a full GHOST automation sequence. JADE writes the message, sends it, logs the comms, updates the pipeline. One tap = everything done.</p>
