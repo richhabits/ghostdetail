@@ -76,6 +76,214 @@ footer{background:#0a0a0a;border-top:1px solid rgba(197,160,89,0.08);padding:48p
 .footer-links a:hover{color:var(--gold)}
 .footer-bottom{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;font-size:9px;letter-spacing:.1em;color:rgba(197,160,89,0.4)}
 @media(max-width:768px){.footer-bottom{flex-direction:column;gap:8px}}
+
+
+/* === ENHANCED SERVICE CARDS — comprehensive listings === */
+.svc-grid-rich {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+@media (max-width: 768px) {
+  .svc-grid-rich {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.svc-card {
+  background: linear-gradient(180deg, rgba(197,160,89,0.04) 0%, rgba(20,18,14,0.4) 100%);
+  border: 1px solid rgba(197,160,89,0.18);
+  border-radius: 4px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: border-color 0.2s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.svc-card:hover {
+  border-color: rgba(197,160,89,0.4);
+}
+.svc-card.featured {
+  border-color: rgba(197,160,89,0.42);
+  background: linear-gradient(180deg, rgba(197,160,89,0.08) 0%, rgba(20,18,14,0.4) 100%);
+}
+.svc-card.featured::before {
+  content: 'MOST POPULAR';
+  position: absolute;
+  top: 12px;
+  right: -32px;
+  transform: rotate(45deg);
+  background: var(--gold, #c5a059);
+  color: #0a0905;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  padding: 4px 36px;
+  z-index: 2;
+}
+
+.svc-card-head {
+  border-bottom: 1px solid rgba(197,160,89,0.14);
+  padding-bottom: 14px;
+}
+.svc-card-tier {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold, #c5a059);
+  margin-bottom: 6px;
+  display: block;
+}
+.svc-card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 900;
+  color: #F0EDE6;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.svc-card-price {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: #F0EDE6;
+}
+.svc-card-price strong {
+  color: var(--gold, #c5a059);
+  font-size: 18px;
+  font-weight: 700;
+  margin-right: 6px;
+}
+.svc-card-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: rgba(240,237,230,0.5);
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+
+.svc-card-pitch {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(240,237,230,0.75);
+  font-style: italic;
+}
+
+.svc-card-section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold, #c5a059);
+  margin-bottom: 8px;
+  display: block;
+}
+
+.svc-card-includes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.svc-card-includes li {
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(240,237,230,0.85);
+  padding-left: 18px;
+  position: relative;
+}
+.svc-card-includes li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--gold, #c5a059);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.svc-card-includes li strong {
+  color: #F0EDE6;
+  font-weight: 600;
+}
+
+.svc-card-foot {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(197,160,89,0.14);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.svc-card-cta {
+  display: inline-block;
+  background: var(--gold, #c5a059);
+  color: #0a0905;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 12px 18px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.svc-card-cta:hover {
+  background: #d4ad65;
+}
+.svc-card-foot-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: rgba(240,237,230,0.5);
+  letter-spacing: 0.06em;
+}
+
+.svc-card-comparison {
+  background: rgba(0,0,0,0.3);
+  border-left: 2px solid var(--gold, #c5a059);
+  padding: 10px 14px;
+  font-size: 12px;
+  color: rgba(240,237,230,0.7);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.svc-card-comparison strong {
+  color: var(--gold, #c5a059);
+  font-style: normal;
+}
+
+@media (max-width: 600px) {
+  .svc-card {
+    padding: 24px 18px;
+  }
+  .svc-card-name {
+    font-size: 22px;
+  }
+  .svc-card-includes li {
+    font-size: 12px;
+  }
+  .svc-card-foot {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .svc-card-cta {
+    text-align: center;
+  }
+}
+
 </style>
 <!-- GHOST DETAIL MOBILE FIX (v1) -->
 <style id="gd-mobile-fix">
@@ -437,132 +645,415 @@ header[style*="fixed"] {
 <section class="cats">
   <div class="wrap">
 
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- TIER 1 — DETAILING                                            -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
     <div class="cat">
-      <div class="cat-eyebrow">Studio · Sandown Road WD18</div>
+      <div class="cat-eyebrow">Studio · Sandown Road WD18 · Hand-finished</div>
       <h2 class="cat-title">In-studio <em>Detailing</em></h2>
-      <p class="cat-sub">Hand-finished work in the private studio. One car at a time. Romeo and Ferrel work every job personally.</p>
-      <div class="svc-grid">
-        <a href="/booking.html?service=spark" class="svc-item">
-          <div class="svc-name">Spark Wash</div>
-          <div class="svc-price">£79 · 2–3 hours</div>
-          <div class="svc-desc">pH-neutral foam wash, two-bucket method, tyre dressing, glass clean. Maintenance standard.</div>
-          <span class="svc-link">Book Spark Wash →</span>
-        </a>
-        <a href="/booking.html?service=quick" class="svc-item">
-          <div class="svc-name">Quick Refinement</div>
-          <div class="svc-price">£249 · 2–3 hours</div>
-          <div class="svc-desc">Full decontamination, clay bar, single-stage machine polish, paint sealant, interior vacuum.</div>
-          <span class="svc-link">Book Quick Refinement →</span>
-        </a>
-        <a href="/booking.html?service=depth" class="svc-item">
-          <div class="svc-name">Depth Refinement</div>
-          <div class="svc-price">£449 · 4–5 hours</div>
-          <div class="svc-desc">Multi-stage paint correction, paint depth readings, clay bar, engine bay, leather treatment, full interior.</div>
-          <span class="svc-link">Book Depth Refinement →</span>
-        </a>
-        <a href="/booking.html?service=total" class="svc-item">
-          <div class="svc-name">Total Refinement</div>
-          <div class="svc-price">£799 · 6–8 hours</div>
-          <div class="svc-desc">Everything in Depth plus Nano Banana ceramic, ozone treatment, Service Passport, before/after documentation.</div>
-          <span class="svc-link">Book Total Refinement →</span>
-        </a>
+      <p class="cat-sub">Four tiers — from a maintenance reset to full multi-stage correction with ceramic. Every job is hand-finished by Romeo or Ferrel personally. One car at a time. No production line, no rushed work, no rotating staff.</p>
+
+      <div class="svc-grid-rich">
+
+        <!-- SPARK WASH £79 -->
+        <div class="svc-card">
+          <div class="svc-card-head">
+            <span class="svc-card-tier">Tier 1 · Maintenance</span>
+            <div class="svc-card-name">Spark Wash</div>
+            <div class="svc-card-price"><strong>£79</strong> standard car</div>
+            <div class="svc-card-meta">2–3 hours · By appointment</div>
+          </div>
+
+          <p class="svc-card-pitch">A proper safe wash done the right way. For cars that already get cared for and need a regular reset between bigger services.</p>
+
+          <span class="svc-card-section-label">What you get</span>
+          <ul class="svc-card-includes">
+            <li><strong>Pre-rinse</strong> — full vehicle pressure rinse to lift loose grit before any contact</li>
+            <li><strong>Snow foam pre-wash</strong> — pH-neutral citrus pre-wash, dwell time, rinsed off</li>
+            <li><strong>Two-bucket contact wash</strong> — wash + rinse buckets with grit guards, lambswool mitt</li>
+            <li><strong>Wheels deep-cleaned</strong> — face, barrels, arches, tyre walls (non-acid wheel cleaner)</li>
+            <li><strong>Door shuts &amp; fuel cap</strong> — cleaned and dried by hand</li>
+            <li><strong>Soft-touch hand dry</strong> — plush microfibre, no streaks</li>
+            <li><strong>Tyre dressing</strong> — water-based, satin finish (not greasy)</li>
+            <li><strong>Glass</strong> — exterior glass cleaned and streak-free</li>
+            <li><strong>Quick interior</strong> — vacuum, dash &amp; console wipe-down</li>
+          </ul>
+
+          <div class="svc-card-comparison">
+            <strong>Why £79 not £15?</strong> A £15 hand wash uses one bucket, hard sponges, and silicone tyre shine. That's how swirl marks happen. This is a safe wash with proper kit so the paint stays clean.
+          </div>
+
+          <div class="svc-card-foot">
+            <a href="/booking.html?service=spark" class="svc-card-cta">Book Spark Wash →</a>
+            <div class="svc-card-foot-meta">£24 deposit</div>
+          </div>
+        </div>
+
+        <!-- QUICK REFINEMENT £249 -->
+        <div class="svc-card">
+          <div class="svc-card-head">
+            <span class="svc-card-tier">Tier 2 · Decontamination</span>
+            <div class="svc-card-name">Quick Refinement</div>
+            <div class="svc-card-price"><strong>£249</strong> standard car</div>
+            <div class="svc-card-meta">2–3 hours · By appointment</div>
+          </div>
+
+          <p class="svc-card-pitch">Everything in Spark Wash, plus full chemical and mechanical decontamination. The right starting point if your car hasn't been detailed for 6+ months.</p>
+
+          <span class="svc-card-section-label">What you get</span>
+          <ul class="svc-card-includes">
+            <li><strong>Everything in Spark Wash</strong> — full safe wash sequence above</li>
+            <li><strong>Iron fallout removal</strong> — ammonium-thioglycolate spray (turns purple as it works), removes embedded brake dust + rail particles</li>
+            <li><strong>Tar removal</strong> — solvent-based tar remover on lower panels, lifts road tar spots</li>
+            <li><strong>Clay bar / clay towel</strong> — physical decontamination, removes whatever the chemicals didn't</li>
+            <li><strong>Single-stage machine polish</strong> — removes ~60–70% of light swirl marks, restores gloss</li>
+            <li><strong>IPA panel wipe</strong> — neutral panel wipe before sealant</li>
+            <li><strong>Paint sealant</strong> — synthetic sealant, 4–6 months protection</li>
+            <li><strong>Plastic trim restored</strong> — satin black trim restorer on plastics</li>
+            <li><strong>Engine bay wipe-down</strong> — visible plastics dressed</li>
+            <li><strong>Interior reset</strong> — full vacuum, all touch surfaces, glass</li>
+          </ul>
+
+          <div class="svc-card-comparison">
+            <strong>Best for:</strong> cars that look "ok" but haven't been properly decontaminated this year. The clay bar pull alone is jaw-dropping.
+          </div>
+
+          <div class="svc-card-foot">
+            <a href="/booking.html?service=quick" class="svc-card-cta">Book Quick Refinement →</a>
+            <div class="svc-card-foot-meta">£75 deposit</div>
+          </div>
+        </div>
+
+        <!-- DEPTH REFINEMENT £449 - MOST POPULAR -->
+        <div class="svc-card featured">
+          <div class="svc-card-head">
+            <span class="svc-card-tier">Tier 3 · Correction</span>
+            <div class="svc-card-name">Depth Refinement</div>
+            <div class="svc-card-price"><strong>£449</strong> standard car</div>
+            <div class="svc-card-meta">4–5 hours · By appointment</div>
+          </div>
+
+          <p class="svc-card-pitch">Multi-stage paint correction with a full interior reset. Where most cars end up — properly corrected, properly cleaned, properly protected.</p>
+
+          <span class="svc-card-section-label">What you get</span>
+          <ul class="svc-card-includes">
+            <li><strong>Everything in Quick Refinement</strong> — full safe wash + chemical &amp; mechanical decontamination</li>
+            <li><strong>Paint depth readings taken</strong> — gauge readings before any correction. If clear coat is too thin, we tell you and stop</li>
+            <li><strong>Multi-stage machine polish</strong> — compound + polish stages, dual-action machine, removes 80–90% of swirls and light scratches</li>
+            <li><strong>Headlight cleanup</strong> — restores hazed/yellowed lenses where applicable</li>
+            <li><strong>Wheel ceramic add-on available</strong> — 12-month wheel-face coating</li>
+            <li><strong>Engine bay detailed</strong> — degreased, dressed, all visible plastics restored</li>
+            <li><strong>Wheel arches detailed</strong> — cleaned, dressed</li>
+            <li><strong>Full interior deep clean</strong> — see "interior" list below</li>
+            <li><strong>Leather treatment</strong> — pH-neutral cleaner + premium conditioner (Lexol or similar)</li>
+            <li><strong>Carpet shampoo + hot-water extraction</strong> — front and rear, plus mats</li>
+            <li><strong>Headliner clean</strong> (most detailers skip this — we don't)</li>
+            <li><strong>Final paint sealant</strong> — 6-month durable LSP</li>
+          </ul>
+
+          <div class="svc-card-comparison">
+            <strong>Most booked.</strong> Right balance of correction, interior reset, and protection. Sets the car up properly for ongoing maintenance.
+          </div>
+
+          <div class="svc-card-foot">
+            <a href="/booking.html?service=depth" class="svc-card-cta">Book Depth Refinement →</a>
+            <div class="svc-card-foot-meta">£135 deposit</div>
+          </div>
+        </div>
+
+        <!-- TOTAL REFINEMENT £799 -->
+        <div class="svc-card">
+          <div class="svc-card-head">
+            <span class="svc-card-tier">Tier 4 · Concours</span>
+            <div class="svc-card-name">Total Refinement</div>
+            <div class="svc-card-price"><strong>£799</strong> standard car</div>
+            <div class="svc-card-meta">6–8 hours · Full day</div>
+          </div>
+
+          <p class="svc-card-pitch">Everything we do, in one job. Multi-stage correction, full interior reset, ceramic coating, ozone treatment, and a documented before/after Service Passport you can show a future buyer.</p>
+
+          <span class="svc-card-section-label">What you get</span>
+          <ul class="svc-card-includes">
+            <li><strong>Everything in Depth Refinement</strong> — full correction + interior reset</li>
+            <li><strong>Extended correction stages</strong> — additional polish stages targeting deeper defects (90%+ swirl removal)</li>
+            <li><strong>Glass polish</strong> — paint-grade polish on exterior glass for true clarity</li>
+            <li><strong>Nano Banana Ceramic coating</strong> — 9H hardness, 5-year manufacturer warranty (when applied here)</li>
+            <li><strong>Wheel ceramic coating</strong> — face + barrel, 12-month durability</li>
+            <li><strong>Glass coating</strong> — hydrophobic windscreen + side glass</li>
+            <li><strong>Trim coating</strong> — UV-stable coating on exterior plastics</li>
+            <li><strong>Leather ceramic protection</strong> — interior leather coating (where applicable)</li>
+            <li><strong>Ozone treatment</strong> — 90-min ozone cycle, kills bacteria, neutralises odours (smoke, pets, food)</li>
+            <li><strong>Service Passport</strong> — bound document with date, mileage, products used, before/after photos. Adds resale value</li>
+            <li><strong>Aftercare wash kit included</strong> — pH-neutral shampoo + drying towel + microfibre</li>
+            <li><strong>30-day guarantee inspection</strong> — bring it back at 30 days, free top-up wash</li>
+          </ul>
+
+          <div class="svc-card-comparison">
+            <strong>For:</strong> new car protection, prized weekend cars, sale-prep before listing, or owners who want it done once and done properly.
+          </div>
+
+          <div class="svc-card-foot">
+            <a href="/booking.html?service=total" class="svc-card-cta">Book Total Refinement →</a>
+            <div class="svc-card-foot-meta">£240 deposit</div>
+          </div>
+        </div>
+
       </div>
+
+      <p class="svc-card-pitch" style="text-align:center; margin-top: 24px;">
+        SUVs / large vehicles +£40–£80 depending on size · Heavily soiled cars POA · All quotes confirmed before any work begins.
+      </p>
     </div>
 
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- TIER 2 — PROTECTION                                          -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
     <div class="cat">
-      <div class="cat-eyebrow">Protection · Long-term</div>
+      <div class="cat-eyebrow">Protection · Long-term · Warranty-backed</div>
       <h2 class="cat-title">Ceramic &amp; <em>PPF</em></h2>
-      <p class="cat-sub">Real protection for paintwork. Both treatments include a paint inspection first — we don't coat over swirl marks.</p>
-      <div class="svc-grid">
-        <a href="/ceramic-coating-watford.html" class="svc-item">
-          <div class="svc-name">Nano Banana Ceramic</div>
-          <div class="svc-price">From £149 add-on · 5-year warranty</div>
-          <div class="svc-desc">9H hardness ceramic coating. Self-cleaning, hydrophobic, 5-year manufacturer warranty when applied by us.</div>
-          <span class="svc-link">Read more →</span>
-        </a>
-        <a href="/ppf-watford.html" class="svc-item">
-          <div class="svc-name">Paint Protection Film</div>
-          <div class="svc-price">High-impact zones from £149</div>
-          <div class="svc-desc">Self-healing PPF on bonnet leading edge, front bumper, mirrors. Full-car coverage available — POA.</div>
-          <span class="svc-link">Read more →</span>
-        </a>
+      <p class="cat-sub">Real protection that's actually applied properly. Both treatments include full paint inspection and depth readings first — we do not coat over swirl marks or compromised clear coat. If the paint isn't ready, we say so.</p>
+
+      <div class="svc-grid-rich">
+
+        <!-- NANO BANANA CERAMIC -->
+        <div class="svc-card">
+          <div class="svc-card-head">
+            <span class="svc-card-tier">Coating · 5-year warranty</span>
+            <div class="svc-card-name">Nano Banana Ceramic</div>
+            <div class="svc-card-price"><strong>From £149</strong> add-on · <strong>£399</strong> standalone</div>
+            <div class="svc-card-meta">5-year manufacturer warranty</div>
+          </div>
+
+          <p class="svc-card-pitch">9H hardness ceramic coating, hand-applied, fully cured in our climate-controlled studio bay. The coating that all our long-term clients run.</p>
+
+          <span class="svc-card-section-label">What you get</span>
+          <ul class="svc-card-includes">
+            <li><strong>Paint depth readings</strong> — confirm clear coat is healthy enough to coat</li>
+            <li><strong>Full decontamination prep</strong> — iron remover, tar remover, clay bar (mandatory before any coating)</li>
+            <li><strong>Single-stage machine polish minimum</strong> — coating locks in whatever's underneath, so we always polish first</li>
+            <li><strong>IPA panel wipe</strong> — strips polish residue so coating bonds properly</li>
+            <li><strong>Coating applied panel-by-panel</strong> — hand-applied with applicator block, levelled with microfibre</li>
+            <li><strong>Curing window</strong> — 12+ hours dust-free curing in our studio</li>
+            <li><strong>Hydrophobic finish</strong> — water sheets and beads off, dirt doesn't stick</li>
+            <li><strong>UV protection</strong> — colour stability, no oxidation, no bird-strike etching</li>
+            <li><strong>Easier washing forever</strong> — most clients drop to a 10-minute monthly rinse</li>
+            <li><strong>5-year warranty</strong> — registered in your name, transferable on resale</li>
+          </ul>
+
+          <div class="svc-card-comparison">
+            <strong>Add-on £149</strong> when bundled with Depth or Total Refinement (recommended). <strong>£399 standalone</strong> if your car is already prepped.
+          </div>
+
+          <div class="svc-card-foot">
+            <a href="/ceramic-coating-watford.html" class="svc-card-cta">Read more →</a>
+            <div class="svc-card-foot-meta">Quote on consultation</div>
+          </div>
+        </div>
+
+        <!-- PAINT PROTECTION FILM -->
+        <div class="svc-card">
+          <div class="svc-card-head">
+            <span class="svc-card-tier">Film · Self-healing</span>
+            <div class="svc-card-name">Paint Protection Film</div>
+            <div class="svc-card-price"><strong>From £149</strong> single panel · <strong>POA</strong> full car</div>
+            <div class="svc-card-meta">10-year film durability</div>
+          </div>
+
+          <p class="svc-card-pitch">Self-healing transparent film that physically takes the hit from stone chips, gravel, and abrasions. The only protection that stops physical damage. Bumper edges, bonnet leading edge, mirrors, sills, and full-front PPF wraps.</p>
+
+          <span class="svc-card-section-label">Coverage options</span>
+          <ul class="svc-card-includes">
+            <li><strong>Bonnet leading edge</strong> — most common starter package, covers stone-chip zone</li>
+            <li><strong>Front bumper</strong> — full bumper, plate-recess included</li>
+            <li><strong>Wing mirrors</strong> — paired</li>
+            <li><strong>Door cups + sills</strong> — handle area + sill kick zone</li>
+            <li><strong>Headlight protection</strong> — clear film, prevents UV haze</li>
+            <li><strong>Full-front PPF</strong> — bonnet + bumper + wings + mirrors + headlights (most popular for premium cars)</li>
+            <li><strong>Track package</strong> — full-front + roof + door tops</li>
+            <li><strong>Full-car PPF</strong> — every painted panel covered, POA per vehicle</li>
+          </ul>
+
+          <span class="svc-card-section-label">What's included with every PPF job</span>
+          <ul class="svc-card-includes">
+            <li><strong>Surface prep + decontamination</strong> — must be 100% clean before film goes on</li>
+            <li><strong>Bulk film cut to template</strong> — pre-cut where available, custom-cut otherwise</li>
+            <li><strong>Wet install</strong> — slip + tack solution for bubble-free finish</li>
+            <li><strong>Edge wrapping</strong> — film wrapped around panel edges where possible</li>
+            <li><strong>10-year film durability</strong> — manufacturer-backed</li>
+            <li><strong>Self-healing top layer</strong> — light scratches disappear with heat</li>
+          </ul>
+
+          <div class="svc-card-comparison">
+            <strong>PPF + ceramic combo</strong> is the gold standard — film for impact zones, ceramic everywhere else. Quote on consultation.
+          </div>
+
+          <div class="svc-card-foot">
+            <a href="/ppf-watford.html" class="svc-card-cta">Read more →</a>
+            <div class="svc-card-foot-meta">Quote on consultation</div>
+          </div>
+        </div>
+
       </div>
     </div>
 
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- TIER 3 — CONCIERGE                                           -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
     <div class="cat">
-      <div class="cat-eyebrow">Concierge · Hands-off</div>
+      <div class="cat-eyebrow">Concierge · Hands-off · Vetted partners</div>
       <h2 class="cat-title">Service &amp; <em>Repair</em></h2>
-      <p class="cat-sub">MOT, service, tyres, wheel refurb, tinting, smart repairs. We collect, manage the work, return your car.</p>
-      <div class="svc-grid">
-        <a href="/concierge.html" class="svc-item">
-          <div class="svc-name">MOT &amp; Service Concierge</div>
-          <div class="svc-price">From £35 booking fee</div>
-          <div class="svc-desc">We handle MOT, full or interim service, diagnostics. Collection from anywhere within 30 miles of Watford.</div>
-          <span class="svc-link">View Concierge →</span>
-        </a>
-        <a href="/concierge.html" class="svc-item">
-          <div class="svc-name">Wheels, Tyres, Tinting</div>
-          <div class="svc-price">POA per vehicle</div>
-          <div class="svc-desc">Wheel refurbishment, tyre fitting, window tinting, smart paint repairs. Specialist partners, single quote.</div>
-          <span class="svc-link">View Concierge →</span>
-        </a>
+      <p class="cat-sub">MOT, service, tyres, wheels, tinting, smart repairs. We collect from anywhere within 30 miles of Watford, manage the work end-to-end with our trusted partner network, and return your car when it's ready. One quote, one point of contact.</p>
+
+      <div class="svc-grid-rich">
+
+        <!-- MOT & SERVICE -->
+        <div class="svc-card">
+          <div class="svc-card-head">
+            <span class="svc-card-tier">Mechanical · Marcus</span>
+            <div class="svc-card-name">MOT &amp; Service Concierge</div>
+            <div class="svc-card-price"><strong>From £35</strong> booking fee + service cost</div>
+            <div class="svc-card-meta">Collection within 30mi of WD18</div>
+          </div>
+
+          <p class="svc-card-pitch">Marcus handles all our mechanical work through vetted local partners. Real workshops, real warranties, real prices. We get the quotes, you approve the work, we manage the rest.</p>
+
+          <span class="svc-card-section-label">What we handle</span>
+          <ul class="svc-card-includes">
+            <li><strong>MOT booking</strong> — at a vetted Class 4 station</li>
+            <li><strong>Full / interim service</strong> — to manufacturer schedule</li>
+            <li><strong>Diagnostics</strong> — engine, transmission, electrical fault scanning</li>
+            <li><strong>Brakes</strong> — pads, discs, calliper rebuild, hoses</li>
+            <li><strong>Timing belt / chain replacement</strong> — to schedule, with parts traceability</li>
+            <li><strong>Cambelt + waterpump bundles</strong></li>
+            <li><strong>Suspension</strong> — shocks, springs, bushings, geometry</li>
+            <li><strong>Electrical</strong> — battery, alternator, starter, sensors</li>
+          </ul>
+
+          <span class="svc-card-section-label">How concierge works</span>
+          <ul class="svc-card-includes">
+            <li>You tell us what's needed (or send Ghost Vision report)</li>
+            <li>We collect the car at a time that suits you</li>
+            <li>We get a written quote — you approve before any work</li>
+            <li>Work is carried out at our partner workshop</li>
+            <li>We return the car cleaner than it left (free Spark Wash on every concierge job)</li>
+          </ul>
+
+          <div class="svc-card-comparison">
+            <strong>Why use concierge?</strong> One vetted partner network, one invoice, one accountable point of contact. No shopping around, no waiting room, no middleman markups — just a £35 fee for the management.
+          </div>
+
+          <div class="svc-card-foot">
+            <a href="/concierge.html" class="svc-card-cta">View Concierge →</a>
+            <div class="svc-card-foot-meta">Free quote</div>
+          </div>
+        </div>
+
+        <!-- AESTHETIC SERVICES -->
+        <div class="svc-card">
+          <div class="svc-card-head">
+            <span class="svc-card-tier">Aesthetic · Aaliya</span>
+            <div class="svc-card-name">Wheels · Tints · Plates · PDR</div>
+            <div class="svc-card-price"><strong>Quote on consultation</strong></div>
+            <div class="svc-card-meta">Specialist partners, single quote</div>
+          </div>
+
+          <p class="svc-card-pitch">All the aesthetic services that don't fit "detailing" but matter for how a car looks. Aaliya handles tinting, alloy refurb, bespoke plates, paintless dent repair, and smart paint touch-ups through specialists we trust.</p>
+
+          <span class="svc-card-section-label">Services available</span>
+          <ul class="svc-card-includes">
+            <li><strong>Window tinting</strong> — UK-legal front, any darkness rear, ceramic films available</li>
+            <li><strong>Alloy refurbishment</strong> — full strip, repair kerb damage, refinish (gloss black, gun metal, OEM-match)</li>
+            <li><strong>Diamond-cut alloy refinish</strong></li>
+            <li><strong>Tyre fitting</strong> — premium and mid-range brands, mobile fitting available</li>
+            <li><strong>Bespoke number plates</strong> — 3D / 4D gel plates (DVLA-compliant + show options)</li>
+            <li><strong>Paintless dent repair (PDR)</strong> — hail damage, door dings, parking dents removed without paint</li>
+            <li><strong>Smart paint repairs</strong> — small chips, scuffs, bumper scrapes</li>
+            <li><strong>Brake calliper paint</strong> — high-temp paint, OEM colours or custom</li>
+            <li><strong>De-badging / chrome delete</strong> — gloss black or vinyl-wrap</li>
+          </ul>
+
+          <div class="svc-card-comparison">
+            <strong>Free quotes,</strong> no obligation. Send a photo via WhatsApp and we'll come back with options + price + timeline.
+          </div>
+
+          <div class="svc-card-foot">
+            <a href="/concierge.html" class="svc-card-cta">Get Quote →</a>
+            <div class="svc-card-foot-meta">Aaliya callbacks within 1hr</div>
+          </div>
+        </div>
+
       </div>
     </div>
 
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- TIER 4 — DIAGNOSTICS                                         -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
     <div class="cat">
-      <div class="cat-eyebrow">Diagnostics · AI-powered</div>
+      <div class="cat-eyebrow">Diagnostics · AI-powered · Free</div>
       <h2 class="cat-title">Ghost <em>Vision</em></h2>
-      <p class="cat-sub">Free AI assessment of your paintwork using DVLA records, MOT data, and visual inspection. Honest report, no upsell pressure.</p>
-      <div class="svc-grid">
-        <a href="/paint-check.html" class="svc-item">
-          <div class="svc-name">Paint &amp; Condition Report</div>
-          <div class="svc-price">Free · Instant</div>
-          <div class="svc-desc">Enter your reg. We pull DVLA, MOT history, and condition signals to recommend exactly the right service.</div>
-          <span class="svc-link">Run Ghost Vision →</span>
-        </a>
-        <a href="/garage.html" class="svc-item">
-          <div class="svc-name">My Garage Dashboard</div>
-          <div class="svc-price">Free · Members area</div>
-          <div class="svc-desc">Track every service, MOT due dates, tax reminders, and warranty status for every car you own.</div>
-          <span class="svc-link">Open Garage →</span>
-        </a>
-      </div>
-    </div>
+      <p class="cat-sub">Free AI-powered paint and condition assessment. Combines DVLA records, MOT history, and a visual inspection to recommend the right service for your car. No upsell pressure — if your car needs nothing, we'll tell you.</p>
 
-    <div class="cat">
-      <div class="cat-eyebrow">Membership · Ongoing</div>
-      <h2 class="cat-title">Ghost <em>Pass</em></h2>
-      <p class="cat-sub">Save 15% on every service, priority booking, free quarterly maintenance washes. Cancel anytime.</p>
-      <div class="svc-grid">
-        <a href="/membership.html" class="svc-item">
-          <div class="svc-name">Spark — £99/month</div>
-          <div class="svc-price">Entry tier</div>
-          <div class="svc-desc">15% off all services, quarterly Spark Wash included, priority slots within 7 days.</div>
-          <span class="svc-link">Join Spark →</span>
-        </a>
-        <a href="/membership.html" class="svc-item">
-          <div class="svc-name">Shield — £199/month</div>
-          <div class="svc-price">Most popular</div>
-          <div class="svc-desc">Everything in Spark plus monthly maintenance, ceramic top-up, concierge collection included.</div>
-          <span class="svc-link">Join Shield →</span>
-        </a>
-        <a href="/membership.html" class="svc-item">
-          <div class="svc-name">Legend — £299/month</div>
-          <div class="svc-price">Elite tier</div>
-          <div class="svc-desc">Unlimited maintenance washes, annual Depth Refinement, full concierge, paint protection top-ups.</div>
-          <span class="svc-link">Join Legend →</span>
-        </a>
-        <a href="/gift-vouchers.html" class="svc-item">
-          <div class="svc-name">Gift Vouchers</div>
-          <div class="svc-price">£100 · £250 · £500</div>
-          <div class="svc-desc">Buy a voucher for any Ghost Detail service. Recipient picks what they want, no expiry on amount.</div>
-          <span class="svc-link">View Vouchers →</span>
-        </a>
+      <div class="svc-grid-rich">
+
+        <div class="svc-card">
+          <div class="svc-card-head">
+            <span class="svc-card-tier">Free · Instant</span>
+            <div class="svc-card-name">Paint &amp; Condition Report</div>
+            <div class="svc-card-price"><strong>FREE</strong> · No account needed</div>
+            <div class="svc-card-meta">Instant — under 90 seconds</div>
+          </div>
+
+          <p class="svc-card-pitch">Enter your reg. We pull DVLA data, MOT history, and condition signals from the registration record. AI generates a tailored service recommendation.</p>
+
+          <ul class="svc-card-includes">
+            <li><strong>DVLA data pulled</strong> — make, model, colour, age, fuel type, V5C status</li>
+            <li><strong>MOT history</strong> — last 3 tests, advisories, fail history</li>
+            <li><strong>Paint age estimate</strong> — based on year + typical exposure</li>
+            <li><strong>Service recommendation</strong> — exactly which tier suits your car</li>
+            <li><strong>Honest verdict</strong> — if you don't need a paid service, we'll say so</li>
+            <li><strong>Saves to your profile</strong> — optional, lets us track your car over time</li>
+          </ul>
+
+          <div class="svc-card-foot">
+            <a href="/paint-check.html" class="svc-card-cta">Run Ghost Vision →</a>
+            <div class="svc-card-foot-meta">Free, instant</div>
+          </div>
+        </div>
+
+        <div class="svc-card">
+          <div class="svc-card-head">
+            <span class="svc-card-tier">Members · Free</span>
+            <div class="svc-card-name">My Garage Dashboard</div>
+            <div class="svc-card-price"><strong>FREE</strong> · Members only</div>
+            <div class="svc-card-meta">Multi-vehicle tracking</div>
+          </div>
+
+          <p class="svc-card-pitch">Track every service, MOT due dates, tax reminders, warranty status, and full service history for every car you own. Built for multi-car households and small fleets.</p>
+
+          <ul class="svc-card-includes">
+            <li><strong>MOT &amp; tax reminders</strong> — automatic, 30/14/7 days before due</li>
+            <li><strong>Service history log</strong> — every job, every receipt, every photo</li>
+            <li><strong>Warranty tracking</strong> — ceramic, PPF, manufacturer dates</li>
+            <li><strong>Multi-vehicle support</strong> — add as many cars as you want</li>
+            <li><strong>Service Passport export</strong> — PDF for resale</li>
+            <li><strong>Live booking tracking</strong> — see when your car is being worked on</li>
+          </ul>
+
+          <div class="svc-card-foot">
+            <a href="/garage.html" class="svc-card-cta">Open Garage →</a>
+            <div class="svc-card-foot-meta">Free signup</div>
+          </div>
+        </div>
+
       </div>
     </div>
 
   </div>
 </section>
+
 
 <section class="cta-section">
   <div class="wrap">
