@@ -49,6 +49,28 @@ h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weig
 .svc-price{font-family:'DM Mono',monospace;font-size:20px;color:var(--gold);margin-bottom:8px}
 .svc-includes{font-size:12px;color:var(--muted);line-height:1.7}
 .svc-dur{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:10px;padding-top:10px;border-top:1px solid rgba(197,160,89,.08)}
+/* Grouped checkmark inclusions for service cards (added v2 services rebuild) */
+.svc-groups{margin-top:14px;margin-bottom:6px}
+.svc-group{margin-bottom:14px}
+.svc-group:last-child{margin-bottom:0}
+.svc-group-lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;opacity:.85}
+.svc-checks{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:6px}
+.svc-check{font-size:12px;color:var(--text);line-height:1.5;display:flex;align-items:flex-start;gap:8px;font-family:'Inter','Helvetica Neue',sans-serif}
+.svc-check::before{content:'✔';color:var(--gold);font-size:11px;flex-shrink:0;margin-top:1px;font-weight:700}
+.svc-extends{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:10px;padding:6px 10px;background:rgba(16,185,129,.05);border-left:2px solid var(--green);display:inline-block}
+.svc-meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:14px;padding-top:12px;border-top:1px solid rgba(197,160,89,.1)}
+.svc-meta-item{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.svc-meta-item strong{color:var(--gold);font-weight:600}
+.svc-bestfor{font-size:11px;color:var(--muted2);font-style:italic;margin-top:8px;line-height:1.6}
+/* Upsell grid: 2 rows of 5 on desktop, 2 cols on mobile */
+.upsell-grid{display:grid!important;grid-template-columns:repeat(5,1fr)!important;gap:10px}
+.uc-time{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+@media(max-width:900px){.upsell-grid{grid-template-columns:repeat(3,1fr)!important}}
+@media(max-width:600px){.upsell-grid{grid-template-columns:repeat(2,1fr)!important;gap:8px}.upsell-card{padding:14px}}
+/* Compare toggle button */
+.svc-compare-toggle{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);background:transparent;border:1px solid rgba(197,160,89,.3);padding:10px 18px;cursor:pointer;margin:8px auto 24px;display:block;transition:all .25s ease}
+.svc-compare-toggle:hover{background:rgba(197,160,89,.08);border-color:var(--gold)}
+
 .upsell-section{margin-bottom:32px}
 .upsell-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
 .upsell-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
@@ -818,66 +840,344 @@ header[style*="fixed"] {
     <div class="step-num">Step 1 of 4</div>
     <h1>Choose Your <em>Service</em></h1>
     <p class="step-sub">All prices subject to vehicle condition assessment. Large vehicles may incur a small surcharge.</p>
+
+    <button type="button" class="svc-compare-toggle" onclick="document.getElementById('svc-compare').scrollIntoView({behavior:'smooth',block:'start'})">📊 Compare all packages →</button>
+
     <div class="services-grid">
+
+      <!-- ========== SPARK WASH £79 ========== -->
       <div class="svc-card" onclick="selectService(this,'Spark Wash',79)" data-service="Spark Wash" data-price="79">
         <div class="svc-tag">Maintenance</div>
         <div class="svc-name">Spark Wash</div>
         <div class="svc-price">£79</div>
-        <div class="svc-includes">pH-neutral foam wash · Two-bucket method · Tyre dressing · Glass clean</div>
-        <div class="svc-dur">2–3 hours</div>
+        <div class="svc-bestfor">Weekly maintenance for cars already in good shape.</div>
+        <div class="svc-groups">
+          <div class="svc-group">
+            <div class="svc-group-lbl">Exterior</div>
+            <ul class="svc-checks">
+              <li class="svc-check">Pre-rinse to lift loose dirt</li>
+              <li class="svc-check">Snow foam pre-wash</li>
+              <li class="svc-check">Two-bucket method, grit guards</li>
+              <li class="svc-check">pH-neutral hand shampoo</li>
+              <li class="svc-check">Wheels cleaned (faces)</li>
+              <li class="svc-check">Tyres dressed</li>
+              <li class="svc-check">Door shuts wiped</li>
+              <li class="svc-check">Microfibre dry</li>
+              <li class="svc-check">Glass cleaned (exterior)</li>
+              <li class="svc-check">2-week spray sealant</li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <div class="svc-group-lbl">Interior</div>
+            <ul class="svc-checks">
+              <li class="svc-check">Full vacuum (seats, mats, boot)</li>
+              <li class="svc-check">Dashboard wipe-down</li>
+              <li class="svc-check">Door cards cleaned</li>
+              <li class="svc-check">Glass cleaned (interior)</li>
+              <li class="svc-check">Air freshener</li>
+            </ul>
+          </div>
+        </div>
+        <div class="svc-meta">
+          <div class="svc-meta-item"><strong>⏱</strong> 90 min</div>
+          <div class="svc-meta-item"><strong>15</strong> inclusions</div>
+        </div>
       </div>
+
+      <!-- ========== QUICK REFINEMENT £249 ========== -->
       <div class="svc-card" onclick="selectService(this,'Quick Refinement',249)" data-service="Quick Refinement" data-price="249">
         <div class="svc-tag">Popular</div>
         <div class="svc-name">Quick Refinement</div>
         <div class="svc-price">£249</div>
-        <div class="svc-includes">Full decontamination · Clay bar · Single-stage machine polish · Paint sealant · Interior vacuum</div>
-        <div class="svc-dur">2–3 hours</div>
+        <div class="svc-bestfor">Restore depth and shine — protect for 6+ months.</div>
+        <div class="svc-extends">+ Everything in Spark, plus:</div>
+        <div class="svc-groups">
+          <div class="svc-group">
+            <div class="svc-group-lbl">Exterior enhancement</div>
+            <ul class="svc-checks">
+              <li class="svc-check">Chemical decontamination (tar &amp; iron)</li>
+              <li class="svc-check">Clay bar treatment</li>
+              <li class="svc-check">Single-stage machine polish</li>
+              <li class="svc-check">6-month sealant or carnauba wax</li>
+              <li class="svc-check">Wheels deep-cleaned (faces + barrels accessible)</li>
+              <li class="svc-check">Wheel arches flushed</li>
+              <li class="svc-check">Trim restored &amp; dressed</li>
+              <li class="svc-check">Glass treated with rain-repellent</li>
+              <li class="svc-check">Bird-strike &amp; tar spots removed</li>
+              <li class="svc-check">Headlight wipe-down</li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <div class="svc-group-lbl">Interior detail</div>
+            <ul class="svc-checks">
+              <li class="svc-check">Detailed vacuum incl. under seats &amp; pockets</li>
+              <li class="svc-check">Vents brushed clean</li>
+              <li class="svc-check">Leather wiped &amp; conditioned (or upholstery treated)</li>
+              <li class="svc-check">Plastics &amp; trims dressed</li>
+              <li class="svc-check">Cup holders + door bins detailed</li>
+              <li class="svc-check">Boot fully cleaned</li>
+              <li class="svc-check">Sun visors cleaned</li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <div class="svc-group-lbl">Engine bay</div>
+            <ul class="svc-checks">
+              <li class="svc-check">Light dressing applied</li>
+            </ul>
+          </div>
+        </div>
+        <div class="svc-meta">
+          <div class="svc-meta-item"><strong>⏱</strong> 3 hours</div>
+          <div class="svc-meta-item"><strong>33</strong> inclusions total</div>
+        </div>
       </div>
+
+      <!-- ========== DEPTH REFINEMENT £449 — MOST POPULAR ========== -->
       <div class="svc-card" onclick="selectService(this,'Depth Refinement',449)" data-service="Depth Refinement" data-price="449">
         <div class="svc-tag">Most popular</div>
         <div class="svc-name">Depth Refinement</div>
         <div class="svc-price">£449</div>
-        <div class="svc-includes">Multi-stage paint correction · Paint depth readings · Clay bar · Engine bay · Leather treatment · Full interior</div>
-        <div class="svc-dur">4–5 hours</div>
+        <div class="svc-bestfor">Show-car finish for your daily driver.</div>
+        <div class="svc-extends">+ Everything in Quick, plus:</div>
+        <div class="svc-groups">
+          <div class="svc-group">
+            <div class="svc-group-lbl">Multi-stage paint correction</div>
+            <ul class="svc-checks">
+              <li class="svc-check">Paint depth readings on every panel</li>
+              <li class="svc-check">Multi-stage machine polish (removes 80%+ swirls)</li>
+              <li class="svc-check">Compound + polish + finishing pass</li>
+              <li class="svc-check">Tar &amp; glue chemical removal (full body)</li>
+              <li class="svc-check">Wheels removed for full barrel decon (where time permits)</li>
+              <li class="svc-check">Calipers cleaned &amp; dressed</li>
+              <li class="svc-check">12-month protective sealant</li>
+              <li class="svc-check">Exhaust tips polished</li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <div class="svc-group-lbl">Interior deep clean</div>
+            <ul class="svc-checks">
+              <li class="svc-check">Wet extraction of carpets &amp; seat fabric</li>
+              <li class="svc-check">Leather deep-clean &amp; condition (3-step)</li>
+              <li class="svc-check">Headliner spot-clean</li>
+              <li class="svc-check">Dashboard &amp; console professionally dressed</li>
+              <li class="svc-check">Steering wheel deep-cleaned</li>
+              <li class="svc-check">All vents micro-detailed</li>
+              <li class="svc-check">Pet hair removal included</li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <div class="svc-group-lbl">Engine bay</div>
+            <ul class="svc-checks">
+              <li class="svc-check">Full clean + dressed</li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <div class="svc-group-lbl">Documentation</div>
+            <ul class="svc-checks">
+              <li class="svc-check">Full before/after photo report</li>
+            </ul>
+          </div>
+        </div>
+        <div class="svc-meta">
+          <div class="svc-meta-item"><strong>⏱</strong> 4-5 hours</div>
+          <div class="svc-meta-item"><strong>50+</strong> inclusions total</div>
+        </div>
       </div>
+
+      <!-- ========== TOTAL REFINEMENT £799 — ELITE ========== -->
       <div class="svc-card" onclick="selectService(this,'Total Refinement',799)" data-service="Total Refinement" data-price="799">
         <div class="svc-tag">Elite</div>
         <div class="svc-name">Total Refinement</div>
         <div class="svc-price">£799</div>
-        <div class="svc-includes">Everything in Depth · Nano Banana ceramic included · Ozone treatment · Service Passport · Before/after documentation</div>
-        <div class="svc-dur">6–8 hours</div>
+        <div class="svc-bestfor">The full reset. Concours-level. Everything done, properly.</div>
+        <div class="svc-extends">+ Everything in Depth, plus:</div>
+        <div class="svc-groups">
+          <div class="svc-group">
+            <div class="svc-group-lbl">3-stage correction + ceramic</div>
+            <ul class="svc-checks">
+              <li class="svc-check">3-stage paint correction (95%+ defects removed)</li>
+              <li class="svc-check"><strong>Nano Banana 9H ceramic included</strong> (worth £149)</li>
+              <li class="svc-check">5-year ceramic warranty</li>
+              <li class="svc-check">Wheels coated (face + barrel)</li>
+              <li class="svc-check">Trim ceramic-coated</li>
+              <li class="svc-check">Glass coated (12-month rain-repel)</li>
+              <li class="svc-check">Calipers ceramic-coated</li>
+              <li class="svc-check">Exhaust tips ceramic-coated</li>
+              <li class="svc-check">Door shuts polished</li>
+              <li class="svc-check">Petrol cap polished</li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <div class="svc-group-lbl">Interior reset</div>
+            <ul class="svc-checks">
+              <li class="svc-check"><strong>Ozone treatment</strong> (eliminates odours at molecular level)</li>
+              <li class="svc-check">Leather ceramic-coat protection</li>
+              <li class="svc-check">Fabric ceramic-protect on seats</li>
+              <li class="svc-check">Plastic ceramic-coat on dash &amp; doors</li>
+            </ul>
+          </div>
+          <div class="svc-group">
+            <div class="svc-group-lbl">Service Passport</div>
+            <ul class="svc-checks">
+              <li class="svc-check">Digital record of every product used</li>
+              <li class="svc-check">Paint depth before/after readings</li>
+              <li class="svc-check">30+ angle photo documentation</li>
+              <li class="svc-check">Signed certificate of work</li>
+              <li class="svc-check">Resale-value supporting document</li>
+            </ul>
+          </div>
+        </div>
+        <div class="svc-meta">
+          <div class="svc-meta-item"><strong>⏱</strong> Full day (6-8 hrs)</div>
+          <div class="svc-meta-item"><strong>70+</strong> inclusions total</div>
+        </div>
       </div>
+
     </div>
+
+    <!-- ========== ADD-ONS — 10 total ========== -->
     <div class="upsell-section" id="upsell-section" style="display:none">
-      <div class="upsell-lbl">🚀 Add-ons</div>
+      <div class="upsell-lbl">🚀 Add-ons · pick what you want</div>
       <div class="upsell-grid">
         <div class="upsell-card" id="upsell-ceramic" onclick="toggleUpsell('ceramic',149)">
           <div class="uc-icon">🍌</div>
           <div class="uc-name">Nano Banana Ceramic</div>
           <div class="uc-price">+£149</div>
           <div class="uc-desc">9H hardness. 5-year warranty.</div>
+          <div class="uc-time">+2 hr</div>
         </div>
         <div class="upsell-card" id="upsell-ppf" onclick="toggleUpsell('ppf',149)">
           <div class="uc-icon">🛡</div>
           <div class="uc-name">PPF High-Impact Zones</div>
           <div class="uc-price">+£149</div>
           <div class="uc-desc">Front bumper + bonnet leading edge.</div>
+          <div class="uc-time">+2 hr</div>
         </div>
         <div class="upsell-card" id="upsell-mobile" onclick="toggleUpsell('mobile',45)">
           <div class="uc-icon">🚐</div>
           <div class="uc-name">Mobile Service</div>
           <div class="uc-price">+£45</div>
-          <div class="uc-desc">We come to you within 30 miles of WD18.</div>
+          <div class="uc-desc">We come to you within WD18 zone.</div>
+          <div class="uc-time">+30 min</div>
+        </div>
+        <div class="upsell-card" id="upsell-pethair" onclick="toggleUpsell('pethair',25)">
+          <div class="uc-icon">🐾</div>
+          <div class="uc-name">Pet Hair Removal</div>
+          <div class="uc-price">+£25</div>
+          <div class="uc-desc">Specialist tools for embedded fur.</div>
+          <div class="uc-time">+30 min</div>
+        </div>
+        <div class="upsell-card" id="upsell-engine" onclick="toggleUpsell('engine',35)">
+          <div class="uc-icon">⚙️</div>
+          <div class="uc-name">Engine Bay Detail</div>
+          <div class="uc-price">+£35</div>
+          <div class="uc-desc">Steam clean + degrease + dress.</div>
+          <div class="uc-time">+30 min</div>
+        </div>
+        <div class="upsell-card" id="upsell-headlight" onclick="toggleUpsell('headlight',45)">
+          <div class="uc-icon">💡</div>
+          <div class="uc-name">Headlight Restoration</div>
+          <div class="uc-price">+£45</div>
+          <div class="uc-desc">Cut + polish cloudy headlights.</div>
+          <div class="uc-time">+1 hr</div>
+        </div>
+        <div class="upsell-card" id="upsell-ozone" onclick="toggleUpsell('ozone',35)">
+          <div class="uc-icon">🌬</div>
+          <div class="uc-name">Ozone Treatment</div>
+          <div class="uc-price">+£35</div>
+          <div class="uc-desc">Eliminates smoke/pet/food odours.</div>
+          <div class="uc-time">+30 min</div>
+        </div>
+        <div class="upsell-card" id="upsell-glass" onclick="toggleUpsell('glass',35)">
+          <div class="uc-icon">💧</div>
+          <div class="uc-name">Glass Polish + Rain Repel</div>
+          <div class="uc-price">+£35</div>
+          <div class="uc-desc">Removes water spots, 6-month repel.</div>
+          <div class="uc-time">+30 min</div>
+        </div>
+        <div class="upsell-card" id="upsell-trim" onclick="toggleUpsell('trim',35)">
+          <div class="uc-icon">🖤</div>
+          <div class="uc-name">Trim Restoration</div>
+          <div class="uc-price">+£35</div>
+          <div class="uc-desc">Faded grey trim back to deep black.</div>
+          <div class="uc-time">+45 min</div>
+        </div>
+        <div class="upsell-card" id="upsell-roof" onclick="toggleUpsell('roof',55)">
+          <div class="uc-icon">☂️</div>
+          <div class="uc-name">Convertible Roof</div>
+          <div class="uc-price">+£55</div>
+          <div class="uc-desc">Soft top clean + waterproof.</div>
+          <div class="uc-time">+1 hr</div>
+        </div>
+        <div class="upsell-card" id="upsell-wheels" onclick="toggleUpsell('wheels',45)">
+          <div class="uc-icon">⭕</div>
+          <div class="uc-name">Wheels Removed Deep</div>
+          <div class="uc-price">+£45</div>
+          <div class="uc-desc">Full barrel access for deep clean.</div>
+          <div class="uc-time">+1 hr</div>
+        </div>
+        <div class="upsell-card" id="upsell-photos" onclick="toggleUpsell('photos',25)">
+          <div class="uc-icon">📸</div>
+          <div class="uc-name">Handover Photo Pack</div>
+          <div class="uc-price">+£25</div>
+          <div class="uc-desc">20 pro photos for socials/insurance/sale.</div>
+          <div class="uc-time">No extra time</div>
         </div>
       </div>
     </div>
+
+    <!-- ========== PRICE SUMMARY ========== -->
     <div class="price-summary" id="price-summary" style="display:none">
       <div class="ps-row" id="ps-base"><span>Base service</span><span id="ps-base-val">—</span></div>
       <div class="ps-row" id="ps-ceramic-row" style="display:none"><span>🍌 Nano Banana ceramic</span><span>+£149</span></div>
       <div class="ps-row" id="ps-ppf-row" style="display:none"><span>🛡 PPF add-on</span><span>+£149</span></div>
       <div class="ps-row" id="ps-mobile-row" style="display:none"><span>🚐 Mobile service</span><span>+£45</span></div>
+      <div class="ps-row" id="ps-pethair-row" style="display:none"><span>🐾 Pet hair removal</span><span>+£25</span></div>
+      <div class="ps-row" id="ps-engine-row" style="display:none"><span>⚙️ Engine bay detail</span><span>+£35</span></div>
+      <div class="ps-row" id="ps-headlight-row" style="display:none"><span>💡 Headlight restoration</span><span>+£45</span></div>
+      <div class="ps-row" id="ps-ozone-row" style="display:none"><span>🌬 Ozone treatment</span><span>+£35</span></div>
+      <div class="ps-row" id="ps-glass-row" style="display:none"><span>💧 Glass polish + repel</span><span>+£35</span></div>
+      <div class="ps-row" id="ps-trim-row" style="display:none"><span>🖤 Trim restoration</span><span>+£35</span></div>
+      <div class="ps-row" id="ps-roof-row" style="display:none"><span>☂️ Convertible roof</span><span>+£55</span></div>
+      <div class="ps-row" id="ps-wheels-row" style="display:none"><span>⭕ Wheels removed</span><span>+£45</span></div>
+      <div class="ps-row" id="ps-photos-row" style="display:none"><span>📸 Handover photos</span><span>+£25</span></div>
       <div class="ps-row total"><span>Total</span><span id="ps-total">—</span></div>
     </div>
+
+    <!-- ========== COMPARE TABLE ========== -->
+    <div id="svc-compare" style="margin:32px 0;padding:20px;border:1px solid rgba(197,160,89,.15);background:var(--vault)">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px">📊 Quick comparison</div>
+      <div style="overflow-x:auto">
+        <table style="width:100%;min-width:480px;border-collapse:collapse;font-family:'DM Mono',monospace;font-size:11px">
+          <thead>
+            <tr style="border-bottom:1px solid rgba(197,160,89,.2)">
+              <th style="text-align:left;padding:8px 10px;color:var(--muted);font-weight:500;font-size:9px;letter-spacing:.1em;text-transform:uppercase">&nbsp;</th>
+              <th style="text-align:center;padding:8px 6px;color:var(--text)">Spark<br><span style="color:var(--gold);font-size:13px">£79</span></th>
+              <th style="text-align:center;padding:8px 6px;color:var(--text)">Quick<br><span style="color:var(--gold);font-size:13px">£249</span></th>
+              <th style="text-align:center;padding:8px 6px;color:var(--text)">Depth<br><span style="color:var(--gold);font-size:13px">£449</span></th>
+              <th style="text-align:center;padding:8px 6px;color:var(--text)">Total<br><span style="color:var(--gold);font-size:13px">£799</span></th>
+            </tr>
+          </thead>
+          <tbody style="color:var(--muted2)">
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 10px">Hand wash &amp; foam</td><td style="text-align:center;color:var(--gold)">✔</td><td style="text-align:center;color:var(--gold)">✔</td><td style="text-align:center;color:var(--gold)">✔</td><td style="text-align:center;color:var(--gold)">✔</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 10px">Interior vacuum</td><td style="text-align:center;color:var(--gold)">✔</td><td style="text-align:center;color:var(--gold)">✔</td><td style="text-align:center;color:var(--gold)">✔</td><td style="text-align:center;color:var(--gold)">✔</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 10px">Decontamination + clay bar</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;color:var(--gold)">✔</td><td style="text-align:center;color:var(--gold)">✔</td><td style="text-align:center;color:var(--gold)">✔</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 10px">Single-stage polish + sealant</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;color:var(--gold)">✔</td><td style="text-align:center;color:var(--gold)">✔</td><td style="text-align:center;color:var(--gold)">✔</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 10px">Multi-stage paint correction</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;color:var(--gold)">✔</td><td style="text-align:center;color:var(--gold)">✔</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 10px">Paint depth readings</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;color:var(--gold)">✔</td><td style="text-align:center;color:var(--gold)">✔</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 10px">Wet extraction interior</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;color:var(--gold)">✔</td><td style="text-align:center;color:var(--gold)">✔</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 10px">Engine bay full detail</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;color:var(--muted);font-size:9px">light</td><td style="text-align:center;color:var(--gold)">✔</td><td style="text-align:center;color:var(--gold)">✔</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 10px">3-stage correction (95%+)</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;color:var(--gold)">✔</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 10px">Nano Banana 9H ceramic (5yr)</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;color:var(--gold)">✔</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 10px">Ozone odour treatment</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;color:var(--gold)">✔</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.04)"><td style="padding:8px 10px">Service Passport documentation</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;opacity:.3">—</td><td style="text-align:center;color:var(--gold)">✔</td></tr>
+            <tr><td style="padding:10px 10px 4px;color:var(--muted);font-size:10px">Duration</td><td style="text-align:center;color:var(--muted)">90 min</td><td style="text-align:center;color:var(--muted)">3 hr</td><td style="text-align:center;color:var(--muted)">4-5 hr</td><td style="text-align:center;color:var(--muted)">6-8 hr</td></tr>
+            <tr><td style="padding:4px 10px;color:var(--muted);font-size:10px">Inclusions</td><td style="text-align:center;color:var(--gold)">15</td><td style="text-align:center;color:var(--gold)">33</td><td style="text-align:center;color:var(--gold)">50+</td><td style="text-align:center;color:var(--gold)">70+</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <button class="btn-next" onclick="goStep(2)" id="btn-step1" disabled style="opacity:.4">Continue →</button>
   </div>
 
@@ -1028,7 +1328,7 @@ if(!SB){
 // Also wait for DOMContentLoaded as final guarantee
 document.addEventListener('DOMContentLoaded',initSB);
 
-let state={service:'',price:0,ceramic:false,ppf:false,mobile:false};
+let state={service:'',price:0,ceramic:false,ppf:false,mobile:false,pethair:false,engine:false,headlight:false,ozone:false,glass:false,trim:false,roof:false,wheels:false,photos:false};
 
 // Pre-fill from URL
 const params=new URLSearchParams(window.location.search);
@@ -1069,9 +1369,13 @@ function updatePriceSummary(){
   ps.style.display='block';
   let total=state.price;
   document.getElementById('ps-base-val').textContent='£'+state.price;
-  document.getElementById('ps-ceramic-row').style.display=state.ceramic?'flex':'none';if(state.ceramic)total+=149;
-  document.getElementById('ps-ppf-row').style.display=state.ppf?'flex':'none';if(state.ppf)total+=149;
-  document.getElementById('ps-mobile-row').style.display=state.mobile?'flex':'none';if(state.mobile)total+=45;
+  // Generic add-on price map (must match upsell-card onclick prices)
+  const addons={ceramic:149,ppf:149,mobile:45,pethair:25,engine:35,headlight:45,ozone:35,glass:35,trim:35,roof:55,wheels:45,photos:25};
+  Object.keys(addons).forEach(function(k){
+    const row=document.getElementById('ps-'+k+'-row');
+    if(!row)return;
+    if(state[k]){row.style.display='flex';total+=addons[k]}else{row.style.display='none'}
+  });
   document.getElementById('ps-total').textContent='£'+total;
 }
 async function lookupReg(){
