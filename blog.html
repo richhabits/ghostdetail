@@ -786,6 +786,97 @@ img, svg, iframe {
     transition: bottom 0.3s ease;
   }
 }
+
+/* === GD HEADER UPGRADE 2026 — bigger logo, taller header, premium feel === */
+/* gd-header-upgrade-2026 marker so we can find this block */
+
+/* Logo wordmark — bigger across all viewports */
+.nav-brand {
+  font-size: 13px !important;
+  letter-spacing: 0.18em !important;
+  font-weight: 600 !important;
+}
+
+/* Index.html style: <a><span>⬡</span><span>Ghost Detail</span></a>
+   The first span is the hexagon, second is the wordmark. Target both. */
+header > div > a:first-child > span:first-child,
+header a[href="/"] > span:first-child {
+  font-size: 28px !important;
+  color: #c5a059 !important;
+  filter: drop-shadow(0 0 8px rgba(197, 160, 89, 0.35));
+  margin-right: 4px;
+}
+
+header > div > a:first-child > span:last-child,
+header a[href="/"] > span:last-child {
+  font-size: 13px !important;
+  letter-spacing: 0.22em !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+}
+
+/* Header taller and more presence */
+header[style*="sticky"],
+header[style*="fixed"] {
+  height: 72px !important;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.28) !important;
+  box-shadow: 0 1px 0 rgba(197, 160, 89, 0.08), 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Mobile-specific tightening */
+@media (max-width: 600px) {
+  .nav-brand {
+    font-size: 12px !important;
+    letter-spacing: 0.14em !important;
+  }
+  header > div > a:first-child > span:first-child,
+  header a[href="/"] > span:first-child {
+    font-size: 26px !important;
+  }
+  header > div > a:first-child > span:last-child,
+  header a[href="/"] > span:last-child {
+    font-size: 12px !important;
+    letter-spacing: 0.18em !important;
+  }
+  header[style*="sticky"],
+  header[style*="fixed"] {
+    height: 64px !important;
+    padding: 0 16px !important;
+  }
+  /* Beef up the BOOK NOW button on mobile too */
+  header a[href*="booking"],
+  header .nav-cta,
+  .nav-cta {
+    font-size: 9px !important;
+    padding: 12px 18px !important;
+    letter-spacing: 0.18em !important;
+    font-weight: 700 !important;
+    border-width: 1px !important;
+  }
+}
+
+/* Subtle gold accent line under header on ALL viewports */
+header[style*="sticky"]::after,
+header[style*="fixed"]::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(197, 160, 89, 0.45) 20%,
+    rgba(197, 160, 89, 0.65) 50%,
+    rgba(197, 160, 89, 0.45) 80%,
+    transparent 100%);
+  pointer-events: none;
+}
+header[style*="sticky"],
+header[style*="fixed"] {
+  position: sticky !important;
+  position: -webkit-sticky !important;
+}
 </style>
 <!-- END GHOST DETAIL MOBILE FIX -->
 </head>
