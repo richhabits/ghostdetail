@@ -871,6 +871,14 @@ img, svg, iframe {
     bottom: 130px !important;
   }
 }
+
+/* === Hide ARIA chat bubble on public pages (override on customer-only pages) === */
+#aria-float {
+  display: none !important;
+}
+body.allow-aria #aria-float {
+  display: flex !important;
+}
 </style>
 <!-- END GHOST DETAIL MOBILE FIX -->
 </head>
