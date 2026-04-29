@@ -244,7 +244,7 @@ a.svc-item .svc-name { color: var(--text, #F0EDE6) !important; }
 /* === FIX 2: Hero typography on mobile === */
 /* Existing CSS uses clamp(48px, 7vw, 88px) — the 48px floor is too big at 390px wide */
 /* Reduce floors and use vw min for proper fluid scaling */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .hero-title,
   .ph-title,
   h1.hero-title,
@@ -275,7 +275,7 @@ a.svc-item .svc-name { color: var(--text, #F0EDE6) !important; }
 }
 
 /* === FIX 3: Body padding on mobile === */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   :root {
     --pad: 16px;
   }
@@ -292,7 +292,7 @@ a.svc-item .svc-name { color: var(--text, #F0EDE6) !important; }
 
 /* === FIX 4: Header crowding on small screens === */
 /* Hide SIGN IN below 480px (keep ☰ + BOOK NOW only — sign in is in hamburger) */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .nav-signin {
     display: none !important;
   }
@@ -378,7 +378,7 @@ a.svc-item .svc-name { color: var(--text, #F0EDE6) !important; }
 }
 
 /* === FIX 7: Tap target sizes (Apple HIG: 44x44pt minimum) === */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   button,
   .btn,
   .nav-cta,
@@ -404,7 +404,7 @@ img, svg, iframe {
 }
 
 /* === FIX 9: Form inputs — prevent iOS zoom on focus === */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   input[type="text"],
   input[type="email"],
   input[type="tel"],
