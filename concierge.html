@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Concierge — MOT, PDR, Alloys, Resprays | Ghost Detail Autos Watford</title>
-<meta name="description" content="Ghost Detail Autos Concierge — MOT management, full service coordination, PDR dent removal, alloy refurbishment and resprays. Watford WD18 Hertfordshire. We handle everything.">
+<title>Concierge — MOT, Tinting, Plates, Sourcing, Transport | Ghost Detail Autos Watford</title>
+<meta name="description" content="Ghost Detail Autos Concierge — MOT management, full service, PDR, alloy refurbishment, window tinting, 3D/4D plates, car sourcing, executive transport, wedding hire. Watford WD18 Hertfordshire. Fully insured. Coordinated through vetted trade partners.">
 <link rel="canonical" href="https://ghostdetail.autos/concierge">
-<meta property="og:title" content="Ghost Concierge — We Handle Everything | Ghost Detail Autos">
-<meta property="og:description" content="Drop your keys. We manage your MOT, service, PDR, alloys. Watford WD18.">
+<meta property="og:title" content="Ghost Concierge — Twelve Services. One Studio. Watford WD18.">
+<meta property="og:description" content="MOT, service, PDR, alloys, tinting, plates, sourcing, transport, hire. Coordinated by Romeo and Ferrel.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
@@ -25,19 +25,20 @@ body{background:var(--charcoal);color:var(--text);font-family:'Inter',sans-serif
 #cur-ring{position:fixed;width:28px;height:28px;border:1px solid rgba(197,160,89,.22);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,opacity .3s}
 
 section{overflow:hidden}
-.section{padding:80px 0}
 em{font-style:italic;color:var(--gold)}
 
 /* ── HERO ── */
-.c-hero{min-height:72vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px var(--pad)}
+.c-hero{min-height:62vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px var(--pad) 60px}
 .c-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(197,160,89,.06),transparent)}
 .c-hero-inner{position:relative;z-index:2;max-width:var(--max);width:100%;margin:0 auto;text-align:center}
 .c-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:16px}
 .c-hero h1{font-family:'Playfair Display',serif;font-size:clamp(40px,5.5vw,72px);font-weight:900;line-height:1.05;margin-bottom:20px}
-.c-hero-sub{font-size:15px;color:var(--muted2);max-width:520px;margin:0 auto 32px;line-height:1.8}
-.c-hero-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.c-hero-sub{font-size:15px;color:var(--muted2);max-width:600px;margin:0 auto 32px;line-height:1.8}
+.c-hero-badges{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
 .badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border:1px solid rgba(197,160,89,.18);color:rgba(197,160,89,.6)}
 .badge.active{background:rgba(197,160,89,.08);color:#c5a059;border-color:rgba(197,160,89,.3)}
+.trust-strip{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:32px}
+.trust-strip span{display:flex;align-items:center;gap:6px}
 
 /* ── REG CHECK ── */
 .reg-check-wrap{background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.15);padding:32px 36px;max-width:640px;margin:0 auto}
@@ -52,10 +53,9 @@ em{font-style:italic;color:var(--gold)}
 .reg-btn{background:var(--gold);color:#0A0905;border:none;padding:0 28px;font-family:'DM Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-radius:0 4px 4px 0;transition:opacity .2s;white-space:nowrap}
 .reg-btn:hover{opacity:.85}
 .reg-note{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:rgba(197,160,89,.35);margin-top:10px;text-align:center}
-.reg-gate{margin-top:20px}
 
 /* ── MOT RESULT CARD ── */
-.mot-result-card{background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.15);padding:24px;margin-bottom:20px;display:none}
+.mot-result-card{background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.15);padding:24px;margin-top:16px;display:none}
 .mot-result-card.show{display:block}
 .mot-vehicle-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:4px}
 .mot-vehicle-detail{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);margin-bottom:14px}
@@ -73,7 +73,7 @@ em{font-style:italic;color:var(--gold)}
 .mot-field-val.warn{color:#F59E0B}
 .mot-field-val.bad{color:#EF4444}
 
-/* ── SMART RECOMMENDATIONS ── */
+/* ── SMART RECS ── */
 .smart-recs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
 .smart-rec{display:flex;gap:12px;align-items:start;background:rgba(197,160,89,.03);border:1px solid rgba(197,160,89,.1);padding:14px;text-decoration:none;transition:background .2s,border-color .2s}
 .smart-rec:hover{background:rgba(197,160,89,.07);border-color:rgba(197,160,89,.2)}
@@ -82,26 +82,15 @@ em{font-style:italic;color:var(--gold)}
 .smart-rec-desc{font-size:11px;color:var(--muted2);line-height:1.5}
 .smart-rec.urgent{border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.05)}
 
-/* ── DATA GATE (register prompt) ── */
-.data-gate{background:rgba(197,160,89,.05);border:1px solid rgba(197,160,89,.18);padding:20px 24px;display:none;margin-top:16px}
-.data-gate.show{display:block}
-.data-gate-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#c5a059;margin-bottom:6px}
-.data-gate-text{font-size:12px;color:var(--muted2);line-height:1.6;margin-bottom:14px}
-.data-gate-inputs{display:flex;gap:8px;flex-wrap:wrap}
-.gate-input{background:rgba(197,160,89,.06);border:1px solid rgba(197,160,89,.15);color:var(--text);font-family:'DM Mono',monospace;font-size:11px;padding:10px 14px;outline:none;flex:1;min-width:160px}
-.gate-input::placeholder{color:var(--muted)}
-.gate-input:focus{border-color:rgba(197,160,89,.4)}
-.gate-submit{background:var(--gold);color:#0A0905;border:none;font-family:'DM Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:10px 20px;cursor:pointer;transition:opacity .2s;white-space:nowrap}
-.gate-submit:hover{opacity:.85}
-.gate-success{font-family:'DM Mono',monospace;font-size:10px;color:#10B981;padding:10px 0;display:none}
+/* ── SECTION HEADERS ── */
+.section-head{text-align:center;margin-bottom:48px;max-width:680px;margin-left:auto;margin-right:auto;padding:0 var(--pad)}
+.section-head h2{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:900;margin-bottom:10px;line-height:1.1}
+.section-head p{font-size:13px;color:var(--muted2)}
 
 /* ── SERVICES GRID ── */
-.services-section{padding:80px var(--pad);max-width:var(--wide);margin:0 auto}
-.services-heading{text-align:center;margin-bottom:48px}
-.services-heading h2{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);font-weight:900;margin-bottom:10px}
-.services-heading p{font-size:13px;color:var(--muted2);max-width:480px;margin:0 auto}
-.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
-.svc-card{background:rgba(197,160,89,.02);border:1px solid rgba(197,160,89,.08);padding:36px;transition:background .3s,border-color .3s;position:relative;overflow:hidden}
+.services-section{padding:80px 0}
+.services-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;max-width:var(--wide);margin:0 auto;padding:0 var(--pad)}
+.svc-card{background:rgba(197,160,89,.02);border:1px solid rgba(197,160,89,.08);padding:36px;transition:background .3s,border-color .3s;position:relative;overflow:hidden;display:flex;flex-direction:column}
 .svc-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
 .svc-card:hover{background:rgba(197,160,89,.04);border-color:rgba(197,160,89,.18)}
 .svc-card:hover::before{transform:scaleX(1)}
@@ -111,46 +100,42 @@ em{font-style:italic;color:var(--gold)}
 .svc-includes{list-style:none;margin-bottom:20px;display:flex;flex-direction:column;gap:6px}
 .svc-includes li{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em;color:rgba(240,237,230,.55);display:flex;gap:8px;align-items:start}
 .svc-includes li::before{content:'→';color:var(--gold);flex-shrink:0}
-.svc-price{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;color:rgba(197,160,89,.6);margin-bottom:16px}
-.svc-cta{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#0A0905;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:11px 22px;text-decoration:none;transition:opacity .2s}
+.svc-price{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;color:rgba(197,160,89,.6);margin-bottom:12px}
+.svc-legal{font-family:'DM Mono',monospace;font-size:9px;line-height:1.7;color:rgba(240,237,230,.4);background:rgba(245,158,11,.04);border-left:2px solid rgba(245,158,11,.3);padding:10px 12px;margin-bottom:16px}
+.svc-cta{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#0A0905!important;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:11px 22px;text-decoration:none;border:none;cursor:pointer;transition:opacity .2s;margin-top:auto;align-self:flex-start}
 .svc-cta:hover{opacity:.85}
-.svc-badge{position:absolute;top:16px;right:16px;font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;background:rgba(239,68,68,.12);color:#EF4444;border:1px solid rgba(239,68,68,.2)}
-.svc-badge.popular{background:rgba(197,160,89,.1);color:#c5a059;border-color:rgba(197,160,89,.25)}
+.svc-badge{position:absolute;top:16px;right:16px;font-family:'DM Mono',monospace;font-size:7px;letter-spacing:.12em;text-transform:uppercase;padding:4px 9px;background:rgba(197,160,89,.08);color:rgba(197,160,89,.6);border:1px solid rgba(197,160,89,.15)}
+.svc-badge.popular{background:rgba(197,160,89,.12);color:#c5a059;border-color:rgba(197,160,89,.25)}
 
-/* ── PROCESS SECTION ── */
-.process-section{padding:72px var(--pad);background:var(--vault);border-top:1px solid rgba(197,160,89,.07);border-bottom:1px solid rgba(197,160,89,.07)}
+/* ── SPECIALIST GRID ── */
+.specialists-section{padding:80px var(--pad);background:var(--vault);border-top:1px solid rgba(197,160,89,.06);border-bottom:1px solid rgba(197,160,89,.06)}
+.specialists-inner{max-width:var(--wide);margin:0 auto}
+.specialists-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.specialist{background:rgba(197,160,89,.03);border:1px solid rgba(197,160,89,.1);padding:32px}
+.specialist-icon{width:48px;height:48px;border:1px solid rgba(197,160,89,.25);background:rgba(197,160,89,.06);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:14px}
+.specialist-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:4px}
+.specialist-role{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#c5a059;margin-bottom:12px}
+.specialist-desc{font-size:12px;color:var(--muted2);line-height:1.7}
+
+/* ── PROCESS ── */
+.process-section{padding:72px var(--pad)}
 .process-inner{max-width:var(--wide);margin:0 auto}
-.process-heading{text-align:center;margin-bottom:48px}
-.process-heading h2{font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);font-weight:900;margin-bottom:10px}
 .process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
 .process-steps::before{content:'';position:absolute;top:20px;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(197,160,89,.2),rgba(197,160,89,.2),transparent)}
 .process-step{padding:0 24px;text-align:center;position:relative}
-.process-num{width:40px;height:40px;border:1px solid rgba(197,160,89,.25);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);margin:0 auto 16px;background:var(--vault);position:relative;z-index:1}
+.process-num{width:40px;height:40px;border:1px solid rgba(197,160,89,.25);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);margin:0 auto 16px;background:var(--charcoal);position:relative;z-index:1}
 .process-step-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;margin-bottom:6px}
 .process-step-desc{font-size:11px;color:var(--muted2);line-height:1.7}
 
-/* ── LOCAL TRUST ── */
+/* ── TRUST GRID ── */
 .trust-section{padding:72px var(--pad);max-width:var(--wide);margin:0 auto}
 .trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.trust-card{border:1px solid rgba(197,160,89,.1);padding:28px;position:relative}
+.trust-card{border:1px solid rgba(197,160,89,.1);padding:28px}
 .trust-icon{font-size:24px;margin-bottom:12px}
 .trust-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#c5a059;margin-bottom:8px}
 .trust-text{font-size:12px;color:var(--muted2);line-height:1.7}
 
-/* ── AI ARIA SECTION ── */
-.aria-section{padding:72px var(--pad);background:linear-gradient(135deg,rgba(197,160,89,.04),transparent);border-top:1px solid rgba(197,160,89,.08)}
-.aria-inner{max-width:840px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-.aria-left h2{font-family:'Playfair Display',serif;font-size:clamp(26px,3.5vw,40px);font-weight:900;margin-bottom:14px}
-.aria-left p{font-size:13px;color:var(--muted2);line-height:1.8;margin-bottom:20px}
-.aria-phone{font-family:'DM Mono',monospace;font-size:18px;font-weight:500;color:#c5a059;letter-spacing:.06em}
-.aria-chat-preview{background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.12);padding:24px;border-radius:2px}
-.aria-msg{margin-bottom:14px}
-.aria-msg-label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-.aria-bubble{font-size:12px;line-height:1.7;padding:12px 14px;border-radius:2px}
-.aria-bubble.aria{background:rgba(197,160,89,.08);color:var(--text);border:1px solid rgba(197,160,89,.1)}
-.aria-bubble.user{background:rgba(255,255,255,.04);color:var(--muted2);border:1px solid rgba(255,255,255,.06)}
-
-/* ── SIGN UP SECTION ── */
+/* ── SIGN UP ── */
 .signup-section{padding:72px var(--pad);background:var(--vault);border-top:1px solid rgba(197,160,89,.08)}
 .signup-inner{max-width:640px;margin:0 auto;text-align:center}
 .signup-inner h2{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,44px);font-weight:900;margin-bottom:12px}
@@ -159,32 +144,58 @@ em{font-style:italic;color:var(--gold)}
 .signup-input{background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.12);color:var(--text);font-family:'DM Mono',monospace;font-size:11px;padding:13px 16px;outline:none;transition:border-color .2s}
 .signup-input::placeholder{color:var(--muted)}
 .signup-input:focus{border-color:rgba(197,160,89,.4)}
+.signup-checkbox{display:flex;align-items:flex-start;gap:8px;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted2);text-align:left;line-height:1.6}
+.signup-checkbox input{margin-top:2px}
 .signup-btn{background:var(--gold);color:#0A0905;border:none;font-family:'DM Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:14px 24px;cursor:pointer;transition:opacity .2s}
 .signup-btn:hover{opacity:.85}
 .signup-perks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:32px;text-align:left}
-.signup-perk{font-family:'DM Mono',monospace}
 .signup-perk-icon{color:var(--gold);font-size:14px;margin-bottom:6px}
-.signup-perk-title{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text);margin-bottom:3px}
-.signup-perk-text{font-size:10px;color:var(--muted2);line-height:1.5}
-#signup-success{font-family:'DM Mono',monospace;font-size:11px;color:#10B981;padding:14px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);display:none}
+.signup-perk-title{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--text);margin-bottom:3px}
+.signup-perk-text{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted2);line-height:1.5}
+#signup-success{font-family:'DM Mono',monospace;font-size:11px;color:#10B981;padding:14px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);display:none;margin-top:12px}
 
+/* ── CALLBACK MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(8px);z-index:10000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.show{display:flex}
+.modal{background:var(--charcoal);border:1px solid rgba(197,160,89,.2);max-width:540px;width:100%;max-height:90vh;overflow-y:auto;padding:36px 36px 32px;position:relative}
+.modal-close{position:absolute;top:14px;right:14px;background:none;border:1px solid rgba(197,160,89,.2);color:var(--muted2);width:32px;height:32px;font-size:14px;cursor:pointer;font-family:'DM Mono',monospace;transition:all .2s}
+.modal-close:hover{border-color:#c5a059;color:#c5a059}
+.modal-specialist{display:flex;gap:14px;align-items:center;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(197,160,89,.1)}
+.modal-specialist-icon{width:52px;height:52px;border:1px solid rgba(197,160,89,.25);background:rgba(197,160,89,.06);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.modal-specialist-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;margin-bottom:2px}
+.modal-specialist-role{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#c5a059}
+.modal-intro{font-size:13px;color:var(--muted2);line-height:1.7;margin-bottom:20px;padding:14px 16px;background:rgba(197,160,89,.04);border-left:2px solid rgba(197,160,89,.3)}
+.modal-form{display:flex;flex-direction:column;gap:10px}
+.modal-form input,.modal-form select,.modal-form textarea{background:rgba(197,160,89,.05);border:1px solid rgba(197,160,89,.12);color:var(--text);font-family:'DM Mono',monospace;font-size:11px;padding:12px 14px;outline:none;transition:border-color .2s;width:100%;font-weight:300}
+.modal-form input::placeholder,.modal-form textarea::placeholder{color:var(--muted)}
+.modal-form input:focus,.modal-form select:focus,.modal-form textarea:focus{border-color:rgba(197,160,89,.4)}
+.modal-form textarea{resize:vertical;min-height:70px;font-family:'Inter',sans-serif;font-size:12px;line-height:1.6}
+.modal-form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal-submit{background:var(--gold);color:#0A0905;border:none;font-family:'DM Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:14px;cursor:pointer;transition:opacity .2s;margin-top:6px}
+.modal-submit:hover{opacity:.85}
+.modal-success{font-family:'DM Mono',monospace;font-size:11px;color:#10B981;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);padding:16px;text-align:center;display:none}
+.modal-tnc{font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);text-align:center;margin-top:12px;line-height:1.6}
+.modal-tnc a{color:rgba(197,160,89,.6);text-decoration:underline}
+
+/* ── INSURANCE / TNC STRIP ── */
+.legal-strip{padding:32px var(--pad);background:var(--vault);border-top:1px solid rgba(197,160,89,.05);text-align:center}
+.legal-strip-inner{max-width:880px;margin:0 auto;font-family:'DM Mono',monospace;font-size:10px;line-height:1.8;color:var(--muted2);letter-spacing:.04em}
+.legal-strip-inner a{color:rgba(197,160,89,.7);text-decoration:underline}
+
+/* ── NAV LEGACY ── */
 nav{}
-.nav-inner{max-width:var(--wide);margin:0 auto;height:100%;padding:0 var(--pad);display:flex;align-items:center;justify-content:space-between}
-.nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;flex-shrink:0}
-.nav-brand{font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.16em;color:var(--gold);text-transform:uppercase;text-decoration:none}
-.nav-cta{background:var(--gold);color:#0A0905!important;font-family:'DM Mono',monospace;font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:8px 18px;text-decoration:none;transition:opacity .2s;white-space:nowrap}
-.nav-cta:hover{opacity:.85}
-nav#gnav, nav.nav-links, nav.nav-inner { position:static !important; height:auto
+nav#gnav, nav.nav-links, nav.nav-inner { position:static !important; }
 
 @media(max-width:768px){
-  .services-grid,.smart-recs,.mot-grid,.trust-grid,.signup-perks{grid-template-columns:1fr}
+  .services-grid,.smart-recs,.mot-grid,.trust-grid,.signup-perks,.specialists-grid{grid-template-columns:1fr}
   .process-steps{grid-template-columns:repeat(2,1fr);gap:24px}
   .process-steps::before{display:none}
-  .aria-inner{grid-template-columns:1fr}
   .reg-check-input-row{flex-direction:column}
   .reg-btn{padding:14px 20px;border-radius:0 0 4px 4px}
   .reg-plate{border-radius:4px 4px 0 0}
-  .data-gate-inputs{flex-direction:column}
+  .modal-form-row{grid-template-columns:1fr}
+  .modal{padding:28px 22px}
+  .reg-check-wrap{padding:24px 22px}
 }
 </style>
 <style id="ghost-global-mobile">
@@ -287,7 +298,7 @@ table{max-width:100%;overflow-x:auto;display:block;border-collapse:collapse}
     </nav>
     <div style="display:flex;align-items:center;gap:12px;flex-shrink:0">
       <button id="gham" onclick="var n=document.getElementById(\'gnav\');if(n){n.classList.toggle(\'open\');}" style="display:none;background:none;border:none;color:#c5a059;font-size:20px;cursor:pointer;padding:4px">☰</button>
-      <a href="/booking.html" style="background:#c5a059;color:#0a0905;padding:9px 18px;font-size:8px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;text-decoration:none;font-family:DM Mono,monospace;transition:opacity .2s;white-space:nowrap" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">Book Now</a>
+      <a href="/login.html" style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#e8e0d0;text-decoration:none;font-family:DM Mono,monospace;padding:0 6px" onmouseover="this.style.color='#c5a059'" onmouseout="this.style.color='#e8e0d0'">Sign In</a><a href="/booking.html" style="background:#c5a059;color:#0a0905;padding:9px 18px;font-size:8px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;text-decoration:none;font-family:DM Mono,monospace;transition:opacity .2s;white-space:nowrap" onmouseover="this.style.opacity='.8'" onmouseout="this.style.opacity='1'">Book Now</a>
     </div>
   </div>
 </header>
@@ -295,16 +306,15 @@ table{max-width:100%;overflow-x:auto;display:block;border-collapse:collapse}
 <!-- ══ HERO ══════════════════════════════════════════════════════════ -->
 <section class="c-hero">
   <div class="c-hero-inner">
-    <div class="c-eyebrow">02 / Concierge · Mechanical Care · Hertfordshire</div>
-    <h1>Leave your keys.<br><em>We handle everything.</em></h1>
-    <p class="c-hero-sub">MOT, full service, PDR, alloy refurb. Ghost books it, drops off, handles advisories, collects — and returns your car detailed. Watford WD18.</p>
-    <div class="c-hero-badges">
-      <span class="badge active">MOT Management</span>
-      <span class="badge active">Full Service</span>
-      <span class="badge active">PDR Dent Removal</span>
-      <span class="badge active">Alloy Refurb</span>
-      <span class="badge">Collection Available</span>
-      <span class="badge">Watford WD18</span>
+    <div class="c-eyebrow">02 / Concierge · Twelve Services · Hertfordshire</div>
+    <h1>Drop your keys.<br><em>We handle everything.</em></h1>
+    <p class="c-hero-sub">MOT, full service, PDR, alloys, tinting, plates, sourcing, transport, hire — all coordinated through Ghost Detail. One studio, one phone number, one team. Watford WD18.</p>
+
+    <div class="trust-strip">
+      <span>⬡ Fully Insured</span>
+      <span>⬡ Watford WD18</span>
+      <span>⬡ Vetted Trade Partners</span>
+      <span>⬡ Romeo &amp; Ferrel</span>
     </div>
 
     <!-- REG CHECK WIDGET -->
@@ -346,22 +356,12 @@ table{max-width:100%;overflow-x:auto;display:block;border-collapse:collapse}
           <div class="mot-field"><div class="mot-field-label">CO₂ Band</div><div class="mot-field-val" id="conc-co2">—</div></div>
           <div class="mot-field"><div class="mot-field-label">Euro Status</div><div class="mot-field-val" id="conc-euro">—</div></div>
         </div>
-
-        <!-- Smart recommendations -->
         <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Ghost recommends</div>
         <div class="smart-recs" id="conc-recs"></div>
-
-        <!-- Data gate — free teaser, push to register -->
-        <div class="data-gate" id="conc-data-gate">
-          <div class="data-gate-title">⬡ Full service history &amp; MOT reminders — free</div>
-          <div class="data-gate-text">Save this vehicle to your Ghost Garage. Get notified before your MOT, service intervals, and receive personalised care recommendations from your AI advisor ARIA. One tap when you're ready to book.</div>
-          <div class="data-gate-inputs">
-            <input type="text" class="gate-input" id="gate-name" placeholder="Your name" autocomplete="name">
-            <input type="tel" class="gate-input" id="gate-phone" placeholder="Mobile number" autocomplete="tel">
-            <input type="email" class="gate-input" id="gate-email" placeholder="Email address" autocomplete="email">
-            <button class="gate-submit" onclick="saveToGarage()">Save to My Garage →</button>
-          </div>
-          <div class="gate-success" id="gate-success">✓ Saved to Ghost Garage. We will send you a reminder before your MOT.</div>
+        <div style="margin-top:14px;text-align:center">
+          <button class="modal-submit" style="padding:12px 28px;font-size:10px" onclick="openCallbackModal('mot-followup','aria',{'reg':lastReg,'vehicle':lastVehicleData?lastVehicleData.make+' '+(lastVehicleData.model||''):''})">
+            Have ARIA call me back about this →
+          </button>
         </div>
       </div>
     </div>
@@ -370,145 +370,194 @@ table{max-width:100%;overflow-x:auto;display:block;border-collapse:collapse}
 
 <!-- ══ SERVICES GRID ══════════════════════════════════════════════════ -->
 <section class="services-section">
-  <div class="services-heading">
-    <h2>What We <em>Coordinate</em></h2>
-    <p>One call or one message. Ghost handles the logistics end to end — you get your car back sorted and detailed.</p>
+  <div class="section-head">
+    <h2>Twelve Services. <em>One Studio.</em></h2>
+    <p>Mechanical care, aesthetic work, sourcing, transport, hire — Ghost coordinates everything end to end through vetted trade partners. You get one point of contact.</p>
   </div>
   <div class="services-grid">
-
-    <!-- MOT -->
     <div class="svc-card">
       <div class="svc-badge popular">Most Booked</div>
       <div class="svc-num">01</div>
       <h3 class="svc-title">MOT <em>Management</em></h3>
-      <p class="svc-desc">We manage your entire MOT process at our trusted Watford WD18 test centre. You don't go anywhere. We collect, hand over, sit on any advisories, and report back.</p>
-      <ul class="svc-includes">
-        <li>Collection from Sandown Road or your address</li>
-        <li>MOT at VOSA-approved centre, Watford</li>
-        <li>Advisory review — we negotiate repairs on your behalf</li>
-        <li>Collection &amp; return when passed</li>
-        <li>MOT certificate emailed directly</li>
-        <li>Spark Wash included on return</li>
-      </ul>
-      <div class="svc-price">From £35 + MOT fee · Watford WD18</div>
-      <a href="/booking.html?service=mot" class="svc-cta">Book MOT Management →</a>
-    </div>
-
-    <!-- Service Coordination -->
-    <div class="svc-card">
+      <p class="svc-desc">Full end-to-end MOT management at our trusted Watford WD18 test centre. We collect, hand over, sit on advisories, and report back.</p>
+      <ul class="svc-includes"><li>Collection from your address or studio</li><li>VOSA-approved test centre, Watford</li><li>Advisory review and negotiation</li><li>Collection &amp; return when passed</li><li>MOT certificate emailed</li><li>Spark Wash included on return</li></ul>
+      <div class="svc-price">From £35 + MOT fee</div>
+      
+      <a href="/booking.html?service=mot" class="svc-cta">Book Now &rarr;</a>
+    </div><div class="svc-card">
+      
       <div class="svc-num">02</div>
       <h3 class="svc-title">Service <em>Coordination</em></h3>
-      <p class="svc-desc">Full service, interim service, brake fluid change, timing belt. We source quotes, present options, get your approval on costs, then handle everything.</p>
-      <ul class="svc-includes">
-        <li>Manufacturer-specific service schedule</li>
-        <li>3 quotes from our vetted trade network</li>
-        <li>Brake, fluid, filter, and consumable checks</li>
-        <li>All receipts and paperwork forwarded to you</li>
-        <li>We flag anything unexpected before authorising</li>
-        <li>Service record stamped or digital history updated</li>
-      </ul>
-      <div class="svc-price">Coordination fee from £40 · Parts &amp; labour quoted separately</div>
-      <a href="/booking.html?service=service-coordination" class="svc-cta">Book Service Coordination →</a>
-    </div>
-
-    <!-- PDR -->
-    <div class="svc-card">
+      <p class="svc-desc">Full or interim service, brake fluid, timing belt. We source quotes, present options, get your approval, then handle everything.</p>
+      <ul class="svc-includes"><li>Manufacturer service schedule</li><li>Three quotes from vetted trade network</li><li>Brake, fluid, filter checks</li><li>All receipts forwarded to you</li><li>We flag anything unexpected</li><li>Service record updated</li></ul>
+      <div class="svc-price">Coordination from £40 · Parts &amp; labour quoted</div>
+      
+      <a href="/booking.html?service=service" class="svc-cta">Book Now &rarr;</a>
+    </div><div class="svc-card">
+      
       <div class="svc-num">03</div>
       <h3 class="svc-title">PDR — <em>Dent Removal</em></h3>
-      <p class="svc-desc">Paintless dent repair. No filler, no respraying, no colour matching required. Factory finish preserved. Most dents fixed same-day at the studio, Sandown Road, Watford.</p>
-      <ul class="svc-includes">
-        <li>Hail damage, car park dings, door dents</li>
-        <li>Factory paint fully preserved — no respray</li>
-        <li>Before &amp; after photo documentation</li>
-        <li>Most panels: 1–3 hour turnaround</li>
-        <li>Free assessment on arrival</li>
-        <li>Combination with paint correction available</li>
-      </ul>
+      <p class="svc-desc">Paintless dent repair. No filler, no respraying. Factory finish preserved. Most dents fixed same-day at Sandown Road.</p>
+      <ul class="svc-includes"><li>Hail damage, dings, door dents</li><li>Factory paint preserved</li><li>Before &amp; after photo documentation</li><li>1-3 hour turnaround typical</li><li>Free assessment on arrival</li><li>Combine with paint correction</li></ul>
       <div class="svc-price">From £80 per panel · Assessment at drop-off</div>
-      <a href="/booking.html?service=pdr" class="svc-cta">Book PDR Assessment →</a>
-    </div>
-
-    <!-- Alloy -->
-    <div class="svc-card">
+      
+      <a href="/booking.html?service=pdr" class="svc-cta">Book Now &rarr;</a>
+    </div><div class="svc-card">
+      
       <div class="svc-num">04</div>
       <h3 class="svc-title">Alloy <em>Refurbishment</em></h3>
-      <p class="svc-desc">Kerb rash, scuffs, corrosion, peeling lacquer. Machine stripped, prepared, primed and powder coated to OEM spec. Colour-matched or upgraded.</p>
-      <ul class="svc-includes">
-        <li>Full strip, blast, and powder coat process</li>
-        <li>Colour match to original or custom colour</li>
-        <li>Diamond cut finish available (premium)</li>
-        <li>Tyre removal, refit &amp; balance included</li>
-        <li>5-year warranty on the finish</li>
-        <li>Set of 4 or single wheel</li>
-      </ul>
+      <p class="svc-desc">Kerb rash, scuffs, corrosion, peeling lacquer. Machine stripped, primed and powder coated. Colour-matched or upgraded.</p>
+      <ul class="svc-includes"><li>Full strip, blast, powder coat</li><li>Colour match to original</li><li>Diamond cut available (premium)</li><li>Tyre removal &amp; refit included</li><li>5-year warranty on finish</li><li>Set of 4 or single wheel</li></ul>
       <div class="svc-price">From £65 per wheel · Set of 4 from £220</div>
-      <a href="/booking.html?service=alloy-refurb" class="svc-cta">Book Alloy Refurb →</a>
-    </div>
-
-    <!-- Resprays -->
-    <div class="svc-card">
+      
+      <a href="/booking.html?service=alloy" class="svc-cta">Book Now &rarr;</a>
+    </div><div class="svc-card">
+      <div class="svc-badge ">Quote Only</div>
       <div class="svc-num">05</div>
-      <h3 class="svc-title">Respray <em>Coordination</em></h3>
-      <p class="svc-desc">Panel respray, full recolour, or smart repair. We coordinate with Hertfordshire's best body shops. Colour-code matched. We inspect the finish before you collect.</p>
-      <ul class="svc-includes">
-        <li>Smart repair for small scratches and scuffs</li>
-        <li>Panel respray — bumpers, bonnets, doors</li>
-        <li>Full recolour available through network</li>
-        <li>Insurance work coordinated</li>
-        <li>We inspect quality before sign-off</li>
-        <li>Ghost detail included on collection</li>
-      </ul>
-      <div class="svc-price">Smart repair from £120 · Panel respray quoted on assessment</div>
-      <a href="/booking.html?service=respray" class="svc-cta">Get Respray Quote →</a>
-    </div>
-
-    <!-- Collection & Delivery -->
-    <div class="svc-card">
+      <h3 class="svc-title">Window <em>Tinting</em></h3>
+      <p class="svc-desc">Professional film tinting through our trade partner. Privacy, UV protection, heat reduction. All work done to UK legal limits.</p>
+      <ul class="svc-includes"><li>Premium ceramic film options</li><li>Rear &amp; rear-side windows (any darkness)</li><li>Front sides minimum 70% VLT (UK legal)</li><li>Front windscreen minimum 75% VLT</li><li>Lifetime film warranty</li><li>Coordinated through trade partner</li></ul>
+      <div class="svc-price">Quote on request · Subject to film type &amp; vehicle</div>
+      <div class="svc-legal">⚖ UK law: front windscreen ≥75% VLT, front side windows ≥70% VLT. Rear windows unrestricted.</div>
+      <button class="svc-cta" onclick="openCallbackModal('tinting','aaliya')">Request Callback &rarr;</button>
+    </div><div class="svc-card">
+      <div class="svc-badge ">Quote Only</div>
       <div class="svc-num">06</div>
+      <h3 class="svc-title">Number Plates <em>3D / 4D</em></h3>
+      <p class="svc-desc">Premium 3D and 4D number plates supplied through our DVLA-registered partner. Road-legal plates and show plates available.</p>
+      <ul class="svc-includes"><li>Road-legal 3D / 4D / standard plates</li><li>Show plates (off-road use only)</li><li>Carbon, gloss, matte finishes</li><li>Custom badges &amp; surrounds</li><li>Supplied by RNPS-registered partner</li><li>Fitted at studio or post</li></ul>
+      <div class="svc-price">Quote on request · Subject to style &amp; size</div>
+      <div class="svc-legal">⚖ Road-legal plates require V5C and proof of identity. Show plates are not for road use.</div>
+      <button class="svc-cta" onclick="openCallbackModal('plates','aaliya')">Request Callback &rarr;</button>
+    </div><div class="svc-card">
+      
+      <div class="svc-num">07</div>
+      <h3 class="svc-title">Respray <em>Coordination</em></h3>
+      <p class="svc-desc">Panel respray, full recolour, or smart repair. We coordinate with Hertfordshire's best body shops. We inspect the finish before you collect.</p>
+      <ul class="svc-includes"><li>Smart repair for small scratches</li><li>Panel respray — bumpers, bonnets, doors</li><li>Full recolour through trusted network</li><li>Insurance work coordinated</li><li>Quality inspection before sign-off</li><li>Ghost detail on collection</li></ul>
+      <div class="svc-price">Quote on request · Smart repair from £120</div>
+      
+      <button class="svc-cta" onclick="openCallbackModal('respray','aaliya')">Request Callback &rarr;</button>
+    </div><div class="svc-card">
+      <div class="svc-badge popular">New</div>
+      <div class="svc-num">08</div>
+      <h3 class="svc-title">Car Sourcing <em>&amp; Customisation</em></h3>
+      <p class="svc-desc">Find your next car. Spec it, modify it, build it. We source through trade auctions and dealer networks, then customise to your brief.</p>
+      <ul class="svc-includes"><li>Brief consultation with JADE</li><li>Trade auction &amp; dealer network sourcing</li><li>HPI checks &amp; mechanical inspection</li><li>Customisation: wheels, tints, plates, wraps</li><li>Coordination through trusted suppliers</li><li>Delivered to your door, prepared</li></ul>
+      <div class="svc-price">Quote on request · Sourcing fee + customisation</div>
+      
+      <button class="svc-cta" onclick="openCallbackModal('sourcing','jade')">Request Callback &rarr;</button>
+    </div><div class="svc-card">
+      
+      <div class="svc-num">09</div>
+      <h3 class="svc-title">Executive <em>Transport</em></h3>
+      <p class="svc-desc">Driver service through our licensed partner. Premium vehicles, professional drivers. Airport runs, events, weddings, corporate.</p>
+      <ul class="svc-includes"><li>Coordinated through licensed PHV partner</li><li>Premium vehicle options</li><li>Airport &amp; event transfers</li><li>Corporate &amp; executive bookings</li><li>Wedding cars available</li><li>Hourly or per-trip pricing</li></ul>
+      <div class="svc-price">Quote on request · Per-trip or hourly</div>
+      <div class="svc-legal">⚖ All driver services provided by our licensed PHV operator partner. Ghost Detail Autos coordinates the booking; the licensed partner provides the driver and insurance.</div>
+      <button class="svc-cta" onclick="openCallbackModal('transport','priya')">Request Callback &rarr;</button>
+    </div><div class="svc-card">
+      
+      <div class="svc-num">10</div>
+      <h3 class="svc-title">Fleet &amp; <em>Hire Coordination</em></h3>
+      <p class="svc-desc">Self-drive hire, weekend rentals, courtesy cars during long jobs. Coordinated through our hire partners with full insurance.</p>
+      <ul class="svc-includes"><li>Self-drive premium hire</li><li>Weekend &amp; weekly options</li><li>Courtesy car during long jobs</li><li>Insurance &amp; cover handled</li><li>Multiple vehicle classes</li><li>Delivery to Sandown Road or your address</li></ul>
+      <div class="svc-price">Quote on request · Daily / weekly rates</div>
+      
+      <button class="svc-cta" onclick="openCallbackModal('fleet','priya')">Request Callback &rarr;</button>
+    </div><div class="svc-card">
+      
+      <div class="svc-num">11</div>
+      <h3 class="svc-title">Wedding <em>&amp; Event Hire</em></h3>
+      <p class="svc-desc">Wedding cars, prom transport, special occasion vehicles. Coordinated through our licensed partner. Detailed to perfection on the day.</p>
+      <ul class="svc-includes"><li>Premium wedding car options</li><li>Prom &amp; school events</li><li>Birthday &amp; anniversary surprises</li><li>Driver included via licensed partner</li><li>Decorated and detailed before pickup</li><li>Photo coordination if needed</li></ul>
+      <div class="svc-price">Quote on request · Subject to date &amp; vehicle</div>
+      
+      <button class="svc-cta" onclick="openCallbackModal('wedding','priya')">Request Callback &rarr;</button>
+    </div><div class="svc-card">
+      
+      <div class="svc-num">12</div>
       <h3 class="svc-title">Collection <em>&amp; Delivery</em></h3>
       <p class="svc-desc">You don't need to be anywhere. We collect from your home, work, or any Hertfordshire postcode and return fully sorted. Tracked every step.</p>
-      <ul class="svc-includes">
-        <li>Watford, Hertfordshire &amp; surrounding postcodes</li>
-        <li>Live job updates via SMS or WhatsApp</li>
-        <li>Collection receipt signed on pickup</li>
-        <li>Return timed to your schedule</li>
-        <li>Key handover fully documented</li>
-        <li>Pairs with any Concierge service</li>
-      </ul>
-      <div class="svc-price">From £20 return · Included with Ghost Pass members</div>
-      <a href="/booking.html?service=collection" class="svc-cta">Add Collection →</a>
+      <ul class="svc-includes"><li>Watford, Hertfordshire postcodes</li><li>Live updates via SMS or WhatsApp</li><li>Collection receipt signed on pickup</li><li>Return timed to your schedule</li><li>Key handover documented</li><li>Pairs with any service</li></ul>
+      <div class="svc-price">From £20 return · Free for Ghost Pass members</div>
+      
+      <a href="/booking.html?service=collection" class="svc-cta">Book Now &rarr;</a>
     </div>
+  </div>
+</section>
 
+<!-- ══ SPECIALIST TEAM ══════════════════════════════════════════════════ -->
+<section class="specialists-section">
+  <div class="section-head" style="padding:0">
+    <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:12px">Meet The Team</div>
+    <h2>Six Specialists. <em>One Team.</em></h2>
+    <p>Different services, different expertise. Call ARIA on 01923 959839 — she'll route you to the right person and they'll call you back.</p>
+  </div>
+  <div class="specialists-inner">
+    <div class="specialists-grid">
+      <div class="specialist">
+        <div class="specialist-icon">🎙</div>
+        <div class="specialist-name">ARIA</div>
+        <div class="specialist-role">Front Desk &amp; Triage</div>
+        <div class="specialist-desc">Handles initial enquiries, books appointments, qualifies leads. Live on 01923 959839 24/7.</div>
+      </div><div class="specialist">
+        <div class="specialist-icon">🔧</div>
+        <div class="specialist-name">Marcus</div>
+        <div class="specialist-role">MOT &amp; Mechanical</div>
+        <div class="specialist-desc">Looks after MOT bookings, service coordination, repairs and trade network logistics.</div>
+      </div><div class="specialist">
+        <div class="specialist-icon">💎</div>
+        <div class="specialist-name">Jade</div>
+        <div class="specialist-role">Sales &amp; Sourcing</div>
+        <div class="specialist-desc">Manages quotes, sourcing, custom builds and complex bespoke jobs.</div>
+      </div><div class="specialist">
+        <div class="specialist-icon">✨</div>
+        <div class="specialist-name">Aaliya</div>
+        <div class="specialist-role">Aesthetic Services</div>
+        <div class="specialist-desc">Tinting, plates, alloys, detailing and customisation projects.</div>
+      </div><div class="specialist">
+        <div class="specialist-icon">🚗</div>
+        <div class="specialist-name">Priya</div>
+        <div class="specialist-role">Logistics &amp; Hire</div>
+        <div class="specialist-desc">Collection, delivery, fleet, transport and event hire scheduling.</div>
+      </div><div class="specialist">
+        <div class="specialist-icon">📊</div>
+        <div class="specialist-name">Dev</div>
+        <div class="specialist-role">Accounts &amp; Ghost Pass</div>
+        <div class="specialist-desc">Invoicing, Ghost Pass memberships, payments and finance queries.</div>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- ══ HOW IT WORKS ════════════════════════════════════════════════════ -->
 <section class="process-section">
   <div class="process-inner">
-    <div class="process-heading">
+    <div class="section-head" style="padding:0">
       <h2>How <em>Concierge</em> Works</h2>
-      <p style="font-size:13px;color:var(--muted2)">Four steps. Zero stress.</p>
+      <p>Four steps. Zero stress.</p>
     </div>
     <div class="process-steps">
       <div class="process-step">
         <div class="process-num">01</div>
-        <div class="process-step-title">You Message Us</div>
-        <div class="process-step-desc">WhatsApp, call ARIA on 01923 959839, or book online. Tell us your reg and what's needed.</div>
+        <div class="process-step-title">You Reach Out</div>
+        <div class="process-step-desc">Call ARIA on 01923 959839 or click any "Request Callback" button. She'll triage and pass to the right specialist.</div>
       </div>
       <div class="process-step">
         <div class="process-num">02</div>
-        <div class="process-step-title">We Collect</div>
-        <div class="process-step-desc">Ghost picks up from Sandown Road or your address. You get a collection receipt and your key is logged.</div>
+        <div class="process-step-title">Specialist Calls You</div>
+        <div class="process-step-desc">Marcus, Jade, Aaliya or Priya calls back within the hour during business hours. They quote, advise, plan.</div>
       </div>
       <div class="process-step">
         <div class="process-num">03</div>
-        <div class="process-step-title">We Handle Everything</div>
-        <div class="process-step-desc">We manage the garage, approve advisories with you, and update you at every stage via message.</div>
+        <div class="process-step-title">We Handle It</div>
+        <div class="process-step-desc">We collect, coordinate trade partners, approve advisories with you, and update at every stage via WhatsApp.</div>
       </div>
       <div class="process-step">
         <div class="process-num">04</div>
-        <div class="process-step-title">Car Returned Detailed</div>
-        <div class="process-step-desc">Your car comes back sorted — and washed, vacuumed, and smelling clean. Keys handed back at your door.</div>
+        <div class="process-step-title">Returned Detailed</div>
+        <div class="process-step-desc">Your car comes back sorted — washed, vacuumed, ready. Keys handed back at your door.</div>
       </div>
     </div>
   </div>
@@ -516,108 +565,87 @@ table{max-width:100%;overflow-x:auto;display:block;border-collapse:collapse}
 
 <!-- ══ LOCAL TRUST ════════════════════════════════════════════════════ -->
 <section class="trust-section">
-  <div style="text-align:center;margin-bottom:44px">
-    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,42px);font-weight:900;margin-bottom:10px">Based in <em>Watford WD18</em></h2>
-    <p style="font-size:13px;color:var(--muted2);max-width:480px;margin:0 auto">Sandown Road, Watford, Hertfordshire. Serving WD17, WD18, WD19, WD24, WD25 and surrounding postcodes.</p>
+  <div class="section-head" style="padding:0">
+    <h2>Based in <em>Watford WD18</em></h2>
+    <p>Sandown Road, Watford, Hertfordshire. Serving WD17, WD18, WD19, WD24, WD25 and surrounding postcodes.</p>
   </div>
   <div class="trust-grid">
     <div class="trust-card">
       <div class="trust-icon">📍</div>
       <div class="trust-title">Sandown Road Studio</div>
-      <div class="trust-text">Our private studio is on Sandown Road, Watford WD18. Drop-off available by appointment. All mechanical work goes through our vetted trade network across Hertfordshire.</div>
+      <div class="trust-text">Private studio on Sandown Road, Watford WD18. By appointment. Mechanical work coordinated through our vetted Hertfordshire trade network.</div>
     </div>
     <div class="trust-card">
       <div class="trust-icon">📞</div>
-      <div class="trust-title">Call ARIA · 01923 959839</div>
-      <div class="trust-text">Our AI receptionist ARIA answers 24/7. She handles bookings, questions, MOT enquiries and lead qualification. Out of hours messages go directly to Romeo.</div>
+      <div class="trust-title">ARIA · 01923 959839</div>
+      <div class="trust-text">Our AI receptionist answers 24/7. She triages, books, and passes complex queries to the right specialist who calls you back within the hour.</div>
     </div>
     <div class="trust-card">
       <div class="trust-icon">🔒</div>
-      <div class="trust-title">Vetted Trade Network</div>
-      <div class="trust-text">We work only with VOSA-approved MOT centres and quality-checked body shops across Hertfordshire. We inspect all work before returning your vehicle.</div>
+      <div class="trust-title">Fully Insured</div>
+      <div class="trust-text">Public liability and motor trade insurance covering all coordinated services. Each trade partner carries their own appropriate cover.</div>
     </div>
     <div class="trust-card">
-      <div class="trust-icon">📋</div>
-      <div class="trust-title">Full Transparency</div>
-      <div class="trust-text">Every quote, advisory, and part cost is shown to you before we authorise anything. No surprises. You approve each step via WhatsApp or your profile dashboard.</div>
+      <div class="trust-icon">🤝</div>
+      <div class="trust-title">Vetted Partners</div>
+      <div class="trust-text">VOSA-approved MOT centres, DVLA-registered plate suppliers, licensed PHV operators for transport, quality body shops across Hertfordshire.</div>
     </div>
     <div class="trust-card">
       <div class="trust-icon">🏆</div>
       <div class="trust-title">Ghost Pass Members</div>
-      <div class="trust-text">Ghost Pass members get priority booking, concierge coordination included, and collection and delivery free. From £99/month. See Ghost Pass for details.</div>
+      <div class="trust-text">Priority booking, free collection &amp; delivery, member rates on all coordinated services. From £99/month. See <a href="/membership.html" style="color:#c5a059">Ghost Pass</a>.</div>
     </div>
     <div class="trust-card">
       <div class="trust-icon">⬡</div>
-      <div class="trust-title">Romeo &amp; Ferrel Cruz</div>
-      <div class="trust-text">Every job is managed personally by Romeo and Ferrel. Not a call centre. Not a franchise. A private studio with your car treated like ours.</div>
+      <div class="trust-title">Romeo &amp; Ferrel</div>
+      <div class="trust-text">Every concierge job overseen personally by Romeo and Ferrel Cruz. Not a call centre. A private studio with your car treated like ours.</div>
     </div>
   </div>
 </section>
 
-<!-- ══ ARIA AI SECTION ════════════════════════════════════════════════ -->
-<section class="aria-section">
-  <div class="aria-inner">
-    <div class="aria-left">
-      <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:12px">AI Receptionist</div>
-      <h2>Meet <em>ARIA.</em> She handles your enquiry instantly.</h2>
-      <p>ARIA is Ghost Detail's AI voice receptionist. She's live on 01923 959839, 24 hours a day. She knows every service, can check your MOT status by reg, book appointments, and pass complex queries directly to Romeo.</p>
-      <p style="font-size:13px;color:var(--muted2);line-height:1.8;margin-bottom:20px">Once you're a client, ARIA tracks your vehicles, sends MOT reminders, flags upcoming service intervals and co-ordinates jobs through your profile — all handled for you.</p>
-      <div style="margin-bottom:8px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)">Call now</div>
-      <div class="aria-phone">01923 959839</div>
-    </div>
-    <div>
-      <div class="aria-chat-preview">
-        <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:16px">Sample conversation</div>
-        <div class="aria-msg">
-          <div class="aria-msg-label">ARIA</div>
-          <div class="aria-bubble aria">Good morning — Ghost Detail Autos, ARIA speaking. How can I help you today?</div>
-        </div>
-        <div class="aria-msg">
-          <div class="aria-msg-label">Client</div>
-          <div class="aria-bubble user">Hi, my MOT is due next month and I want someone to manage it.</div>
-        </div>
-        <div class="aria-msg">
-          <div class="aria-msg-label">ARIA</div>
-          <div class="aria-bubble aria">Of course. Can I take your registration? I'll check your MOT expiry and suggest the best date to book in. We collect from you and return the car washed — you don't need to do a thing.</div>
-        </div>
-        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);text-align:center;margin-top:12px">01923 959839 · Live 24/7</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ SIGN UP / DATA CAPTURE ══════════════════════════════════════════ -->
+<!-- ══ SIGN UP / GHOST GARAGE ══════════════════════════════════════════ -->
 <section class="signup-section" id="ghost-garage-signup">
   <div class="signup-inner">
     <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(197,160,89,.5);margin-bottom:12px">Ghost Garage · Free Account</div>
     <h2>Your car. <em>Tracked, managed,</em> never forgotten.</h2>
-    <p>Create a free Ghost Garage account. We store your vehicles, track MOT and service dates, and ARIA keeps you ahead of everything. No spam. Just smart car management — from Watford.</p>
+    <p>Save your vehicles to your free Ghost Garage. We track MOT and service dates. ARIA keeps you ahead of everything. No spam.</p>
     <div class="signup-form">
       <input type="text" class="signup-input" id="su-name" placeholder="Your full name" autocomplete="name">
       <input type="tel" class="signup-input" id="su-phone" placeholder="Mobile number" autocomplete="tel">
       <input type="email" class="signup-input" id="su-email" placeholder="Email address" autocomplete="email">
       <input type="text" class="signup-input" id="su-reg" placeholder="Primary vehicle reg (optional)">
+      <label class="signup-checkbox">
+        <input type="checkbox" id="su-consent">
+        <span>Send me MOT reminders, service alerts and Ghost Detail updates. Unsubscribe anytime.</span>
+      </label>
       <button class="signup-btn" onclick="createGarageAccount()">Create Free Garage Account →</button>
-      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--muted);text-align:center">No card required · Cancel anytime · Watford WD18</div>
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em;color:var(--muted);text-align:center;margin-top:6px">No card required · Cancel anytime · Watford WD18</div>
     </div>
-    <div id="signup-success" style="margin-top:16px">✓ Account created. Check your phone — ARIA will be in touch shortly to say hello and confirm your vehicle details.</div>
+    <div id="signup-success">✓ Account created. Check your phone — ARIA will be in touch shortly.</div>
     <div class="signup-perks">
-      <div class="signup-perk">
+      <div>
         <div class="signup-perk-icon">🔔</div>
         <div class="signup-perk-title">MOT Reminders</div>
-        <div class="signup-perk-text">SMS alert 30 days before expiry. We book it if you want.</div>
+        <div class="signup-perk-text">SMS alert 30 days before expiry.</div>
       </div>
-      <div class="signup-perk">
+      <div>
         <div class="signup-perk-icon">📊</div>
         <div class="signup-perk-title">Service History</div>
-        <div class="signup-perk-text">Full digital history of everything Ghost has done to your car.</div>
+        <div class="signup-perk-text">Full digital record of everything Ghost has done.</div>
       </div>
-      <div class="signup-perk">
+      <div>
         <div class="signup-perk-icon">⬡</div>
-        <div class="signup-perk-title">ARIA on Speed Dial</div>
-        <div class="signup-perk-text">Your AI advisor knows your vehicles and acts on your behalf.</div>
+        <div class="signup-perk-title">ARIA Direct</div>
+        <div class="signup-perk-text">Your AI advisor knows your vehicles.</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ══ LEGAL STRIP ══════════════════════════════════════════════════ -->
+<section class="legal-strip">
+  <div class="legal-strip-inner">
+    Ghost Detail Autos coordinates services through vetted third-party partners (DVLA-registered plate suppliers, VOSA-approved MOT centres, licensed PHV operators, accredited body shops). Pricing for third-party services is subject to current market rates and may vary. All quotes provided post-consultation. Ghost Detail Autos is fully insured for public liability and motor trade activity. Full <a href="/legal.html">Terms &amp; Conditions</a>.
   </div>
 </section>
 
@@ -654,7 +682,45 @@ table{max-width:100%;overflow-x:auto;display:block;border-collapse:collapse}
   </div>
 </footer>
 
-<!-- ══ CURSOR ══════════════════════════════════════════════════════════ -->
+<!-- ══ CALLBACK MODAL ══ -->
+<div class="modal-overlay" id="callback-modal" onclick="if(event.target===this)closeCallbackModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeCallbackModal()">×</button>
+    <div class="modal-specialist">
+      <div class="modal-specialist-icon" id="modal-icon">🎙</div>
+      <div>
+        <div class="modal-specialist-name" id="modal-name">ARIA</div>
+        <div class="modal-specialist-role" id="modal-role">Front Desk</div>
+      </div>
+    </div>
+    <div class="modal-intro" id="modal-intro">Hi, I'm ARIA. Leave your details and we'll call you back within the hour during business hours (9am–6pm Mon–Sat).</div>
+    <div class="modal-form" id="modal-form">
+      <input type="text" id="cb-name" placeholder="Your full name" autocomplete="name" required>
+      <div class="modal-form-row">
+        <input type="tel" id="cb-phone" placeholder="Mobile number" autocomplete="tel" required>
+        <input type="email" id="cb-email" placeholder="Email (optional)" autocomplete="email">
+      </div>
+      <div class="modal-form-row">
+        <input type="text" id="cb-reg" placeholder="Vehicle reg (optional)">
+        <select id="cb-time">
+          <option value="">Best time to call</option>
+          <option value="asap">As soon as possible</option>
+          <option value="morning">Morning (9–12)</option>
+          <option value="afternoon">Afternoon (12–5)</option>
+          <option value="evening">Early evening (5–6)</option>
+        </select>
+      </div>
+      <textarea id="cb-notes" placeholder="What you're after — anything we should know"></textarea>
+      <button class="modal-submit" onclick="submitCallback()">Request Callback →</button>
+      <div class="modal-tnc">By submitting, you agree to our <a href="/legal.html">Terms</a>. We'll only use your details to call you about this enquiry.</div>
+    </div>
+    <div class="modal-success" id="modal-success">
+      ✓ Got it. <span id="modal-success-name">A specialist</span> will call you back within the hour during business hours.<br>
+      <span style="font-size:10px;color:var(--muted);margin-top:8px;display:inline-block">Need it sooner? Call ARIA directly on <strong style="color:#c5a059">01923 959839</strong>.</span>
+    </div>
+  </div>
+</div>
+
 <script>
 const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
 let mx=0,my=0,rx=0,ry=0;
@@ -662,10 +728,110 @@ document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.le
 (function a(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
 </script>
 
-<!-- ══ REG CHECK LOGIC ══════════════════════════════════════════════════ -->
 <script>
 const SUPA_URL = 'https://slzawehsiotvkjzaehqw.supabase.co';
 const SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsemF3ZWhzaW90dmtqemFlaHF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5MDIxMjEsImV4cCI6MjA5MjQ3ODEyMX0.OEug6UpLSY4poXPLASufTLc-FqQdGx9mJfwhD0opWxA';
+
+const SPECIALISTS = {
+  aria: {name:'ARIA', role:'Front Desk &amp; Triage', icon:'🎙', intro:'Hi, I am ARIA. Leave your details and I will route you to the right specialist who will call you back within the hour during business hours (9am–6pm Mon–Sat).'},
+  marcus: {name:'Marcus', role:'MOT &amp; Mechanical', icon:'🔧', intro:'Hi, I am Marcus. I look after MOT bookings, service coordination, and mechanical work. Leave your details and I will call you back within the hour during business hours.'},
+  jade: {name:'Jade', role:'Sales &amp; Sourcing', icon:'💎', intro:'Hi, I am Jade. I handle quotes, car sourcing, and bespoke custom builds. Leave your details and I will call you back within the hour during business hours.'},
+  aaliya: {name:'Aaliya', role:'Aesthetic Services', icon:'✨', intro:'Hi, I am Aaliya. I look after tinting, plates, alloys and customisation. Leave your details and I will call you back within the hour during business hours.'},
+  priya: {name:'Priya', role:'Logistics &amp; Hire', icon:'🚗', intro:'Hi, I am Priya. I manage collection, delivery, transport and event hire. Leave your details and I will call you back within the hour during business hours.'},
+  dev: {name:'Dev', role:'Accounts &amp; Ghost Pass', icon:'📊', intro:'Hi, I am Dev. I look after invoicing, Ghost Pass memberships and accounts. Leave your details and I will call you back within the hour during business hours.'}
+};
+
+let currentService = null;
+let currentSpecialist = 'aria';
+let modalContext = {};
+
+function openCallbackModal(serviceId, specialistKey, context){
+  currentService = serviceId;
+  currentSpecialist = specialistKey || 'aria';
+  modalContext = context || {};
+  
+  const s = SPECIALISTS[currentSpecialist] || SPECIALISTS.aria;
+  document.getElementById('modal-name').innerHTML = s.name;
+  document.getElementById('modal-role').innerHTML = s.role;
+  document.getElementById('modal-icon').textContent = s.icon;
+  document.getElementById('modal-intro').textContent = s.intro;
+  
+  // Reset form
+  document.getElementById('modal-form').style.display = 'flex';
+  document.getElementById('modal-success').style.display = 'none';
+  document.querySelector('#modal-form .modal-submit').textContent = 'Request Callback →';
+  document.querySelector('#modal-form .modal-submit').disabled = false;
+  
+  // Pre-fill reg if context has it
+  if(modalContext.reg){
+    document.getElementById('cb-reg').value = modalContext.reg;
+  }
+  
+  document.getElementById('callback-modal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCallbackModal(){
+  document.getElementById('callback-modal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+async function submitCallback(){
+  const name = document.getElementById('cb-name').value.trim();
+  const phone = document.getElementById('cb-phone').value.trim();
+  const email = document.getElementById('cb-email').value.trim();
+  const reg = document.getElementById('cb-reg').value.trim().toUpperCase();
+  const time = document.getElementById('cb-time').value;
+  const notes = document.getElementById('cb-notes').value.trim();
+  
+  if(!name || !phone){
+    alert('Please enter your name and mobile number.');
+    return;
+  }
+  
+  const btn = document.querySelector('#modal-form .modal-submit');
+  btn.textContent = 'Submitting...';
+  btn.disabled = true;
+  
+  const s = SPECIALISTS[currentSpecialist];
+  const fullNotes = [
+    'Service: ' + (currentService || 'general'),
+    notes ? 'Notes: ' + notes : null,
+    modalContext.vehicle ? 'Vehicle: ' + modalContext.vehicle : null,
+    'Best time: ' + (time || 'not specified')
+  ].filter(Boolean).join(' | ');
+  
+  try{
+    await fetch(SUPA_URL+'/rest/v1/leads',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'apikey':SUPA_ANON,
+        'Authorization':'Bearer '+SUPA_ANON,
+        'Prefer':'return=minimal'
+      },
+      body:JSON.stringify({
+        name, phone, email: email || null,
+        vehicle_reg: reg || null,
+        service_interest: currentService,
+        specialist: currentSpecialist,
+        callback_time: time || null,
+        callback_status: 'pending',
+        source: 'concierge-callback',
+        stage: 'new',
+        notes: fullNotes
+      })
+    });
+    
+    document.getElementById('modal-form').style.display = 'none';
+    document.getElementById('modal-success-name').textContent = s.name.replace(/&amp;/g,'&');
+    document.getElementById('modal-success').style.display = 'block';
+  }catch(e){
+    btn.textContent = 'Request Callback →';
+    btn.disabled = false;
+    alert('Could not submit. Please call ARIA directly on 01923 959839.');
+  }
+}
 
 function fmtDate(ds){if(!ds)return'—';const d=new Date(ds);return d.getDate()+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()]+' '+d.getFullYear();}
 
@@ -676,8 +842,6 @@ async function runRegCheck(){
   const reg = document.getElementById('conc-reg').value.replace(/\s/g,'').toUpperCase();
   const btn = document.getElementById('conc-check-btn');
   const resultCard = document.getElementById('conc-result');
-  const gate = document.getElementById('conc-data-gate');
-
   if(reg.length < 2){alert('Please enter your registration plate.');return;}
   lastReg = reg;
   btn.textContent = 'Checking...';
@@ -692,25 +856,18 @@ async function runRegCheck(){
     const d = await r.json();
     btn.textContent = 'CHECK →';
     btn.disabled = false;
-
     if(!r.ok || d.error){
-      alert(d.message || 'Vehicle not found in DVLA records. Check the registration and try again.');
+      alert(d.message || 'Vehicle not found in DVLA records.');
       return;
     }
-
     lastVehicleData = d;
-
-    // Vehicle name
     const makeName = (d.make||'').charAt(0)+(d.make||'').slice(1).toLowerCase();
-    document.getElementById('conc-vehicle-name').textContent = makeName + (d.model?' '+d.model:'') + (d.year?' ('+d.year+')':'');
+    document.getElementById('conc-vehicle-name').textContent = makeName + (d.year?' ('+d.year+')':'');
     document.getElementById('conc-vehicle-detail').textContent = [d.colour?d.colour.charAt(0)+d.colour.slice(1).toLowerCase():null,d.fuel_type,d.engine_litres?d.engine_litres+'L':null].filter(Boolean).join(' · ')+' · '+reg;
-
-    // MOT status
     const motEl = document.getElementById('conc-mot-status');
     if(d.mot_status==='Valid'){motEl.textContent='✓ Valid';motEl.style.color='#10B981';}
     else if(d.mot_status){motEl.textContent='✗ '+d.mot_status;motEl.style.color='#EF4444';}
 
-    // Pills
     const pills = [];
     if(d.mot_status==='Valid')pills.push('<span class="mot-pill ok">✓ MOT VALID</span>');
     else if(d.mot_status==='No details held by DVLA')pills.push('<span class="mot-pill info">NEW/EXEMPT</span>');
@@ -722,7 +879,6 @@ async function runRegCheck(){
     else if(d.is_ulez_compliant===false)pills.push('<span class="mot-pill bad">NON-ULEZ</span>');
     document.getElementById('conc-pills').innerHTML = pills.join('');
 
-    // Fields
     const motExpEl = document.getElementById('conc-mot-expiry');
     if(d.mot_expiry){
       const dl = d.mot_days_left;
@@ -735,40 +891,31 @@ async function runRegCheck(){
     document.getElementById('conc-co2').textContent = d.co2_label||'—';
     document.getElementById('conc-euro').textContent = d.euro_status||'—';
 
-    // Smart recommendations
     const recs = [];
     const dl = d.mot_days_left;
     if(dl !== null && dl < 0){
       recs.push({icon:'🚨',title:'URGENT — MOT Expired',desc:'Your car cannot legally be driven. Book MOT management now.',href:'/booking.html?service=mot&reg='+reg,urgent:true});
     } else if(dl !== null && dl < 30){
-      recs.push({icon:'⚠️',title:'MOT Due in '+dl+' Days',desc:'Book our MOT management — we collect, handle advisories, return it washed.',href:'/booking.html?service=mot&reg='+reg,urgent:true});
+      recs.push({icon:'⚠️',title:'MOT Due in '+dl+' Days',desc:'Book Marcus to handle your MOT — collect, advisories, return washed.',href:'#',onclick:"openCallbackModal('mot','marcus',{reg:'"+reg+"'})",urgent:true});
     } else if(dl !== null && dl < 90){
-      recs.push({icon:'🔧',title:'MOT Management',desc:'MOT in '+dl+' days. Let us handle it. We collect and return detailed.',href:'/booking.html?service=mot&reg='+reg});
+      recs.push({icon:'🔧',title:'MOT Management',desc:'MOT in '+dl+' days. Marcus can plan it now and we collect on the day.',href:'#',onclick:"openCallbackModal('mot','marcus',{reg:'"+reg+"'})"});
     }
     if(d.tax_status==='Untaxed'){
-      recs.push({icon:'📋',title:'Tax Reminder',desc:'Vehicle appears untaxed. Check with DVLA and ensure compliance.',href:'https://www.gov.uk/pay-vehicle-tax',target:'_blank'});
+      recs.push({icon:'📋',title:'Tax Reminder',desc:'Vehicle appears untaxed. Check with DVLA before driving.',href:'https://www.gov.uk/pay-vehicle-tax',target:'_blank'});
     }
-    if(d.is_ulez_compliant===false){
-      recs.push({icon:'🌿',title:'ULEZ Non-Compliant',desc:'Your vehicle may incur daily TfL charges in London. We can advise on options.',href:'/booking.html?service=concierge-enquiry&reg='+reg});
-    }
-    recs.push({icon:'🔩',title:'Service Coordination',desc:'We manage your full or interim service end to end. From £40.',href:'/booking.html?service=service-coordination&reg='+reg});
-    recs.push({icon:'✨',title:'Detailing After Service',desc:'Car back from the garage? We make it spotless before return.',href:'/booking.html?service=spark&reg='+reg});
-    if(d.fuel_type && d.fuel_type.toLowerCase().includes('petrol')){
-      recs.push({icon:'💎',title:'Depth Refinement',desc:'Paint correction and protection for your '+makeName+'. From £149.',href:'/booking.html?service=depth-refinement&reg='+reg});
-    }
+    recs.push({icon:'🔩',title:'Service with Marcus',desc:'Full or interim service coordinated end to end.',href:'#',onclick:"openCallbackModal('service','marcus',{reg:'"+reg+"'})"});
+    recs.push({icon:'✨',title:'Aaliya for Aesthetics',desc:'Tints, plates, alloys, detailing. Quote on request.',href:'#',onclick:"openCallbackModal('aesthetics','aaliya',{reg:'"+reg+"'})"});
 
-    document.getElementById('conc-recs').innerHTML = recs.map(r=>
-      '<a href="'+(r.href||'#')+'" '+(r.target?'target="'+r.target+'"':'')+' class="smart-rec'+(r.urgent?' urgent':'')+'">'
+    document.getElementById('conc-recs').innerHTML = recs.map(r=>{
+      const onclick = r.onclick ? ' onclick="event.preventDefault();'+r.onclick+'"' : '';
+      const target = r.target ? ' target="'+r.target+'"' : '';
+      return '<a href="'+(r.href||'#')+'"'+onclick+target+' class="smart-rec'+(r.urgent?' urgent':'')+'">'
         +'<span class="smart-rec-icon">'+r.icon+'</span>'
         +'<div><div class="smart-rec-title">'+r.title+'</div>'
-        +'<div class="smart-rec-desc">'+r.desc+'</div></div></a>'
-    ).join('');
+        +'<div class="smart-rec-desc">'+r.desc+'</div></div></a>';
+    }).join('');
 
-    // Show result and data gate
     resultCard.classList.add('show');
-    setTimeout(()=>gate.classList.add('show'), 800);
-
-    // Pre-fill the reg in signup
     document.getElementById('su-reg').value = reg;
 
   }catch(e){
@@ -779,51 +926,12 @@ async function runRegCheck(){
   }
 }
 
-// Save to Ghost Garage (data capture)
-async function saveToGarage(){
-  const name = document.getElementById('gate-name').value.trim();
-  const phone = document.getElementById('gate-phone').value.trim();
-  const email = document.getElementById('gate-email').value.trim();
-
-  if(!name || !phone){alert('Please enter your name and mobile number.');return;}
-
-  const btn = document.querySelector('#conc-data-gate .gate-submit');
-  btn.textContent = 'Saving...';
-
-  try{
-    await fetch(SUPA_URL+'/rest/v1/leads',{
-      method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'apikey':SUPA_ANON,
-        'Authorization':'Bearer '+SUPA_ANON,
-        'Prefer':'return=minimal'
-      },
-      body:JSON.stringify({
-        name,phone,email,
-        source:'concierge-mot-check',
-        vehicle_reg:lastReg,
-        vehicle_make:lastVehicleData?.make||null,
-        mot_expiry:lastVehicleData?.mot_expiry||null,
-        mot_days_left:lastVehicleData?.mot_days_left||null,
-        notes:'Concierge page MOT check lead — reg: '+lastReg
-      })
-    });
-    document.getElementById('gate-success').style.display='block';
-    btn.textContent = '✓ Saved';
-    btn.disabled = true;
-  }catch(e){
-    btn.textContent = 'Save to My Garage →';
-    alert('Could not save. Please try again or call 01923 959839.');
-  }
-}
-
-// Full account signup
 async function createGarageAccount(){
   const name = document.getElementById('su-name').value.trim();
   const phone = document.getElementById('su-phone').value.trim();
   const email = document.getElementById('su-email').value.trim();
   const reg = document.getElementById('su-reg').value.trim().toUpperCase();
+  const consent = document.getElementById('su-consent').checked;
 
   if(!name||!phone||!email){alert('Please fill in your name, mobile, and email.');return;}
 
@@ -840,10 +948,12 @@ async function createGarageAccount(){
         'Prefer':'return=minimal'
       },
       body:JSON.stringify({
-        name,phone,email,
-        source:'concierge-signup',
-        vehicle_reg:reg||null,
-        notes:'Ghost Garage account signup from concierge page'
+        name, phone, email,
+        vehicle_reg: reg || null,
+        source: 'concierge-signup',
+        stage: 'new',
+        marketing_consent: consent,
+        notes: 'Ghost Garage signup from concierge page'
       })
     });
     document.getElementById('signup-success').style.display='block';
@@ -855,7 +965,6 @@ async function createGarageAccount(){
   }
 }
 
-// URL reg prefill
 (function(){
   var p = new URLSearchParams(window.location.search);
   var reg = p.get('reg');
