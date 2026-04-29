@@ -1264,7 +1264,7 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
       
       // Age-based recommendation
       if(age >= 7){
-        response += `At ${age} years, paint typically has swirl marks and oxidation. I'd recommend a Depth Refinement (£149) before any ceramic coating.`;
+        response += `At ${age} years, paint typically has swirl marks and oxidation. I'd recommend a Depth Refinement (£449) before any ceramic coating.`;
       } else if(age >= 3){
         response += `${age} years in, paint's probably showing some swirling. Ghost Vision can give you a full AI assessment.`;
       } else {
@@ -1334,7 +1334,7 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
       return;
     }
     if(opt.includes('prices') || opt.includes('Prices')){
-      ariaAddMsg('ghost', 'Services start at £79 (Spark Wash). Here\'s the range:\n\n• Spark Wash — £79\n• Depth Refinement — £149\n• Total Refinement — £349\n• Nano Banana Ceramic — £279\n• Quick Refinement — £249\n• PPF — POA\n\nGhost Pass members save 15%. Want the full list?', false);
+      ariaAddMsg('ghost', 'Services start at £79 (Spark Wash). Here\'s the range:\n\n• Spark Wash — £79\n• Depth Refinement — £449\n• Total Refinement — £799\n• Nano Banana Ceramic — £149\n• Quick Refinement — £249\n• PPF — POA\n\nGhost Pass members save 15%. Want the full list?', false);
       ariaShowQuick(['📅 Book now', '⭐ Ghost Pass', '🔍 Assess my car']);
       return;
     }
@@ -1361,7 +1361,7 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
     
     // Ceramic/PPF interest
     if(opt.includes('Ceramic') || opt.includes('Protect')){
-      ariaAddMsg('ghost', `Nano Banana Ceramic is £279 and protects for 3+ years. If your paint has swirls or scratches, we correct first (Depth Refinement £449) then coat. Otherwise the imperfections get locked in. Want a proper assessment?`);
+      ariaAddMsg('ghost', `Nano Banana Ceramic is £149 and protects for 3+ years. If your paint has swirls or scratches, we correct first (Depth Refinement £449) then coat. Otherwise the imperfections get locked in. Want a proper assessment?`);
       ariaShowQuick(['🔍 Assess my car first', '📅 Book Ceramic', 'Already corrected']);
       return;
     }
@@ -1456,7 +1456,7 @@ Rules: Short answers (max 3 sentences). Always push towards booking, Ghost Visio
         else if(kw.includes('book') || kw.includes('appointment'))
           reply = 'Booking takes 2 minutes. Pick your service, date, and pay a small deposit to hold the slot.';
         else if(kw.includes('ceramic') || kw.includes('coating'))
-          reply = 'Nano Banana Ceramic is £279 and lasts 3+ years. If paint has swirls, correction first (£149) then ceramic. Worth doing right.';
+          reply = 'Nano Banana Ceramic is £149 and lasts 3+ years. If paint has swirls, correction first (£449) then ceramic. Worth doing right.';
         else if(kw.includes('mot'))
           reply = 'Concierge handles MOT booking, drop-off, and advisory management. We detail the car when it comes back too.';
         else if(kw.includes('location') || kw.includes('where') || kw.includes('address'))

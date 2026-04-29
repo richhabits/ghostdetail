@@ -841,6 +841,51 @@ header[style*="fixed"] {
     <h1>Choose Your <em>Service</em></h1>
     <p class="step-sub">All prices subject to vehicle condition assessment. Large vehicles may incur a small surcharge.</p>
 
+    <!-- Live availability indicator (Phase 2.5) -->
+    <div id="gd-availability" style="margin:16px 0 20px;padding:14px 18px;background:linear-gradient(90deg,rgba(16,185,129,.08),rgba(16,185,129,.02));border:1px solid rgba(16,185,129,.2);border-left:3px solid var(--green);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(16,185,129,.15);animation:gdPulse 2s ease-in-out infinite"></div>
+        <div>
+          <div id="gd-avail-headline" style="font-family:'DM Mono',monospace;font-size:11px;font-weight:600;color:var(--text);letter-spacing:.05em">Loading availability…</div>
+          <div id="gd-avail-sub" style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-top:2px;letter-spacing:.04em">&nbsp;</div>
+        </div>
+      </div>
+      <div id="gd-avail-cta" style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);font-weight:600">PICK A SLOT BELOW</div>
+    </div>
+    <style>@keyframes gdPulse{0%,100%{box-shadow:0 0 0 4px rgba(16,185,129,.15)}50%{box-shadow:0 0 0 8px rgba(16,185,129,.05)}}</style>
+    <script>
+    (function(){
+      fetch('https://slzawehsiotvkjzaehqw.supabase.co/functions/v1/availability-summary')
+        .then(r=>r.ok?r.json():null)
+        .then(d=>{
+          if(!d || typeof d.slots_this_week!=='number') return;
+          const headline=document.getElementById('gd-avail-headline');
+          const sub=document.getElementById('gd-avail-sub');
+          if(!headline||!sub) return;
+          const tw=d.slots_this_week;
+          const nw=d.slots_next_week;
+          if(tw===0 && nw===0){
+            headline.textContent='Fully booked the next 2 weeks';
+            sub.textContent='Join the waitlist — we will message you when a slot opens';
+          } else if(tw<=3){
+            headline.innerHTML=tw+' slot'+(tw===1?'':'s')+' left this week · <span style="color:var(--gold)">'+nw+' next week</span>';
+            sub.textContent='Limited availability — book today to secure';
+          } else if(tw<=8){
+            headline.innerHTML=tw+' slots this week · <span style="color:var(--muted2)">'+nw+' next week</span>';
+            sub.textContent='Book within 24 hours to lock in your preferred time';
+          } else {
+            headline.innerHTML='Good availability · '+tw+' slots this week';
+            sub.textContent='Earliest available: '+(d.earliest_date?new Date(d.earliest_date).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'short'}):'today');
+          }
+        })
+        .catch(()=>{
+          // Silent failure — hide the indicator if API fails
+          const el=document.getElementById('gd-availability');
+          if(el) el.style.display='none';
+        });
+    })();
+    </script>
+
     <button type="button" class="svc-compare-toggle" onclick="document.getElementById('svc-compare').scrollIntoView({behavior:'smooth',block:'start'})">📊 Compare all packages →</button>
 
     <div class="services-grid">

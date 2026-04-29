@@ -1145,7 +1145,7 @@ Write a 4-5 sentence professional paint assessment. Be specific about:
 4. Any MOT/ULEZ issues if relevant
 
 Then output EXACTLY this JSON block (no other text after it):
-{"score":7,"label":"Good condition","priority_1":{"name":"Depth Refinement","price":"£149","why":"7-year-old paint needs correction before any protection"},"priority_2":{"name":"Nano Banana Ceramic","price":"£279","why":"Locks in correction, protection for 3+ years"},"priority_3":{"name":"Spark Wash","price":"£79","why":"Maintain between major services"},"upsell":"Ghost Pass Shield saves 15% on all services"}`;
+{"score":7,"label":"Good condition","priority_1":{"name":"Depth Refinement","price":"£449","why":"7-year-old paint needs correction before any protection"},"priority_2":{"name":"Nano Banana Ceramic","price":"£149","why":"Locks in correction, protection for 3+ years"},"priority_3":{"name":"Spark Wash","price":"£79","why":"Maintain between major services"},"upsell":"Ghost Pass Shield saves 15% on all services"}`;
 
   let verdict = '';
   let services = [];
@@ -1262,20 +1262,20 @@ function getDefaultServices(age, type, areas){
   const ageNum = parseInt(age)||5;
 
   if(type==='new' || ageNum < 2){
-    svcs.push({name:'Nano Banana Ceramic',price:'£279',why:'Protect new paintwork before contamination sets in'});
+    svcs.push({name:'Nano Banana Ceramic',price:'£149',why:'Protect new paintwork before contamination sets in'});
     svcs.push({name:'PPF Protection',price:'POA',why:'Ultimate paint protection for new vehicles'});
     svcs.push({name:'Spark Wash',price:'£79',why:'Maintenance wash to keep it pristine'});
   } else if(type==='luxury' || type==='classic'){
-    svcs.push({name:'Total Refinement',price:'£349',why:'Full multi-stage correction for premium vehicles'});
-    svcs.push({name:'Nano Banana Ceramic',price:'£279',why:'Premium protection for luxury paint'});
+    svcs.push({name:'Total Refinement',price:'£799',why:'Full multi-stage correction for premium vehicles'});
+    svcs.push({name:'Nano Banana Ceramic',price:'£149',why:'Premium protection for luxury paint'});
     svcs.push({name:'PPF Protection',price:'POA',why:'Protect your investment long-term'});
   } else {
     if(ageNum >= 5 || areas.includes('swirls') || areas.includes('scratches')){
-      svcs.push({name:'Depth Refinement',price:'£149',why:'Remove swirls and scratches accumulated over '+ageNum+' years'});
+      svcs.push({name:'Depth Refinement',price:'£449',why:'Remove swirls and scratches accumulated over '+ageNum+' years'});
     } else {
       svcs.push({name:'Quick Refinement',price:'£249',why:'Single-stage correction to restore shine'});
     }
-    svcs.push({name:'Nano Banana Ceramic',price:'£279',why:'Lock in correction with 3+ year ceramic protection'});
+    svcs.push({name:'Nano Banana Ceramic',price:'£149',why:'Lock in correction with 3+ year ceramic protection'});
     svcs.push({name:'Spark Wash',price:'£79',why:'Regular maintenance between major services'});
   }
 

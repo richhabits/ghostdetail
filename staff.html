@@ -1167,15 +1167,15 @@ function buildProductRecs(dvla){
   products.push({name:'Spark Wash',price:'£79',reason:'Maintenance',color:''});
   
   // Age-based
-  if(age>=7) products.push({name:'Depth Refinement',price:'£149',reason:age+'yr paint correction',color:'rgba(239,68,68,.1)'});
+  if(age>=7) products.push({name:'Depth Refinement',price:'£449',reason:age+'yr paint correction',color:'rgba(239,68,68,.1)'});
   else if(age>=3) products.push({name:'Quick Refinement',price:'£249',reason:'Single-stage correction',color:''});
   
   // Colour-specific
   if(['black','dark blue','dark grey','graphite'].some(c=>colour.includes(c)))
-    products.push({name:'Total Refinement',price:'£349',reason:'Dark paint needs multi-stage',color:''});
+    products.push({name:'Total Refinement',price:'£799',reason:'Dark paint needs multi-stage',color:''});
   
   // Ceramic for all
-  products.push({name:'Nano Banana Ceramic',price:'£279',reason:'3yr+ protection',color:'rgba(197,160,89,.05)'});
+  products.push({name:'Nano Banana Ceramic',price:'£149',reason:'3yr+ protection',color:'rgba(197,160,89,.05)'});
   
   // Premium makes
   if(['mercedes','bmw','porsche','ferrari','lamborghini','bentley','rolls','aston'].some(m=>make.includes(m)))
