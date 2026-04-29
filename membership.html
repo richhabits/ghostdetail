@@ -1300,9 +1300,9 @@ async function analyseGVPhoto(){
       if(d.is_ulez_compliant===false)msg+='Not ULEZ compliant — check before driving into London.
 
 ';
-      if(age>=7)msg+='At '+age+' years, paint usually needs correction before ceramic. Depth Refinement £149 first.';
+      if(age>=7)msg+='At '+age+' years, paint usually needs correction before ceramic. Depth Refinement £449 first.';
       else if(age>=3)msg+='3+ years in, showing some swirling. Ghost Vision gives a full AI read.';
-      else msg+='Good time to protect it before contamination builds up. Nano Ceramic £279.';
+      else msg+='Good time to protect it before contamination builds up. Nano Ceramic £149.';
       ariaAddMsg('g',msg);
       // Save lead
       fetch(SB+'/rest/v1/aria_leads',{method:'POST',headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({registration:reg,vehicle_make:d.make,vehicle_year:d.year,vehicle_colour:d.colour,vehicle_age:age,mot_days_left:mot,is_ulez:d.is_ulez_compliant,source_page:window.location.pathname,created_at:new Date().toISOString()})}).catch(function(){});
@@ -1331,7 +1331,7 @@ async function analyseGVPhoto(){
     if(lo.includes('shield £199')){window.location.href=STRIPE.shield;return;}
     if(lo.includes('legend £299')){window.location.href=STRIPE.legend;return;}
     if(lo.includes('prices')||lo.includes('see prices')){
-      ariaAddMsg('g','Spark Wash £79 · Depth Refinement £149 · Total Refinement £349 · Nano Banana Ceramic £279 · Quick Refinement £249 · PPF (POA).
+      ariaAddMsg('g','Spark Wash £79 · Depth Refinement £449 · Total Refinement £799 · Nano Banana Ceramic £149 · Quick Refinement £249 · PPF (POA).
 
 Ghost Pass members save 15% on all of these.');
       ariaShowQuick(['Book now','Ghost Pass','Assess my car']);return;
@@ -1343,7 +1343,7 @@ Ghost Pass members save 15% on all of these.');
       window.location.href=ariaReg?'/concierge?reg='+ariaReg:'/concierge';return;
     }
     if(lo.includes('ceramic')){
-      ariaAddMsg('g','Nano Banana Ceramic £279 — 3+ year protection. We correct paint first if needed (Depth Refinement £149), then coat. Worth doing right.');
+      ariaAddMsg('g','Nano Banana Ceramic £149 — 3+ year protection. We correct paint first if needed (Depth Refinement £449), then coat. Worth doing right.');
       ariaShowQuick(['Get assessed first','Book ceramic','Already corrected']);return;
     }
     if(['bmw','mercedes','audi','vw','other'].includes(lo)){
@@ -1366,7 +1366,7 @@ Ghost Pass members save 15% on all of these.');
     var t=ariaTyping();
     ariaHistory.push({role:'user',content:msg});
     var vCtx=ariaVehicle?('Vehicle: '+(ariaVehicle.make||'')+' '+(ariaVehicle.year||'')+', '+(ariaVehicle.colour||'')+', '+(ariaVehicle.vehicle_age_years||'?')+'yr, MOT: '+(ariaVehicle.mot_status||'?')+' ('+(ariaVehicle.mot_days_left||'?')+'d), ULEZ: '+(ariaVehicle.is_ulez_compliant===true?'OK':'Non-compliant')+', CO2: '+(ariaVehicle.co2_label||'?')):'No vehicle data.';
-    var system='You are ARIA — Ghost Detail Autos customer AI, Watford WD18. Services: Spark Wash £79, Depth Refinement £149, Quick Refinement £249, Total Refinement £349, Nano Banana Ceramic £279, PPF POA. Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. '+vCtx+'. Keep answers under 3 sentences. Push booking, Ghost Vision, or Ghost Pass. Facts only.';
+    var system='You are ARIA — Ghost Detail Autos customer AI, Watford WD18. Services: Spark Wash £79, Depth Refinement £449, Quick Refinement £249, Total Refinement £799, Nano Banana Ceramic £149, PPF POA. Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. '+vCtx+'. Keep answers under 3 sentences. Push booking, Ghost Vision, or Ghost Pass. Facts only.';
     try{
       var r=await fetch('https://text.pollinations.ai/openai',{
         method:'POST',
@@ -1378,7 +1378,7 @@ Ghost Pass members save 15% on all of these.');
       if(r.ok){var d=await r.json();reply=d.content&&d.content[0]&&d.content[0].text||'';}
       if(!reply){
         var kw=msg.toLowerCase();
-        if(kw.includes('price')||kw.includes('cost')||kw.includes('how much'))reply='Services from £79. Depth Refinement £149, Ceramic £279, Total Refinement £349. Ghost Pass saves 15%.';
+        if(kw.includes('price')||kw.includes('cost')||kw.includes('how much'))reply='Services from £79. Depth Refinement £449, Ceramic £149, Total Refinement £799. Ghost Pass saves 15%.';
         else if(kw.includes('location')||kw.includes('where'))reply='Sandown Road, Watford WD18. Private studio — one car at a time. Romeo or Ferrel work every job.';
         else if(kw.includes('book'))reply='Book at ghostdetail.autos/booking — takes 2 minutes. Small deposit holds your slot.';
         else reply='Romeo and Ferrel work every car personally. Call 01923 959839 or book online.';
@@ -1719,9 +1719,9 @@ document.addEventListener('DOMContentLoaded',function(){
       if(d.is_ulez_compliant===false)msg+='Not ULEZ compliant — check before driving into London.
 
 ';
-      if(age>=7)msg+='At '+age+' years, paint usually needs correction before ceramic. Depth Refinement £149 first.';
+      if(age>=7)msg+='At '+age+' years, paint usually needs correction before ceramic. Depth Refinement £449 first.';
       else if(age>=3)msg+='3+ years in, showing some swirling. Ghost Vision gives a full AI read.';
-      else msg+='Good time to protect it before contamination builds up. Nano Ceramic £279.';
+      else msg+='Good time to protect it before contamination builds up. Nano Ceramic £149.';
       ariaAddMsg('g',msg);
       // Save lead
       fetch(SB+'/rest/v1/aria_leads',{method:'POST',headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({registration:reg,vehicle_make:d.make,vehicle_year:d.year,vehicle_colour:d.colour,vehicle_age:age,mot_days_left:mot,is_ulez:d.is_ulez_compliant,source_page:window.location.pathname,created_at:new Date().toISOString()})}).catch(function(){});
@@ -1750,7 +1750,7 @@ document.addEventListener('DOMContentLoaded',function(){
     if(lo.includes('shield £199')){window.location.href=STRIPE.shield;return;}
     if(lo.includes('legend £299')){window.location.href=STRIPE.legend;return;}
     if(lo.includes('prices')||lo.includes('see prices')){
-      ariaAddMsg('g','Spark Wash £79 · Depth Refinement £149 · Total Refinement £349 · Nano Banana Ceramic £279 · Quick Refinement £249 · PPF (POA).
+      ariaAddMsg('g','Spark Wash £79 · Depth Refinement £449 · Total Refinement £799 · Nano Banana Ceramic £149 · Quick Refinement £249 · PPF (POA).
 
 Ghost Pass members save 15% on all of these.');
       ariaShowQuick(['Book now','Ghost Pass','Assess my car']);return;
@@ -1762,7 +1762,7 @@ Ghost Pass members save 15% on all of these.');
       window.location.href=ariaReg?'/concierge?reg='+ariaReg:'/concierge';return;
     }
     if(lo.includes('ceramic')){
-      ariaAddMsg('g','Nano Banana Ceramic £279 — 3+ year protection. We correct paint first if needed (Depth Refinement £149), then coat. Worth doing right.');
+      ariaAddMsg('g','Nano Banana Ceramic £149 — 3+ year protection. We correct paint first if needed (Depth Refinement £449), then coat. Worth doing right.');
       ariaShowQuick(['Get assessed first','Book ceramic','Already corrected']);return;
     }
     if(['bmw','mercedes','audi','vw','other'].includes(lo)){
@@ -1785,7 +1785,7 @@ Ghost Pass members save 15% on all of these.');
     var t=ariaTyping();
     ariaHistory.push({role:'user',content:msg});
     var vCtx=ariaVehicle?('Vehicle: '+(ariaVehicle.make||'')+' '+(ariaVehicle.year||'')+', '+(ariaVehicle.colour||'')+', '+(ariaVehicle.vehicle_age_years||'?')+'yr, MOT: '+(ariaVehicle.mot_status||'?')+' ('+(ariaVehicle.mot_days_left||'?')+'d), ULEZ: '+(ariaVehicle.is_ulez_compliant===true?'OK':'Non-compliant')+', CO2: '+(ariaVehicle.co2_label||'?')):'No vehicle data.';
-    var system='You are ARIA — Ghost Detail Autos customer AI, Watford WD18. Services: Spark Wash £79, Depth Refinement £149, Quick Refinement £249, Total Refinement £349, Nano Banana Ceramic £279, PPF POA. Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. '+vCtx+'. Keep answers under 3 sentences. Push booking, Ghost Vision, or Ghost Pass. Facts only.';
+    var system='You are ARIA — Ghost Detail Autos customer AI, Watford WD18. Services: Spark Wash £79, Depth Refinement £449, Quick Refinement £249, Total Refinement £799, Nano Banana Ceramic £149, PPF POA. Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. '+vCtx+'. Keep answers under 3 sentences. Push booking, Ghost Vision, or Ghost Pass. Facts only.';
     try{
       var r=await fetch('https://text.pollinations.ai/openai',{
         method:'POST',
@@ -1797,7 +1797,7 @@ Ghost Pass members save 15% on all of these.');
       if(r.ok){var d=await r.json();reply=d.content&&d.content[0]&&d.content[0].text||'';}
       if(!reply){
         var kw=msg.toLowerCase();
-        if(kw.includes('price')||kw.includes('cost')||kw.includes('how much'))reply='Services from £79. Depth Refinement £149, Ceramic £279, Total Refinement £349. Ghost Pass saves 15%.';
+        if(kw.includes('price')||kw.includes('cost')||kw.includes('how much'))reply='Services from £79. Depth Refinement £449, Ceramic £149, Total Refinement £799. Ghost Pass saves 15%.';
         else if(kw.includes('location')||kw.includes('where'))reply='Sandown Road, Watford WD18. Private studio — one car at a time. Romeo or Ferrel work every job.';
         else if(kw.includes('book'))reply='Book at ghostdetail.autos/booking — takes 2 minutes. Small deposit holds your slot.';
         else reply='Romeo and Ferrel work every car personally. Call 01923 959839 or book online.';

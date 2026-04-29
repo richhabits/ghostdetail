@@ -1134,6 +1134,20 @@ header[style*="fixed"] {
   </div>
 </section>
 
+
+<!-- Trust strip — added Phase 2 services rebuild -->
+<section style="background:#0a0905;padding:18px 16px;border-bottom:1px solid rgba(197,160,89,.08)">
+  <div class="gd-trust-strip" style="display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:18px;max-width:760px;margin:0 auto;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)">
+    <span style="display:inline-flex;align-items:center;gap:6px"><span style="color:#FFCC00;letter-spacing:.05em;font-size:11px">★★★★★</span> 5.0 on Google</span>
+    <span style="opacity:.4">·</span>
+    <span><strong style="color:var(--gold);font-weight:700">147</strong> cars assessed</span>
+    <span style="opacity:.4">·</span>
+    <span>Studio in <strong style="color:var(--text);font-weight:600">Watford WD18</strong></span>
+    <span style="opacity:.4">·</span>
+    <span>Hand-finished <strong style="color:var(--text);font-weight:600">by Romeo &amp; Ferrel</strong></span>
+  </div>
+</section>
+
 <section class="section">
   <div class="centre">
     <div class="eyebrow">TWO PILLARS</div>
@@ -1144,29 +1158,43 @@ header[style*="fixed"] {
       <div class="pc-num">01</div>
       <div class="pc-icon">⚙️</div>
       <h3 class="pc-title">Studio <em>Services</em></h3>
-      <p class="pc-sub">Drive in. We assess. Paint, interior, mechanical — you decide what you need.</p>
+      <p class="pc-sub">Hand-finished detailing in our private studio on Sandown Road WD18. One car at a time. From £79.</p>
       <ul class="pc-list">
-        <li>Ghost Vision (paint check)</li>
-        <li>Depth Refinement (correction)</li>
-        <li>Ceramic Coating</li>
-        <li>PPF Installation</li>
-        <li>Interior Detailing</li>
+        <li>Spark Wash · £79 maintenance reset</li>
+        <li>Quick Refinement · £249 (decontamination + polish)</li>
+        <li>Depth Refinement · £449 (multi-stage correction)</li>
+        <li>Total Refinement · £799 (full ceramic + ozone)</li>
+        <li>Nano Banana 9H Ceramic · 5-year warranty</li>
+        <li>PPF · stone-chip protection film</li>
+        <li>Paint correction · machine polish</li>
+        <li>Wet-extraction interior</li>
+        <li>Leather deep-clean &amp; condition</li>
+        <li>Engine bay detail</li>
+        <li>Wheels removed deep-clean</li>
+        <li>Service Passport documentation</li>
       </ul>
-      <button class="pc-btn">Explore Studio →</button>
+      <button class="pc-btn">See Studio prices →</button>
     </a>
     <a href="/concierge.html" class="pillar-card concierge">
       <div class="pc-num">02</div>
       <div class="pc-icon">🔑</div>
       <h3 class="pc-title">Concierge <em>Management</em></h3>
-      <p class="pc-sub">Leave your keys. We handle MOT, servicing, repairs — and detail it while we are at it.</p>
+      <p class="pc-sub">Leave your keys. We handle MOT, servicing, repairs — through vetted local partners. From £35 booking fee.</p>
       <ul class="pc-list">
-        <li>MOT management</li>
-        <li>Service coordination</li>
-        <li>Mechanical repairs</li>
-        <li>Parts sourcing</li>
-        <li>Collection & delivery</li>
+        <li>MOT booking &amp; management</li>
+        <li>Full / interim servicing to schedule</li>
+        <li>Diagnostics · engine, transmission, electrical</li>
+        <li>Brakes · pads, discs, callipers</li>
+        <li>Cambelt + waterpump bundles</li>
+        <li>Suspension · shocks, springs, bushings</li>
+        <li>Tyres &amp; alignment</li>
+        <li>Smart repair · scratches, scuffs, dents</li>
+        <li>Window tinting</li>
+        <li>Alloy refurbishment</li>
+        <li>Collection &amp; delivery within 30mi WD18</li>
+        <li>Free Spark Wash on every concierge job</li>
       </ul>
-      <button class="pc-btn">Explore Concierge →</button>
+      <button class="pc-btn">See Concierge plans →</button>
     </a>
   </div>
 </section>
@@ -1555,9 +1583,9 @@ document.addEventListener('DOMContentLoaded',function(){
       if(mot<0)msg+=' MOT expired. Concierge can manage the whole thing.';
       else if(mot<90)msg+=' MOT due in '+mot+' days - we can handle that.';
       if(d.is_ulez_compliant===false)msg+='Not ULEZ compliant — check before driving into London.';
-      if(age>=7)msg+='At '+age+' years, paint usually needs correction before ceramic. Depth Refinement £149 first.';
+      if(age>=7)msg+='At '+age+' years, paint usually needs correction before ceramic. Depth Refinement £449 first.';
       else if(age>=3)msg+='3+ years in, showing some swirling. Ghost Vision gives a full AI read.';
-      else msg+='Good time to protect it before contamination builds up. Nano Ceramic £279.';
+      else msg+='Good time to protect it before contamination builds up. Nano Ceramic £149.';
       ariaAddMsg('g',msg);
       // Save lead
       fetch(SB+'/rest/v1/aria_leads',{method:'POST',headers:{'apikey':KEY,'Authorization':'Bearer '+KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({registration:reg,vehicle_make:d.make,vehicle_year:d.year,vehicle_colour:d.colour,vehicle_age:age,mot_days_left:mot,is_ulez:d.is_ulez_compliant,source_page:window.location.pathname,created_at:new Date().toISOString()})}).catch(function(){});
@@ -1596,7 +1624,7 @@ document.addEventListener('DOMContentLoaded',function(){
       window.location.href=ariaReg?'/concierge?reg='+ariaReg:'/concierge';return;
     }
     if(lo.includes('ceramic')){
-      ariaAddMsg('g','Nano Banana Ceramic £279 — 3+ year protection. We correct paint first if needed (Depth Refinement £149), then coat. Worth doing right.');
+      ariaAddMsg('g','Nano Banana Ceramic £149 — 3+ year protection. We correct paint first if needed (Depth Refinement £449), then coat. Worth doing right.');
       ariaShowQuick(['Get assessed first','Book ceramic','Already corrected']);return;
     }
     if(['bmw','mercedes','audi','vw','other'].includes(lo)){
@@ -1619,7 +1647,7 @@ document.addEventListener('DOMContentLoaded',function(){
     var t=ariaTyping();
     ariaHistory.push({role:'user',content:msg});
     var vCtx=ariaVehicle?('Vehicle: '+(ariaVehicle.make||'')+' '+(ariaVehicle.year||'')+', '+(ariaVehicle.colour||'')+', '+(ariaVehicle.vehicle_age_years||'?')+'yr, MOT: '+(ariaVehicle.mot_status||'?')+' ('+(ariaVehicle.mot_days_left||'?')+'d), ULEZ: '+(ariaVehicle.is_ulez_compliant===true?'OK':'Non-compliant')+', CO2: '+(ariaVehicle.co2_label||'?')):'No vehicle data.';
-    var system='You are ARIA — Ghost Detail Autos customer AI, Watford WD18. Services: Spark Wash £79, Depth Refinement £149, Quick Refinement £249, Total Refinement £349, Nano Banana Ceramic £279, PPF POA. Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. '+vCtx+'. Keep answers under 3 sentences. Push booking, Ghost Vision, or Ghost Pass. Facts only.';
+    var system='You are ARIA — Ghost Detail Autos customer AI, Watford WD18. Services: Spark Wash £79, Depth Refinement £449, Quick Refinement £249, Total Refinement £799, Nano Banana Ceramic £149, PPF POA. Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. '+vCtx+'. Keep answers under 3 sentences. Push booking, Ghost Vision, or Ghost Pass. Facts only.';
     try{
       var r=await fetch('https://text.pollinations.ai/openai',{
         method:'POST',
@@ -1631,7 +1659,7 @@ document.addEventListener('DOMContentLoaded',function(){
       if(r.ok){var d=await r.json();reply=d.content&&d.content[0]&&d.content[0].text||'';}
       if(!reply){
         var kw=msg.toLowerCase();
-        if(kw.includes('price')||kw.includes('cost')||kw.includes('how much'))reply='Services from £79. Depth Refinement £149, Ceramic £279, Total Refinement £349. Ghost Pass saves 15%.';
+        if(kw.includes('price')||kw.includes('cost')||kw.includes('how much'))reply='Services from £79. Depth Refinement £449, Ceramic £149, Total Refinement £799. Ghost Pass saves 15%.';
         else if(kw.includes('location')||kw.includes('where'))reply='Sandown Road, Watford WD18. Private studio — one car at a time. Romeo or Ferrel work every job.';
         else if(kw.includes('book'))reply='Book at ghostdetail.autos/booking — takes 2 minutes. Small deposit holds your slot.';
         else reply='Romeo and Ferrel work every car personally. Call 01923 959839 or book online.';

@@ -1361,7 +1361,7 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
     
     // Ceramic/PPF interest
     if(opt.includes('Ceramic') || opt.includes('Protect')){
-      ariaAddMsg('ghost', `Nano Banana Ceramic is £279 and protects for 3+ years. If your paint has swirls or scratches, we correct first (Depth Refinement £149) then coat. Otherwise the imperfections get locked in. Want a proper assessment?`);
+      ariaAddMsg('ghost', `Nano Banana Ceramic is £279 and protects for 3+ years. If your paint has swirls or scratches, we correct first (Depth Refinement £449) then coat. Otherwise the imperfections get locked in. Want a proper assessment?`);
       ariaShowQuick(['🔍 Assess my car first', '📅 Book Ceramic', 'Already corrected']);
       return;
     }
@@ -1398,7 +1398,7 @@ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{
     
     const system = `You are ARIA — the AI customer assistant for Ghost Detail Autos, Watford WD18. Run by Romeo and his son Ferrel Cruz.
 
-Services: Spark Wash £79, Quick Refinement £249, Depth Refinement £149, Total Refinement £349, Nano Banana Ceramic £279, PPF (POA), Alloy Refurb, Interior Detail, Concierge (MOT mgmt, PDR, repairs).
+Services: Spark Wash £79, Quick Refinement £249, Depth Refinement £449, Total Refinement £799, Nano Banana Ceramic £149, PPF (POA), Alloy Refurb, Interior Detail, Concierge (MOT mgmt, PDR, repairs).
 
 Ghost Pass: Spark £99/mo, Shield £199/mo, Legend £299/mo. Annual: Obsidian £950, Phantom £1,900, Legend £2,870. All memberships = 15% off + priority booking.
 
@@ -1410,7 +1410,7 @@ Rules: Short answers (max 3 sentences). Always push towards booking, Ghost Visio
     // Use ghostAI engine (Pollinations free → fallback chain)
     if(window.ghostAI){
       var vehicleCtx = ariaVehicle?'Vehicle: '+ariaVehicle.make+' '+(ariaVehicle.year||'')+' '+ariaVehicle.colour+' '+ariaVehicle.vehicle_age_years+'yr MOT:'+ariaVehicle.mot_days_left+'d ULEZ:'+(ariaVehicle.is_ulez_compliant?'OK':'NO'):'No vehicle yet.';
-      var ariaSystem='You are ARIA, customer assistant for Ghost Detail Autos Watford WD18 run by Romeo and Ferrel Cruz. Services: Spark Wash £79, Depth Refinement £149, Ceramic £279, PPF POA, Ghost Pass from £99/mo. '+vehicleCtx+' Keep answers under 3 sentences. Always end with a clear action.';
+      var ariaSystem='You are ARIA, customer assistant for Ghost Detail Autos Watford WD18 run by Romeo and Ferrel Cruz. Services: Spark Wash £79, Depth Refinement £449, Ceramic £149, PPF POA, Ghost Pass from £99/mo. '+vehicleCtx+' Keep answers under 3 sentences. Always end with a clear action.';
       try{
         var aiRes = await window.ghostAI(ariaSystem, msg, ariaHistory.slice(-8));
         if(aiRes&&aiRes.text){
@@ -1452,7 +1452,7 @@ Rules: Short answers (max 3 sentences). Always push towards booking, Ghost Visio
         // Smart fallback based on keywords
         const kw = msg.toLowerCase();
         if(kw.includes('price') || kw.includes('cost') || kw.includes('how much'))
-          reply = 'Services from £79. Depth Refinement £149, Nano Ceramic £279, Total Refinement £349. Ghost Pass members save 15%. Want to book?';
+          reply = 'Services from £79. Depth Refinement £449, Nano Ceramic £149, Total Refinement £799. Ghost Pass members save 15%. Want to book?';
         else if(kw.includes('book') || kw.includes('appointment'))
           reply = 'Booking takes 2 minutes. Pick your service, date, and pay a small deposit to hold the slot.';
         else if(kw.includes('ceramic') || kw.includes('coating'))
