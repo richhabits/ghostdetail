@@ -635,7 +635,21 @@ a.svc-item .svc-name { color: var(--text, #F0EDE6) !important; }
   }
 }
 
-/* === FIX 5: Cookie banner — make it a slim bottom bar on mobile === */
+
+  @media (max-width: 600px) {
+  /* === FIX 4b: Index.html / unclassed header anchors === */
+  /* Index doesn't use .nav-signin class so target by href */
+  header a[href="/login.html"],
+  header a[href="/login"] {
+    display: none !important;
+  }
+  /* Compress nav menu items on small screens */
+  header nav a, header > a {
+    font-size: 9px !important;
+  }
+  }
+
+  /* === FIX 5: Cookie banner — make it a slim bottom bar on mobile === */
 @media (max-width: 600px) {
   #gd-cc {
     left: 0 !important;
