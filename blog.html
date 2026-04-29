@@ -773,15 +773,18 @@ img, svg, iframe {
   }
 }
 
-/* === Hide ARIA chat bubble on public pages (override on customer-only pages) === */
-/* Also hide WhatsApp float — same rationale, premium feel */
-#aria-float,
-.wa-float {
-  display: none !important;
-}
-body.allow-aria #aria-float,
-body.allow-aria .wa-float {
-  display: flex !important;
+
+/* === Lift chat bubbles above cookie banner when banner visible === */
+/* Cookie banner sits at bottom on mobile — float widgets need to clear it */
+@media (max-width: 600px) {
+  body:has(#gd-cc.show) #aria-float {
+    bottom: 200px !important;
+    transition: bottom 0.3s ease;
+  }
+  body:has(#gd-cc.show) .wa-float {
+    bottom: 200px !important;
+    transition: bottom 0.3s ease;
+  }
 }
 </style>
 <!-- END GHOST DETAIL MOBILE FIX -->
