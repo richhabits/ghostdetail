@@ -140,6 +140,214 @@ img,video{max-width:100%;height:auto}
 table{max-width:100%;overflow-x:auto;display:block;border-collapse:collapse}
 </style>
 
+<!-- GHOST DETAIL MOBILE FIX (v1) -->
+<style id="gd-mobile-fix">
+/* === FIX 1: Visited-link color leak (purple "Services" bug) === */
+/* Anchor tags wrapping headings inherit browser visited purple. Force inheritance. */
+a:visited, a:visited *, a:link, a:link * {
+  color: inherit;
+}
+a.pillar-card, a.pillar-card:visited, a.pillar-card:link {
+  color: inherit;
+}
+a.pillar-card .pc-title em,
+a.pillar-card.studio .pc-title em,
+a.pillar-card.studio:visited .pc-title em {
+  color: var(--gold, #C5A059) !important;
+}
+a.pillar-card.concierge .pc-title em,
+a.pillar-card.concierge:visited .pc-title em {
+  color: var(--green, #10B981) !important;
+}
+a.svc-item, a.svc-item:visited, a.svc-item:link { color: inherit; }
+a.svc-item .svc-name { color: var(--text, #F0EDE6) !important; }
+
+/* === FIX 2: Hero typography on mobile === */
+/* Existing CSS uses clamp(48px, 7vw, 88px) — the 48px floor is too big at 390px wide */
+/* Reduce floors and use vw min for proper fluid scaling */
+@media (max-width: 480px) {
+  .hero-title,
+  .ph-title,
+  h1.hero-title,
+  h1.ph-title {
+    font-size: clamp(32px, 8.2vw, 44px) !important;
+    line-height: 1.05 !important;
+    letter-spacing: -0.01em;
+  }
+  .sec-title,
+  .cat-title,
+  .cta-title {
+    font-size: clamp(24px, 6.5vw, 36px) !important;
+    line-height: 1.1 !important;
+  }
+  .pc-title {
+    font-size: clamp(22px, 5.8vw, 32px) !important;
+    line-height: 1.1 !important;
+  }
+  /* Hero subtitles / paragraphs */
+  .hero-sub, .ph-sub, .pc-sub {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+  }
+  /* Body text inside main sections */
+  body {
+    font-size: 15px;
+  }
+}
+
+/* === FIX 3: Body padding on mobile === */
+@media (max-width: 480px) {
+  :root {
+    --pad: 16px;
+  }
+  .wrap, .hero-wrap {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+  /* Section vertical padding tightening */
+  section, .page-header, .cats, .cta-section {
+    padding-top: clamp(40px, 8vw, 56px) !important;
+    padding-bottom: clamp(40px, 8vw, 56px) !important;
+  }
+}
+
+/* === FIX 4: Header crowding on small screens === */
+/* Hide SIGN IN below 480px (keep ☰ + BOOK NOW only — sign in is in hamburger) */
+@media (max-width: 480px) {
+  .nav-signin {
+    display: none !important;
+  }
+  .nav-cta {
+    padding: 8px 14px !important;
+    font-size: 8px !important;
+  }
+  header {
+    height: 56px !important;
+    padding: 0 14px !important;
+  }
+  .nav-inner {
+    gap: 8px !important;
+  }
+  .nav-brand {
+    font-size: 9px !important;
+  }
+}
+
+/* === FIX 5: Cookie banner — make it a slim bottom bar on mobile === */
+@media (max-width: 600px) {
+  #gd-cc {
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    max-width: none !important;
+    width: 100% !important;
+    padding: 14px 16px env(safe-area-inset-bottom, 14px) !important;
+    border-radius: 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+    box-shadow: 0 -8px 32px rgba(0,0,0,.5) !important;
+  }
+  #gd-cc h3 {
+    font-size: 13px !important;
+    margin-bottom: 4px !important;
+  }
+  #gd-cc p {
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 10px !important;
+  }
+  #gd-cc .gd-cc-row {
+    gap: 6px !important;
+  }
+  #gd-cc button {
+    padding: 10px 12px !important;
+    font-size: 9px !important;
+    letter-spacing: 0.1em !important;
+  }
+  #gd-cc .gd-cc-accept {
+    min-width: 110px !important;
+  }
+  #gd-cc .gd-cc-reject {
+    min-width: 90px !important;
+  }
+  /* CRITICAL: Customize button visibility — was unreadable */
+  #gd-cc .gd-cc-custom {
+    color: #C5A059 !important;
+    border: 1px solid rgba(197, 160, 89, 0.25) !important;
+    padding: 10px 12px !important;
+    background: transparent !important;
+  }
+}
+
+/* === FIX 6: Service grid / cards — single column on mobile === */
+@media (max-width: 600px) {
+  .svc-grid,
+  .pillar-grid,
+  .info-grid,
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .svc-item,
+  .pillar-card,
+  .info-tile {
+    padding: 20px !important;
+  }
+}
+
+/* === FIX 7: Tap target sizes (Apple HIG: 44x44pt minimum) === */
+@media (max-width: 480px) {
+  button,
+  .btn,
+  .nav-cta,
+  .check-btn,
+  .cta-btn {
+    min-height: 44px;
+  }
+  /* Footer links spacing */
+  .footer-links a {
+    padding: 4px 0;
+    display: inline-block;
+  }
+}
+
+/* === FIX 8: Prevent horizontal overflow === */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+img, svg, iframe {
+  max-width: 100%;
+  height: auto;
+}
+
+/* === FIX 9: Form inputs — prevent iOS zoom on focus === */
+@media (max-width: 480px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
+  input[type="search"],
+  textarea,
+  select {
+    font-size: 16px !important; /* iOS zooms only if < 16px */
+  }
+}
+
+/* === FIX 10: Hide chat widget on mobile when cookie banner is shown === */
+/* Prevents the chat bubble from being covered by the cookie bar */
+@media (max-width: 600px) {
+  body:has(#gd-cc.show) [class*="chat"][class*="widget"],
+  body:has(#gd-cc.show) [id*="chat-widget"] {
+    bottom: 130px !important;
+  }
+}
+</style>
+<!-- END GHOST DETAIL MOBILE FIX -->
 </head>
 <body>
 <div id="cur"></div>
