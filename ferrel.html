@@ -340,10 +340,13 @@ img, svg, iframe {
 }
 
 /* === Hide ARIA chat bubble on public pages (override on customer-only pages) === */
-#aria-float {
+/* Also hide WhatsApp float — same rationale, premium feel */
+#aria-float,
+.wa-float {
   display: none !important;
 }
-body.allow-aria #aria-float {
+body.allow-aria #aria-float,
+body.allow-aria .wa-float {
   display: flex !important;
 }
 </style>
