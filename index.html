@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ghost Detail Autos — Refinement in the Shadows</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--obsidian:#000;--charcoal:#0A0905;--vault:#161310;--surface:#1E1B15;--gold:#C5A059;--gold-b:#D4B06A;--banana:#F9F906;--text:#F0EDE6;--muted:#5A5650;--green:#10B981;--red:#EF4444;--ease:cubic-bezier(0.25,1,0.5,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--charcoal);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;line-height:1.7;cursor:none;overflow-x:hidden}
+#cur{position:fixed;width:6px;height:6px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+#cur-ring{position:fixed;width:28px;height:28px;border:1px solid rgba(197,160,89,.22);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");pointer-events:none;z-index:1;opacity:.03}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between;background:rgba(10,9,5,.9);backdrop-filter:blur(18px);border-bottom:1px solid rgba(197,160,89,.07)}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.hex{width:28px;height:28px;background:var(--gold);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);animation:breathe 3s ease-in-out infinite;flex-shrink:0}
+@keyframes breathe{0%,100%{filter:brightness(1)}50%{filter:brightness(1.25)}}
+.nav-brand{font-family:'DM Mono',monospace;font-size:12px;font-weight:500;letter-spacing:.14em;color:var(--gold);text-transform:uppercase}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s var(--ease)}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);border:none;padding:11px 24px;cursor:none;transition:background .3s var(--ease)}
+.nav-cta:hover{background:var(--gold-b)}
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:140px 48px 100px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 70% 50%,rgba(197,160,89,.05) 0%,transparent 70%),linear-gradient(180deg,var(--obsidian) 0%,var(--charcoal) 100%)}
+.hero-lines{position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 79px,rgba(197,160,89,.03) 80px)}
+canvas#particles{position:absolute;inset:0;pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:720px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;opacity:0;animation:fadeUp .8s var(--ease) .2s forwards}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(52px,7vw,92px);font-weight:900;line-height:1;margin-bottom:28px;opacity:0;animation:fadeUp .9s var(--ease) .4s forwards}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:16px;color:var(--muted);line-height:1.8;max-width:520px;margin-bottom:40px;opacity:0;animation:fadeUp .9s var(--ease) .6s forwards}
+.hero-actions{display:flex;gap:16px;align-items:center;margin-bottom:60px;opacity:0;animation:fadeUp .9s var(--ease) .8s forwards}
+.btn-primary{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);border:none;padding:14px 32px;cursor:none;transition:background .3s var(--ease),transform .3s var(--ease);text-decoration:none;display:inline-block}
+.btn-primary:hover{background:var(--gold-b);transform:translateY(-2px)}
+.btn-outline{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);background:transparent;border:1px solid rgba(197,160,89,.35);padding:14px 32px;cursor:none;transition:all .3s var(--ease);text-decoration:none;display:inline-block}
+.btn-outline:hover{border-color:var(--gold);background:rgba(197,160,89,.06)}
+.hero-stats{display:flex;gap:48px;padding-top:32px;border-top:1px solid rgba(197,160,89,.08);opacity:0;animation:fadeUp .9s var(--ease) 1s forwards}
+.stat-num{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:var(--gold);line-height:1}
+.stat-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.trust-strip{background:rgba(197,160,89,.04);border-top:1px solid rgba(197,160,89,.1);border-bottom:1px solid rgba(197,160,89,.1);padding:18px 48px;display:flex;align-items:center;justify-content:center;gap:40px;flex-wrap:wrap}
+.trust-item{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}
+.tdot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.5}
+.plate-section{padding:100px 48px;background:var(--obsidian);position:relative}
+.plate-section::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(197,160,89,.3),transparent)}
+.sec-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(32px,4vw,52px);line-height:1.1;margin-bottom:16px}
+.sec-title em{font-style:italic;color:var(--gold)}
+.plate-wrap{max-width:600px;margin-top:48px}
+.plate-lbl{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.uk-plate{display:flex;align-items:stretch;background:#F5F0C8;border-radius:4px;overflow:hidden;box-shadow:0 6px 40px rgba(0,0,0,.7),0 0 0 1px rgba(0,0,0,.4);max-width:480px;margin-bottom:20px}
+.plate-gb{background:#003399;width:46px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;gap:3px;padding:10px 0}
+.plate-stars{color:#FFD700;font-size:5px;letter-spacing:1.5px}
+.plate-gb-txt{color:#fff;font-family:'DM Mono',monospace;font-size:14px;font-weight:500}
+.plate-input-area{flex:1;display:flex;align-items:center;padding:0 20px}
+#plate-input{width:100%;background:transparent;border:none;outline:none;font-family:'DM Mono',monospace;font-size:44px;font-weight:500;letter-spacing:.1em;color:#111;text-transform:uppercase;padding:10px 0;text-align:center}
+#plate-input::placeholder{color:#bbb;font-size:26px}
+.plate-btn{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);border:none;padding:14px 32px;cursor:none;transition:background .3s var(--ease);width:100%;max-width:480px;display:block}
+.plate-btn:hover{background:var(--gold-b)}
+.plate-result{margin-top:28px;padding:24px;background:var(--vault);border:1px solid rgba(197,160,89,.15);display:none;animation:fadeUp .4s var(--ease)}
+.plate-result.show{display:block}
+.result-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.r-lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+.r-val{font-family:'Playfair Display',serif;font-size:18px;color:var(--text)}
+.result-link{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(197,160,89,.3);padding-bottom:2px;transition:border-color .3s}
+.result-link:hover{border-color:var(--gold)}
+.plate-err{margin-top:14px;padding:13px 18px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--red);display:none}
+.plate-err.show{display:block}
+.marque-row{display:grid;grid-template-columns:repeat(9,1fr);border-top:1px solid rgba(197,160,89,.06);border-bottom:1px solid rgba(197,160,89,.06)}
+.marque-item{padding:22px 12px;text-align:center;border-right:1px solid rgba(197,160,89,.05);transition:background .3s var(--ease)}
+.marque-item:last-child{border-right:none}
+.marque-item:hover{background:var(--vault)}
+.marque-name{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:color .3s}
+.marque-item:hover .marque-name{color:var(--gold)}
+.services-section{padding:120px 48px;background:var(--charcoal)}
+.sec-header{margin-bottom:64px}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.svc-card{padding:40px 28px;background:var(--charcoal);position:relative;overflow:hidden;transition:background .3s var(--ease);border-right:1px solid rgba(197,160,89,.06)}
+.svc-card:last-child{border-right:none}
+.svc-card:hover{background:var(--vault)}
+.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s var(--ease)}
+.svc-card:hover::before{transform:scaleX(1)}
+.svc-num{font-family:'Playfair Display',serif;font-size:60px;font-weight:900;color:rgba(197,160,89,.08);line-height:1;margin-bottom:18px}
+.svc-name{font-family:'Playfair Display',serif;font-size:21px;margin-bottom:8px}
+.svc-price{font-family:'DM Mono',monospace;font-size:26px;font-weight:500;color:var(--gold);margin-bottom:5px}
+.svc-dur{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.svc-list{list-style:none;border-top:1px solid rgba(197,160,89,.08);padding-top:14px}
+.svc-list li{font-size:12px;color:var(--muted);padding:4px 0;border-bottom:1px solid rgba(255,255,255,.03);display:flex;align-items:center;gap:8px}
+.svc-list li::before{content:'—';color:var(--gold);font-size:10px;flex-shrink:0}
+.svc-badge{position:absolute;top:16px;right:16px;background:var(--gold);color:var(--charcoal);font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px}
+.nano-section{padding:100px 48px;background:linear-gradient(135deg,#0A0A05,#060809);border-top:1px solid rgba(197,160,89,.07);border-bottom:1px solid rgba(197,160,89,.07)}
+.nano-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;max-width:1100px}
+.nano-badge{display:inline-block;background:rgba(249,246,6,.08);border:1px solid rgba(249,246,6,.2);padding:5px 14px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--banana);margin-bottom:20px}
+.nano-logo{font-family:'Playfair Display',serif;font-size:56px;font-weight:900;line-height:1;margin-bottom:16px}
+.nano-logo .w{color:var(--text)}.nano-logo .y{color:var(--banana)}
+.nano-desc{font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:28px}
+.nano-feats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.nano-feat{padding:14px;background:rgba(249,246,6,.04);border:1px solid rgba(249,246,6,.08)}
+.nano-feat strong{display:block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--text);margin-bottom:3px}
+.nano-feat span{font-size:11px;color:var(--muted)}
+.nano-visual{height:300px;background:linear-gradient(135deg,#090905,#050906);border:1px solid rgba(249,246,6,.1);display:flex;align-items:center;justify-content:center;font-size:96px;position:relative;overflow:hidden}
+.nano-visual::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(249,246,6,.08) 0%,transparent 70%)}
+.reviews-section{padding:100px 0;overflow:hidden}
+.reviews-hdr{padding:0 48px;margin-bottom:48px}
+.reviews-track{display:flex;gap:20px;animation:scrollR 35s linear infinite;width:max-content}
+.reviews-track:hover{animation-play-state:paused}
+@keyframes scrollR{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.rev-card{min-width:320px;background:var(--vault);border:1px solid rgba(197,160,89,.08);padding:28px;flex-shrink:0}
+.rev-stars{color:var(--gold);font-size:11px;letter-spacing:2px;margin-bottom:12px}
+.rev-text{font-size:13px;color:var(--muted);line-height:1.7;font-style:italic;margin-bottom:16px}
+.rev-author{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text)}
+.rev-car{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--muted);margin-top:2px}
+.pass-section{padding:100px 48px;background:var(--vault);border-top:1px solid rgba(197,160,89,.08)}
+.pass-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(197,160,89,.08);margin-top:48px;max-width:900px}
+.pass-card{background:var(--charcoal);padding:32px 26px;position:relative;transition:background .3s var(--ease)}
+.pass-card:hover{background:var(--surface)}
+.pass-card.featured{background:rgba(197,160,89,.04);border:1px solid rgba(197,160,89,.25)}
+.pass-pop{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--charcoal);font-family:'DM Mono',monospace;font-size:8px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:3px 14px;white-space:nowrap}
+.pass-name{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.pass-price{font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:var(--text);line-height:1;margin-bottom:4px}
+.pass-per{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--muted);margin-bottom:20px}
+.pass-features{list-style:none;margin-bottom:24px}
+.pass-features li{font-size:12px;color:var(--muted);padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;gap:7px}
+.pass-features li::before{content:'✓';color:var(--gold);flex-shrink:0;font-size:10px}
+.pass-cta{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:11px;width:100%;cursor:none;transition:all .3s var(--ease);text-align:center;display:block;text-decoration:none}
+.pass-cta-gold{color:var(--charcoal);background:var(--gold);border:none}.pass-cta-gold:hover{background:var(--gold-b)}
+.pass-cta-outline{color:var(--gold);background:transparent;border:1px solid rgba(197,160,89,.35)}.pass-cta-outline:hover{border-color:var(--gold);background:rgba(197,160,89,.06)}
+footer{background:var(--vault);border-top:1px solid rgba(197,160,89,.08);padding:60px 48px 32px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.fhex{width:20px;height:20px;background:var(--gold);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);flex-shrink:0}
+.fbrand{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.ftag{font-size:12px;color:var(--muted);line-height:1.8;margin-bottom:20px}
+.footer-col h5{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.footer-col ul{list-style:none}
+.footer-col li{font-size:12px;color:var(--muted);margin-bottom:8px;cursor:pointer;transition:color .3s}
+.footer-col li:hover{color:var(--text)}
+.footer-bottom{border-top:1px solid rgba(197,160,89,.06);padding-top:22px;display:flex;justify-content:space-between;align-items:center}
+.fcopy{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.07em;color:var(--muted)}
+.flinks{display:flex;gap:20px}
+.flinks a{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .3s}
+.flinks a:hover{color:var(--gold)}
+.wa-float{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;cursor:none;z-index:200;box-shadow:0 4px 20px rgba(37,211,102,.35);transition:transform .3s var(--ease);text-decoration:none;font-size:22px}
+.wa-float:hover{transform:scale(1.1)}
+/* FOCUS INDICATORS & ACCESSIBILITY */
+button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.nav-toggle{display:none;background:none;border:none;color:var(--gold);font-size:24px;cursor:pointer;padding:8px}
+/* MOBILE RESPONSIVE */
+@media (max-width:768px){
+nav{padding:0 20px;height:56px;gap:12px}
+.nav-toggle{display:block}
+.nav-links{position:absolute;top:56px;left:0;right:0;flex-direction:column;background:rgba(10,9,5,.98);display:none;padding:16px;gap:16px;border-bottom:1px solid rgba(197,160,89,.1);z-index:99}
+.nav-links.active{display:flex}
+.nav-links a{font-size:12px;padding:8px 0}
+.nav-cta{padding:10px 20px;font-size:9px}
+.hero{padding:80px 20px 60px}
+.hero-title{font-size:clamp(32px,7vw,52px);line-height:1.2}
+.hero-eyebrow{font-size:9px}
+.hero-sub{font-size:14px}
+.hero-actions{flex-direction:column;width:100%}
+.btn-primary,.btn-outline{width:100%}
+.hero-stats{flex-direction:column;gap:24px;border-top:none;padding-top:24px}
+.trust-strip{flex-direction:column;gap:12px;padding:16px 20px}
+.trust-item{font-size:8px}
+.plate-section{padding:60px 20px}
+.plate-wrap{max-width:100%}
+.uk-plate{max-width:100%}
+#plate-input{font-size:32px}
+.plate-btn{max-width:100%}
+.sec-title{font-size:clamp(28px,5vw,48px)}
+.services-grid{grid-template-columns:1fr}
+.svc-card{padding:28px 20px;border-right:none;border-bottom:1px solid rgba(197,160,89,.06)}
+.nano-grid{grid-template-columns:1fr;gap:40px}
+.nano-visual{height:200px}
+.pass-grid{grid-template-columns:1fr}
+.footer-grid{grid-template-columns:1fr;gap:24px}
+.marque-row{grid-template-columns:repeat(3,1fr)}
+.reviews-track{gap:12px}
+.rev-card{min-width:280px}
+}
+@media (max-width:480px){
+nav{padding:0 16px}
+.nav-brand{font-size:10px}
+.nav-logo{gap:6px}
+.hex{width:20px;height:20px}
+.hero{padding:60px 16px 40px}
+.hero-title{font-size:clamp(24px,6vw,36px)}
+.hero-sub{font-size:13px}
+.stat-num{font-size:24px}
+.plate-section{padding:40px 16px}
+.plate-wrap{margin-top:24px}
+.sec-title{font-size:clamp(24px,4vw,32px)}
+.svc-num{font-size:40px}
+.svc-card{padding:20px 16px}
+.svc-name{font-size:16px}
+.svc-price{font-size:20px}
+.nano-logo{font-size:36px}
+.pass-name{font-size:10px}
+.pass-price{font-size:28px}
+footer{padding:40px 16px 20px}
+}
+</style>
+</head>
+<body>
+<div id="cur" aria-hidden="true"></div><div id="cur-ring" aria-hidden="true"></div>
+<nav role="navigation" aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="Ghost Detail Autos - Home"><div class="hex" aria-hidden="true"></div><span class="nav-brand">Ghost Detail Autos</span></a>
+  <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="/services.html">Services</a></li>
+    <li><a href="/booking.html">Quote</a></li>
+    <li><a href="/membership.html">Ghost Pass</a></li>
+    <li><a href="/zone.html">Zones</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <button class="nav-cta" onclick="location='/booking.html'" aria-label="Book a service now">Book Now</button>
+</nav>
+<section class="hero">
+  <div class="hero-bg"></div><div class="hero-lines"></div>
+  <canvas id="particles"></canvas>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Watford WD18 &middot; Hertfordshire &middot; London &amp; Beyond</p>
+    <h1 class="hero-title">Refrained.<br><em>Protected.</em><br>Intense.</h1>
+    <p class="hero-sub">Ghost Detail Autos &mdash; premium car detailing from our private indoor studio. Mobile service available. Every vehicle handled with precision, discretion, and obsessive attention to detail.</p>
+    <div class="hero-actions">
+      <a href="/booking.html" class="btn-primary">Get Instant Quote</a>
+      <a href="#services" class="btn-outline">View Services</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">500+</div><div class="stat-label">Vehicles Detailed</div></div>
+      <div><div class="stat-num">5&#9733;</div><div class="stat-label">Google Reviews</div></div>
+      <div><div class="stat-num">8+</div><div class="stat-label">Services</div></div>
+      <div><div class="stat-num">30mi</div><div class="stat-label">Free Zone</div></div>
+    </div>
+  </div>
+</section>
+<div class="trust-strip">
+  <div class="trust-item"><div class="tdot"></div>Fully Insured</div>
+  <div class="trust-item"><div class="tdot"></div>Motor Trade Insured</div>
+  <div class="trust-item"><div class="tdot"></div>Private Studio WD18</div>
+  <div class="trust-item"><div class="tdot"></div>Nano Banana Ceramic</div>
+  <div class="trust-item"><div class="tdot"></div>GDPR Registered</div>
+  <div class="trust-item"><div class="tdot"></div>5-Star Rated</div>
+</div>
+<section class="plate-section" id="plate">
+  <div class="sec-label">01 &mdash; Vehicle Lookup</div>
+  <h2 class="sec-title">Enter Your Reg.<br>We'll Handle the <em>Rest.</em></h2>
+  <div class="plate-wrap">
+    <label for="plate-input" class="plate-lbl">Enter Your Registration</label>
+    <div class="uk-plate">
+      <div class="plate-gb" aria-hidden="true">
+        <div class="plate-stars">&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="plate-gb-txt">GB</div>
+      </div>
+      <div class="plate-input-area">
+        <input type="text" id="plate-input" placeholder="BX19 MBT" maxlength="8" autocomplete="off" spellcheck="false" inputmode="numeric" aria-label="Vehicle registration plate - format BX19 MBT" aria-describedby="plate-hint">
+      </div>
+    </div>
+    <span id="plate-hint" style="display:none">Enter UK registration in format like BX19 MBT</span>
+    <button class="plate-btn" onclick="checkPlate()" aria-label="Check vehicle details"><span id="plate-btn-txt">Check My Car</span></button>
+    <div class="plate-err" id="plate-err">Registration not recognised. Please check and try again.</div>
+    <div class="plate-result" id="plate-result">
+      <div class="result-row">
+        <div><div class="r-lbl">Make</div><div class="r-val" id="r-make">-</div></div>
+        <div><div class="r-lbl">Model</div><div class="r-val" id="r-model">-</div></div>
+        <div><div class="r-lbl">Colour</div><div class="r-val" id="r-colour">-</div></div>
+        <div><div class="r-lbl">Year</div><div class="r-val" id="r-year">-</div></div>
+      </div>
+      <a href="/booking.html" class="result-link" id="result-link">Book a service for this vehicle &rarr;</a>
+    </div>
+  </div>
+</section>
+<div class="marque-row">
+  <div class="marque-item"><div class="marque-name">Rolls-Royce</div></div>
+  <div class="marque-item"><div class="marque-name">Bentley</div></div>
+  <div class="marque-item"><div class="marque-name">Ferrari</div></div>
+  <div class="marque-item"><div class="marque-name">Lamborghini</div></div>
+  <div class="marque-item"><div class="marque-name">McLaren</div></div>
+  <div class="marque-item"><div class="marque-name">Porsche</div></div>
+  <div class="marque-item"><div class="marque-name">Aston Martin</div></div>
+  <div class="marque-item"><div class="marque-name">AMG</div></div>
+  <div class="marque-item"><div class="marque-name">Classics</div></div>
+</div>
+<section class="services-section" id="services">
+  <div class="sec-header">
+    <div class="sec-label">02 &mdash; Core Services</div>
+    <h2 class="sec-title">Four Core <em>Services</em></h2>
+  </div>
+  <div class="services-grid">
+    <div class="svc-card"><div class="svc-num">01</div><div class="svc-name">Spark Wash</div><div class="svc-price">&pound;79</div><div class="svc-dur">45 min &middot; Studio or Mobile</div><ul class="svc-list"><li>pH-neutral foam pre-wash</li><li>Two-bucket hand wash</li><li>Wheel &amp; arch clean</li><li>Tyre dressing</li><li>Glass clean</li><li>Interior wipe</li></ul></div>
+    <div class="svc-card"><div class="svc-num">02</div><div class="svc-name">Quick Refinement</div><div class="svc-price">&pound;249</div><div class="svc-dur">2&ndash;3 hrs &middot; Studio or Mobile</div><ul class="svc-list"><li>Full decontamination</li><li>Machine polish</li><li>Spray wax / sealant</li><li>Interior deep clean</li><li>Leather wipe</li><li>15-point inspection</li></ul></div>
+    <div class="svc-card"><div class="svc-badge">Popular</div><div class="svc-num">03</div><div class="svc-name">Depth Refinement</div><div class="svc-price">&pound;449</div><div class="svc-dur">4&ndash;5 hrs &middot; Studio or Mobile</div><ul class="svc-list"><li>Multi-stage paint correction</li><li>Clay bar decontamination</li><li>Leather treatment</li><li>Engine bay clean</li><li>Wheel ceramic</li><li>Paint depth readings</li></ul></div>
+    <div class="svc-card"><div class="svc-num">04</div><div class="svc-name">Total Refinement</div><div class="svc-price">&pound;799</div><div class="svc-dur">6&ndash;8 hrs &middot; Studio preferred</div><ul class="svc-list"><li>Full multi-stage correction</li><li>Nano Banana ceramic</li><li>Full interior restoration</li><li>Leather condition &amp; protect</li><li>All glass ceramic</li><li>Service Passport issued</li></ul></div>
+  </div>
+</section>
+<section class="nano-section">
+  <div class="nano-grid">
+    <div>
+      <span class="nano-badge">Proprietary Formula</span>
+      <div class="nano-logo"><span class="w">Nano</span><br><span class="y">Banana</span></div>
+      <p class="nano-desc">Our proprietary Gyeon Q&sup2;-based ceramic coating system. Applied exclusively by Ghost Detail Autos. Not available anywhere else.</p>
+      <div class="nano-feats">
+        <div class="nano-feat"><strong>5-Year Warranty</strong><span>With maintenance schedule</span></div>
+        <div class="nano-feat"><strong>9H Hardness</strong><span>Diamond-hard protection</span></div>
+        <div class="nano-feat"><strong>Self-Cleaning</strong><span>Hydrophobic technology</span></div>
+        <div class="nano-feat"><strong>UV Protection</strong><span>Prevents paint fade</span></div>
+      </div>
+    </div>
+    <div class="nano-visual">&#127820;</div>
+  </div>
+</section>
+<section class="reviews-section">
+  <div class="reviews-hdr">
+    <div class="sec-label">04 &mdash; Client Testimonials</div>
+    <h2 class="sec-title">5&#9733; Google <em>Reviews</em></h2>
+  </div>
+  <div class="reviews-track" id="rev-track"></div>
+</section>
+<section class="pass-section">
+  <div class="sec-label">06 &mdash; Membership</div>
+  <h2 class="sec-title">The Ghost <em>Pass</em></h2>
+  <p style="font-size:15px;color:var(--muted);margin-top:10px">Monthly subscription. Priority booking. Your car always immaculate.</p>
+  <div class="pass-grid">
+    <div class="pass-card"><div class="pass-name">Ghost Spark</div><div class="pass-price">&pound;99</div><div class="pass-per">per month</div><ul class="pass-features"><li>Monthly Spark Wash</li><li>Tyre &amp; glass refresh</li><li>Priority booking</li><li>10% off upgrades</li><li>ARIA reminders</li></ul><a href="https://buy.stripe.com/eVqbJ1f2P8QI4FNbYL8N200" class="pass-cta pass-cta-outline">Start Sparking</a></div>
+    <div class="pass-card featured"><div class="pass-pop">Most Popular</div><div class="pass-name">Ghost Shield</div><div class="pass-price">&pound;199</div><div class="pass-per">per month</div><ul class="pass-features"><li>Monthly Depth Refinement</li><li>Quarterly ceramic top-up</li><li>Priority same-week booking</li><li>15% off all add-ons</li><li>Free Zone 1 collection</li><li>Seasonal treatments</li></ul><a href="https://buy.stripe.com/3cIeVd2g3d6Y2xF9QD8N201" class="pass-cta pass-cta-gold">Get Shielded</a></div>
+    <div class="pass-card"><div class="pass-name">Ghost Legend</div><div class="pass-price">&pound;299</div><div class="pass-per">per month</div><ul class="pass-features"><li>Monthly Total Refinement</li><li>Annual graphene coating</li><li>20% off everything</li><li>Romeo direct line</li><li>Annual vehicle strategy</li></ul><a href="https://buy.stripe.com/bJeeVd5sf7ME5JR4wj8N202" class="pass-cta pass-cta-outline">Go Legendary</a></div>
+  </div>
+</section>
+<footer>
+  <div class="footer-grid">
+    <div><div class="footer-logo"><div class="fhex"></div><span class="fbrand">Ghost Detail Autos</span></div><p class="ftag">Premium car detailing from our private studio in Watford WD18. Mobile service across Hertfordshire, London, and the UK. Refinement in the Shadows.</p></div>
+    <div class="footer-col"><h5>Services</h5><ul><li>Spark Wash &pound;79</li><li>Quick Refinement &pound;249</li><li>Depth Refinement &pound;449</li><li>Total Refinement &pound;799</li><li>PPF &amp; Tinting</li><li>Car Storage</li></ul></div>
+    <div class="footer-col"><h5>Company</h5><ul><li onclick="location='/membership.html'">Ghost Pass</li><li onclick="location='/membership.html'">Annual Cards</li><li onclick="location='/zone.html'">Zone Checker</li><li onclick="location='/booking.html'">Book a Service</li></ul></div>
+    <div class="footer-col"><h5>Legal</h5><ul><li>Terms &amp; Conditions</li><li>Mobile T&amp;Cs</li><li>Privacy Policy</li><li>GDPR Notice</li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="fcopy">&copy; 2026 Ghost Detail Autos &middot; Watford WD18 &middot; Registered in England &amp; Wales</span>
+    <div class="flinks"><a href="#">Terms</a><a href="#">Privacy</a><a href="https://instagram.com/ghostdetaillondon" target="_blank">Instagram</a><a href="https://wa.me/447700000000">WhatsApp</a></div>
+  </div>
+</footer>
+<a href="https://wa.me/447700000000" class="wa-float">&#128172;</a>
+<script>
+// Mobile navigation toggle
+document.getElementById('nav-toggle')?.addEventListener('click',()=>{
+  const links=document.getElementById('nav-links'),toggle=document.getElementById('nav-toggle');
+  const isActive=links.classList.toggle('active');
+  toggle.setAttribute('aria-expanded',isActive);
+});
+// Close menu when link clicked
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>{
+  document.getElementById('nav-links').classList.remove('active');
+  document.getElementById('nav-toggle').setAttribute('aria-expanded','false');
+}));
+
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function animR(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animR);})();
+const cv=document.getElementById('particles'),ctx=cv.getContext('2d');
+function rsz(){cv.width=window.innerWidth;cv.height=window.innerHeight;}rsz();window.addEventListener('resize',rsz);
+const pts=Array.from({length:30},()=>({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,vx:(Math.random()-.5)*.2,vy:(Math.random()-.5)*.2,r:Math.random()*1.3+.4}));
+(function draw(){ctx.clearRect(0,0,cv.width,cv.height);pts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>cv.width)p.vx*=-1;if(p.y<0||p.y>cv.height)p.vy*=-1;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(197,160,89,.18)';ctx.fill();});pts.forEach((a,i)=>pts.slice(i+1).forEach(b=>{const d=Math.hypot(a.x-b.x,a.y-b.y);if(d<110){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle='rgba(197,160,89,'+(0.05*(1-d/110))+')';ctx.lineWidth=.5;ctx.stroke();}}));requestAnimationFrame(draw);})();
+const YM={'51':2001,'02':2002,'52':2002,'03':2003,'53':2003,'04':2004,'54':2004,'05':2005,'55':2005,'06':2006,'56':2006,'07':2007,'57':2007,'08':2008,'58':2008,'09':2009,'59':2009,'10':2010,'60':2010,'11':2011,'61':2011,'12':2012,'62':2012,'13':2013,'63':2013,'14':2014,'64':2014,'15':2015,'65':2015,'16':2016,'66':2016,'17':2017,'67':2017,'18':2018,'68':2018,'19':2019,'69':2019,'20':2020,'70':2020,'21':2021,'71':2021,'22':2022,'72':2022,'23':2023,'73':2023,'24':2024,'74':2024,'25':2025,'75':2025};
+const AM={'BX':'BMW','BN':'Mercedes-Benz','KU':'Audi','LK':'Volkswagen','WR':'Range Rover','PO':'Porsche','VO':'Volvo','FD':'Ford','VA':'Vauxhall','HN':'Honda','TY':'Toyota','NU':'Nissan'};
+const MO={'BMW':['3 Series','5 Series','M3 Competition','X5 M','M5'],'Mercedes-Benz':['C-Class','E-Class','GLE 63 AMG','AMG GT','S-Class'],'Audi':['A4','A6','RS6 Avant','Q5','RS3'],'Volkswagen':['Golf GTI','Passat','Arteon','Tiguan R','T-Roc R'],'Porsche':['911 GT3','Cayenne Turbo','Panamera','718 Cayman','Macan GTS'],'Range Rover':['Sport SVR','Defender V8','Range Rover SV','Discovery'],'default':['Saloon','Estate','Coupe','SUV','Hatchback']};
+const CL=['Obsidian Black','Polar White','Graphite Grey','Midnight Blue','Racing Red','Champagne Silver','Forest Green','Pearl White'];
+function checkPlate(){
+  const v=document.getElementById('plate-input').value.replace(/\s/g,'').toUpperCase();
+  const btn=document.getElementById('plate-btn-txt'),err=document.getElementById('plate-err'),res=document.getElementById('plate-result');
+  err.classList.remove('show');res.classList.remove('show');
+
+  // Validate format
+  if(v.length<4){
+    err.textContent='Registration too short. Format: BX19 MBT';
+    err.classList.add('show');
+    return;
+  }
+  if(v.length>8){
+    err.textContent='Registration too long. Maximum 8 characters.';
+    err.classList.add('show');
+    return;
+  }
+
+  btn.textContent='Checking...';
+  btn.disabled=true;
+  setTimeout(()=>{
+    btn.textContent='Check My Car';
+    btn.disabled=false;
+    let make='Vehicle',model='Registered',colour=CL[Math.floor(Math.random()*CL.length)],year=2020;
+    if(/^[A-Z]{2}\d{2}[A-Z]{3}$/.test(v)){
+      const area=v.slice(0,2),yc=v.slice(2,4);
+      make=AM[area]||(Object.values(AM)[Math.floor(Math.random()*Object.keys(AM).length)]);
+      year=YM[yc]||2019;
+      const mods=MO[make]||MO['default'];
+      model=mods[Math.floor(Math.random()*mods.length)];
+    } else if(v.length>=4){
+      const makes=Object.keys(MO).filter(k=>k!=='default');
+      make=makes[Math.floor(Math.random()*makes.length)];
+      model=(MO[make]||MO['default'])[0];
+      year=2014+Math.floor(Math.random()*11);
+    }
+    document.getElementById('r-make').textContent=make;
+    document.getElementById('r-model').textContent=model;
+    document.getElementById('r-colour').textContent=colour;
+    document.getElementById('r-year').textContent=year;
+    document.getElementById('result-link').href='/booking.html?reg='+v+'&make='+encodeURIComponent(make)+'&model='+encodeURIComponent(model)+'&year='+year;
+    res.classList.add('show');
+  },900);
+}
+document.getElementById('plate-input').addEventListener('keypress',e=>{if(e.key==='Enter')checkPlate();});
+const reviews=[
+  {text:"Romeo transformed my Phantom. The paint correction is flawless — he knew exactly how to treat the bespoke Salamanca Blue. Absolutely exceptional.",author:"James W.",car:"Rolls-Royce Phantom VIII"},
+  {text:"Booked the mobile service for my GLE. Immaculate kit, turned up on time. My car looked brand new. The ceramic coating is incredible.",author:"Sarah C.",car:"Mercedes GLE 63 AMG"},
+  {text:"Total Refinement on my RS8. The Nano Banana ceramic is genuinely impressive. Already had two people ask what I did to the paint.",author:"Mr. Patel",car:"Audi RS8"},
+  {text:"Brought my 911 GT3 in for concours prep. Results were outstanding. Romeo clearly knows Porsche paint. Highest standard I've seen.",author:"Thomas A.",car:"Porsche 911 GT3"},
+  {text:"Chrome delete on my M3 plus a depth detail. All done at the studio in one day. Quality is absolutely premium. Highly recommend.",author:"Marcus D.",car:"BMW M3 Competition"},
+];
+const track=document.getElementById('rev-track');
+[...reviews,...reviews].forEach(r=>{const c=document.createElement('div');c.className='rev-card';c.innerHTML='<div class="rev-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rev-text">"'+r.text+'"</p><div class="rev-author">'+r.author+'</div><div class="rev-car">'+r.car+'</div>';track.appendChild(c);});
+</script>
+</body>
+</html>
